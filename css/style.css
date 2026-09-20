@@ -512,15 +512,79 @@ html, body {
   border-bottom: 1px solid var(--border-medium);
   white-space: nowrap;
   user-select: none;
+  position: relative;
 }
 
 .pro-table th.sortable {
   cursor: pointer;
-  transition: color var(--transition-fast);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .pro-table th.sortable:hover {
   color: var(--gold-400);
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+.pro-table th.sortable.active-sort {
+  color: var(--gold-400);
+  border-bottom: 2px solid var(--gold-500);
+}
+
+.sort-icon {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+  vertical-align: middle;
+}
+
+.pro-table th.sortable:hover .sort-icon {
+  opacity: 0.85;
+  color: var(--gold-400);
+}
+
+.sort-icon.active {
+  opacity: 1;
+  color: var(--gold-400);
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+/* Draggable Column Resizer */
+.resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+  z-index: 20;
+}
+
+.resizer::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  right: 4px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1px;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.resizer:hover::after,
+.resizer.resizing::after {
+  background: var(--gold-400);
+  box-shadow: 0 0 6px var(--gold-400);
+}
+
+body.resizing-active {
+  cursor: col-resize !important;
+  user-select: none !important;
 }
 
 .pro-table td {

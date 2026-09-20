@@ -4177,6 +4177,7 @@
     selectedStage: 'ALL',
     sortColumn: 'score',
     sortDirection: 'desc',
+    columnWidths: {},
     isLoading: false,
   };
 
@@ -4817,29 +4818,104 @@
       signals = signals.filter((s) => s.stage === state.selectedStage);
     }
 
-    // Sort Signals safely with multi-key fallbacks
+  const NUMERIC_SORT_COLS = [
+    'cmp', 'change_pct', 'rvol', 'score', 'institutional_score',
+    'invalidation', 'target_1', 'ret_1w', 'rs_1y', 'pole_gain_pct', 'correction_pct'
+  ];
+
+  function parseNumeric(val) {
+    if (val === undefined || val === null) return 0;
+    if (typeof val === 'number') return isNaN(val) ? 0 : val;
+    if (typeof val === 'string') {
+      const cleaned = val.replace(/[^\d.-]/g, '').trim();
+      const parsed = parseFloat(cleaned);
+      return isNaN(parsed) ? 0 : parsed;
+    }
+    return 0;
+  }
+
+  function initColumnResizing(table, widthStorage) {
+    if (!table) return;
+    const ths = table.querySelectorAll('thead th');
+    ths.forEach((th, index) => {
+      const colKey = th.getAttribute('data-col') || `col_${index}`;
+      if (widthStorage && widthStorage[colKey]) {
+        th.style.width = widthStorage[colKey] + 'px';
+        th.style.minWidth = widthStorage[colKey] + 'px';
+      }
+
+      // Do not add resizer to the Action column (last column)
+      if (index === ths.length - 1) return;
+
+      let resizer = th.querySelector('.resizer');
+      if (!resizer) {
+        resizer = document.createElement('div');
+        resizer.className = 'resizer';
+        th.appendChild(resizer);
+      }
+
+      resizer.onmousedown = function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        const startX = e.clientX;
+        const startWidth = th.offsetWidth;
+        const minWidth = th.classList.contains('sticky-col') ? 130 : 70;
+
+        resizer.classList.add('resizing');
+        document.body.classList.add('resizing-active');
+
+        function onMouseMove(moveEvent) {
+          const deltaX = moveEvent.clientX - startX;
+          const newWidth = Math.max(minWidth, startWidth + deltaX);
+          th.style.width = newWidth + 'px';
+          th.style.minWidth = newWidth + 'px';
+          if (widthStorage) {
+            widthStorage[colKey] = newWidth;
+          }
+        }
+
+        function onMouseUp() {
+          resizer.classList.remove('resizing');
+          document.body.classList.remove('resizing-active');
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      };
+    });
+  }
+
+    // Sort Signals safely with multi-key fallbacks and strict numeric stripping
+    const isNumCol = NUMERIC_SORT_COLS.includes(state.sortColumn);
     signals.sort((a, b) => {
       let key = state.sortColumn;
-      let valA = a[key];
-      let valB = b[key];
+      let valA, valB;
 
-      if (valA === undefined) {
-        if (key === 'score' || key === 'institutional_score') valA = a.score !== undefined ? a.score : a.institutional_score;
-        else if (key === 'cmp') valA = a.cmp;
+      if (key === 'score' || key === 'institutional_score') {
+        valA = a.score !== undefined ? a.score : a.institutional_score;
+        valB = b.score !== undefined ? b.score : b.institutional_score;
+      } else if (key === 'target_1') {
+        valA = a.target_1 !== undefined ? a.target_1 : (a.target_zone || 0);
+        valB = b.target_1 !== undefined ? b.target_1 : (b.target_zone || 0);
+      } else {
+        valA = a[key];
+        valB = b[key];
       }
-      if (valB === undefined) {
-        if (key === 'score' || key === 'institutional_score') valB = b.score !== undefined ? b.score : b.institutional_score;
-        else if (key === 'cmp') valB = b.cmp;
+
+      if (isNumCol) {
+        const numA = parseNumeric(valA);
+        const numB = parseNumeric(valB);
+        return state.sortDirection === 'asc' ? numA - numB : numB - numA;
+      } else {
+        const strA = (valA !== undefined && valA !== null ? String(valA) : '').toLowerCase();
+        const strB = (valB !== undefined && valB !== null ? String(valB) : '').toLowerCase();
+        if (strA < strB) return state.sortDirection === 'asc' ? -1 : 1;
+        if (strA > strB) return state.sortDirection === 'asc' ? 1 : -1;
+        return 0;
       }
-      if (valA === undefined) valA = 0;
-      if (valB === undefined) valB = 0;
-
-      if (typeof valA === 'string') valA = valA.toLowerCase();
-      if (typeof valB === 'string') valB = valB.toLowerCase();
-
-      if (valA < valB) return state.sortDirection === 'asc' ? -1 : 1;
-      if (valA > valB) return state.sortDirection === 'asc' ? 1 : -1;
-      return 0;
     });
 
     // Update count in context banner
@@ -4863,61 +4939,57 @@
       return;
     }
 
-    // Adapt Table Header for Tab 1 vs Tab 2 vs Tabs 3-5
+    function renderSortHeader(colKey, label, isSticky = false) {
+      const isActive = state.sortColumn === colKey;
+      const activeClass = isActive ? ' active-sort' : '';
+      const arrow = isActive
+        ? (state.sortDirection === 'desc' ? '<span class="sort-icon active">▼</span>' : '<span class="sort-icon active">▲</span>')
+        : '<span class="sort-icon">↕</span>';
+      const stickyClass = isSticky ? ' sticky-col' : '';
+      return `<th class="sortable${stickyClass}${activeClass}" data-col="${colKey}">${label} ${arrow}</th>`;
+    }
+
+    // Adapt Table Header for Tab 1 vs Tab 2 vs Tabs 3-6
     const thead = document.querySelector('.pro-table thead');
     if (thead) {
       if (state.activeTab === 'setup_1') {
         thead.innerHTML = `
           <tr>
-            <th class="sticky-col">Symbol / Asset</th>
-            <th>Sector</th>
-            <th class="sortable" data-col="cmp">CMP (₹) ↕</th>
-            <th class="sortable" data-col="change_pct">Change % ↕</th>
-            <th class="sortable" data-col="rvol">RVOL ↕</th>
-            <th class="sortable" data-col="score">Score & Grade ↕</th>
-            <th>Trigger Status</th>
-            <th>Invalidation (SL)</th>
-            <th>Entry & Targets (R:R)</th>
+            ${renderSortHeader('symbol', 'Symbol / Asset', true)}
+            ${renderSortHeader('sector', 'Sector')}
+            ${renderSortHeader('cmp', 'CMP (₹)')}
+            ${renderSortHeader('change_pct', 'Change %')}
+            ${renderSortHeader('rvol', 'RVOL')}
+            ${renderSortHeader('score', 'Score & Grade')}
+            ${renderSortHeader('status', 'Trigger Status')}
+            ${renderSortHeader('invalidation', 'Invalidation (SL)')}
+            ${renderSortHeader('target_1', 'Entry & Targets (R:R)')}
             <th>Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
-      } else if (state.activeTab === 'setup_2' || state.activeTab === 'setup_3' || state.activeTab === 'setup_4' || state.activeTab === 'setup_5' || state.activeTab === 'setup_6') {
+      } else {
         thead.innerHTML = `
           <tr>
-            <th class="sticky-col">Symbol / Asset</th>
-            <th>Sector</th>
-            <th class="sortable" data-col="cmp">CMP (₹) ↕</th>
-            <th class="sortable" data-col="change_pct">Change % ↕</th>
-            <th class="sortable" data-col="rvol">RVOL ↕</th>
-            <th class="sortable" data-col="score">Score & Grade ↕</th>
-            <th>Trigger Status</th>
-            <th>Invalidation (SL)</th>
-            <th>Entry & Targets (1:2.5)</th>
+            ${renderSortHeader('symbol', 'Symbol / Asset', true)}
+            ${renderSortHeader('sector', 'Sector')}
+            ${renderSortHeader('cmp', 'CMP (₹)')}
+            ${renderSortHeader('change_pct', 'Change %')}
+            ${renderSortHeader('rvol', 'RVOL')}
+            ${renderSortHeader('score', 'Score & Grade')}
+            ${renderSortHeader('status', 'Trigger Status')}
+            ${renderSortHeader('invalidation', 'Invalidation (SL)')}
+            ${renderSortHeader('target_1', 'Entry & Targets (1:2.5)')}
             <th>RS & Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
-
-      } else {
-        thead.innerHTML = `
-          <tr>
-            <th class="sticky-col">Symbol / Asset</th>
-            <th>Sector</th>
-            <th class="sortable" data-col="cmp">CMP (₹) ↕</th>
-            <th class="sortable" data-col="change_pct">Change % ↕</th>
-            <th class="sortable" data-col="rvol">RVOL ↕</th>
-            <th class="sortable" data-col="institutional_score">Inst. Score ↕</th>
-            <th>Trigger Status</th>
-            <th>Invalidation (SL)</th>
-            <th>Target Zone</th>
-            <th>Action</th>
-          </tr>
-        `;
       }
+
       // Re-bind sort headers
       thead.querySelectorAll('th.sortable').forEach((th) => {
-        th.addEventListener('click', () => {
+        th.addEventListener('click', (e) => {
+          if (e.target.classList.contains('resizer')) return;
           const col = th.getAttribute('data-col');
           if (!col) return;
           if (state.sortColumn === col) {
@@ -4929,6 +5001,9 @@
           renderTable();
         });
       });
+
+      // Initialize Draggable Column Resizing
+      initColumnResizing(document.querySelector('.pro-table'), state.columnWidths);
     }
 
     const tagClass = (SETUP_CONFIG[state.activeTab] || {}).tagClass || 'breakout';

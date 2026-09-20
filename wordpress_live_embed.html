@@ -143,15 +143,15 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         <table class="wp-pro-table">
           <thead>
             <tr>
-              <th class="wp-sticky-col">Symbol / Asset</th>
-              <th>Sector</th>
-              <th>CMP (₹)</th>
-              <th>Change %</th>
-              <th>RVOL</th>
-              <th>Score & Grade</th>
-              <th>Status</th>
-              <th>Invalidation</th>
-              <th>Entry & Targets (R:R)</th>
+              <th class="wp-sticky-col wp-sortable" data-col="symbol">Symbol / Asset <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sortable" data-col="sector">Sector <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sortable" data-col="cmp">CMP (₹) <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sortable" data-col="change_pct">Change % <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sortable" data-col="rvol">RVOL <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sortable active-sort" data-col="score">Score & Grade <span class="wp-sort-icon active">▼</span></th>
+              <th class="wp-sortable" data-col="status">Status <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sortable" data-col="invalidation">Invalidation <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sortable" data-col="target_1">Entry & Targets (R:R) <span class="wp-sort-icon">↕</span></th>
               <th>Evidence Tags</th>
               <th>Action</th>
             </tr>
@@ -507,6 +507,75 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   color: #64748b !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
   white-space: nowrap !important;
+  position: relative !important;
+  user-select: none !important;
+}
+
+#mits-pro-embed-root .wp-pro-table th.wp-sortable {
+  cursor: pointer !important;
+  transition: color 0.15s ease, background-color 0.15s ease !important;
+}
+
+#mits-pro-embed-root .wp-pro-table th.wp-sortable:hover {
+  color: #fbbf24 !important;
+  background-color: rgba(245, 158, 11, 0.05) !important;
+}
+
+#mits-pro-embed-root .wp-pro-table th.wp-sortable.active-sort {
+  color: #fbbf24 !important;
+  border-bottom: 2px solid #f59e0b !important;
+}
+
+#mits-pro-embed-root .wp-sort-icon {
+  display: inline-block !important;
+  margin-left: 5px !important;
+  font-size: 0.74rem !important;
+  color: #64748b !important;
+  opacity: 0.5 !important;
+  transition: color 0.15s ease, opacity 0.15s ease !important;
+  vertical-align: middle !important;
+}
+
+#mits-pro-embed-root .wp-pro-table th.wp-sortable:hover .wp-sort-icon {
+  opacity: 0.85 !important;
+  color: #fbbf24 !important;
+}
+
+#mits-pro-embed-root .wp-sort-icon.active {
+  opacity: 1 !important;
+  color: #fbbf24 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.5) !important;
+}
+
+/* Draggable Column Resizer for WordPress Embed */
+#mits-pro-embed-root .wp-resizer {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 10px !important;
+  height: 100% !important;
+  cursor: col-resize !important;
+  user-select: none !important;
+  z-index: 20 !important;
+}
+
+#mits-pro-embed-root .wp-resizer::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 20% !important;
+  bottom: 20% !important;
+  right: 4px !important;
+  width: 2px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 1px !important;
+  transition: background 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+#mits-pro-embed-root .wp-resizer:hover::after,
+#mits-pro-embed-root .wp-resizer.resizing::after {
+  background: #fbbf24 !important;
+  box-shadow: 0 0 6px #fbbf24 !important;
 }
 
 #mits-pro-embed-root .wp-pro-table td {
@@ -4722,13 +4791,15 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
 
   const WP_STATE = {
-
     activeTab: 'setup_1',
     scannerData: null,
     marketSummary: null,
     search: '',
     sector: 'ALL',
-    stage: 'ALL'
+    stage: 'ALL',
+    sortColumn: 'score',
+    sortDirection: 'desc',
+    columnWidths: {}
   };
 
   const SETUPS_DESC = {
@@ -5182,61 +5253,141 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     });
   }
 
+  const WP_NUMERIC_SORT_COLS = [
+    'cmp', 'change_pct', 'rvol', 'score', 'institutional_score',
+    'invalidation', 'target_1', 'ret_1w', 'rs_1y', 'pole_gain_pct', 'correction_pct'
+  ];
+
+  function parseWpNumeric(val) {
+    if (val === undefined || val === null) return 0;
+    if (typeof val === 'number') return isNaN(val) ? 0 : val;
+    if (typeof val === 'string') {
+      const cleaned = val.replace(/[^\d.-]/g, '').trim();
+      const parsed = parseFloat(cleaned);
+      return isNaN(parsed) ? 0 : parsed;
+    }
+    return 0;
+  }
+
+  function initWpColumnResizing(table, widthStorage) {
+    if (!table) return;
+    const ths = table.querySelectorAll('thead th');
+    ths.forEach((th, index) => {
+      const colKey = th.getAttribute('data-col') || `col_${index}`;
+      if (widthStorage && widthStorage[colKey]) {
+        th.style.width = widthStorage[colKey] + 'px';
+        th.style.minWidth = widthStorage[colKey] + 'px';
+      }
+
+      if (index === ths.length - 1) return;
+
+      let resizer = th.querySelector('.wp-resizer');
+      if (!resizer) {
+        resizer = document.createElement('div');
+        resizer.className = 'wp-resizer';
+        th.appendChild(resizer);
+      }
+
+      resizer.onmousedown = function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        const startX = e.clientX;
+        const startWidth = th.offsetWidth;
+        const minWidth = th.classList.contains('wp-sticky-col') ? 130 : 70;
+
+        resizer.classList.add('resizing');
+        document.body.classList.add('resizing-active');
+
+        function onMouseMove(moveEvent) {
+          const deltaX = moveEvent.clientX - startX;
+          const newWidth = Math.max(minWidth, startWidth + deltaX);
+          th.style.width = newWidth + 'px';
+          th.style.minWidth = newWidth + 'px';
+          if (widthStorage) {
+            widthStorage[colKey] = newWidth;
+          }
+        }
+
+        function onMouseUp() {
+          resizer.classList.remove('resizing');
+          document.body.classList.remove('resizing-active');
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      };
+    });
+  }
+
   function renderWpTable() {
     const tbody = document.getElementById('wp-table-body');
     const thead = document.querySelector('#mits-pro-embed-root .wp-pro-table thead');
     if (!tbody) return;
 
+    function renderWpSortHeader(colKey, label, isSticky = false) {
+      const isActive = WP_STATE.sortColumn === colKey;
+      const activeClass = isActive ? ' active-sort' : '';
+      const arrow = isActive
+        ? (WP_STATE.sortDirection === 'desc' ? '<span class="wp-sort-icon active">▼</span>' : '<span class="wp-sort-icon active">▲</span>')
+        : '<span class="wp-sort-icon">↕</span>';
+      const stickyClass = isSticky ? ' wp-sticky-col' : '';
+      return `<th class="wp-sortable${stickyClass}${activeClass}" data-col="${colKey}">${label} ${arrow}</th>`;
+    }
+
     if (thead) {
       if (WP_STATE.activeTab === 'setup_1') {
         thead.innerHTML = `
           <tr>
-            <th class="wp-sticky-col">Symbol / Asset</th>
-            <th>Sector</th>
-            <th>CMP (₹)</th>
-            <th>Change %</th>
-            <th>RVOL</th>
-            <th>Score & Grade</th>
-            <th>Status</th>
-            <th>Invalidation</th>
-            <th>Entry & Targets (R:R)</th>
+            ${renderWpSortHeader('symbol', 'Symbol / Asset', true)}
+            ${renderWpSortHeader('sector', 'Sector')}
+            ${renderWpSortHeader('cmp', 'CMP (₹)')}
+            ${renderWpSortHeader('change_pct', 'Change %')}
+            ${renderWpSortHeader('rvol', 'RVOL')}
+            ${renderWpSortHeader('score', 'Score & Grade')}
+            ${renderWpSortHeader('status', 'Status')}
+            ${renderWpSortHeader('invalidation', 'Invalidation')}
+            ${renderWpSortHeader('target_1', 'Entry & Targets (R:R)')}
             <th>Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
-      } else if (WP_STATE.activeTab === 'setup_2' || WP_STATE.activeTab === 'setup_3' || WP_STATE.activeTab === 'setup_4' || WP_STATE.activeTab === 'setup_5' || WP_STATE.activeTab === 'setup_6') {
+      } else {
         thead.innerHTML = `
           <tr>
-            <th class="wp-sticky-col">Symbol / Asset</th>
-            <th>Sector</th>
-            <th>CMP (₹)</th>
-            <th>Change %</th>
-            <th>RVOL</th>
-            <th>Score & Grade</th>
-            <th>Status</th>
-            <th>Invalidation</th>
-            <th>Entry & Targets (1:2.5)</th>
+            ${renderWpSortHeader('symbol', 'Symbol / Asset', true)}
+            ${renderWpSortHeader('sector', 'Sector')}
+            ${renderWpSortHeader('cmp', 'CMP (₹)')}
+            ${renderWpSortHeader('change_pct', 'Change %')}
+            ${renderWpSortHeader('rvol', 'RVOL')}
+            ${renderWpSortHeader('score', 'Score & Grade')}
+            ${renderWpSortHeader('status', 'Status')}
+            ${renderWpSortHeader('invalidation', 'Invalidation')}
+            ${renderWpSortHeader('target_1', 'Entry & Targets (1:2.5)')}
             <th>RS & Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
-
-      } else {
-        thead.innerHTML = `
-          <tr>
-            <th class="wp-sticky-col">Symbol / Asset</th>
-            <th>Sector</th>
-            <th>CMP (₹)</th>
-            <th>Change %</th>
-            <th>RVOL</th>
-            <th>Inst. Score</th>
-            <th>Trigger Status</th>
-            <th>Invalidation</th>
-            <th>Target Zone</th>
-            <th>Action</th>
-          </tr>
-        `;
       }
+
+      thead.querySelectorAll('th.wp-sortable').forEach((th) => {
+        th.addEventListener('click', (e) => {
+          if (e.target.classList.contains('wp-resizer')) return;
+          const col = th.getAttribute('data-col');
+          if (!col) return;
+          if (WP_STATE.sortColumn === col) {
+            WP_STATE.sortDirection = WP_STATE.sortDirection === 'asc' ? 'desc' : 'asc';
+          } else {
+            WP_STATE.sortColumn = col;
+            WP_STATE.sortDirection = 'desc';
+          }
+          renderWpTable();
+        });
+      });
+
+      initWpColumnResizing(document.querySelector('#mits-pro-embed-root .wp-pro-table'), WP_STATE.columnWidths);
     }
 
     const setups = WP_STATE.scannerData ? WP_STATE.scannerData.setups : null;
@@ -5255,6 +5406,36 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     if (WP_STATE.activeTab === 'setup_3' && WP_STATE.stage !== 'ALL') {
       signals = signals.filter(s => s.stage === WP_STATE.stage);
     }
+
+    // Sort signals safely with multi-key fallbacks and strict numeric stripping
+    const isNumCol = WP_NUMERIC_SORT_COLS.includes(WP_STATE.sortColumn);
+    signals.sort((a, b) => {
+      let key = WP_STATE.sortColumn;
+      let valA, valB;
+
+      if (key === 'score' || key === 'institutional_score') {
+        valA = a.score !== undefined ? a.score : a.institutional_score;
+        valB = b.score !== undefined ? b.score : b.institutional_score;
+      } else if (key === 'target_1') {
+        valA = a.target_1 !== undefined ? a.target_1 : (a.target_zone || 0);
+        valB = b.target_1 !== undefined ? b.target_1 : (b.target_zone || 0);
+      } else {
+        valA = a[key];
+        valB = b[key];
+      }
+
+      if (isNumCol) {
+        const numA = parseWpNumeric(valA);
+        const numB = parseWpNumeric(valB);
+        return WP_STATE.sortDirection === 'asc' ? numA - numB : numB - numA;
+      } else {
+        const strA = (valA !== undefined && valA !== null ? String(valA) : '').toLowerCase();
+        const strB = (valB !== undefined && valB !== null ? String(valB) : '').toLowerCase();
+        if (strA < strB) return WP_STATE.sortDirection === 'asc' ? -1 : 1;
+        if (strA > strB) return WP_STATE.sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      }
+    });
 
     if (signals.length === 0) {
       tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; padding: 2rem; color: #94a3b8;">No matching institutional signals found.</td></tr>';
