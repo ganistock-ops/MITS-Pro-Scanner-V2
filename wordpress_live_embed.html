@@ -6,9 +6,9 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 1. In Elementor or WordPress Block Editor, add an "HTML" widget (or "Custom HTML" block).
 2. Set the container / section / column layout to "Full Width" (Stretch Section in Elementor).
 3. Copy & paste this entire code snippet into the HTML widget.
-4. (Optional) If hosting your data on GitHub Pages or custom CDN, update the
-   `MITS_PRO_REMOTE_BASE` variable inside the script below with your live URL:
-   e.g.: const MITS_PRO_REMOTE_BASE = "https://<your-username>.github.io/MITS-Pro-Scanner-V2/data/";
+4. Native Direct Embedding (No iFrame):
+   Data is automatically fetched directly from GitHub Pages:
+   https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/
 ===================================================================================
 -->
 
@@ -576,10 +576,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 (function() {
   'use strict';
 
-  // If you host this data on GitHub Pages or custom CDN, enter the URL below:
-  const MITS_PRO_REMOTE_BASE = window.location.origin.includes('localhost') 
-    ? './data/' 
-    : './data/'; 
+  // Live GitHub Pages absolute data endpoint for Native WordPress Direct Embedding (No iFrame)
+  const MITS_PRO_REMOTE_BASE = 'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/'; 
 
   const DEFAULT_WP_TAB1_SIGNALS = [
     {
