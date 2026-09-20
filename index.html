@@ -216,16 +216,16 @@
         <table class="pro-table" id="pro-table">
           <thead>
             <tr>
-              <th class="sticky-col sortable" data-col="symbol">Symbol / Asset <span class="sort-icon">↕</span></th>
+              <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol / Asset <span class="sort-icon">↕</span></th>
+              <th class="sticky-col sticky-col-2 sortable" data-col="cmp">CMP (₹) <span class="sort-icon">↕</span></th>
               <th class="sortable" data-col="sector">Sector <span class="sort-icon">↕</span></th>
-              <th class="sortable" data-col="cmp">CMP (₹) <span class="sort-icon">↕</span></th>
               <th class="sortable" data-col="change_pct">Change % <span class="sort-icon">↕</span></th>
               <th class="sortable" data-col="rvol">RVOL <span class="sort-icon">↕</span></th>
               <th class="sortable active-sort" data-col="score">Score & Grade <span class="sort-icon active">▼</span></th>
               <th class="sortable" data-col="status">Trigger Status <span class="sort-icon">↕</span></th>
               <th class="sortable" data-col="invalidation">Invalidation (SL) <span class="sort-icon">↕</span></th>
-              <th class="sortable" data-col="target_1">Entry & Targets (R:R) <span class="sort-icon">↕</span></th>
-              <th>Evidence Tags</th>
+              <th class="sortable entry-th" data-col="target_1">Entry & Targets (R:R) <span class="sort-icon">↕</span></th>
+              <th class="tags-th">Evidence Tags</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -233,6 +233,11 @@
             <!-- Rendered dynamically by js/app.js -->
           </tbody>
         </table>
+      </div>
+      <!-- Pagination Controls -->
+      <div class="pagination-bar" id="pagination-bar">
+        <div class="pagination-info" id="pagination-info">Showing 0 to 0 of Total 0 stocks</div>
+        <div class="pagination-controls" id="pagination-controls"></div>
       </div>
     </div>
 

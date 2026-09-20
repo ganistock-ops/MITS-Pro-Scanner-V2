@@ -4179,6 +4179,8 @@
     sortDirection: 'desc',
     columnWidths: {},
     isLoading: false,
+    currentPage: 1,
+    pageSize: 10,
   };
 
   // Setup Metadata Mapping
@@ -4241,6 +4243,9 @@
     stageSelect: document.getElementById('stage-select'),
     exportCsvBtn: document.getElementById('export-csv-btn'),
     tableHeaders: document.querySelectorAll('.pro-table th.sortable'),
+    paginationBar: document.getElementById('pagination-bar'),
+    paginationInfo: document.getElementById('pagination-info'),
+    paginationControls: document.getElementById('pagination-controls'),
   };
 
   // Initialize App
@@ -4334,6 +4339,7 @@
     if (DOM.searchInput) {
       DOM.searchInput.addEventListener('input', (e) => {
         state.searchQuery = e.target.value.trim().toLowerCase();
+        state.currentPage = 1;
         renderTable();
       });
     }
@@ -4341,6 +4347,7 @@
     if (DOM.sectorSelect) {
       DOM.sectorSelect.addEventListener('change', (e) => {
         state.selectedSector = e.target.value;
+        state.currentPage = 1;
         renderTable();
       });
     }
@@ -4348,6 +4355,7 @@
     if (DOM.stageSelect) {
       DOM.stageSelect.addEventListener('change', (e) => {
         state.selectedStage = e.target.value;
+        state.currentPage = 1;
         renderTable();
       });
     }
@@ -4367,6 +4375,7 @@
             state.sortColumn = col;
             state.sortDirection = 'desc';
           }
+          state.currentPage = 1;
           renderTable();
         });
       });
@@ -4685,10 +4694,11 @@
     if (DOM.setupTitle) DOM.setupTitle.textContent = config.title;
     if (DOM.setupDesc) DOM.setupDesc.textContent = config.desc;
 
-    // Reset filters on tab switch so signals are always visible
+    // Reset filters and page on tab switch so signals are always visible
     state.searchQuery = '';
     state.selectedSector = 'ALL';
     state.selectedStage = 'ALL';
+    state.currentPage = 1;
     if (DOM.searchInput) DOM.searchInput.value = '';
     if (DOM.sectorSelect) DOM.sectorSelect.value = 'ALL';
     if (DOM.stageSelect) {
@@ -4790,6 +4800,73 @@
     });
   }
 
+  // Render Pagination Controls
+  function renderPaginationControls(totalSignals, totalPages, startIdx, endIdx) {
+    if (!DOM.paginationInfo || !DOM.paginationControls) return;
+
+    if (totalSignals === 0) {
+      DOM.paginationInfo.innerHTML = 'Showing <span>0</span> to <span>0</span> of Total <span>0</span> stocks';
+      DOM.paginationControls.innerHTML = '';
+      if (DOM.paginationBar) DOM.paginationBar.style.display = 'none';
+      return;
+    }
+
+    if (DOM.paginationBar) DOM.paginationBar.style.display = 'flex';
+    DOM.paginationInfo.innerHTML = `Showing <span>${startIdx + 1}</span> to <span>${endIdx}</span> of Total <span>${totalSignals}</span> stocks`;
+
+    if (totalPages <= 1) {
+      DOM.paginationControls.innerHTML = '';
+      return;
+    }
+
+    let buttonsHtml = '';
+    const prevDisabled = state.currentPage === 1 ? ' disabled' : '';
+    buttonsHtml += `<button class="page-btn page-prev" data-page="${state.currentPage - 1}"${prevDisabled} title="Previous Page">◀ Prev</button>`;
+
+    const pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (state.currentPage > 3) pages.push('...');
+      const start = Math.max(2, state.currentPage - 1);
+      const end = Math.min(totalPages - 1, state.currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        if (!pages.includes(i)) pages.push(i);
+      }
+      if (state.currentPage < totalPages - 2) pages.push('...');
+      if (!pages.includes(totalPages)) pages.push(totalPages);
+    }
+
+    pages.forEach((p) => {
+      if (p === '...') {
+        buttonsHtml += `<span class="page-dots">…</span>`;
+      } else {
+        const isActive = p === state.currentPage ? ' active' : '';
+        buttonsHtml += `<button class="page-btn${isActive}" data-page="${p}">${p}</button>`;
+      }
+    });
+
+    const nextDisabled = state.currentPage === totalPages ? ' disabled' : '';
+    buttonsHtml += `<button class="page-btn page-next" data-page="${state.currentPage + 1}"${nextDisabled} title="Next Page">Next ▶</button>`;
+
+    DOM.paginationControls.innerHTML = buttonsHtml;
+
+    DOM.paginationControls.querySelectorAll('.page-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetPage = parseInt(btn.getAttribute('data-page'), 10);
+        if (targetPage && targetPage !== state.currentPage && targetPage >= 1 && targetPage <= totalPages) {
+          state.currentPage = targetPage;
+          renderTable();
+          const tableWrap = document.querySelector('.table-responsive');
+          if (tableWrap) {
+            tableWrap.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  }
+
   // Render Table for Active Tab
   function renderTable() {
     if (!DOM.tableBody) return;
@@ -4860,7 +4937,7 @@
 
         const startX = e.clientX;
         const startWidth = th.offsetWidth;
-        const minWidth = th.classList.contains('sticky-col') ? 130 : 70;
+        const minWidth = th.classList.contains('sticky-col') ? 90 : 70;
 
         resizer.classList.add('resizing');
         document.body.classList.add('resizing-active');
@@ -4872,6 +4949,11 @@
           th.style.minWidth = newWidth + 'px';
           if (widthStorage) {
             widthStorage[colKey] = newWidth;
+          }
+          if (colKey === 'symbol') {
+            document.documentElement.style.setProperty('--sticky-col1-width', newWidth + 'px');
+          } else if (colKey === 'cmp') {
+            document.documentElement.style.setProperty('--sticky-col2-width', newWidth + 'px');
           }
         }
 
@@ -4923,6 +5005,21 @@
       DOM.setupCountBadge.textContent = `${signals.length} Signals`;
     }
 
+    const totalSignals = signals.length;
+    const totalPages = Math.ceil(totalSignals / state.pageSize) || 1;
+    if (state.currentPage > totalPages) {
+      state.currentPage = totalPages;
+    }
+    if (state.currentPage < 1) {
+      state.currentPage = 1;
+    }
+
+    const startIdx = (state.currentPage - 1) * state.pageSize;
+    const endIdx = Math.min(startIdx + state.pageSize, totalSignals);
+    const paginatedSignals = signals.slice(startIdx, endIdx);
+
+    renderPaginationControls(totalSignals, totalPages, startIdx, endIdx);
+
     // If empty
     if (signals.length === 0) {
       DOM.tableBody.innerHTML = `
@@ -4939,48 +5036,49 @@
       return;
     }
 
-    function renderSortHeader(colKey, label, isSticky = false) {
+    function renderSortHeader(colKey, label, stickyClass = '', extraThClass = '') {
       const isActive = state.sortColumn === colKey;
       const activeClass = isActive ? ' active-sort' : '';
       const arrow = isActive
         ? (state.sortDirection === 'desc' ? '<span class="sort-icon active">▼</span>' : '<span class="sort-icon active">▲</span>')
         : '<span class="sort-icon">↕</span>';
-      const stickyClass = isSticky ? ' sticky-col' : '';
-      return `<th class="sortable${stickyClass}${activeClass}" data-col="${colKey}">${label} ${arrow}</th>`;
+      const sticky = stickyClass ? ` ${stickyClass}` : '';
+      const extra = extraThClass ? ` ${extraThClass}` : '';
+      return `<th class="sortable${sticky}${extra}${activeClass}" data-col="${colKey}">${label} ${arrow}</th>`;
     }
 
-    // Adapt Table Header for Tab 1 vs Tab 2 vs Tabs 3-6
+    // Adapt Table Header for Tab 1 vs Tab 2 vs Tabs 3-6 (Col 1: Symbol, Col 2: CMP - both sticky)
     const thead = document.querySelector('.pro-table thead');
     if (thead) {
       if (state.activeTab === 'setup_1') {
         thead.innerHTML = `
           <tr>
-            ${renderSortHeader('symbol', 'Symbol / Asset', true)}
+            ${renderSortHeader('symbol', 'Symbol / Asset', 'sticky-col sticky-col-1')}
+            ${renderSortHeader('cmp', 'CMP (₹)', 'sticky-col sticky-col-2')}
             ${renderSortHeader('sector', 'Sector')}
-            ${renderSortHeader('cmp', 'CMP (₹)')}
             ${renderSortHeader('change_pct', 'Change %')}
             ${renderSortHeader('rvol', 'RVOL')}
             ${renderSortHeader('score', 'Score & Grade')}
             ${renderSortHeader('status', 'Trigger Status')}
             ${renderSortHeader('invalidation', 'Invalidation (SL)')}
-            ${renderSortHeader('target_1', 'Entry & Targets (R:R)')}
-            <th>Evidence Tags</th>
+            ${renderSortHeader('target_1', 'Entry & Targets (R:R)', '', 'entry-th')}
+            <th class="tags-th">Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
       } else {
         thead.innerHTML = `
           <tr>
-            ${renderSortHeader('symbol', 'Symbol / Asset', true)}
+            ${renderSortHeader('symbol', 'Symbol / Asset', 'sticky-col sticky-col-1')}
+            ${renderSortHeader('cmp', 'CMP (₹)', 'sticky-col sticky-col-2')}
             ${renderSortHeader('sector', 'Sector')}
-            ${renderSortHeader('cmp', 'CMP (₹)')}
             ${renderSortHeader('change_pct', 'Change %')}
             ${renderSortHeader('rvol', 'RVOL')}
             ${renderSortHeader('score', 'Score & Grade')}
             ${renderSortHeader('status', 'Trigger Status')}
             ${renderSortHeader('invalidation', 'Invalidation (SL)')}
-            ${renderSortHeader('target_1', 'Entry & Targets (1:2.5)')}
-            <th>RS & Evidence Tags</th>
+            ${renderSortHeader('target_1', 'Entry & Targets (1:2.5)', '', 'entry-th')}
+            <th class="tags-th">RS & Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
@@ -4998,6 +5096,7 @@
             state.sortColumn = col;
             state.sortDirection = 'desc';
           }
+          state.currentPage = 1;
           renderTable();
         });
       });
@@ -5008,9 +5107,9 @@
 
     const tagClass = (SETUP_CONFIG[state.activeTab] || {}).tagClass || 'breakout';
 
-    // Render Rows
+    // Render Rows (Paginated & Sticky Columns 1 & 2)
     if (state.activeTab === 'setup_1') {
-      DOM.tableBody.innerHTML = signals
+      DOM.tableBody.innerHTML = paginatedSignals
         .map((sig) => {
           const changeClass = sig.change_pct >= 0 ? 'positive' : 'negative';
           const changeSign = sig.change_pct >= 0 ? '+' : '';
@@ -5024,14 +5123,14 @@
 
           return `
             <tr>
-              <td class="sticky-col">
+              <td class="sticky-col sticky-col-1">
                 <div class="ticker-cell">
                   <span class="ticker-symbol">${sig.symbol}</span>
                   <span class="ticker-name">${sig.name || ''}</span>
                 </div>
               </td>
+              <td class="sticky-col sticky-col-2 num-cell">₹${formatCurrency(sig.cmp)}</td>
               <td><span style="color: var(--text-secondary); font-size: 0.82rem;">${sig.sector || 'NSE'}</span></td>
-              <td class="num-cell">₹${formatCurrency(sig.cmp)}</td>
               <td>
                 <span class="change-pill ${changeClass}">${changeSign}${sig.change_pct}%</span>
               </td>
@@ -5047,7 +5146,7 @@
               <td class="num-cell" style="color: var(--bearish); font-size: 0.82rem; font-weight: 700;">
                 ₹${sig.invalidation ? formatCurrency(sig.invalidation) : '--'}
               </td>
-              <td style="font-size: 0.82rem;">
+              <td class="entry-td" style="font-size: 0.82rem;">
                 <div><span style="color: var(--text-muted); font-size: 0.72rem;">Entry:</span> <span style="font-family: var(--font-mono);">${sig.entry_zone || '--'}</span></div>
                 <div style="margin-top: 2px;">
                   <span style="color: var(--gold-400); font-size: 0.72rem;">T1:</span> <strong style="font-family: var(--font-mono); color: var(--gold-300);">₹${formatCurrency(sig.target_1)}</strong>
@@ -5055,7 +5154,7 @@
                   <span style="color: var(--gold-400); font-size: 0.72rem;">T2:</span> <strong style="font-family: var(--font-mono); color: var(--gold-300);">₹${formatCurrency(sig.target_2)}</strong>
                 </div>
               </td>
-              <td>
+              <td class="tags-td">
                 <div class="tags-container">${tagsHtml}</div>
               </td>
               <td>
@@ -5078,7 +5177,7 @@
       const isTab5 = state.activeTab === 'setup_5';
       const isTab6 = state.activeTab === 'setup_6';
 
-      DOM.tableBody.innerHTML = signals
+      DOM.tableBody.innerHTML = paginatedSignals
         .map((sig) => {
           const changeClass = sig.change_pct >= 0 ? 'positive' : 'negative';
           const changeSign = sig.change_pct >= 0 ? '+' : '';
@@ -5106,17 +5205,16 @@
             .map((t) => `<span class="tag-pill-sm ${t.includes('RS') || t.includes('Surge') || t.includes('Trend') || t.includes('Base') || t.includes('Pole') || t.includes('Breakout') || t.includes('In-Flag') || t.includes('Volume') || t.includes('Tightness') || t.includes('Stage-2') || t.includes('Support Hold') || t.includes('Within') || t.includes('Demand') || t.includes('Fresh') || t.includes('Retest') ? 'highlight' : ''}">${t}</span>`)
             .join('');
 
-
           return `
             <tr>
-              <td class="sticky-col">
+              <td class="sticky-col sticky-col-1">
                 <div class="ticker-cell">
                   <span class="ticker-symbol">${sig.symbol}</span>
                   <span class="ticker-name">${sig.name || ''}</span>
                 </div>
               </td>
+              <td class="sticky-col sticky-col-2 num-cell">₹${formatCurrency(sig.cmp)}</td>
               <td><span style="color: var(--text-secondary); font-size: 0.82rem;">${sig.sector || 'NSE'}</span></td>
-              <td class="num-cell">₹${formatCurrency(sig.cmp)}</td>
               <td>
                 <span class="change-pill ${changeClass}">${changeSign}${sig.change_pct}%</span>
               </td>
@@ -5132,7 +5230,7 @@
               <td class="num-cell" style="color: var(--bearish); font-size: 0.82rem; font-weight: 700;">
                 ₹${sig.invalidation ? formatCurrency(sig.invalidation) : '--'}
               </td>
-              <td style="font-size: 0.82rem;">
+              <td class="entry-td" style="font-size: 0.82rem;">
                 <div><span style="color: var(--text-muted); font-size: 0.72rem;">Entry:</span> <span style="font-family: var(--font-mono);">${sig.entry_zone || '--'}</span></div>
                 <div style="margin-top: 2px;">
                   <span style="color: var(--gold-400); font-size: 0.72rem;">T1:</span> <strong style="font-family: var(--font-mono); color: var(--gold-300);">₹${formatCurrency(sig.target_1)}</strong>
@@ -5140,7 +5238,7 @@
                   <span style="color: var(--gold-400); font-size: 0.72rem;">T2:</span> <strong style="font-family: var(--font-mono); color: var(--gold-300);">₹${formatCurrency(sig.target_2)}</strong>
                 </div>
               </td>
-              <td>
+              <td class="tags-td">
                 <div class="tags-container">${tagsHtml}</div>
               </td>
               <td>
@@ -5158,8 +5256,8 @@
         })
         .join('');
     } else {
-      // Tabs 3, 4, 5 (Untouched existing layout)
-      DOM.tableBody.innerHTML = signals
+      // Fallback
+      DOM.tableBody.innerHTML = paginatedSignals
         .map((sig) => {
           const changeClass = sig.change_pct >= 0 ? 'positive' : 'negative';
           const changeSign = sig.change_pct >= 0 ? '+' : '';
@@ -5167,14 +5265,14 @@
 
           return `
             <tr>
-              <td class="sticky-col">
+              <td class="sticky-col sticky-col-1">
                 <div class="ticker-cell">
                   <span class="ticker-symbol">${sig.symbol}</span>
                   <span class="ticker-name">${sig.name || ''}</span>
                 </div>
               </td>
+              <td class="sticky-col sticky-col-2 num-cell">₹${formatCurrency(sig.cmp)}</td>
               <td><span style="color: var(--text-secondary); font-size: 0.82rem;">${sig.sector || 'NSE'}</span></td>
-              <td class="num-cell">₹${formatCurrency(sig.cmp)}</td>
               <td>
                 <span class="change-pill ${changeClass}">${changeSign}${sig.change_pct}%</span>
               </td>
@@ -5195,9 +5293,10 @@
               <td class="num-cell" style="color: var(--bearish); font-size: 0.82rem;">
                 ₹${sig.invalidation ? formatCurrency(sig.invalidation) : '--'}
               </td>
-              <td class="num-cell" style="color: var(--gold-400); font-size: 0.82rem;">
+              <td class="entry-td" style="font-size: 0.82rem;">
                 ₹${sig.target_zone || '--'}
               </td>
+              <td class="tags-td">--</td>
               <td>
                 <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="tv-link-btn" title="Open chart on TradingView">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -5213,6 +5312,7 @@
         })
         .join('');
     }
+  }
 
   }
 

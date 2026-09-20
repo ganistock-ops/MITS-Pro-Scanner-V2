@@ -143,16 +143,16 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         <table class="wp-pro-table">
           <thead>
             <tr>
-              <th class="wp-sticky-col wp-sortable" data-col="symbol">Symbol / Asset <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sticky-col wp-sticky-col-1 wp-sortable" data-col="symbol">Symbol / Asset <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sticky-col wp-sticky-col-2 wp-sortable" data-col="cmp">CMP (₹) <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sortable" data-col="sector">Sector <span class="wp-sort-icon">↕</span></th>
-              <th class="wp-sortable" data-col="cmp">CMP (₹) <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sortable" data-col="change_pct">Change % <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sortable" data-col="rvol">RVOL <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sortable active-sort" data-col="score">Score & Grade <span class="wp-sort-icon active">▼</span></th>
               <th class="wp-sortable" data-col="status">Status <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sortable" data-col="invalidation">Invalidation <span class="wp-sort-icon">↕</span></th>
-              <th class="wp-sortable" data-col="target_1">Entry & Targets (R:R) <span class="wp-sort-icon">↕</span></th>
-              <th>Evidence Tags</th>
+              <th class="wp-sortable wp-entry-th" data-col="target_1">Entry & Targets (R:R) <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-tags-th">Evidence Tags</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -160,6 +160,11 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             <!-- Dynamic Injection -->
           </tbody>
         </table>
+      </div>
+      <!-- Pagination Controls for WordPress Embed -->
+      <div class="wp-pagination-bar" id="wp-pagination-bar">
+        <div class="wp-pagination-info" id="wp-pagination-info">Showing 0 to 0 of Total 0 stocks</div>
+        <div class="wp-pagination-controls" id="wp-pagination-controls"></div>
       </div>
     </div>
 
@@ -590,28 +595,140 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   background-color: rgba(245, 158, 11, 0.04) !important;
 }
 
-/* Sticky column on mobile & desktop */
-#mits-pro-embed-root .wp-sticky-col {
-  position: sticky !important;
-  left: 0 !important;
-  background-color: #0c121d !important;
-  z-index: 4 !important;
-  min-width: 130px !important;
+/* Sticky columns (Symbol & CMP) on mobile & desktop */
+:root {
+  --wp-sticky-col1-width: 140px;
+  --wp-sticky-col2-width: 105px;
 }
 
-#mits-pro-embed-root thead th.wp-sticky-col {
-  z-index: 10 !important;
+#mits-pro-embed-root .wp-sticky-col {
+  position: sticky !important;
+  background-color: #0c121d !important;
+  z-index: 5 !important;
+}
+
+#mits-pro-embed-root .wp-sticky-col-1 {
+  left: 0 !important;
+  width: var(--wp-sticky-col1-width, 140px) !important;
+  min-width: var(--wp-sticky-col1-width, 140px) !important;
+}
+
+#mits-pro-embed-root thead th.wp-sticky-col-1 {
+  z-index: 15 !important;
   background-color: #121927 !important;
 }
 
-#mits-pro-embed-root .wp-sticky-col::after {
+#mits-pro-embed-root .wp-sticky-col-2 {
+  left: var(--wp-sticky-col1-width, 140px) !important;
+  width: var(--wp-sticky-col2-width, 105px) !important;
+  min-width: var(--wp-sticky-col2-width, 105px) !important;
+}
+
+#mits-pro-embed-root thead th.wp-sticky-col-2 {
+  z-index: 15 !important;
+  background-color: #121927 !important;
+}
+
+#mits-pro-embed-root .wp-sticky-col-2::after {
   content: '' !important;
   position: absolute !important;
   right: 0 !important;
   top: 0 !important;
   bottom: 0 !important;
   width: 2px !important;
-  background: rgba(245, 158, 11, 0.18) !important;
+  background: rgba(245, 158, 11, 0.25) !important;
+  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Compact Entry and Evidence columns */
+#mits-pro-embed-root .wp-pro-table th.wp-entry-th,
+#mits-pro-embed-root .wp-pro-table td.wp-entry-td {
+  padding: 0.75rem 0.55rem !important;
+  font-size: 0.78rem !important;
+}
+
+#mits-pro-embed-root .wp-pro-table th.wp-tags-th,
+#mits-pro-embed-root .wp-pro-table td.wp-tags-td {
+  padding: 0.75rem 0.55rem !important;
+  white-space: normal !important;
+  max-width: 210px !important;
+}
+
+/* Pagination Bar in WordPress Embed */
+#mits-pro-embed-root .wp-pagination-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0.85rem 1.2rem !important;
+  background: #0b1019 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  flex-wrap: wrap !important;
+  gap: 0.75rem !important;
+}
+
+#mits-pro-embed-root .wp-pagination-info {
+  font-size: 0.82rem !important;
+  color: #94a3b8 !important;
+  font-weight: 500 !important;
+}
+
+#mits-pro-embed-root .wp-pagination-info span {
+  color: #fbbf24 !important;
+  font-weight: 700 !important;
+}
+
+#mits-pro-embed-root .wp-pagination-controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+#mits-pro-embed-root .wp-page-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 32px !important;
+  height: 30px !important;
+  padding: 0 8px !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  color: #94a3b8 !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  user-select: none !important;
+}
+
+#mits-pro-embed-root .wp-page-btn:hover:not(:disabled) {
+  color: #fbbf24 !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  background: rgba(245, 158, 11, 0.1) !important;
+}
+
+#mits-pro-embed-root .wp-page-btn.active {
+  color: #06090e !important;
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  border-color: #f59e0b !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.35) !important;
+}
+
+#mits-pro-embed-root .wp-page-btn:disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+#mits-pro-embed-root .wp-page-dots {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  color: #64748b !important;
+  font-size: 0.85rem !important;
+  user-select: none !important;
 }
 
 #mits-pro-embed-root .wp-sym-bold {
@@ -4799,7 +4916,9 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     stage: 'ALL',
     sortColumn: 'score',
     sortDirection: 'desc',
-    columnWidths: {}
+    columnWidths: {},
+    currentPage: 1,
+    pageSize: 10
   };
 
   const SETUPS_DESC = {
@@ -4895,6 +5014,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           WP_STATE.search = '';
           WP_STATE.sector = 'ALL';
           WP_STATE.stage = 'ALL';
+          WP_STATE.currentPage = 1;
           if (searchInput) searchInput.value = '';
           if (sectorSelect) sectorSelect.value = 'ALL';
           if (stageSelect) {
@@ -4914,6 +5034,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     if (searchInput) {
       searchInput.addEventListener('input', function(e) {
         WP_STATE.search = e.target.value.trim().toLowerCase();
+        WP_STATE.currentPage = 1;
         renderWpTable();
       });
     }
@@ -4921,6 +5042,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     if (sectorSelect) {
       sectorSelect.addEventListener('change', function(e) {
         WP_STATE.sector = e.target.value;
+        WP_STATE.currentPage = 1;
         renderWpTable();
       });
     }
@@ -4928,6 +5050,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     if (stageSelect) {
       stageSelect.addEventListener('change', function(e) {
         WP_STATE.stage = e.target.value;
+        WP_STATE.currentPage = 1;
         renderWpTable();
       });
     }
@@ -5307,6 +5430,11 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           if (widthStorage) {
             widthStorage[colKey] = newWidth;
           }
+          if (colKey === 'symbol') {
+            document.documentElement.style.setProperty('--wp-sticky-col1-width', newWidth + 'px');
+          } else if (colKey === 'cmp') {
+            document.documentElement.style.setProperty('--wp-sticky-col2-width', newWidth + 'px');
+          }
         }
 
         function onMouseUp() {
@@ -5322,51 +5450,129 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     });
   }
 
+  function renderWpPaginationControls(totalSignals, totalPages, startIdx, endIdx) {
+    const infoEl = document.getElementById('wp-pagination-info');
+    const controlsEl = document.getElementById('wp-pagination-controls');
+    const barEl = document.getElementById('wp-pagination-bar');
+    if (!infoEl || !controlsEl) return;
+
+    if (totalSignals === 0) {
+      infoEl.innerHTML = 'Showing <span>0</span> to <span>0</span> of Total <span>0</span> stocks';
+      controlsEl.innerHTML = '';
+      if (barEl) barEl.style.display = 'none';
+      return;
+    }
+
+    if (barEl) barEl.style.display = 'flex';
+    infoEl.innerHTML = `Showing <span>${startIdx + 1}</span> to <span>${endIdx}</span> of Total <span>${totalSignals}</span> stocks`;
+
+    if (totalPages <= 1) {
+      controlsEl.innerHTML = '';
+      return;
+    }
+
+    let buttonsHtml = '';
+    const prevDisabled = WP_STATE.currentPage === 1 ? ' disabled' : '';
+    buttonsHtml += `<button class="wp-page-btn wp-page-prev" data-page="${WP_STATE.currentPage - 1}"${prevDisabled} title="Previous Page">◀ Prev</button>`;
+
+    const pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (WP_STATE.currentPage > 3) pages.push('...');
+      const start = Math.max(2, WP_STATE.currentPage - 1);
+      const end = Math.min(totalPages - 1, WP_STATE.currentPage + 1);
+      for (let i = start; i <= end; i++) {
+        if (!pages.includes(i)) pages.push(i);
+      }
+      if (WP_STATE.currentPage < totalPages - 2) pages.push('...');
+      if (!pages.includes(totalPages)) pages.push(totalPages);
+    }
+
+    pages.forEach((p) => {
+      if (p === '...') {
+        buttonsHtml += `<span class="wp-page-dots">…</span>`;
+      } else {
+        const isActive = p === WP_STATE.currentPage ? ' active' : '';
+        buttonsHtml += `<button class="wp-page-btn${isActive}" data-page="${p}">${p}</button>`;
+      }
+    });
+
+    const nextDisabled = WP_STATE.currentPage === totalPages ? ' disabled' : '';
+    buttonsHtml += `<button class="wp-page-btn page-next" data-page="${WP_STATE.currentPage + 1}"${nextDisabled} title="Next Page">Next ▶</button>`;
+
+    controlsEl.innerHTML = buttonsHtml;
+
+    controlsEl.querySelectorAll('.wp-page-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetPage = parseInt(btn.getAttribute('data-page'), 10);
+        if (targetPage && targetPage !== WP_STATE.currentPage && targetPage >= 1 && targetPage <= totalPages) {
+          WP_STATE.currentPage = targetPage;
+          renderWpTable();
+          const scrollWrap = document.querySelector('#mits-pro-embed-root .wp-table-scroll');
+          if (scrollWrap) {
+            scrollWrap.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  }
+
   function renderWpTable() {
     const tbody = document.getElementById('wp-table-body');
     const thead = document.querySelector('#mits-pro-embed-root .wp-pro-table thead');
     if (!tbody) return;
 
-    function renderWpSortHeader(colKey, label, isSticky = false) {
-      const isActive = WP_STATE.sortColumn === colKey;
-      const activeClass = isActive ? ' active-sort' : '';
-      const arrow = isActive
-        ? (WP_STATE.sortDirection === 'desc' ? '<span class="wp-sort-icon active">▼</span>' : '<span class="wp-sort-icon active">▲</span>')
-        : '<span class="wp-sort-icon">↕</span>';
-      const stickyClass = isSticky ? ' wp-sticky-col' : '';
-      return `<th class="wp-sortable${stickyClass}${activeClass}" data-col="${colKey}">${label} ${arrow}</th>`;
-    }
-
     if (thead) {
+      const getArrow = (col) => WP_STATE.sortColumn === col ? (WP_STATE.sortDirection === 'desc' ? '<span class="wp-sort-icon active">▼</span>' : '<span class="wp-sort-icon active">▲</span>') : '<span class="wp-sort-icon">↕</span>';
+      const getActive = (col) => WP_STATE.sortColumn === col ? ' active-sort' : '';
+
       if (WP_STATE.activeTab === 'setup_1') {
         thead.innerHTML = `
           <tr>
-            ${renderWpSortHeader('symbol', 'Symbol / Asset', true)}
-            ${renderWpSortHeader('sector', 'Sector')}
-            ${renderWpSortHeader('cmp', 'CMP (₹)')}
-            ${renderWpSortHeader('change_pct', 'Change %')}
-            ${renderWpSortHeader('rvol', 'RVOL')}
-            ${renderWpSortHeader('score', 'Score & Grade')}
-            ${renderWpSortHeader('status', 'Status')}
-            ${renderWpSortHeader('invalidation', 'Invalidation')}
-            ${renderWpSortHeader('target_1', 'Entry & Targets (R:R)')}
-            <th>Evidence Tags</th>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Asset ${getArrow('symbol')}</th>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-2${getActive('cmp')}" data-col="cmp">CMP (₹) ${getArrow('cmp')}</th>
+            <th class="wp-sortable${getActive('sector')}" data-col="sector">Sector ${getArrow('sector')}</th>
+            <th class="wp-sortable${getActive('change_pct')}" data-col="change_pct">Change % ${getArrow('change_pct')}</th>
+            <th class="wp-sortable${getActive('rvol')}" data-col="rvol">RVOL ${getArrow('rvol')}</th>
+            <th class="wp-sortable${getActive('score')}" data-col="score">Score & Grade ${getArrow('score')}</th>
+            <th class="wp-sortable${getActive('status')}" data-col="status">Status ${getArrow('status')}</th>
+            <th class="wp-sortable${getActive('invalidation')}" data-col="invalidation">Invalidation ${getArrow('invalidation')}</th>
+            <th class="wp-sortable wp-entry-th${getActive('target_1')}" data-col="target_1">Entry & Targets (R:R) ${getArrow('target_1')}</th>
+            <th class="wp-tags-th">Evidence Tags</th>
+            <th>Action</th>
+          </tr>
+        `;
+      } else if (WP_STATE.activeTab === 'setup_6') {
+        thead.innerHTML = `
+          <tr>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Asset ${getArrow('symbol')}</th>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-2${getActive('cmp')}" data-col="cmp">CMP (₹) ${getArrow('cmp')}</th>
+            <th class="wp-sortable${getActive('sector')}" data-col="sector">Sector ${getArrow('sector')}</th>
+            <th class="wp-sortable${getActive('change_pct')}" data-col="change_pct">Change % ${getArrow('change_pct')}</th>
+            <th class="wp-sortable${getActive('rvol')}" data-col="rvol">RVOL ${getArrow('rvol')}</th>
+            <th class="wp-sortable${getActive('score')}" data-col="score">Score & Grade ${getArrow('score')}</th>
+            <th class="wp-sortable${getActive('status')}" data-col="status">Status ${getArrow('status')}</th>
+            <th class="wp-sortable${getActive('invalidation')}" data-col="invalidation">Invalidation ${getArrow('invalidation')}</th>
+            <th class="wp-sortable wp-entry-th${getActive('target_1')}" data-col="target_1">Entry & Targets (1:2.5) ${getArrow('target_1')}</th>
+            <th class="wp-tags-th">Demand Zone Evidence</th>
             <th>Action</th>
           </tr>
         `;
       } else {
         thead.innerHTML = `
           <tr>
-            ${renderWpSortHeader('symbol', 'Symbol / Asset', true)}
-            ${renderWpSortHeader('sector', 'Sector')}
-            ${renderWpSortHeader('cmp', 'CMP (₹)')}
-            ${renderWpSortHeader('change_pct', 'Change %')}
-            ${renderWpSortHeader('rvol', 'RVOL')}
-            ${renderWpSortHeader('score', 'Score & Grade')}
-            ${renderWpSortHeader('status', 'Status')}
-            ${renderWpSortHeader('invalidation', 'Invalidation')}
-            ${renderWpSortHeader('target_1', 'Entry & Targets (1:2.5)')}
-            <th>RS & Evidence Tags</th>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Asset ${getArrow('symbol')}</th>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-2${getActive('cmp')}" data-col="cmp">CMP (₹) ${getArrow('cmp')}</th>
+            <th class="wp-sortable${getActive('sector')}" data-col="sector">Sector ${getArrow('sector')}</th>
+            <th class="wp-sortable${getActive('change_pct')}" data-col="change_pct">Change % ${getArrow('change_pct')}</th>
+            <th class="wp-sortable${getActive('rvol')}" data-col="rvol">RVOL ${getArrow('rvol')}</th>
+            <th class="wp-sortable${getActive('score')}" data-col="score">Score & Grade ${getArrow('score')}</th>
+            <th class="wp-sortable${getActive('status')}" data-col="status">Status ${getArrow('status')}</th>
+            <th class="wp-sortable${getActive('invalidation')}" data-col="invalidation">Invalidation ${getArrow('invalidation')}</th>
+            <th class="wp-sortable wp-entry-th${getActive('target_1')}" data-col="target_1">Entry & Targets (1:2.5) ${getArrow('target_1')}</th>
+            <th class="wp-tags-th">RS & Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
@@ -5383,6 +5589,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             WP_STATE.sortColumn = col;
             WP_STATE.sortDirection = 'desc';
           }
+          WP_STATE.currentPage = 1;
           renderWpTable();
         });
       });
@@ -5437,13 +5644,28 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       }
     });
 
+    const totalSignals = signals.length;
+    const totalPages = Math.ceil(totalSignals / WP_STATE.pageSize) || 1;
+    if (WP_STATE.currentPage > totalPages) {
+      WP_STATE.currentPage = totalPages;
+    }
+    if (WP_STATE.currentPage < 1) {
+      WP_STATE.currentPage = 1;
+    }
+
+    const startIdx = (WP_STATE.currentPage - 1) * WP_STATE.pageSize;
+    const endIdx = Math.min(startIdx + WP_STATE.pageSize, totalSignals);
+    const paginatedSignals = signals.slice(startIdx, endIdx);
+
+    renderWpPaginationControls(totalSignals, totalPages, startIdx, endIdx);
+
     if (signals.length === 0) {
       tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; padding: 2rem; color: #94a3b8;">No matching institutional signals found.</td></tr>';
       return;
     }
 
     if (WP_STATE.activeTab === 'setup_1') {
-      tbody.innerHTML = signals.map(sig => {
+      tbody.innerHTML = paginatedSignals.map(sig => {
         const chgColor = sig.change_pct >= 0 ? '#10b981' : '#f43f5e';
         const chgSign = sig.change_pct >= 0 ? '+' : '';
         const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
@@ -5455,12 +5677,12 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
         return `
           <tr>
-            <td class="wp-sticky-col">
+            <td class="wp-sticky-col wp-sticky-col-1">
               <span class="wp-sym-bold">${sig.symbol}</span>
               <span class="wp-sym-sub">${sig.name || ''}</span>
             </td>
+            <td class="wp-sticky-col wp-sticky-col-2" style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
             <td style="color: #94a3b8; font-size: 0.8rem;">${sig.sector || 'NSE'}</td>
-            <td style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
             <td style="color: ${chgColor}; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${chgSign}${sig.change_pct}%</td>
             <td style="color: #fbbf24; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${sig.rvol || 1.0}x</td>
             <td>
@@ -5468,11 +5690,11 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             </td>
             <td><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">${sig.status || 'CHoCH CONFIRMED'}</span></td>
             <td style="color: #f43f5e; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700;">₹${sig.invalidation ? Number(sig.invalidation).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'}</td>
-            <td style="font-size: 0.78rem;">
+            <td class="wp-entry-td" style="font-size: 0.78rem;">
               <div><span style="color:#64748b;">Entry:</span> <span style="font-family:'JetBrains Mono', monospace;">${sig.entry_zone || '--'}</span></div>
               <div><span style="color:#fbbf24;">T1:</span> ₹${sig.target_1 ? Number(sig.target_1).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'} <span style="color:#64748b; font-size:0.7rem;">(${sig.risk_reward_ratio || '1:2'})</span> | <span style="color:#fbbf24;">T2:</span> ₹${sig.target_2 ? Number(sig.target_2).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'}</div>
             </td>
-            <td style="white-space: normal !important; min-width: 180px; max-width: 240px;">
+            <td class="wp-tags-td" style="white-space: normal !important; min-width: 180px; max-width: 240px;">
               <div style="display: flex; flex-wrap: wrap; gap: 3px; max-width: 240px;">${tagsHtml}</div>
             </td>
             <td style="white-space: nowrap !important; width: 80px; text-align: center;">
@@ -5487,7 +5709,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       const isTab5 = WP_STATE.activeTab === 'setup_5';
       const isTab6 = WP_STATE.activeTab === 'setup_6';
 
-      tbody.innerHTML = signals.map(sig => {
+      tbody.innerHTML = paginatedSignals.map(sig => {
         const isBreakout = sig.stage === 'BREAKOUT';
         let accentColor = '#38bdf8';
         let accentBg = 'rgba(14, 165, 233, 0.15)';
@@ -5517,7 +5739,6 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           defaultStatus = sig.stage || 'DEMAND LEG-OUT';
         }
 
-
         const chgColor = sig.change_pct >= 0 ? '#10b981' : '#f43f5e';
         const chgSign = sig.change_pct >= 0 ? '+' : '';
         const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
@@ -5540,12 +5761,12 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
         return `
           <tr>
-            <td class="wp-sticky-col">
+            <td class="wp-sticky-col wp-sticky-col-1">
               <span class="wp-sym-bold">${sig.symbol}</span>
               <span class="wp-sym-sub">${sig.name || ''}</span>
             </td>
+            <td class="wp-sticky-col wp-sticky-col-2" style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
             <td style="color: #94a3b8; font-size: 0.8rem;">${sig.sector || 'NSE'}</td>
-            <td style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
             <td style="color: ${chgColor}; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${chgSign}${sig.change_pct}%</td>
             <td style="color: ${accentColor}; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${sig.rvol || 1.0}x</td>
             <td>
@@ -5553,11 +5774,11 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             </td>
             <td><span style="background: ${accentBg}; color: ${accentColor}; border: 1px solid ${accentBorder}; padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">${sig.status || defaultStatus}</span></td>
             <td style="color: #f43f5e; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700;">₹${sig.invalidation ? Number(sig.invalidation).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'}</td>
-            <td style="font-size: 0.78rem;">
+            <td class="wp-entry-td" style="font-size: 0.78rem;">
               <div><span style="color:#64748b;">Entry:</span> <span style="font-family:'JetBrains Mono', monospace;">${sig.entry_zone || '--'}</span></div>
               <div><span style="color:${accentColor};">T1:</span> ₹${sig.target_1 ? Number(sig.target_1).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'} <span style="color:#64748b; font-size:0.7rem;">(${sig.risk_reward_ratio || '1:2.5'})</span> | <span style="color:${accentColor};">T2:</span> ₹${sig.target_2 ? Number(sig.target_2).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'}</div>
             </td>
-            <td style="white-space: normal !important; min-width: 180px; max-width: 240px;">
+            <td class="wp-tags-td" style="white-space: normal !important; min-width: 180px; max-width: 240px;">
               <div style="display: flex; flex-wrap: wrap; gap: 3px; max-width: 240px;">${tagsHtml}</div>
             </td>
             <td style="white-space: nowrap !important; width: 80px; text-align: center;">
@@ -5567,20 +5788,20 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         `;
       }).join('');
     } else {
-      // Tabs 3 - 5 (Untouched existing layout)
-      tbody.innerHTML = signals.map(sig => {
+      // Fallback
+      tbody.innerHTML = paginatedSignals.map(sig => {
         const chgColor = sig.change_pct >= 0 ? '#10b981' : '#f43f5e';
         const chgSign = sig.change_pct >= 0 ? '+' : '';
         const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
 
         return `
           <tr>
-            <td class="wp-sticky-col">
+            <td class="wp-sticky-col wp-sticky-col-1">
               <span class="wp-sym-bold">${sig.symbol}</span>
               <span class="wp-sym-sub">${sig.name || ''}</span>
             </td>
+            <td class="wp-sticky-col wp-sticky-col-2" style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
             <td style="color: #94a3b8; font-size: 0.8rem;">${sig.sector || 'NSE'}</td>
-            <td style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
             <td style="color: ${chgColor}; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${chgSign}${sig.change_pct}%</td>
             <td style="color: #fbbf24; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${sig.rvol}x</td>
             <td>
@@ -5588,7 +5809,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             </td>
             <td><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">${sig.status}</span></td>
             <td style="color: #f43f5e; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">₹${sig.invalidation || '--'}</td>
-            <td style="color: #fbbf24; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">₹${sig.target_zone || '--'}</td>
+            <td class="wp-entry-td" style="color: #fbbf24; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">₹${sig.target_zone || '--'}</td>
+            <td class="wp-tags-td">--</td>
             <td>
               <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" style="color: #fbbf24; text-decoration: none; font-size: 0.75rem; border: 1px solid rgba(245, 158, 11, 0.3); padding: 2px 6px; border-radius: 4px; display: inline-block;">Chart ↗</a>
             </td>
