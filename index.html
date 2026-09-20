@@ -15,6 +15,37 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Mobile Table Layout Override: Disable Sticky on Screens <= 768px -->
+  <style>
+    @media (max-width: 768px) {
+      .sticky-col,
+      .sticky-col-1,
+      .sticky-col-2,
+      .pro-table thead th.sticky-col,
+      .pro-table thead th.sticky-col-1,
+      .pro-table thead th.sticky-col-2,
+      .pro-table tbody td.sticky-col,
+      .pro-table tbody td.sticky-col-1,
+      .pro-table tbody td.sticky-col-2 {
+        position: static !important;
+        left: auto !important;
+        z-index: auto !important;
+        box-shadow: none !important;
+      }
+
+      .sticky-col-2::after {
+        display: none !important;
+        content: none !important;
+        box-shadow: none !important;
+      }
+
+      .table-responsive {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+    }
+  </style>
 </head>
 <body>
 

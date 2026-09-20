@@ -74,5 +74,18 @@ class TestPaginationAndStickyColumns(unittest.TestCase):
         self.assertIn('CMP', ths[1])
         self.assertIn('Sector', ths[2])
 
+    def test_mobile_disable_sticky(self):
+        # Verify media query in style.css
+        self.assertIn('@media (max-width: 768px)', self.css)
+        self.assertIn('position: static !important;', self.css)
+
+        # Verify media query in index.html
+        self.assertIn('@media (max-width: 768px)', self.index_html)
+        self.assertIn('position: static !important;', self.index_html)
+
+        # Verify media query in wordpress_live_embed.html
+        self.assertIn('@media (max-width: 768px)', self.wp_html)
+        self.assertIn('position: static !important;', self.wp_html)
+
 if __name__ == '__main__':
     unittest.main()

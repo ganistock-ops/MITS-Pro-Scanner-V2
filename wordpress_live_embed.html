@@ -753,6 +753,52 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
   padding-top: 0.75rem !important;
 }
+
+/* ==========================================================================
+   Mobile Responsive Layout (Disable Sticky Columns on Mobile Screens)
+   ========================================================================== */
+@media (max-width: 768px) {
+  #mits-pro-embed-root .wp-sticky-col,
+  #mits-pro-embed-root .wp-sticky-col-1,
+  #mits-pro-embed-root .wp-sticky-col-2,
+  #mits-pro-embed-root thead th.wp-sticky-col,
+  #mits-pro-embed-root thead th.wp-sticky-col-1,
+  #mits-pro-embed-root thead th.wp-sticky-col-2,
+  #mits-pro-embed-root tbody td.wp-sticky-col,
+  #mits-pro-embed-root tbody td.wp-sticky-col-1,
+  #mits-pro-embed-root tbody td.wp-sticky-col-2 {
+    position: static !important;
+    left: auto !important;
+    z-index: auto !important;
+    box-shadow: none !important;
+  }
+
+  #mits-pro-embed-root .wp-sticky-col-2::after {
+    display: none !important;
+    content: none !important;
+    box-shadow: none !important;
+  }
+
+  #mits-pro-embed-root .wp-table-scroll {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  #mits-pro-embed-root .wp-pagination-bar {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.6rem !important;
+    padding: 0.75rem 0.5rem !important;
+    text-align: center !important;
+  }
+
+  #mits-pro-embed-root .wp-pagination-controls {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.25rem !important;
+  }
+}
 </style>
 
 <!-- ===================================================================================

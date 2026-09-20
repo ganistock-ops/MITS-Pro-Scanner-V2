@@ -1075,12 +1075,45 @@ body.resizing-active {
     align-items: stretch;
   }
 
-  .search-input-box {
-    width: 100%;
+  /* Disable Sticky Columns on Mobile Screens (Ticker & CMP) */
+  .sticky-col,
+  .sticky-col-1,
+  .sticky-col-2,
+  .pro-table thead th.sticky-col,
+  .pro-table thead th.sticky-col-1,
+  .pro-table thead th.sticky-col-2,
+  .pro-table tbody td.sticky-col,
+  .pro-table tbody td.sticky-col-1,
+  .pro-table tbody td.sticky-col-2 {
+    position: static !important;
+    left: auto !important;
+    z-index: auto !important;
+    box-shadow: none !important;
   }
 
-  .sticky-col {
-    min-width: 135px;
-    max-width: 150px;
+  .sticky-col-2::after {
+    display: none !important;
+    content: none !important;
+    box-shadow: none !important;
+  }
+
+  .table-responsive {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .pagination-bar {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.6rem !important;
+    padding: 0.75rem 0.5rem !important;
+    text-align: center !important;
+  }
+
+  .pagination-controls {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.25rem !important;
   }
 }
