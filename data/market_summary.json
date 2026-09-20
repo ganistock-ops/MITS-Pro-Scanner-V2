@@ -1,0 +1,65 @@
+{
+  "scan_timestamp": "2026-09-20T07:56:48.510100+05:30",
+  "market_status": "OPEN",
+  "last_session_date": "2026-09-20",
+  "indices": {
+    "NIFTY_50": {
+      "name": "NIFTY 50",
+      "price": 23346.4,
+      "change": 75.8,
+      "change_pct": 0.33,
+      "trend": "DEFENSIVE"
+    },
+    "BANKNIFTY": {
+      "name": "BANK NIFTY",
+      "price": 56358.7,
+      "change": 302.95,
+      "change_pct": 0.54,
+      "trend": "BULLISH"
+    },
+    "INDIA_VIX": {
+      "name": "INDIA VIX",
+      "price": 11.39,
+      "change": -0.9,
+      "change_pct": -7.32,
+      "trend": "LOW_VOLATILITY"
+    }
+  },
+  "market_breadth": {
+    "advances": 374,
+    "declines": 125,
+    "ratio": "2.99:1",
+    "institutional_bias": "STRONG ACCUMULATION",
+    "bias_color": "gold",
+    "total_scanned": 500,
+    "high_momentum_count": 278,
+    "pro_alerts_count": 108
+  },
+  "sector_matrix": [
+    {
+      "sector": "Healthcare",
+      "performance": "+1.88%",
+      "bias": "STRONG_ACCUMULATION"
+    },
+    {
+      "sector": "Banking & Fin",
+      "performance": "+1.40%",
+      "bias": "STRONG_ACCUMULATION"
+    },
+    {
+      "sector": "IT & Tech",
+      "performance": "+1.93%",
+      "bias": "STRONG_ACCUMULATION"
+    },
+    {
+      "sector": "Metals & Mining",
+      "performance": "+1.37%",
+      "bias": "STRONG_ACCUMULATION"
+    },
+    {
+      "sector": "Auto & Mobility",
+      "performance": "+1.62%",
+      "bias": "STRONG_ACCUMULATION"
+    }
+  ]
+}

@@ -1,0 +1,282 @@
+# ==============================================================================
+# MITS Pro Institutional Suite V2 - Quantitative Configuration
+# ==============================================================================
+
+# Global Ingestion & Universe Settings
+global:
+  timezone: "Asia/Kolkata"
+  nifty_benchmark: "^NSEI"
+  lookback_period: "6mo"
+  min_liquidity_volume: 100000
+  min_close_price: 50.0
+  max_close_price: 50000.0
+
+# ------------------------------------------------------------------------------
+# TAB 1: BOTTOM REVERSAL PRO QUANTITATIVE PARAMETERS
+# ------------------------------------------------------------------------------
+bottom_reversal_pro:
+  label: "⚡ Setup 1: Bottom Reversal Pro"
+  subtitle: "Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift."
+  output_file: "data/tab1_bottom_reversal.json"
+
+  # Factor 1: Downtrend Exhaustion (15 Points Max)
+  downtrend_exhaustion:
+    lookback_high_days: 60
+    min_decline_pct: 15.0       # Minimum decline from 60d swing high
+    optimal_decline_pct: 25.0   # Full points if decline >= 20-25%
+    max_decline_pct: 55.0       # Ignore extreme penny/distressed blowoffs > 55%
+    ema_fast: 20
+    ema_slow: 50
+    rejection_bearish_body_ratio: 0.75 # Reject candles closing at extreme lows with > 75% solid body
+
+  # Factor 2: Base & Accumulation (20 Points Max)
+  base_accumulation:
+    min_base_sessions: 8
+    max_base_sessions: 20
+    max_bandwidth_pct: 8.0      # Tight base consolidation: (High - Low) / Low <= 8%
+    relaxed_bandwidth_pct: 10.5 # Partial credit bandwidth
+    min_lower_boundary_touches: 2
+
+  # Factor 3: Liquidity Sweep & False Breakdown (20 Points Max)
+  liquidity_sweep:
+    sweep_lookback_sessions: 15
+    min_lower_wick_ratio: 0.35  # Lower wick >= 35% of total candle range (High - Low)
+    moderate_lower_wick_ratio: 0.25
+
+  # Factor 4: Bullish Structure Shift / MSS / CHoCH (20 Points Max)
+  structure_shift:
+    minor_pivot_lookback: 10
+    choch_buffer_pct: 0.0       # Close > minor Lower High
+    coiling_buffer_pct: 0.985   # Close within 1.5% under pivot for early coiling points
+
+  # Factor 5: Volume Absorption & Confirmation (15 Points Max)
+  volume_absorption:
+    volume_sma_period: 20
+    min_sweep_volume_mult: 1.3  # Sweep candle volume >= 1.3x 20-day Volume SMA
+    min_breakout_rvol: 1.5      # Breakout candle RVOL >= 1.5x
+    anaemic_cutoff_rvol: 1.0    # Exclude breakouts on volume < 1.0x
+
+  # Factor 6: Market Regime & Risk-Reward (10 Points Max)
+  market_regime_and_rr:
+    nifty_ema: 20
+    min_risk_reward: 2.0        # Minimum R:R ratio based on Target 1 vs Invalidation
+    atr_period: 14
+    invalidation_atr_mult: 0.5  # Invalidation = Base Low - (0.5 * ATR14)
+
+  # Scoring Thresholds & Grading
+  scoring:
+    min_qualifying_score: 70    # Reject / Discard stocks with score < 70
+    grades:
+      A_PLUS:
+        min_score: 90
+        grade: "A+"
+      A:
+        min_score: 80
+        grade: "A"
+      B:
+        min_score: 70
+        grade: "B"
+
+# ------------------------------------------------------------------------------
+# TAB 2: ALPHA MOMENTUM WATCHLIST QUANTITATIVE PARAMETERS
+# ------------------------------------------------------------------------------
+alpha_momentum:
+  label: "⚡ Setup 2: Alpha Momentum"
+  subtitle: "Nifty 500 multi-timeframe relative strength outperformance, volume expansion, and 10-60D base recovery."
+  output_file: "data/tab2_alpha_momentum.json"
+
+  # Trend Alignment
+  trend_alignment:
+    ema_trend: 50             # Close > 50 EMA
+    sma_long_term: 200        # Close > 200 SMA
+
+  # Multi-Timeframe Relative Strength vs NIFTY 50
+  relative_strength:
+    rs_1y_min_pct: 30.0       # 1-Year (240 bars) RS > +30%
+    rs_6m_min_pct: 15.0       # 6-Month (120 bars) RS > +15%
+    rs_3m_min_pct: 10.0       # 3-Month (60 bars) RS > +10%
+    rs_1m_min_pct: 5.0        # 1-Month (21 bars) RS > +5%
+
+  # Volume Expansion
+  volume_expansion:
+    min_volume_ratio: 1.20    # Today or recent 3 sessions >= 1.20x prev volume
+
+  # Base Structure & Drawdown
+  base_structure:
+    lookback_min_days: 10     # Swing high formed 10 to 60 days ago
+    lookback_max_days: 60
+    deep_base_drawdown_pct: 20.0   # >= 20% correction from swing high (Grade A+)
+    moderate_base_drawdown_pct: 10.0 # >= 10% correction with volume (Grade A)
+    min_recovery_pct: 90.0    # Close >= 90% of Swing High
+
+  # RSI Sweet Spot
+  rsi:
+    period: 14
+    min_rsi: 50.0
+    max_rsi: 72.0
+
+  # Systematic Trade Setup
+  trade_setup:
+    risk_reward_ratio: "1:2.5"
+    target_1_mult: 1.5        # CMP + (Risk * 1.5)
+    target_2_mult: 2.5        # CMP + (Risk * 2.5)
+    invalidation_lookback_bars: 20
+
+# ------------------------------------------------------------------------------
+# TAB 3: HIGH TIGHT FLAG (HTF) QUANTITATIVE PARAMETERS
+# ------------------------------------------------------------------------------
+high_tight_flag:
+  label: "🚩 Setup 3: High Tight Flag (HTF)"
+  subtitle: "Explosive institutional momentum rally (>= +40% in <= 40D), tight base contraction (<= 20%), and volume dry-up."
+  output_file: "data/tab3_htf.json"
+
+  # The Pole Parameters
+  pole:
+    min_pole_gain_pct: 40.0         # Minimum +40% explosive run-up
+    max_pole_lookback_days: 40      # Pole formed within 40 trading days
+    exceptional_pole_gain_pct: 50.0 # Grade A+ threshold
+
+  # The Flag / Tight Base Parameters
+  flag:
+    min_flag_days: 5                # Base duration between 5 and 20 days
+    max_flag_days: 20
+    max_flag_correction_pct: 20.0   # Correction from peak high <= 20%
+    optimal_extension_pct: 3.5      # Close within 3.5% of Flag High is optimal breakout zone
+
+  # Volume Dry-Up
+  volume_dryup:
+    require_flag_vol_contract: true # Flag avg volume must be < pole avg volume
+    exceptional_contraction_pct: 25.0 # Grade A+ threshold (>= 25% volume dry-up)
+
+  # Trend Structure
+  trend_structure:
+    ema_fast: 20                    # Close > 20 EMA
+    ema_slow: 50                    # Close > 50 EMA
+
+  # Trade Setup Math (1:2.5 Risk-to-Reward)
+  trade_setup:
+    risk_reward_ratio: "1:2.5"
+    target_1_mult: 1.5              # CMP + (Risk * 1.5)
+    target_2_mult: 2.5              # CMP + (Risk * 2.5)
+
+# ------------------------------------------------------------------------------
+# TAB 4: WEEKLY SWING WATCHLIST QUANTITATIVE PARAMETERS
+# ------------------------------------------------------------------------------
+weekly_swing:
+  label: "📈 Setup 4: Weekly Swing"
+  subtitle: "Multi-timeframe institutional weekly swing structure, trend alignment, and low-risk accumulation."
+  output_file: "data/tab4_weekly_swing.json"
+
+  # Return & Relative Strength Criteria
+  return_criteria:
+    min_1w_return_pct: 5.0          # 1-Week Return between 5.0% and 7.0%
+    max_1w_return_pct: 7.0
+    min_1w_rs_pct: 5.0              # Stock 1W Ret - Nifty 1W Ret > 5.0%
+    min_1m_rs_pct: 5.0              # Stock 1M Ret - Nifty 1M Ret > 5.0%
+
+  # RSI Range
+  rsi:
+    period: 14
+    min_rsi: 50.0                   # Daily RSI between 50 and 65
+    max_rsi: 65.0
+
+  # Trend Structure
+  trend_structure:
+    ema_fast: 20                    # Close > 20 EMA
+    ema_slow: 50                    # Close > 50 EMA
+    ema_trend: 200                  # Close > 200 EMA
+
+  # Trade Setup Math (1:2.5 Risk-to-Reward)
+  trade_setup:
+    risk_reward_ratio: "1:2.5"
+    target_1_mult: 1.5              # Target 1: max(R1, CMP + Risk * 1.5)
+    target_2_mult: 2.5              # Target 2: max(R2, CMP + Risk * 2.5)
+    support_confluence_threshold: 0.018 # Confluence within 1.8%
+    entry_buffer_pct: 0.005         # Entry: [Support - 0.5%, min(Support + 0.5%, CMP)]
+    invalidation_lookback_bars: 20  # Base swing low lookback
+
+# ------------------------------------------------------------------------------
+# TAB 5: STAGE-2 PULLBACK QUANTITATIVE PARAMETERS
+# ------------------------------------------------------------------------------
+stage2_pullback:
+  label: "🎯 Setup 5: Stage-2 Pullback"
+  subtitle: "Institutional low-risk entries at key EMA supports during verified Stage-2 uptrends."
+  output_file: "data/tab5_stage2_pullback.json"
+
+  # Stage-2 Trend Filter
+  stage2_trend:
+    ema_trend: 50                   # Close > 50 EMA
+    sma_long_term: 200              # 50 EMA > 200 SMA
+    sma_slope_lookback: 20          # 200 SMA slope > 0 over 20 bars
+    high_52w_proximity_pct: 20.0    # CMP within 20% of 52-Week High (CMP >= 0.80 * 52W High)
+
+  # Pullback & Turnaround Qualification
+  pullback_qualification:
+    ema_support_fast: 20            # 20 EMA dynamic support
+    ema_support_slow: 50            # 50 EMA dynamic support
+    ema_tolerance_pct: 1.5          # Within 1.5% of dynamic EMA support
+    max_rvol: 0.85                  # RVOL < 0.85x (Volume drying up / absorption)
+    rsi_min: 45.0                   # RSI sweet spot between 45.0 and 58.0
+    rsi_max: 58.0
+
+  # Trade Setup Math (1:2.5 Risk-to-Reward)
+  trade_setup:
+    risk_reward_ratio: "1:2.5"
+    target_1_mult: 1.5              # Target 1: CMP + (Risk * 1.5)
+    target_2_mult: 2.5              # Target 2: CMP + (Risk * 2.5)
+    invalidation_base_lookback: 10  # Swing Low of current base structure np.min(low[-10:])
+    ema_50_sl_buffer_pct: 1.0       # Or 1% below 50 EMA
+
+# ------------------------------------------------------------------------------
+# TAB 6: DROP-BASE-RALLY (DBR) DEMAND ZONE QUANTITATIVE PARAMETERS
+# ------------------------------------------------------------------------------
+dbr_demand_zone:
+  label: "📦 Setup 6: DBR Demand Zone"
+  subtitle: "Institutional order block accumulation, fresh demand zone retests, and explosive leg-out expansions."
+  output_file: "data/tab6_dbr.json"
+
+  # Exclusion Rule for RBR Overlap (Momentum Flags at All-Time Highs)
+  exclusion_rules:
+    max_high_52w_proximity_pct: 2.0 # Disqualify if Close > 20 EMA > 50 EMA and CMP within 2% of 52W High (RBR territory)
+
+  # Drop Phase (Leg-In Reversal Context)
+  drop_phase:
+    min_drop_pct: 6.0               # Prior decline >= 6.0% leading into the base (or 2 bearish bars)
+    min_drop_from_swing_high: 7.0   # Drop from 20-50d intermediate swing high >= 7.0%
+    min_lookback_bars: 4            # 4 to 10 bars prior to base
+    max_lookback_bars: 10
+    min_bearish_candles: 2          # At least 2 bearish candles in leg-in window
+    min_bearish_erc_brr: 0.50       # At least one Bearish ERC with Body-to-Range Ratio >= 0.50
+
+  # Base Phase (Order Bank Consolidation at Structural Discount)
+  base_phase:
+    min_base_bars: 1                # 1 to 4 consecutive boring candles
+    max_base_bars: 4
+    max_boring_candle_brr: 0.50     # Boring / NRC candle Body-to-Range Ratio <= 0.50
+    max_base_depth_pct: 4.0         # (P_prox - P_dist) / P_dist <= 4.0%
+    max_base_avg_vol_ratio: 1.1     # Base volume < 1.1x 20-day Volume SMA
+    require_structural_discount: true # Base formed <= 20 EMA * 1.01 or testing 50/200 EMA
+
+  # Rally Phase (Leg-Out Departure)
+  rally_phase:
+    min_bullish_erc_brr: 0.55       # Bullish ERC Body-to-Range Ratio >= 0.55
+    min_rvol: 1.25                  # Leg-out RVOL >= 1.25x
+    min_breakout_buffer_pct: 0.0    # Close > Proximal Line (P_prox)
+
+  # Freshness & Zone Retest Rules
+  freshness:
+    max_retest_lookback_bars: 15    # Zone created 2 to 15 bars ago
+    retest_proximity_pct: 1.5       # Current Low touches or enters within 1.5% of P_prox
+    retest_hold_buffer_pct: 1.0     # Close holds >= P_prox * 0.99
+
+  # Structural Trade Setup Math (1:2.5 Risk-to-Reward)
+  trade_setup:
+    risk_reward_ratio: "1:2.5"
+    target_1_mult: 1.5              # Target 1: CMP + (Risk * 1.5)
+    target_2_mult: 2.5              # Target 2: CMP + (Risk * 2.5)
+    sl_atr_mult: 0.15               # Buffer: max(0.15 * ATR14, 0.004 * P_dist)
+    sl_pct_buffer: 0.004
+
+
+
+

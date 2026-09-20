@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>MITS Pro Institutional Suite V2 | Exclusive Pro Scanner</title>
+  <meta name="description" content="High-conviction quantitative breakout scanner and institutional flow tracker for Indian Equities. Exclusive Pro Members Zone.">
+  <meta name="theme-color" content="#06090e">
+
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Full-Width Fluid Viewport Container -->
+  <div class="mits-container" id="mits-pro-app">
+
+    <!-- 1. Header & Brand Identity Bar -->
+    <header class="pro-header">
+      <div class="brand-section">
+        <div class="brand-crest" aria-hidden="true">M</div>
+        <div class="brand-text">
+          <h1>
+            MITS Pro Scanner
+            <span class="pro-badge">Institutional V2</span>
+          </h1>
+          <p>
+            <span>Exclusive Pro Members Zone</span>
+            <span style="opacity: 0.4;">•</span>
+            <span>Quantitative Flow Engine</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="system-status">
+          <span class="pulse-dot"></span>
+          <span>Synced: <strong id="last-updated-text" style="color: var(--text-primary);">Loading...</strong></span>
+        </div>
+
+        <button id="refresh-btn" class="refresh-btn" type="button" title="Sync live institutional feeds">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span>Sync Feed</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. Market Summary KPIs & Trend Matrix -->
+    <section class="kpi-matrix" aria-label="Market Summary and Institutional Breadth">
+      
+      <!-- Market Breadth Card -->
+      <div class="kpi-card highlight">
+        <div class="kpi-title">
+          <span>Market Breadth</span>
+          <span id="kpi-bias" style="color: var(--gold-400); font-size: 0.72rem; font-weight: 700;">STRONG ACCUMULATION</span>
+        </div>
+        <div class="kpi-value gold">
+          <span id="kpi-advances">374</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">ADV</span>
+          <span style="font-size: 1rem; color: var(--border-medium); font-weight: 300;">/</span>
+          <span id="kpi-declines" style="color: var(--text-secondary);">125</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">DEC</span>
+        </div>
+        <div class="breadth-meter">
+          <div id="breadth-fill" class="breadth-fill" style="width: 75%;"></div>
+        </div>
+        <div class="kpi-subtitle">
+          <span>Ratio: <strong id="kpi-ratio" style="color: var(--text-primary);">2.99:1</strong></span>
+          <span style="opacity: 0.4;">•</span>
+          <span>Volume Bias Positive</span>
+        </div>
+      </div>
+
+      <!-- Benchmark NIFTY 50 -->
+      <div class="kpi-card">
+        <div class="kpi-title">
+          <span>NIFTY 50 Index</span>
+          <span id="kpi-nifty-change" class="change-pill negative">-0.53%</span>
+        </div>
+        <div class="kpi-value" id="kpi-nifty">₹23,346.40</div>
+        <div class="kpi-subtitle">
+          <span style="color: var(--gold-400);">◈ Defensive</span>
+          <span style="opacity: 0.4;">•</span>
+          <span>Below 20 EMA</span>
+        </div>
+      </div>
+
+      <!-- Benchmark BANK NIFTY -->
+      <div class="kpi-card">
+        <div class="kpi-title">
+          <span>BANK NIFTY Index</span>
+          <span id="kpi-banknifty-change" class="change-pill negative">-0.42%</span>
+        </div>
+        <div class="kpi-value" id="kpi-banknifty">₹50,125.80</div>
+        <div class="kpi-subtitle">
+          <span style="color: var(--gold-400);">◈ Defensive</span>
+          <span style="opacity: 0.4;">•</span>
+          <span>Support Consolidation</span>
+        </div>
+      </div>
+
+      <!-- High Momentum Radar -->
+      <div class="kpi-card">
+        <div class="kpi-title">
+          <span>Momentum Leaders</span>
+          <span style="color: var(--gold-400);">RVOL > 2.0x</span>
+        </div>
+        <div class="kpi-value gold" id="kpi-momentum">278</div>
+        <div class="kpi-subtitle">
+          <span>Universe: <strong>501 NIFTY 500 Stocks</strong></span>
+        </div>
+      </div>
+
+      <!-- Active Pro Alerts -->
+      <div class="kpi-card">
+        <div class="kpi-title">
+          <span>Active Pro Signals</span>
+          <span style="color: var(--gold-300);">6 Setups</span>
+        </div>
+        <div class="kpi-value" id="kpi-alerts" style="color: #ffffff;">108</div>
+        <div class="kpi-subtitle">
+          <span style="color: var(--gold-400);">Verified EOD Triggers</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 3. Navigation Tabs (6 Designated Pro Setups) -->
+    <nav class="tabs-wrapper" aria-label="Quantitative Setup Selectors">
+      <div class="tabs-nav" role="tablist">
+        <button class="tab-btn active" role="tab" data-tab="setup_1" aria-selected="true">
+          <span>⚡ Setup 1: Bottom Reversal Pro</span>
+          <span class="tab-count" id="count-setup_1">2</span>
+        </button>
+        <button class="tab-btn" role="tab" data-tab="setup_2" aria-selected="false">
+          <span>⚡ Setup 2: Alpha Momentum</span>
+          <span class="tab-count" id="count-setup_2">9</span>
+        </button>
+        <button class="tab-btn" role="tab" data-tab="setup_3" aria-selected="false">
+          <span>🚩 Setup 3: High Tight Flag (HTF)</span>
+          <span class="tab-count" id="count-setup_3">14</span>
+        </button>
+        <button class="tab-btn" role="tab" data-tab="setup_4" aria-selected="false">
+          <span>📈 Setup 4: Weekly Swing</span>
+          <span class="tab-count" id="count-setup_4">4</span>
+        </button>
+        <button class="tab-btn" role="tab" data-tab="setup_5" aria-selected="false">
+          <span>🎯 Setup 5: Stage-2 Pullback</span>
+          <span class="tab-count" id="count-setup_5">42</span>
+        </button>
+        <button class="tab-btn" role="tab" data-tab="setup_6" aria-selected="false">
+          <span>📦 Setup 6: DBR Demand Zone</span>
+          <span class="tab-count" id="count-setup_6">37</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- 4. Setup Context & Strategy Overview -->
+    <div class="tab-context">
+      <div class="setup-info">
+        <h3 id="setup-title">⚡ Setup 1: Bottom Reversal Pro</h3>
+        <p id="setup-desc">Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.</p>
+      </div>
+      <div class="pro-badge" id="setup-count-badge" style="background: var(--bg-surface-3); color: var(--gold-400); border: 1px solid var(--gold-border);">
+        2 Signals
+      </div>
+    </div>
+
+    <!-- 5. Controls Toolbar (Search, Filter, Export) -->
+    <div class="toolbar-container">
+      <div class="filter-group">
+        <div class="search-input-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="search-input" placeholder="Search symbol or name..." aria-label="Search symbol">
+        </div>
+
+        <select id="sector-select" class="custom-select" aria-label="Filter by sector">
+          <option value="ALL">All Sectors</option>
+        </select>
+
+        <select id="stage-select" class="custom-select" aria-label="Filter by stage" style="display: none;">
+          <option value="ALL">All Stages</option>
+          <option value="IN_FLAG">Consolidating (In-Flag)</option>
+          <option value="BREAKOUT">Active Breakouts</option>
+        </select>
+      </div>
+
+      <div>
+        <button id="export-csv-btn" class="export-btn" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Export CSV</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 6. Institutional Signals Data Table (Fluid & Responsive with Sticky Symbol Column) -->
+    <div class="table-card">
+      <div class="table-responsive">
+        <table class="pro-table" id="pro-table">
+          <thead>
+            <tr>
+              <th class="sticky-col">Symbol / Asset</th>
+              <th>Sector</th>
+              <th class="sortable" data-col="cmp">CMP (₹) ↕</th>
+              <th class="sortable" data-col="change_pct">Change % ↕</th>
+              <th class="sortable" data-col="rvol">RVOL ↕</th>
+              <th class="sortable" data-col="score">Score & Grade ↕</th>
+              <th>Trigger Status</th>
+              <th>Invalidation (SL)</th>
+              <th>Entry & Targets (R:R)</th>
+              <th>Evidence Tags</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Rendered dynamically by js/app.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 7. Footer & Institutional Disclaimers -->
+    <footer class="pro-footer">
+      <div>
+        <span>MITS Pro Institutional Suite V2.0 • Real-Time Quantitative Engine</span>
+      </div>
+      <div>
+        <span>Automated daily cron sync scheduled at <strong>16:15 IST (4:15 PM)</strong></span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Master JavaScript Application -->
+  <script src="js/app.js"></script>
+</body>
+</html>

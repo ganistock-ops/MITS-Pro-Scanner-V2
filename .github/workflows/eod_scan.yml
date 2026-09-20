@@ -1,0 +1,60 @@
+name: MITS Pro Institutional EOD Scanner
+
+on:
+  schedule:
+    # 4:15 PM IST is 10:45 UTC (Monday to Friday trading days)
+    - cron: '45 10 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      force_scan:
+        description: 'Force quantitative market rescan'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "mits-pro-eod-scanner"
+  cancel-in-progress: true
+
+jobs:
+  run-eod-scan:
+    name: Execute EOD Pipeline & Publish Feeds
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute MITS Pro Scanner Pipeline
+        run: |
+          python scripts/run_pipeline.py
+
+      - name: Commit and Push Updated Data Feeds
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main || true
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No data changes detected in this run."
+          else
+            git commit -m "chore(data): automated institutional EOD scan update [$(date -u +'%Y-%m-%d %H:%M UTC')]"
+            git push origin main
+          fi

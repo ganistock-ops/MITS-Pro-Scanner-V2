@@ -1,0 +1,83 @@
+{
+  "setup_id": "tab1_bottom_reversal",
+  "title": "\u26a1 Setup 1: Bottom Reversal Pro",
+  "subtitle": "Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.",
+  "last_updated": "2026-09-20T07:56:48.510100+05:30",
+  "qualifying_count": 2,
+  "signals": [
+    {
+      "symbol": "DRREDDY",
+      "name": "Dr. Reddy's Laboratories Ltd.",
+      "sector": "Healthcare",
+      "cmp": 1185.0,
+      "change_pct": 3.95,
+      "score": 85,
+      "grade": "A",
+      "score_display": "85 (A)",
+      "institutional_score": 85,
+      "invalidation": 1118.91,
+      "entry_zone": "\u20b91182.0 - \u20b91193.82",
+      "target_1": 1317.18,
+      "target_2": 1405.98,
+      "target_zone": "1317.18 - 1405.98",
+      "risk_reward_ratio": "1:2.0",
+      "rvol": 2.69,
+      "setup_tags": [
+        "Established Decline",
+        "Tight Base (<8%)",
+        "Liquidity Sweep",
+        "Prominent Lower Wick",
+        "CHoCH Confirmed",
+        "Volume Absorption",
+        "R:R 2.0:1"
+      ],
+      "status": "CHoCH CONFIRMED",
+      "timestamp": "2026-09-18",
+      "score_breakdown": {
+        "exhaustion": 10.0,
+        "base": 15.0,
+        "sweep": 20.0,
+        "structure": 20.0,
+        "volume": 15.0,
+        "regime_and_rr": 5.0
+      }
+    },
+    {
+      "symbol": "J&KBANK",
+      "name": "Jammu & Kashmir Bank Ltd.",
+      "sector": "Financial Services",
+      "cmp": 146.58,
+      "change_pct": -0.73,
+      "score": 70,
+      "grade": "B",
+      "score_display": "70 (B)",
+      "institutional_score": 70,
+      "invalidation": 141.01,
+      "entry_zone": "\u20b9146.58 - \u20b9154.33",
+      "target_1": 164.3,
+      "target_2": 201.75,
+      "target_zone": "164.3 - 201.75",
+      "risk_reward_ratio": "1:3.18",
+      "rvol": 2.01,
+      "setup_tags": [
+        "Downtrend Exhaustion",
+        "Deceleration",
+        "Tight Base (<8%)",
+        "Liquidity Sweep",
+        "Prominent Lower Wick",
+        "Volume Absorption",
+        "R:R 3.18:1"
+      ],
+      "status": "MSS COILING",
+      "timestamp": "2026-09-18",
+      "score_breakdown": {
+        "exhaustion": 15.0,
+        "base": 15.0,
+        "sweep": 20.0,
+        "structure": 0.0,
+        "volume": 15.0,
+        "regime_and_rr": 5.0
+      }
+    }
+  ]
+}
