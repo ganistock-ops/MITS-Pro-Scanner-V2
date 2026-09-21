@@ -131,6 +131,9 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           <option value="IN_FLAG">Consolidating (In-Flag)</option>
           <option value="BREAKOUT">Active Breakouts</option>
         </select>
+        <button id="wp-export-btn" class="wp-btn-export" type="button" title="Export Filtered CSV Data">
+          <span>⬇ Export CSV</span>
+        </button>
       </div>
       <div id="wp-active-setup-desc" class="wp-desc-text">
         Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.
@@ -515,6 +518,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   display: flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
+  flex-wrap: wrap !important;
 }
 
 #mits-pro-embed-root .wp-input, #mits-pro-embed-root .wp-select {
@@ -525,6 +529,35 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   border-radius: 8px !important;
   font-size: 0.82rem !important;
   outline: none !important;
+}
+
+#mits-pro-embed-root .wp-btn-export {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.35rem !important;
+  padding: 0.45rem 0.85rem !important;
+  background: rgba(0, 240, 255, 0.1) !important;
+  border: 1px solid rgba(0, 240, 255, 0.35) !important;
+  color: #00f0ff !important;
+  border-radius: 8px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  outline: none !important;
+  font-family: inherit !important;
+}
+
+#mits-pro-embed-root .wp-btn-export:hover {
+  background: rgba(0, 240, 255, 0.2) !important;
+  border-color: #00f0ff !important;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25) !important;
+}
+
+#mits-pro-embed-root .wp-btn-export:active {
+  transform: scale(0.98) !important;
 }
 
 #mits-pro-embed-root .wp-desc-text {
@@ -5550,6 +5583,11 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       });
     }
 
+    const exportBtn = document.getElementById('wp-export-btn');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', exportWpCSV);
+    }
+
     const dossierCloseBtn = document.getElementById('wp-dossier-close');
     const dossierBackdrop = document.getElementById('wp-dossier-backdrop');
     if (dossierCloseBtn) {
@@ -5967,6 +6005,57 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     });
   }
 
+  function getWpFilteredSignals() {
+    const setups = WP_STATE.scannerData ? WP_STATE.scannerData.setups : null;
+    const setup = setups ? setups[WP_STATE.activeTab] : null;
+    let signals = setup && setup.signals ? [...setup.signals] : [];
+
+    if (WP_STATE.search) {
+      signals = signals.filter(s => 
+        (s.symbol || '').toLowerCase().includes(WP_STATE.search) || 
+        (s.name || '').toLowerCase().includes(WP_STATE.search)
+      );
+    }
+    if (WP_STATE.sector !== 'ALL') {
+      signals = signals.filter(s => s.sector === WP_STATE.sector);
+    }
+    if (WP_STATE.activeTab === 'setup_3' && WP_STATE.stage !== 'ALL') {
+      signals = signals.filter(s => s.stage === WP_STATE.stage);
+    }
+
+    // Sort signals safely with multi-key fallbacks and strict numeric stripping
+    const isNumCol = WP_NUMERIC_SORT_COLS.includes(WP_STATE.sortColumn);
+    signals.sort((a, b) => {
+      let key = WP_STATE.sortColumn;
+      let valA, valB;
+
+      if (key === 'score' || key === 'institutional_score') {
+        valA = a.score !== undefined ? a.score : a.institutional_score;
+        valB = b.score !== undefined ? b.score : b.institutional_score;
+      } else if (key === 'target_1') {
+        valA = a.target_1 !== undefined ? a.target_1 : (a.target_zone || 0);
+        valB = b.target_1 !== undefined ? b.target_1 : (b.target_zone || 0);
+      } else {
+        valA = a[key];
+        valB = b[key];
+      }
+
+      if (isNumCol) {
+        const numA = parseWpNumeric(valA);
+        const numB = parseWpNumeric(valB);
+        return WP_STATE.sortDirection === 'asc' ? numA - numB : numB - numA;
+      } else {
+        const strA = (valA !== undefined && valA !== null ? String(valA) : '').toLowerCase();
+        const strB = (valB !== undefined && valB !== null ? String(valB) : '').toLowerCase();
+        if (strA < strB) return WP_STATE.sortDirection === 'asc' ? -1 : 1;
+        if (strA > strB) return WP_STATE.sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      }
+    });
+
+    return signals;
+  }
+
   function renderWpTable() {
     const tbody = document.getElementById('wp-table-body');
     const thead = document.querySelector('#mits-pro-embed-root .wp-pro-table thead');
@@ -6027,52 +6116,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       });
     }
 
-    const setups = WP_STATE.scannerData ? WP_STATE.scannerData.setups : null;
-    const setup = setups ? setups[WP_STATE.activeTab] : null;
-    let signals = setup && setup.signals ? [...setup.signals] : [];
-
-    if (WP_STATE.search) {
-      signals = signals.filter(s => 
-        (s.symbol || '').toLowerCase().includes(WP_STATE.search) || 
-        (s.name || '').toLowerCase().includes(WP_STATE.search)
-      );
-    }
-    if (WP_STATE.sector !== 'ALL') {
-      signals = signals.filter(s => s.sector === WP_STATE.sector);
-    }
-    if (WP_STATE.activeTab === 'setup_3' && WP_STATE.stage !== 'ALL') {
-      signals = signals.filter(s => s.stage === WP_STATE.stage);
-    }
-
-    // Sort signals safely with multi-key fallbacks and strict numeric stripping
-    const isNumCol = WP_NUMERIC_SORT_COLS.includes(WP_STATE.sortColumn);
-    signals.sort((a, b) => {
-      let key = WP_STATE.sortColumn;
-      let valA, valB;
-
-      if (key === 'score' || key === 'institutional_score') {
-        valA = a.score !== undefined ? a.score : a.institutional_score;
-        valB = b.score !== undefined ? b.score : b.institutional_score;
-      } else if (key === 'target_1') {
-        valA = a.target_1 !== undefined ? a.target_1 : (a.target_zone || 0);
-        valB = b.target_1 !== undefined ? b.target_1 : (b.target_zone || 0);
-      } else {
-        valA = a[key];
-        valB = b[key];
-      }
-
-      if (isNumCol) {
-        const numA = parseWpNumeric(valA);
-        const numB = parseWpNumeric(valB);
-        return WP_STATE.sortDirection === 'asc' ? numA - numB : numB - numA;
-      } else {
-        const strA = (valA !== undefined && valA !== null ? String(valA) : '').toLowerCase();
-        const strB = (valB !== undefined && valB !== null ? String(valB) : '').toLowerCase();
-        if (strA < strB) return WP_STATE.sortDirection === 'asc' ? -1 : 1;
-        if (strA > strB) return WP_STATE.sortDirection === 'asc' ? 1 : -1;
-        return 0;
-      }
-    });
+    const signals = getWpFilteredSignals();
 
     const totalSignals = signals.length;
     const totalPages = Math.ceil(totalSignals / WP_STATE.pageSize) || 1;
@@ -6146,6 +6190,108 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         if (sym) openWpSetupDossier(sym);
       });
     });
+  }
+
+  function exportWpCSV() {
+    const list = getWpFilteredSignals();
+    if (!list || list.length === 0) {
+      alert('No records available to export.');
+      return;
+    }
+
+    const tabNames = {
+      setup_1: 'Bottom Reversal Pro',
+      setup_2: 'Alpha Momentum',
+      setup_3: 'High Tight Flag',
+      setup_4: 'Weekly Swing',
+      setup_5: 'Stage-2 Pullback',
+      setup_6: 'DBR Demand Zone'
+    };
+
+    const headers = [
+      'Setup',
+      'Symbol',
+      'Company Name',
+      'Sector',
+      'CMP (₹)',
+      'Change %',
+      'Score',
+      'Grade',
+      'Status / Stage',
+      'Safe Entry Zone',
+      'Invalidation Stop Loss',
+      'Target 1',
+      'Target 2',
+      'Risk Reward Ratio',
+      'RVOL Surge',
+      'Evidence Tags',
+      'Dossier Key Metrics'
+    ];
+
+    const rows = list.map(sig => {
+      const setupName = tabNames[WP_STATE.activeTab] || WP_STATE.activeTab;
+      const statusStage = sig.status || sig.stage || sig.stage_label || '';
+      const tags = (Array.isArray(sig.setup_tags) ? sig.setup_tags.join('; ') : (sig.setup_tags || ''));
+
+      let dossierMetrics = [];
+      if (sig.rvol) dossierMetrics.push(`RVOL: ${sig.rvol}x`);
+      if (WP_STATE.activeTab === 'setup_2') {
+        if (sig.rs_1y) dossierMetrics.push(`1Y RS: ${sig.rs_1y}%`);
+        if (sig.rs_6m) dossierMetrics.push(`6M RS: ${sig.rs_6m}%`);
+      } else if (WP_STATE.activeTab === 'setup_3') {
+        if (sig.pole_gain_pct) dossierMetrics.push(`Pole: +${sig.pole_gain_pct}%`);
+        if (sig.correction_pct) dossierMetrics.push(`Flag Pullback: -${sig.correction_pct}%`);
+        if (sig.flag_days) dossierMetrics.push(`Flag Duration: ${sig.flag_days}D`);
+      } else if (WP_STATE.activeTab === 'setup_4') {
+        if (sig.ret_1w) dossierMetrics.push(`1W Ret: +${sig.ret_1w}%`);
+        if (sig.rs_1w) dossierMetrics.push(`1W RS: +${sig.rs_1w}%`);
+        if (sig.base) dossierMetrics.push(`Base Support: ${sig.base}`);
+      } else if (WP_STATE.activeTab === 'setup_5') {
+        if (sig.support_level) dossierMetrics.push(`Key Support: ${sig.support_level}`);
+        dossierMetrics.push('Structure: Stage-2');
+      } else if (WP_STATE.activeTab === 'setup_6') {
+        const prox = sig.proximal || sig.p_prox;
+        const dist = sig.distal || sig.p_dist;
+        if (prox && dist) dossierMetrics.push(`Demand Zone: ₹${prox} - ₹${dist}`);
+        if (sig.base || sig.base_bars) dossierMetrics.push(`Base Depth: ${sig.base || sig.base_bars + 'D'}`);
+      } else {
+        dossierMetrics.push('Structure Shift: CHoCH');
+      }
+
+      const values = [
+        setupName,
+        sig.symbol || '',
+        sig.name || '',
+        sig.sector || 'NSE',
+        sig.cmp !== undefined ? sig.cmp : '',
+        sig.change_pct !== undefined ? sig.change_pct : '',
+        sig.score !== undefined ? sig.score : (sig.institutional_score || ''),
+        sig.grade || 'A',
+        statusStage,
+        sig.entry_zone ? sig.entry_zone : (sig.cmp ? `₹${sig.cmp}` : ''),
+        sig.invalidation !== undefined ? sig.invalidation : '',
+        sig.target_1 !== undefined ? sig.target_1 : (sig.target_zone || ''),
+        sig.target_2 !== undefined ? sig.target_2 : '',
+        sig.risk_reward_ratio || '1:2.0',
+        sig.rvol ? `${sig.rvol}x` : '1.0x',
+        tags,
+        dossierMetrics.join(' | ')
+      ];
+
+      return values.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',');
+    });
+
+    const csvContent = '\uFEFF' + [headers.map(h => `"${h}"`).join(','), ...rows].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const dateStr = new Date().toISOString().slice(0, 10);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `MITS_Pro_Scanner_Data_${dateStr}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   function openWpSetupDossier(symbol) {
