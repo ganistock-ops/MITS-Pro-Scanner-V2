@@ -102,7 +102,7 @@ def test_wordpress_embed():
     assert 'id="wp-kpi-alerts" style="color: #ffffff;">108</div>' in wp
 
     # Check CSS
-    assert "min-width: 1100px !important;" in wp
+    assert "table-layout: fixed !important;" in wp
     assert "overflow-x: auto !important;" in wp
 
     for tab, expected in EXPECTED_COUNTS.items():

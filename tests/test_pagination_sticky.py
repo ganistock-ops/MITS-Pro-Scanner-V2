@@ -71,8 +71,8 @@ class TestPaginationAndStickyColumns(unittest.TestCase):
         ths = re.findall(r'<th[\s\S]*?>(.*?)</th>', m_wp.group(1))
         self.assertEqual(len(ths), 6)
         self.assertIn('Symbol', ths[0])
-        self.assertIn('CMP', ths[1])
-        self.assertIn('Sector', ths[2])
+        self.assertIn('Sector', ths[1])
+        self.assertIn('CMP', ths[2])
 
     def test_mobile_disable_sticky(self):
         # Verify media query in style.css
