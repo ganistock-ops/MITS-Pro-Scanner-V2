@@ -30,11 +30,11 @@ class TestPaginationAndStickyColumns(unittest.TestCase):
         self.assertIn('sticky-col sticky-col-1', self.index_html)
         self.assertIn('sticky-col sticky-col-2', self.index_html)
 
-        # Static thead must have 11 columns with Symbol col 1 and CMP col 2
+        # Static thead must have 6 columns with Symbol col 1 and CMP col 2
         m = re.search(r'<thead>\s*<tr>([\s\S]*?)</tr>\s*</thead>', self.index_html)
         self.assertIsNotNone(m)
         ths = re.findall(r'<th[\s\S]*?>(.*?)</th>', m.group(1))
-        self.assertEqual(len(ths), 11)
+        self.assertEqual(len(ths), 6)
         self.assertIn('Symbol', ths[0])
         self.assertIn('CMP', ths[1])
         self.assertIn('Sector', ths[2])
@@ -69,7 +69,7 @@ class TestPaginationAndStickyColumns(unittest.TestCase):
         m_wp = re.search(r'<table class="wp-pro-table">\s*<thead>\s*<tr>([\s\S]*?)</tr>\s*</thead>', self.wp_html)
         self.assertIsNotNone(m_wp)
         ths = re.findall(r'<th[\s\S]*?>(.*?)</th>', m_wp.group(1))
-        self.assertEqual(len(ths), 11)
+        self.assertEqual(len(ths), 6)
         self.assertIn('Symbol', ths[0])
         self.assertIn('CMP', ths[1])
         self.assertIn('Sector', ths[2])

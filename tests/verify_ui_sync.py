@@ -58,8 +58,8 @@ def test_index_html():
     thead_match = re.search(r'<thead>\s*<tr>([\s\S]*?)</tr>\s*</thead>', html)
     assert thead_match, "index.html thead not found"
     th_count = len(re.findall(r'<th[\s>]', thead_match.group(1)))
-    assert th_count == 11, f"Expected 11 columns in static thead, got {th_count}"
-    print(f"[PASS] index.html has 11 static columns and 108 active alerts.")
+    assert th_count == 6, f"Expected 6 columns in static thead, got {th_count}"
+    print(f"[PASS] index.html has 6 static columns and 108 active alerts.")
 
 def test_app_js():
     print("\n--- 3. Testing js/app.js ---")
@@ -82,7 +82,7 @@ def test_app_js():
     # Check setup_5 and setup_6 thead in renderTable
     assert "state.activeTab === 'setup_5'" in js
     assert "state.activeTab === 'setup_6'" in js
-    print(f"[PASS] js/app.js verified with CACHE_VERSION _V4 and 11-col layout.")
+    print(f"[PASS] js/app.js verified with CACHE_VERSION _V4 and 6-col layout.")
 
 def test_wordpress_embed():
     print("\n--- 4. Testing wordpress_live_embed.html ---")
@@ -116,8 +116,8 @@ def test_wordpress_embed():
     m_thead = re.search(r"else if \([^)]*WP_STATE\.activeTab === 'setup_6'[^)]*\)\s*\{[\s\S]*?thead\.innerHTML = `([\s\S]*?)`;", wp)
     assert m_thead, "renderWpTable thead block for setup_6 not found"
     th_count = len(re.findall(r'<th[\s>]', m_thead.group(1)))
-    assert th_count == 11, f"Expected 11 columns in setup_6 thead, got {th_count}"
-    print(f"[PASS] wordpress_live_embed.html verified with WP_CACHE_VERSION _V4 and 11-col layout.")
+    assert th_count == 6, f"Expected 6 columns in setup_6 thead, got {th_count}"
+    print(f"[PASS] wordpress_live_embed.html verified with WP_CACHE_VERSION _V4 and 6-col layout.")
 
 if __name__ == "__main__":
     test_data_files()

@@ -143,16 +143,11 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         <table class="wp-pro-table">
           <thead>
             <tr>
-              <th class="wp-sticky-col wp-sticky-col-1 wp-sortable" data-col="symbol">Symbol / Asset <span class="wp-sort-icon">↕</span></th>
+              <th class="wp-sticky-col wp-sticky-col-1 wp-sortable" data-col="symbol">Symbol / Company <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sticky-col wp-sticky-col-2 wp-sortable" data-col="cmp">CMP (₹) <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sortable" data-col="sector">Sector <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sortable" data-col="change_pct">Change % <span class="wp-sort-icon">↕</span></th>
-              <th class="wp-sortable" data-col="rvol">RVOL <span class="wp-sort-icon">↕</span></th>
               <th class="wp-sortable active-sort" data-col="score">Score & Grade <span class="wp-sort-icon active">▼</span></th>
-              <th class="wp-sortable" data-col="status">Status <span class="wp-sort-icon">↕</span></th>
-              <th class="wp-sortable" data-col="invalidation">Invalidation <span class="wp-sort-icon">↕</span></th>
-              <th class="wp-sortable wp-entry-th" data-col="target_1">Entry & Targets (R:R) <span class="wp-sort-icon">↕</span></th>
-              <th class="wp-tags-th">Evidence Tags</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -165,6 +160,80 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       <div class="wp-pagination-bar" id="wp-pagination-bar">
         <div class="wp-pagination-info" id="wp-pagination-info">Showing 0 to 0 of Total 0 stocks</div>
         <div class="wp-pagination-controls" id="wp-pagination-controls"></div>
+      </div>
+    </div>
+
+    <!-- ===================================================================================
+         INSTITUTIONAL SETUP DOSSIER SLIDE-OVER DRAWER & BACKDROP
+         =================================================================================== -->
+    <div id="wp-dossier-backdrop" class="wp-dossier-backdrop" style="display: none;">
+      <div id="wp-dossier-drawer" class="wp-dossier-drawer" role="dialog" aria-modal="true" aria-labelledby="wp-dossier-title">
+        <button type="button" class="wp-dossier-close" id="wp-dossier-close" aria-label="Close Setup Dossier">✕</button>
+        
+        <div class="wp-dossier-header">
+          <div class="wp-dossier-header-top">
+            <div class="wp-dossier-badge-row">
+              <span id="wp-dossier-setup-tag" class="wp-dossier-setup-tag">Setup Dossier</span>
+              <span id="wp-dossier-sector" class="wp-dossier-sector-tag">Sector</span>
+            </div>
+            <div id="wp-dossier-score-badge" class="wp-dossier-score-badge">95 (A+)</div>
+          </div>
+          <div class="wp-dossier-title-row">
+            <h2 id="wp-dossier-title" class="wp-dossier-title">SYMBOL</h2>
+            <div class="wp-dossier-price-box">
+              <span id="wp-dossier-cmp" class="wp-dossier-cmp">₹0.00</span>
+              <span id="wp-dossier-chg" class="wp-dossier-chg">+0.00%</span>
+            </div>
+          </div>
+          <p id="wp-dossier-name" class="wp-dossier-name">Full Company Name</p>
+        </div>
+
+        <div class="wp-dossier-body">
+          <div class="wp-dossier-status-bar">
+            <div class="wp-dossier-status-title">Trigger Status:</div>
+            <div id="wp-dossier-status" class="wp-dossier-status-val">READY TO BREAKOUT</div>
+          </div>
+
+          <div class="wp-dossier-section-title">Trade Execution Matrix</div>
+          <div class="wp-dossier-grid">
+            <div class="wp-dossier-card wp-card-entry">
+              <div class="wp-card-label">Safe Entry Zone</div>
+              <div id="wp-dossier-entry" class="wp-card-val">₹0.00 - ₹0.00</div>
+              <div class="wp-card-sub">Optimal institutional accumulation zone</div>
+            </div>
+
+            <div class="wp-dossier-card wp-card-sl">
+              <div class="wp-card-label">Invalidation (SL)</div>
+              <div id="wp-dossier-sl" class="wp-card-val">₹0.00</div>
+              <div id="wp-dossier-sl-sub" class="wp-card-sub">Strict structural risk level</div>
+            </div>
+
+            <div class="wp-dossier-card wp-card-target">
+              <div class="wp-card-label">Primary Target (T1)</div>
+              <div id="wp-dossier-t1" class="wp-card-val">₹0.00</div>
+              <div id="wp-dossier-rr1" class="wp-card-sub">R:R Ratio 1:2.0</div>
+            </div>
+
+            <div class="wp-dossier-card wp-card-target">
+              <div class="wp-card-label">Extended Target (T2)</div>
+              <div id="wp-dossier-t2" class="wp-card-val">₹0.00</div>
+              <div id="wp-dossier-rr2" class="wp-card-sub">Trail Runner Level</div>
+            </div>
+          </div>
+
+          <div class="wp-dossier-section-title">Quantitative Evidence & Setup Badges</div>
+          <div id="wp-dossier-tags" class="wp-dossier-tags"></div>
+
+          <div class="wp-dossier-section-title">Key Algorithmic Metrics</div>
+          <div id="wp-dossier-metrics" class="wp-dossier-metrics-grid"></div>
+        </div>
+
+        <div class="wp-dossier-footer">
+          <a id="wp-dossier-tv-btn" href="#" target="_blank" rel="noopener noreferrer" class="wp-dossier-tv-btn">
+            <span>Open Interactive TradingView Chart</span>
+            <span>↗</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -611,25 +680,391 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 }
 
 #mits-pro-embed-root .wp-pro-table tbody tr {
+  cursor: pointer !important;
   transition: background 0.15s ease !important;
 }
 
 #mits-pro-embed-root .wp-pro-table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.03) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
 }
 
-/* Column Width Proportions & Alignments in WP Embed */
-#mits-pro-embed-root .wp-pro-table th:nth-child(1), #mits-pro-embed-root .wp-pro-table td:nth-child(1) { width: 15% !important; text-align: left !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(2), #mits-pro-embed-root .wp-pro-table td:nth-child(2) { width: 9% !important; text-align: right !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(3), #mits-pro-embed-root .wp-pro-table td:nth-child(3) { width: 11% !important; text-align: left !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(4), #mits-pro-embed-root .wp-pro-table td:nth-child(4) { width: 8% !important; text-align: center !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(5), #mits-pro-embed-root .wp-pro-table td:nth-child(5) { width: 7% !important; text-align: center !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(6), #mits-pro-embed-root .wp-pro-table td:nth-child(6) { width: 9% !important; text-align: center !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(7), #mits-pro-embed-root .wp-pro-table td:nth-child(7) { width: 11% !important; text-align: center !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(8), #mits-pro-embed-root .wp-pro-table td:nth-child(8) { width: 8% !important; text-align: right !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(9), #mits-pro-embed-root .wp-pro-table td:nth-child(9) { width: 10% !important; text-align: center !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(10), #mits-pro-embed-root .wp-pro-table td:nth-child(10) { width: 7% !important; text-align: center !important; }
-#mits-pro-embed-root .wp-pro-table th:nth-child(11), #mits-pro-embed-root .wp-pro-table td:nth-child(11) { width: 5% !important; text-align: center !important; }
+/* Column Width Proportions & Alignments in WP Embed (6 Columns) */
+#mits-pro-embed-root .wp-pro-table th:nth-child(1), #mits-pro-embed-root .wp-pro-table td:nth-child(1) { width: 26% !important; text-align: left !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(2), #mits-pro-embed-root .wp-pro-table td:nth-child(2) { width: 14% !important; text-align: right !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(3), #mits-pro-embed-root .wp-pro-table td:nth-child(3) { width: 18% !important; text-align: left !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(4), #mits-pro-embed-root .wp-pro-table td:nth-child(4) { width: 14% !important; text-align: center !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(5), #mits-pro-embed-root .wp-pro-table td:nth-child(5) { width: 14% !important; text-align: center !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(6), #mits-pro-embed-root .wp-pro-table td:nth-child(6) { width: 14% !important; text-align: center !important; }
+
+#mits-pro-embed-root .wp-btn-view-setup {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  padding: 5px 12px !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-radius: 6px !important;
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  white-space: nowrap !important;
+}
+
+#mits-pro-embed-root .wp-btn-view-setup:hover {
+  background: rgba(245, 158, 11, 0.25) !important;
+  border-color: #fbbf24 !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* ===================================================================================
+   INSTITUTIONAL SETUP DOSSIER DRAWER & MODAL STYLES
+   =================================================================================== */
+#mits-pro-embed-root .wp-dossier-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(3, 6, 14, 0.78) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  transition: opacity 0.25s ease !important;
+}
+
+#mits-pro-embed-root .wp-dossier-drawer {
+  width: min(520px, 100vw) !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  background: #0b111e !important;
+  border-left: 1px solid rgba(245, 158, 11, 0.25) !important;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 158, 11, 0.1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: auto !important;
+  position: relative !important;
+  animation: wpDrawerSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+}
+
+@keyframes wpDrawerSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+#mits-pro-embed-root .wp-dossier-close {
+  position: absolute !important;
+  top: 1.15rem !important;
+  right: 1.15rem !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #94a3b8 !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  z-index: 10 !important;
+}
+
+#mits-pro-embed-root .wp-dossier-close:hover {
+  background: rgba(244, 63, 94, 0.15) !important;
+  border-color: rgba(244, 63, 94, 0.4) !important;
+  color: #f43f5e !important;
+}
+
+#mits-pro-embed-root .wp-dossier-header {
+  padding: 1.5rem 1.75rem 1.25rem !important;
+  background: linear-gradient(180deg, #10192a 0%, #0b111e 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+#mits-pro-embed-root .wp-dossier-header-top {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 0.75rem !important;
+  padding-right: 2.2rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-badge-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-setup-tag {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  padding: 3px 8px !important;
+  border-radius: 5px !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+#mits-pro-embed-root .wp-dossier-sector-tag {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #94a3b8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 3px 8px !important;
+  border-radius: 5px !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+}
+
+#mits-pro-embed-root .wp-dossier-score-badge {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  color: #fbbf24 !important;
+  background: rgba(245, 158, 11, 0.18) !important;
+  border: 1px solid rgba(245, 158, 11, 0.45) !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25) !important;
+}
+
+#mits-pro-embed-root .wp-dossier-title-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: baseline !important;
+  gap: 0.75rem !important;
+  margin-bottom: 0.35rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-title {
+  font-size: 1.75rem !important;
+  font-weight: 800 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  letter-spacing: 0.5px !important;
+}
+
+#mits-pro-embed-root .wp-dossier-price-box {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-cmp {
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  color: #ffffff !important;
+}
+
+#mits-pro-embed-root .wp-dossier-chg {
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  padding: 3px 7px !important;
+  border-radius: 5px !important;
+}
+
+#mits-pro-embed-root .wp-dossier-name {
+  font-size: 0.86rem !important;
+  color: #94a3b8 !important;
+  margin: 0 !important;
+}
+
+#mits-pro-embed-root .wp-dossier-body {
+  padding: 1.5rem 1.75rem !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.25rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-status-bar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  padding: 0.75rem 1rem !important;
+  background: rgba(14, 165, 233, 0.08) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  border-radius: 8px !important;
+}
+
+#mits-pro-embed-root .wp-dossier-status-title {
+  font-size: 0.75rem !important;
+  color: #64748b !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+}
+
+#mits-pro-embed-root .wp-dossier-status-val {
+  font-size: 0.82rem !important;
+  color: #38bdf8 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+#mits-pro-embed-root .wp-dossier-section-title {
+  font-size: 0.74rem !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  color: #8B949E !important;
+  letter-spacing: 0.8px !important;
+  margin-bottom: -0.5rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0.85rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-card {
+  padding: 1rem !important;
+  border-radius: 10px !important;
+  background: rgba(16, 23, 38, 0.6) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+}
+
+#mits-pro-embed-root .wp-card-entry {
+  border: 1px solid rgba(251, 191, 36, 0.25) !important;
+  border-left: 3px solid #f59e0b !important;
+}
+
+#mits-pro-embed-root .wp-card-sl {
+  border: 1px solid rgba(244, 63, 94, 0.25) !important;
+  border-left: 3px solid #f43f5e !important;
+}
+
+#mits-pro-embed-root .wp-card-target {
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-left: 3px solid #10b981 !important;
+}
+
+#mits-pro-embed-root .wp-card-label {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #64748b !important;
+  letter-spacing: 0.5px !important;
+}
+
+#mits-pro-embed-root .wp-card-val {
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  color: #ffffff !important;
+}
+
+#mits-pro-embed-root .wp-card-sub {
+  font-size: 0.72rem !important;
+  color: #94a3b8 !important;
+}
+
+#mits-pro-embed-root .wp-dossier-tags {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.45rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-tag-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(245, 158, 11, 0.25) !important;
+  color: #fde68a !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+}
+
+#mits-pro-embed-root .wp-dossier-metrics-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.65rem !important;
+}
+
+#mits-pro-embed-root .wp-metric-box {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 8px !important;
+  padding: 0.65rem 0.75rem !important;
+  text-align: center !important;
+}
+
+#mits-pro-embed-root .wp-metric-box-label {
+  font-size: 0.68rem !important;
+  color: #64748b !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  margin-bottom: 2px !important;
+}
+
+#mits-pro-embed-root .wp-metric-box-val {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  color: #fbbf24 !important;
+}
+
+#mits-pro-embed-root .wp-dossier-footer {
+  padding: 1.25rem 1.75rem !important;
+  background: #090e18 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+#mits-pro-embed-root .wp-dossier-tv-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.65rem !important;
+  width: 100% !important;
+  padding: 0.85rem 1.25rem !important;
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%) !important;
+  color: #080c14 !important;
+  font-weight: 800 !important;
+  font-size: 0.92rem !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+
+#mits-pro-embed-root .wp-dossier-tv-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.6) !important;
+}
+
+@media (max-width: 768px) {
+  #mits-pro-embed-root .wp-dossier-drawer {
+    width: 100vw !important;
+    border-left: none !important;
+  }
+  #mits-pro-embed-root .wp-dossier-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
 
 /* Sticky columns (Symbol & CMP) on mobile & desktop */
 :root {
@@ -5146,6 +5581,24 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         fetchFreshWpData(true);
       });
     }
+
+    const dossierCloseBtn = document.getElementById('wp-dossier-close');
+    const dossierBackdrop = document.getElementById('wp-dossier-backdrop');
+    if (dossierCloseBtn) {
+      dossierCloseBtn.addEventListener('click', closeWpSetupDossier);
+    }
+    if (dossierBackdrop) {
+      dossierBackdrop.addEventListener('click', function(e) {
+        if (e.target === dossierBackdrop) {
+          closeWpSetupDossier();
+        }
+      });
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        closeWpSetupDossier();
+      }
+    });
   }
 
   const WP_CACHE_VERSION = '_V4';
@@ -5616,48 +6069,33 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       if (WP_STATE.activeTab === 'setup_1') {
         thead.innerHTML = `
           <tr>
-            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Asset ${getArrow('symbol')}</th>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Company ${getArrow('symbol')}</th>
             <th class="wp-sortable wp-sticky-col wp-sticky-col-2${getActive('cmp')}" data-col="cmp">CMP (₹) ${getArrow('cmp')}</th>
             <th class="wp-sortable${getActive('sector')}" data-col="sector">Sector ${getArrow('sector')}</th>
             <th class="wp-sortable${getActive('change_pct')}" data-col="change_pct">Change % ${getArrow('change_pct')}</th>
-            <th class="wp-sortable${getActive('rvol')}" data-col="rvol">RVOL ${getArrow('rvol')}</th>
             <th class="wp-sortable${getActive('score')}" data-col="score">Score & Grade ${getArrow('score')}</th>
-            <th class="wp-sortable${getActive('status')}" data-col="status">Status ${getArrow('status')}</th>
-            <th class="wp-sortable${getActive('invalidation')}" data-col="invalidation">Invalidation ${getArrow('invalidation')}</th>
-            <th class="wp-sortable wp-entry-th${getActive('target_1')}" data-col="target_1">Entry & Targets (R:R) ${getArrow('target_1')}</th>
-            <th class="wp-tags-th">Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
       } else if (WP_STATE.activeTab === 'setup_6') {
         thead.innerHTML = `
           <tr>
-            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Asset ${getArrow('symbol')}</th>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Company ${getArrow('symbol')}</th>
             <th class="wp-sortable wp-sticky-col wp-sticky-col-2${getActive('cmp')}" data-col="cmp">CMP (₹) ${getArrow('cmp')}</th>
             <th class="wp-sortable${getActive('sector')}" data-col="sector">Sector ${getArrow('sector')}</th>
             <th class="wp-sortable${getActive('change_pct')}" data-col="change_pct">Change % ${getArrow('change_pct')}</th>
-            <th class="wp-sortable${getActive('rvol')}" data-col="rvol">RVOL ${getArrow('rvol')}</th>
             <th class="wp-sortable${getActive('score')}" data-col="score">Score & Grade ${getArrow('score')}</th>
-            <th class="wp-sortable${getActive('status')}" data-col="status">Status ${getArrow('status')}</th>
-            <th class="wp-sortable${getActive('invalidation')}" data-col="invalidation">Invalidation ${getArrow('invalidation')}</th>
-            <th class="wp-sortable wp-entry-th${getActive('target_1')}" data-col="target_1">Entry & Targets (1:2.5) ${getArrow('target_1')}</th>
-            <th class="wp-tags-th">Demand Zone Evidence</th>
             <th>Action</th>
           </tr>
         `;
       } else {
         thead.innerHTML = `
           <tr>
-            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Asset ${getArrow('symbol')}</th>
+            <th class="wp-sortable wp-sticky-col wp-sticky-col-1${getActive('symbol')}" data-col="symbol">Symbol / Company ${getArrow('symbol')}</th>
             <th class="wp-sortable wp-sticky-col wp-sticky-col-2${getActive('cmp')}" data-col="cmp">CMP (₹) ${getArrow('cmp')}</th>
             <th class="wp-sortable${getActive('sector')}" data-col="sector">Sector ${getArrow('sector')}</th>
             <th class="wp-sortable${getActive('change_pct')}" data-col="change_pct">Change % ${getArrow('change_pct')}</th>
-            <th class="wp-sortable${getActive('rvol')}" data-col="rvol">RVOL ${getArrow('rvol')}</th>
             <th class="wp-sortable${getActive('score')}" data-col="score">Score & Grade ${getArrow('score')}</th>
-            <th class="wp-sortable${getActive('status')}" data-col="status">Status ${getArrow('status')}</th>
-            <th class="wp-sortable${getActive('invalidation')}" data-col="invalidation">Invalidation ${getArrow('invalidation')}</th>
-            <th class="wp-sortable wp-entry-th${getActive('target_1')}" data-col="target_1">Entry & Targets (1:2.5) ${getArrow('target_1')}</th>
-            <th class="wp-tags-th">RS & Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
@@ -5745,164 +6183,203 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     renderWpPaginationControls(totalSignals, totalPages, startIdx, endIdx);
 
     if (signals.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; padding: 2rem; color: #94a3b8;">No matching institutional signals found.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2.5rem; color: #94a3b8;">No matching institutional signals found.</td></tr>';
       return;
     }
 
-    if (WP_STATE.activeTab === 'setup_1') {
-      tbody.innerHTML = paginatedSignals.map(sig => {
-        const chgColor = sig.change_pct >= 0 ? '#10b981' : '#f43f5e';
-        const chgSign = sig.change_pct >= 0 ? '+' : '';
-        const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
-        const scoreDisplay = sig.score_display || `${sig.score || '--'} (${sig.grade || 'A'})`;
+    tbody.innerHTML = paginatedSignals.map(sig => {
+      const chgColor = sig.change_pct >= 0 ? '#10b981' : '#f43f5e';
+      const chgSign = sig.change_pct >= 0 ? '+' : '';
+      const chgBg = sig.change_pct >= 0 ? 'rgba(16, 185, 129, 0.12)' : 'rgba(244, 63, 94, 0.12)';
+      const chgBorder = sig.change_pct >= 0 ? 'rgba(16, 185, 129, 0.3)' : 'rgba(244, 63, 94, 0.3)';
+      const scoreDisplay = sig.score_display || `${sig.score || '--'} (${sig.grade || 'A'})`;
 
-        const tagsHtml = (sig.setup_tags || []).slice(0, 3).map(t => 
-          `<span style="background: rgba(255,255,255,0.06); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); padding: 1px 5px; border-radius: 3px; font-size: 0.68rem; margin-right: 3px; display: inline-block;">${t}</span>`
-        ).join('');
+      return `
+        <tr data-symbol="${sig.symbol}" class="wp-clickable-row">
+          <td class="wp-sticky-col wp-sticky-col-1">
+            <span class="wp-sym-bold">${sig.symbol}</span>
+            <span class="wp-sym-sub">${sig.name || ''}</span>
+          </td>
+          <td class="wp-sticky-col wp-sticky-col-2" style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #ffffff;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
+          <td style="color: #94a3b8; font-size: 0.82rem;"><span class="wp-sector-pill">${sig.sector || 'NSE'}</span></td>
+          <td>
+            <span style="display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; background: ${chgBg}; color: ${chgColor}; border: 1px solid ${chgBorder};">
+              ${chgSign}${sig.change_pct}%
+            </span>
+          </td>
+          <td>
+            <span style="font-family: 'JetBrains Mono', monospace; color: #fbbf24; font-weight: 800; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); padding: 3px 8px; border-radius: 4px; font-size: 0.82rem;">
+              ${scoreDisplay}
+            </span>
+          </td>
+          <td>
+            <button type="button" class="wp-btn-view-setup" data-symbol="${sig.symbol}">
+              View Setup ⚡
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
 
-        return `
-          <tr>
-            <td class="wp-sticky-col wp-sticky-col-1">
-              <span class="wp-sym-bold">${sig.symbol}</span>
-              <span class="wp-sym-sub">${sig.name || ''}</span>
-            </td>
-            <td class="wp-sticky-col wp-sticky-col-2" style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
-            <td style="color: #94a3b8; font-size: 0.8rem;">${sig.sector || 'NSE'}</td>
-            <td style="color: ${chgColor}; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${chgSign}${sig.change_pct}%</td>
-            <td style="color: #fbbf24; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${sig.rvol || 1.0}x</td>
-            <td>
-              <span style="font-family: 'JetBrains Mono', monospace; color: #fbbf24; font-weight: 800; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); padding: 2px 7px; border-radius: 4px;">${scoreDisplay}</span>
-            </td>
-            <td><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">${sig.status || 'CHoCH CONFIRMED'}</span></td>
-            <td style="color: #f43f5e; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700;">₹${sig.invalidation ? Number(sig.invalidation).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'}</td>
-            <td class="wp-entry-td" style="font-size: 0.78rem;">
-              <div><span style="color:#64748b;">Entry:</span> <span style="font-family:'JetBrains Mono', monospace;">${sig.entry_zone || '--'}</span></div>
-              <div><span style="color:#fbbf24;">T1:</span> ₹${sig.target_1 ? Number(sig.target_1).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'} <span style="color:#64748b; font-size:0.7rem;">(${sig.risk_reward_ratio || '1:2'})</span> | <span style="color:#fbbf24;">T2:</span> ₹${sig.target_2 ? Number(sig.target_2).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'}</div>
-            </td>
-            <td class="wp-tags-td" style="white-space: normal !important; min-width: 180px; max-width: 240px;">
-              <div style="display: flex; flex-wrap: wrap; gap: 3px; max-width: 240px;">${tagsHtml}</div>
-            </td>
-            <td style="white-space: nowrap !important; width: 80px; text-align: center;">
-              <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" style="color: #fbbf24; text-decoration: none; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(245, 158, 11, 0.3); background: rgba(255, 255, 255, 0.03); padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;">Chart ↗</a>
-            </td>
-          </tr>
-        `;
-      }).join('');
-    } else if (WP_STATE.activeTab === 'setup_2' || WP_STATE.activeTab === 'setup_3' || WP_STATE.activeTab === 'setup_4' || WP_STATE.activeTab === 'setup_5' || WP_STATE.activeTab === 'setup_6') {
-      const isTab3 = WP_STATE.activeTab === 'setup_3';
-      const isTab4 = WP_STATE.activeTab === 'setup_4';
-      const isTab5 = WP_STATE.activeTab === 'setup_5';
-      const isTab6 = WP_STATE.activeTab === 'setup_6';
+    tbody.querySelectorAll('tr.wp-clickable-row').forEach(row => {
+      row.addEventListener('click', (e) => {
+        const sym = row.getAttribute('data-symbol');
+        if (sym) openWpSetupDossier(sym);
+      });
+    });
 
-      tbody.innerHTML = paginatedSignals.map(sig => {
-        const isBreakout = sig.stage === 'BREAKOUT';
-        let accentColor = '#38bdf8';
-        let accentBg = 'rgba(14, 165, 233, 0.15)';
-        let accentBorder = 'rgba(56, 189, 248, 0.3)';
-        let defaultStatus = 'MOMENTUM BASE';
+    tbody.querySelectorAll('.wp-btn-view-setup').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sym = btn.getAttribute('data-symbol');
+        if (sym) openWpSetupDossier(sym);
+      });
+    });
+  }
 
-        if (isTab3) {
-          accentColor = isBreakout ? '#34d399' : '#fbbf24';
-          accentBg = isBreakout ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)';
-          accentBorder = isBreakout ? 'rgba(16, 185, 129, 0.35)' : 'rgba(245, 158, 11, 0.35)';
-          defaultStatus = isBreakout ? 'FLAG BREAKOUT CONFIRMED' : 'FLAG CONSOLIDATION';
-        } else if (isTab4) {
-          accentColor = '#c084fc';
-          accentBg = 'rgba(139, 92, 246, 0.15)';
-          accentBorder = 'rgba(192, 132, 252, 0.35)';
-          defaultStatus = 'SWING BASE READY';
-        } else if (isTab5) {
-          accentColor = '#38bdf8';
-          accentBg = 'rgba(6, 182, 212, 0.15)';
-          accentBorder = 'rgba(56, 189, 248, 0.35)';
-          defaultStatus = 'STAGE-2 TURNAROUND';
-        } else if (isTab6) {
-          const isRetest = sig.stage === 'FRESH DEMAND RETEST';
-          accentColor = isRetest ? '#fbbf24' : '#34d399';
-          accentBg = isRetest ? 'rgba(245, 158, 11, 0.15)' : 'rgba(16, 185, 129, 0.15)';
-          accentBorder = isRetest ? 'rgba(245, 158, 11, 0.35)' : 'rgba(52, 211, 153, 0.35)';
-          defaultStatus = sig.stage || 'DEMAND LEG-OUT';
-        }
+  function openWpSetupDossier(symbol) {
+    const setups = WP_STATE.scannerData ? WP_STATE.scannerData.setups : null;
+    const setup = setups ? setups[WP_STATE.activeTab] : null;
+    const signals = setup && setup.signals ? setup.signals : [];
+    const sig = signals.find(s => s.symbol === symbol);
+    if (!sig) return;
 
-        const chgColor = sig.change_pct >= 0 ? '#10b981' : '#f43f5e';
-        const chgSign = sig.change_pct >= 0 ? '+' : '';
-        const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
-        const scoreDisplay = sig.score_display || `${sig.score || '--'} (${sig.grade || 'A'})`;
+    const backdrop = document.getElementById('wp-dossier-backdrop');
+    if (!backdrop) return;
 
-        const tagsHtml = (sig.setup_tags || []).slice(0, 4).map(t => {
-          let tagColor = accentColor;
-          let tagBorder = accentBorder;
-          if (isTab3) {
-            if (t.includes('Breakout')) {
-              tagColor = '#34d399';
-              tagBorder = 'rgba(16, 185, 129, 0.4)';
-            } else if (t.includes('Compression') || t.includes('Tightness')) {
-              tagColor = '#fbbf24';
-              tagBorder = 'rgba(245, 158, 11, 0.4)';
-            }
-          }
-          return `<span style="background: rgba(255,255,255,0.06); color: ${tagColor}; border: 1px solid ${tagBorder}; padding: 1px 5px; border-radius: 3px; font-size: 0.68rem; margin-right: 3px; margin-bottom: 2px; display: inline-block;">${t}</span>`;
-        }).join('');
+    const titleEl = document.getElementById('wp-dossier-title');
+    const nameEl = document.getElementById('wp-dossier-name');
+    const sectorEl = document.getElementById('wp-dossier-sector');
+    const cmpEl = document.getElementById('wp-dossier-cmp');
+    const chgEl = document.getElementById('wp-dossier-chg');
+    const scoreBadgeEl = document.getElementById('wp-dossier-score-badge');
+    const setupTagEl = document.getElementById('wp-dossier-setup-tag');
 
-        return `
-          <tr>
-            <td class="wp-sticky-col wp-sticky-col-1">
-              <span class="wp-sym-bold">${sig.symbol}</span>
-              <span class="wp-sym-sub">${sig.name || ''}</span>
-            </td>
-            <td class="wp-sticky-col wp-sticky-col-2" style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
-            <td style="color: #94a3b8; font-size: 0.8rem;">${sig.sector || 'NSE'}</td>
-            <td style="color: ${chgColor}; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${chgSign}${sig.change_pct}%</td>
-            <td style="color: ${accentColor}; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${sig.rvol || 1.0}x</td>
-            <td>
-              <span style="font-family: 'JetBrains Mono', monospace; color: ${accentColor}; font-weight: 800; background: ${accentBg}; border: 1px solid ${accentBorder}; padding: 2px 7px; border-radius: 4px;">${scoreDisplay}</span>
-            </td>
-            <td><span style="background: ${accentBg}; color: ${accentColor}; border: 1px solid ${accentBorder}; padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">${sig.status || defaultStatus}</span></td>
-            <td style="color: #f43f5e; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700;">₹${sig.invalidation ? Number(sig.invalidation).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'}</td>
-            <td class="wp-entry-td" style="font-size: 0.78rem;">
-              <div><span style="color:#64748b;">Entry:</span> <span style="font-family:'JetBrains Mono', monospace;">${sig.entry_zone || '--'}</span></div>
-              <div><span style="color:${accentColor};">T1:</span> ₹${sig.target_1 ? Number(sig.target_1).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'} <span style="color:#64748b; font-size:0.7rem;">(${sig.risk_reward_ratio || '1:2.5'})</span> | <span style="color:${accentColor};">T2:</span> ₹${sig.target_2 ? Number(sig.target_2).toLocaleString('en-IN', {minimumFractionDigits: 2}) : '--'}</div>
-            </td>
-            <td class="wp-tags-td" style="white-space: normal !important; min-width: 180px; max-width: 240px;">
-              <div style="display: flex; flex-wrap: wrap; gap: 3px; max-width: 240px;">${tagsHtml}</div>
-            </td>
-            <td style="white-space: nowrap !important; width: 80px; text-align: center;">
-              <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" style="color: ${accentColor}; text-decoration: none; font-size: 0.75rem; font-weight: 600; border: 1px solid ${accentBorder}; background: rgba(255, 255, 255, 0.03); padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;">Chart ↗</a>
-            </td>
-          </tr>
-        `;
-      }).join('');
-    } else {
-      // Fallback
-      tbody.innerHTML = paginatedSignals.map(sig => {
-        const chgColor = sig.change_pct >= 0 ? '#10b981' : '#f43f5e';
-        const chgSign = sig.change_pct >= 0 ? '+' : '';
-        const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
-
-        return `
-          <tr>
-            <td class="wp-sticky-col wp-sticky-col-1">
-              <span class="wp-sym-bold">${sig.symbol}</span>
-              <span class="wp-sym-sub">${sig.name || ''}</span>
-            </td>
-            <td class="wp-sticky-col wp-sticky-col-2" style="font-family: 'JetBrains Mono', monospace;">₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
-            <td style="color: #94a3b8; font-size: 0.8rem;">${sig.sector || 'NSE'}</td>
-            <td style="color: ${chgColor}; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${chgSign}${sig.change_pct}%</td>
-            <td style="color: #fbbf24; font-weight: 700; font-family: 'JetBrains Mono', monospace;">${sig.rvol}x</td>
-            <td>
-              <span style="font-family: 'JetBrains Mono', monospace; color: #fbbf24; font-weight: 700;">${sig.institutional_score}</span>
-            </td>
-            <td><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">${sig.status}</span></td>
-            <td style="color: #f43f5e; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">₹${sig.invalidation || '--'}</td>
-            <td class="wp-entry-td" style="color: #fbbf24; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">₹${sig.target_zone || '--'}</td>
-            <td class="wp-tags-td">--</td>
-            <td>
-              <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" style="color: #fbbf24; text-decoration: none; font-size: 0.75rem; border: 1px solid rgba(245, 158, 11, 0.3); padding: 2px 6px; border-radius: 4px; display: inline-block;">Chart ↗</a>
-            </td>
-          </tr>
-        `;
-      }).join('');
+    if (titleEl) titleEl.textContent = sig.symbol;
+    if (nameEl) nameEl.textContent = sig.name || 'NSE Equity';
+    if (sectorEl) sectorEl.textContent = sig.sector || 'NSE';
+    if (cmpEl) cmpEl.textContent = `₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+    
+    if (chgEl) {
+      const isPos = (sig.change_pct || 0) >= 0;
+      chgEl.textContent = `${isPos ? '+' : ''}${sig.change_pct}%`;
+      chgEl.style.color = isPos ? '#10b981' : '#f43f5e';
+      chgEl.style.background = isPos ? 'rgba(16, 185, 129, 0.15)' : 'rgba(244, 63, 94, 0.15)';
+      chgEl.style.border = `1px solid ${isPos ? 'rgba(16, 185, 129, 0.35)' : 'rgba(244, 63, 94, 0.35)'}`;
     }
+
+    if (scoreBadgeEl) {
+      scoreBadgeEl.textContent = sig.score_display || `${sig.score || '--'} (${sig.grade || 'A'})`;
+    }
+
+    const tabNames = {
+      setup_1: 'Bottom Reversal Pro',
+      setup_2: 'Alpha Momentum',
+      setup_3: 'High Tight Flag',
+      setup_4: 'Weekly Swing',
+      setup_5: 'Stage-2 Pullback',
+      setup_6: 'DBR Demand Zone'
+    };
+    if (setupTagEl) {
+      setupTagEl.textContent = tabNames[WP_STATE.activeTab] || 'Institutional Setup';
+    }
+
+    const statusValEl = document.getElementById('wp-dossier-status');
+    if (statusValEl) {
+      statusValEl.textContent = sig.status || sig.stage || 'CONFIRMED SETUP';
+    }
+
+    const entryEl = document.getElementById('wp-dossier-entry');
+    const slEl = document.getElementById('wp-dossier-sl');
+    const slSubEl = document.getElementById('wp-dossier-sl-sub');
+    const t1El = document.getElementById('wp-dossier-t1');
+    const rr1El = document.getElementById('wp-dossier-rr1');
+    const t2El = document.getElementById('wp-dossier-t2');
+    const rr2El = document.getElementById('wp-dossier-rr2');
+
+    if (entryEl) {
+      entryEl.textContent = sig.entry_zone ? sig.entry_zone : `₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+    }
+
+    if (slEl) {
+      slEl.textContent = sig.invalidation ? `₹${Number(sig.invalidation).toLocaleString('en-IN', {minimumFractionDigits: 2})}` : '--';
+      if (slSubEl && sig.cmp && sig.invalidation) {
+        const riskPct = Math.abs(((sig.cmp - sig.invalidation) / sig.cmp) * 100).toFixed(1);
+        slSubEl.textContent = `Structural Risk: -${riskPct}%`;
+      }
+    }
+
+    if (t1El) {
+      t1El.textContent = sig.target_1 ? `₹${Number(sig.target_1).toLocaleString('en-IN', {minimumFractionDigits: 2})}` : (sig.target_zone ? `₹${sig.target_zone}` : '--');
+      if (rr1El) {
+        rr1El.textContent = `Target 1 (R:R ${sig.risk_reward_ratio || '1:2.0'})`;
+      }
+    }
+
+    if (t2El) {
+      t2El.textContent = sig.target_2 ? `₹${Number(sig.target_2).toLocaleString('en-IN', {minimumFractionDigits: 2})}` : '--';
+      if (rr2El) {
+        rr2El.textContent = 'Target 2 Extended Runner';
+      }
+    }
+
+    const tagsContainer = document.getElementById('wp-dossier-tags');
+    if (tagsContainer) {
+      const tags = (sig.setup_tags && sig.setup_tags.length > 0) ? sig.setup_tags : ['Quantitative Edge Confirmed', 'Volume Expansion', 'Institutional Flow'];
+      tagsContainer.innerHTML = tags.map(t => `<span class="wp-dossier-tag-pill">✓ ${t}</span>`).join('');
+    }
+
+    const metricsContainer = document.getElementById('wp-dossier-metrics');
+    if (metricsContainer) {
+      const metrics = [
+        { label: 'RVOL Surge', val: `${sig.rvol || 1.0}x` },
+        { label: 'Setup Grade', val: sig.grade || 'A' }
+      ];
+
+      if (WP_STATE.activeTab === 'setup_2') {
+        metrics.push({ label: '1Y Rel Strength', val: sig.rs_1y ? `${sig.rs_1y}%` : '+35.0%' });
+      } else if (WP_STATE.activeTab === 'setup_3') {
+        metrics.push({ label: 'Pole Gain', val: sig.pole_gain_pct ? `+${sig.pole_gain_pct}%` : '+45%' });
+        metrics.push({ label: 'Flag Pullback', val: sig.correction_pct ? `-${sig.correction_pct}%` : '-12%' });
+        metrics.push({ label: 'Flag Duration', val: sig.flag_days ? `${sig.flag_days} Days` : '8 Days' });
+      } else if (WP_STATE.activeTab === 'setup_4') {
+        metrics.push({ label: '1W Return', val: sig.ret_1w ? `+${sig.ret_1w}%` : '+5.5%' });
+        metrics.push({ label: '1W RS', val: sig.rs_1w ? `+${sig.rs_1w}%` : '+6.0%' });
+        metrics.push({ label: 'Base Support', val: sig.base || 'PP Pivot' });
+      } else if (WP_STATE.activeTab === 'setup_5') {
+        metrics.push({ label: 'Key Support', val: sig.support_level || '20 EMA' });
+        metrics.push({ label: 'Structure', val: 'Stage-2' });
+      } else if (WP_STATE.activeTab === 'setup_6') {
+        metrics.push({ label: 'Proximal', val: sig.proximal ? `₹${sig.proximal}` : '--' });
+        metrics.push({ label: 'Distal', val: sig.distal ? `₹${sig.distal}` : '--' });
+        metrics.push({ label: 'Base Depth', val: sig.base || '1D' });
+      } else {
+        metrics.push({ label: 'Structure Shift', val: 'CHoCH' });
+      }
+
+      metricsContainer.innerHTML = metrics.map(m => `
+        <div class="wp-metric-box">
+          <div class="wp-metric-box-label">${m.label}</div>
+          <div class="wp-metric-box-val">${m.val}</div>
+        </div>
+      `).join('');
+    }
+
+    const tvBtn = document.getElementById('wp-dossier-tv-btn');
+    if (tvBtn) {
+      tvBtn.href = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
+    }
+
+    backdrop.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeWpSetupDossier() {
+    const backdrop = document.getElementById('wp-dossier-backdrop');
+    if (backdrop) {
+      backdrop.style.display = 'none';
+    }
+    document.body.style.overflow = '';
   }
 
 

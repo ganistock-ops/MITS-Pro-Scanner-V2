@@ -247,16 +247,11 @@
         <table class="pro-table" id="pro-table">
           <thead>
             <tr>
-              <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol / Asset <span class="sort-icon">↕</span></th>
+              <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol / Company <span class="sort-icon">↕</span></th>
               <th class="sticky-col sticky-col-2 sortable" data-col="cmp">CMP (₹) <span class="sort-icon">↕</span></th>
               <th class="sortable" data-col="sector">Sector <span class="sort-icon">↕</span></th>
               <th class="sortable" data-col="change_pct">Change % <span class="sort-icon">↕</span></th>
-              <th class="sortable" data-col="rvol">RVOL <span class="sort-icon">↕</span></th>
               <th class="sortable active-sort" data-col="score">Score & Grade <span class="sort-icon active">▼</span></th>
-              <th class="sortable" data-col="status">Trigger Status <span class="sort-icon">↕</span></th>
-              <th class="sortable" data-col="invalidation">Invalidation (SL) <span class="sort-icon">↕</span></th>
-              <th class="sortable entry-th" data-col="target_1">Entry & Targets (R:R) <span class="sort-icon">↕</span></th>
-              <th class="tags-th">Evidence Tags</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -281,6 +276,83 @@
         <span>Automated daily cron sync scheduled at <strong>16:15 IST (4:15 PM)</strong></span>
       </div>
     </footer>
+
+    <!-- ===================================================================================
+         INSTITUTIONAL SETUP DOSSIER SLIDE-OVER DRAWER & BACKDROP
+         =================================================================================== -->
+    <div id="dossier-backdrop" class="dossier-backdrop" style="display: none;">
+      <div id="dossier-drawer" class="dossier-drawer" role="dialog" aria-modal="true" aria-labelledby="dossier-title">
+        <button type="button" class="dossier-close" id="dossier-close" aria-label="Close Setup Dossier">✕</button>
+        
+        <div class="dossier-header">
+          <div class="dossier-header-top">
+            <div class="dossier-badge-row">
+              <span id="dossier-setup-tag" class="dossier-setup-tag">Setup Dossier</span>
+              <span id="dossier-sector" class="dossier-sector-tag">Sector</span>
+            </div>
+            <div id="dossier-score-badge" class="dossier-score-badge">95 (A+)</div>
+          </div>
+          <div class="dossier-title-row">
+            <h2 id="dossier-title" class="dossier-title">SYMBOL</h2>
+            <div class="dossier-price-box">
+              <span id="dossier-cmp" class="dossier-cmp">₹0.00</span>
+              <span id="dossier-chg" class="dossier-chg">+0.00%</span>
+            </div>
+          </div>
+          <p id="dossier-name" class="dossier-name">Full Company Name</p>
+        </div>
+
+        <div class="dossier-body">
+          <div class="dossier-status-bar">
+            <div class="dossier-status-title">Trigger Status:</div>
+            <div id="dossier-status" class="dossier-status-val">CONFIRMED SETUP</div>
+          </div>
+
+          <!-- Trade Execution Matrix -->
+          <div class="dossier-section-title">Trade Execution Matrix</div>
+          <div class="dossier-grid">
+            <div class="dossier-card card-entry">
+              <div class="dossier-card-label">Safe Entry Zone</div>
+              <div id="dossier-entry" class="dossier-card-val text-gold">₹0.00 - ₹0.00</div>
+              <div class="dossier-card-sub">Institutional Accumulation Band</div>
+            </div>
+            <div class="dossier-card card-sl">
+              <div class="dossier-card-label">Invalidation Stop Loss</div>
+              <div id="dossier-sl" class="dossier-card-val text-red">₹0.00</div>
+              <div id="dossier-sl-sub" class="dossier-card-sub">Structural Risk: --%</div>
+            </div>
+            <div class="dossier-card card-target">
+              <div id="dossier-rr1" class="dossier-card-label">Target 1 (R:R 1:2.5)</div>
+              <div id="dossier-t1" class="dossier-card-val text-emerald">₹0.00</div>
+              <div class="dossier-card-sub">Primary Expansion Objective</div>
+            </div>
+            <div class="dossier-card card-target">
+              <div id="dossier-rr2" class="dossier-card-label">Target 2 Extended</div>
+              <div id="dossier-t2" class="dossier-card-val text-emerald">₹0.00</div>
+              <div class="dossier-card-sub">Trend Runner Target</div>
+            </div>
+          </div>
+
+          <!-- Quantitative Evidence Badges -->
+          <div class="dossier-section-title">Quantitative Edge Evidence</div>
+          <div id="dossier-tags" class="dossier-tags">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Algorithmic Profile & Metrics -->
+          <div class="dossier-section-title">Algorithmic Profile</div>
+          <div id="dossier-metrics" class="dossier-metrics-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <div class="dossier-footer">
+          <a id="dossier-tv-btn" href="#" target="_blank" rel="noopener noreferrer" class="dossier-tv-btn">
+            Open Interactive TradingView Chart ↗
+          </a>
+        </div>
+      </div>
+    </div>
 
   </div>
 

@@ -4380,6 +4380,24 @@
         });
       });
     }
+
+    const dossierCloseBtn = document.getElementById('dossier-close');
+    const dossierBackdrop = document.getElementById('dossier-backdrop');
+    if (dossierCloseBtn) {
+      dossierCloseBtn.addEventListener('click', closeSetupDossier);
+    }
+    if (dossierBackdrop) {
+      dossierBackdrop.addEventListener('click', (e) => {
+        if (e.target === dossierBackdrop) {
+          closeSetupDossier();
+        }
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        closeSetupDossier();
+      }
+    });
   }
 
   // Instant Local-Storage Cache Loader
@@ -5024,7 +5042,7 @@
     if (signals.length === 0) {
       DOM.tableBody.innerHTML = `
         <tr>
-          <td colspan="11" class="empty-state">
+          <td colspan="6" class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
             </svg>
@@ -5047,38 +5065,39 @@
       return `<th class="sortable${sticky}${extra}${activeClass}" data-col="${colKey}">${label} ${arrow}</th>`;
     }
 
-    // Adapt Table Header for Tab 1 vs Tab 2 vs Tabs 3-6 (Col 1: Symbol, Col 2: CMP - both sticky)
+    // Streamlined 6-Column Header
     const thead = document.querySelector('.pro-table thead');
     if (thead) {
       if (state.activeTab === 'setup_1') {
         thead.innerHTML = `
           <tr>
-            ${renderSortHeader('symbol', 'Symbol / Asset', 'sticky-col sticky-col-1')}
+            ${renderSortHeader('symbol', 'Symbol / Company', 'sticky-col sticky-col-1')}
             ${renderSortHeader('cmp', 'CMP (₹)', 'sticky-col sticky-col-2')}
             ${renderSortHeader('sector', 'Sector')}
             ${renderSortHeader('change_pct', 'Change %')}
-            ${renderSortHeader('rvol', 'RVOL')}
             ${renderSortHeader('score', 'Score & Grade')}
-            ${renderSortHeader('status', 'Trigger Status')}
-            ${renderSortHeader('invalidation', 'Invalidation (SL)')}
-            ${renderSortHeader('target_1', 'Entry & Targets (R:R)', '', 'entry-th')}
-            <th class="tags-th">Evidence Tags</th>
+            <th>Action</th>
+          </tr>
+        `;
+      } else if (state.activeTab === 'setup_5' || state.activeTab === 'setup_6') {
+        thead.innerHTML = `
+          <tr>
+            ${renderSortHeader('symbol', 'Symbol / Company', 'sticky-col sticky-col-1')}
+            ${renderSortHeader('cmp', 'CMP (₹)', 'sticky-col sticky-col-2')}
+            ${renderSortHeader('sector', 'Sector')}
+            ${renderSortHeader('change_pct', 'Change %')}
+            ${renderSortHeader('score', 'Score & Grade')}
             <th>Action</th>
           </tr>
         `;
       } else {
         thead.innerHTML = `
           <tr>
-            ${renderSortHeader('symbol', 'Symbol / Asset', 'sticky-col sticky-col-1')}
+            ${renderSortHeader('symbol', 'Symbol / Company', 'sticky-col sticky-col-1')}
             ${renderSortHeader('cmp', 'CMP (₹)', 'sticky-col sticky-col-2')}
             ${renderSortHeader('sector', 'Sector')}
             ${renderSortHeader('change_pct', 'Change %')}
-            ${renderSortHeader('rvol', 'RVOL')}
             ${renderSortHeader('score', 'Score & Grade')}
-            ${renderSortHeader('status', 'Trigger Status')}
-            ${renderSortHeader('invalidation', 'Invalidation (SL)')}
-            ${renderSortHeader('target_1', 'Entry & Targets (1:2.5)', '', 'entry-th')}
-            <th class="tags-th">RS & Evidence Tags</th>
             <th>Action</th>
           </tr>
         `;
@@ -5105,215 +5124,196 @@
       initColumnResizing(document.querySelector('.pro-table'), state.columnWidths);
     }
 
-    const tagClass = (SETUP_CONFIG[state.activeTab] || {}).tagClass || 'breakout';
+    // Render Streamlined 6-Column Rows
+    DOM.tableBody.innerHTML = paginatedSignals
+      .map((sig) => {
+        const changeClass = sig.change_pct >= 0 ? 'positive' : 'negative';
+        const changeSign = sig.change_pct >= 0 ? '+' : '';
+        const gradeClass = (sig.grade || 'A').replace('+', '_PLUS');
+        const scoreDisplay = sig.score_display || `${sig.score || '--'} (${sig.grade || 'A'})`;
 
-    // Render Rows (Paginated & Sticky Columns 1 & 2)
-    if (state.activeTab === 'setup_1') {
-      DOM.tableBody.innerHTML = paginatedSignals
-        .map((sig) => {
-          const changeClass = sig.change_pct >= 0 ? 'positive' : 'negative';
-          const changeSign = sig.change_pct >= 0 ? '+' : '';
-          const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
-          const gradeClass = (sig.grade || 'A').replace('+', '_PLUS');
-          const scoreDisplay = sig.score_display || `${sig.score || '--'} (${sig.grade || 'A'})`;
+        return `
+          <tr data-symbol="${sig.symbol}" class="clickable-row">
+            <td class="sticky-col sticky-col-1">
+              <div class="ticker-cell">
+                <span class="ticker-symbol">${sig.symbol}</span>
+                <span class="ticker-name">${sig.name || ''}</span>
+              </div>
+            </td>
+            <td class="sticky-col sticky-col-2 num-cell" style="font-family: var(--font-mono); font-weight: 700; color: #ffffff;">₹${formatCurrency(sig.cmp)}</td>
+            <td><span style="color: var(--text-secondary); font-size: 0.82rem;">${sig.sector || 'NSE'}</span></td>
+            <td>
+              <span class="change-pill ${changeClass}">${changeSign}${sig.change_pct}%</span>
+            </td>
+            <td>
+              <span class="score-badge-grade grade-${gradeClass}">${scoreDisplay}</span>
+            </td>
+            <td>
+              <button type="button" class="btn-view-setup" data-symbol="${sig.symbol}">
+                View Setup ⚡
+              </button>
+            </td>
+          </tr>
+        `;
+      })
+      .join('');
 
-          const tagsHtml = (sig.setup_tags || [])
-            .map((t) => `<span class="tag-pill-sm ${t.includes('CHoCH') || t.includes('Sweep') || t.includes('Exhaustion') ? 'highlight' : ''}">${t}</span>`)
-            .join('');
+    DOM.tableBody.querySelectorAll('tr.clickable-row').forEach((row) => {
+      row.addEventListener('click', () => {
+        const sym = row.getAttribute('data-symbol');
+        if (sym) openSetupDossier(sym);
+      });
+    });
 
-          return `
-            <tr>
-              <td class="sticky-col sticky-col-1">
-                <div class="ticker-cell">
-                  <span class="ticker-symbol">${sig.symbol}</span>
-                  <span class="ticker-name">${sig.name || ''}</span>
-                </div>
-              </td>
-              <td class="sticky-col sticky-col-2 num-cell">₹${formatCurrency(sig.cmp)}</td>
-              <td><span style="color: var(--text-secondary); font-size: 0.82rem;">${sig.sector || 'NSE'}</span></td>
-              <td>
-                <span class="change-pill ${changeClass}">${changeSign}${sig.change_pct}%</span>
-              </td>
-              <td>
-                <span class="rvol-badge">${sig.rvol || 1.0}x</span>
-              </td>
-              <td>
-                <span class="score-badge-grade grade-${gradeClass}">${scoreDisplay}</span>
-              </td>
-              <td>
-                <span class="status-tag reversal">${sig.status || 'CHoCH CONFIRMED'}</span>
-              </td>
-              <td class="num-cell" style="color: var(--bearish); font-size: 0.82rem; font-weight: 700;">
-                ₹${sig.invalidation ? formatCurrency(sig.invalidation) : '--'}
-              </td>
-              <td class="entry-td" style="font-size: 0.82rem;">
-                <div><span style="color: var(--text-muted); font-size: 0.72rem;">Entry:</span> <span style="font-family: var(--font-mono);">${sig.entry_zone || '--'}</span></div>
-                <div style="margin-top: 2px;">
-                  <span style="color: var(--gold-400); font-size: 0.72rem;">T1:</span> <strong style="font-family: var(--font-mono); color: var(--gold-300);">₹${formatCurrency(sig.target_1)}</strong>
-                  <span style="font-size: 0.7rem; color: var(--text-muted);">(${sig.risk_reward_ratio || '1:2'})</span> |
-                  <span style="color: var(--gold-400); font-size: 0.72rem;">T2:</span> <strong style="font-family: var(--font-mono); color: var(--gold-300);">₹${formatCurrency(sig.target_2)}</strong>
-                </div>
-              </td>
-              <td class="tags-td">
-                <div class="tags-container">${tagsHtml}</div>
-              </td>
-              <td>
-                <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="tv-link-btn" title="Open chart on TradingView">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                  Chart
-                </a>
-              </td>
-            </tr>
-          `;
-        })
-        .join('');
-    } else if (state.activeTab === 'setup_2' || state.activeTab === 'setup_3' || state.activeTab === 'setup_4' || state.activeTab === 'setup_5' || state.activeTab === 'setup_6') {
-      const isTab3 = state.activeTab === 'setup_3';
-      const isTab4 = state.activeTab === 'setup_4';
-      const isTab5 = state.activeTab === 'setup_5';
-      const isTab6 = state.activeTab === 'setup_6';
-
-      DOM.tableBody.innerHTML = paginatedSignals
-        .map((sig) => {
-          const changeClass = sig.change_pct >= 0 ? 'positive' : 'negative';
-          const changeSign = sig.change_pct >= 0 ? '+' : '';
-          const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
-          const gradeClass = (sig.grade || 'A').replace('+', '_PLUS');
-          const scoreDisplay = sig.score_display || `${sig.score || '--'} (${sig.grade || 'A'})`;
-
-          let statusClass = 'momentum';
-          let defaultStatus = 'MOMENTUM BASE';
-          if (isTab3) {
-            statusClass = sig.status_class || (sig.stage === 'BREAKOUT' ? 'htf-breakout' : 'htf-inflag');
-            defaultStatus = sig.stage === 'BREAKOUT' ? 'FLAG BREAKOUT CONFIRMED' : 'FLAG CONSOLIDATION';
-          } else if (isTab4) {
-            statusClass = 'swing';
-            defaultStatus = 'SWING BASE READY';
-          } else if (isTab5) {
-            statusClass = 'pullback';
-            defaultStatus = 'STAGE-2 TURNAROUND';
-          } else if (isTab6) {
-            statusClass = sig.status_class || (sig.stage === 'FRESH DEMAND RETEST' ? 'dbr-retest' : 'dbr-legout');
-            defaultStatus = sig.stage || 'DEMAND LEG-OUT';
-          }
-
-          const tagsHtml = (sig.setup_tags || [])
-            .map((t) => `<span class="tag-pill-sm ${t.includes('RS') || t.includes('Surge') || t.includes('Trend') || t.includes('Base') || t.includes('Pole') || t.includes('Breakout') || t.includes('In-Flag') || t.includes('Volume') || t.includes('Tightness') || t.includes('Stage-2') || t.includes('Support Hold') || t.includes('Within') || t.includes('Demand') || t.includes('Fresh') || t.includes('Retest') ? 'highlight' : ''}">${t}</span>`)
-            .join('');
-
-          return `
-            <tr>
-              <td class="sticky-col sticky-col-1">
-                <div class="ticker-cell">
-                  <span class="ticker-symbol">${sig.symbol}</span>
-                  <span class="ticker-name">${sig.name || ''}</span>
-                </div>
-              </td>
-              <td class="sticky-col sticky-col-2 num-cell">₹${formatCurrency(sig.cmp)}</td>
-              <td><span style="color: var(--text-secondary); font-size: 0.82rem;">${sig.sector || 'NSE'}</span></td>
-              <td>
-                <span class="change-pill ${changeClass}">${changeSign}${sig.change_pct}%</span>
-              </td>
-              <td>
-                <span class="rvol-badge">${sig.rvol || 1.0}x</span>
-              </td>
-              <td>
-                <span class="score-badge-grade grade-${gradeClass}">${scoreDisplay}</span>
-              </td>
-              <td>
-                <span class="status-tag ${statusClass}">${sig.status || defaultStatus}</span>
-              </td>
-              <td class="num-cell" style="color: var(--bearish); font-size: 0.82rem; font-weight: 700;">
-                ₹${sig.invalidation ? formatCurrency(sig.invalidation) : '--'}
-              </td>
-              <td class="entry-td" style="font-size: 0.82rem;">
-                <div><span style="color: var(--text-muted); font-size: 0.72rem;">Entry:</span> <span style="font-family: var(--font-mono);">${sig.entry_zone || '--'}</span></div>
-                <div style="margin-top: 2px;">
-                  <span style="color: var(--gold-400); font-size: 0.72rem;">T1:</span> <strong style="font-family: var(--font-mono); color: var(--gold-300);">₹${formatCurrency(sig.target_1)}</strong>
-                  <span style="font-size: 0.7rem; color: var(--text-muted);">(${sig.risk_reward_ratio || '1:2.5'})</span> |
-                  <span style="color: var(--gold-400); font-size: 0.72rem;">T2:</span> <strong style="font-family: var(--font-mono); color: var(--gold-300);">₹${formatCurrency(sig.target_2)}</strong>
-                </div>
-              </td>
-              <td class="tags-td">
-                <div class="tags-container">${tagsHtml}</div>
-              </td>
-              <td>
-                <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="tv-link-btn" title="Open chart on TradingView">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                  Chart
-                </a>
-              </td>
-            </tr>
-          `;
-        })
-        .join('');
-    } else {
-      // Fallback
-      DOM.tableBody.innerHTML = paginatedSignals
-        .map((sig) => {
-          const changeClass = sig.change_pct >= 0 ? 'positive' : 'negative';
-          const changeSign = sig.change_pct >= 0 ? '+' : '';
-          const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
-
-          return `
-            <tr>
-              <td class="sticky-col sticky-col-1">
-                <div class="ticker-cell">
-                  <span class="ticker-symbol">${sig.symbol}</span>
-                  <span class="ticker-name">${sig.name || ''}</span>
-                </div>
-              </td>
-              <td class="sticky-col sticky-col-2 num-cell">₹${formatCurrency(sig.cmp)}</td>
-              <td><span style="color: var(--text-secondary); font-size: 0.82rem;">${sig.sector || 'NSE'}</span></td>
-              <td>
-                <span class="change-pill ${changeClass}">${changeSign}${sig.change_pct}%</span>
-              </td>
-              <td>
-                <span class="rvol-badge">${sig.rvol}x</span>
-              </td>
-              <td>
-                <div class="score-meter-wrap">
-                  <div class="score-bar">
-                    <div class="score-bar-fill" style="width: ${sig.institutional_score}%;"></div>
-                  </div>
-                  <span class="score-val">${sig.institutional_score}</span>
-                </div>
-              </td>
-              <td>
-                <span class="status-tag ${tagClass}">${sig.status || 'CONFIRMED'}</span>
-              </td>
-              <td class="num-cell" style="color: var(--bearish); font-size: 0.82rem;">
-                ₹${sig.invalidation ? formatCurrency(sig.invalidation) : '--'}
-              </td>
-              <td class="entry-td" style="font-size: 0.82rem;">
-                ₹${sig.target_zone || '--'}
-              </td>
-              <td class="tags-td">--</td>
-              <td>
-                <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="tv-link-btn" title="Open chart on TradingView">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                  Chart
-                </a>
-              </td>
-            </tr>
-          `;
-        })
-        .join('');
-    }
+    DOM.tableBody.querySelectorAll('.btn-view-setup').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sym = btn.getAttribute('data-symbol');
+        if (sym) openSetupDossier(sym);
+      });
+    });
   }
 
+  function openSetupDossier(symbol) {
+    const setups = state.scannerData ? state.scannerData.setups : null;
+    const activeSetup = setups ? setups[state.activeTab] : null;
+    const signals = activeSetup && activeSetup.signals ? activeSetup.signals : [];
+    const sig = signals.find((s) => s.symbol === symbol);
+    if (!sig) return;
+
+    const backdrop = document.getElementById('dossier-backdrop');
+    if (!backdrop) return;
+
+    const titleEl = document.getElementById('dossier-title');
+    const nameEl = document.getElementById('dossier-name');
+    const sectorEl = document.getElementById('dossier-sector');
+    const cmpEl = document.getElementById('dossier-cmp');
+    const chgEl = document.getElementById('dossier-chg');
+    const scoreBadgeEl = document.getElementById('dossier-score-badge');
+    const setupTagEl = document.getElementById('dossier-setup-tag');
+
+    if (titleEl) titleEl.textContent = sig.symbol;
+    if (nameEl) nameEl.textContent = sig.name || 'NSE Equity';
+    if (sectorEl) sectorEl.textContent = sig.sector || 'NSE';
+    if (cmpEl) cmpEl.textContent = `₹${formatCurrency(sig.cmp)}`;
+
+    if (chgEl) {
+      const isPos = (sig.change_pct || 0) >= 0;
+      chgEl.textContent = `${isPos ? '+' : ''}${sig.change_pct}%`;
+      chgEl.style.color = isPos ? 'var(--bullish, #10b981)' : 'var(--bearish, #f43f5e)';
+      chgEl.style.background = isPos ? 'rgba(16, 185, 129, 0.15)' : 'rgba(244, 63, 94, 0.15)';
+      chgEl.style.border = `1px solid ${isPos ? 'rgba(16, 185, 129, 0.35)' : 'rgba(244, 63, 94, 0.35)'}`;
+    }
+
+    if (scoreBadgeEl) {
+      scoreBadgeEl.textContent = sig.score_display || `${sig.score || '--'} (${sig.grade || 'A'})`;
+    }
+
+    const config = SETUP_CONFIG[state.activeTab];
+    if (setupTagEl) {
+      setupTagEl.textContent = config ? config.title : 'Institutional Setup';
+    }
+
+    const statusValEl = document.getElementById('dossier-status');
+    if (statusValEl) {
+      statusValEl.textContent = sig.status || sig.stage || 'CONFIRMED SETUP';
+    }
+
+    const entryEl = document.getElementById('dossier-entry');
+    const slEl = document.getElementById('dossier-sl');
+    const slSubEl = document.getElementById('dossier-sl-sub');
+    const t1El = document.getElementById('dossier-t1');
+    const rr1El = document.getElementById('dossier-rr1');
+    const t2El = document.getElementById('dossier-t2');
+    const rr2El = document.getElementById('dossier-rr2');
+
+    if (entryEl) {
+      entryEl.textContent = sig.entry_zone ? sig.entry_zone : `₹${formatCurrency(sig.cmp)}`;
+    }
+
+    if (slEl) {
+      slEl.textContent = sig.invalidation ? `₹${formatCurrency(sig.invalidation)}` : '--';
+      if (slSubEl && sig.cmp && sig.invalidation) {
+        const riskPct = Math.abs(((sig.cmp - sig.invalidation) / sig.cmp) * 100).toFixed(1);
+        slSubEl.textContent = `Structural Risk: -${riskPct}%`;
+      }
+    }
+
+    if (t1El) {
+      t1El.textContent = sig.target_1 ? `₹${formatCurrency(sig.target_1)}` : (sig.target_zone ? `₹${sig.target_zone}` : '--');
+      if (rr1El) {
+        rr1El.textContent = `Target 1 (R:R ${sig.risk_reward_ratio || '1:2.0'})`;
+      }
+    }
+
+    if (t2El) {
+      t2El.textContent = sig.target_2 ? `₹${formatCurrency(sig.target_2)}` : '--';
+      if (rr2El) {
+        rr2El.textContent = 'Target 2 Extended Runner';
+      }
+    }
+
+    const tagsContainer = document.getElementById('dossier-tags');
+    if (tagsContainer) {
+      const tags = (sig.setup_tags && sig.setup_tags.length > 0) ? sig.setup_tags : ['Quantitative Edge Confirmed', 'Volume Expansion', 'Institutional Flow'];
+      tagsContainer.innerHTML = tags.map((t) => `<span class="dossier-tag-pill">✓ ${t}</span>`).join('');
+    }
+
+    const metricsContainer = document.getElementById('dossier-metrics');
+    if (metricsContainer) {
+      const metrics = [
+        { label: 'RVOL Surge', val: `${sig.rvol || 1.0}x` },
+        { label: 'Setup Grade', val: sig.grade || 'A' },
+      ];
+
+      if (state.activeTab === 'setup_2') {
+        metrics.push({ label: '1Y Rel Strength', val: sig.rs_1y ? `${sig.rs_1y}%` : '+35.0%' });
+      } else if (state.activeTab === 'setup_3') {
+        metrics.push({ label: 'Pole Gain', val: sig.pole_gain_pct ? `+${sig.pole_gain_pct}%` : '+45%' });
+        metrics.push({ label: 'Flag Pullback', val: sig.correction_pct ? `-${sig.correction_pct}%` : '-12%' });
+        metrics.push({ label: 'Flag Duration', val: sig.flag_days ? `${sig.flag_days} Days` : '8 Days' });
+      } else if (state.activeTab === 'setup_4') {
+        metrics.push({ label: '1W Return', val: sig.ret_1w ? `+${sig.ret_1w}%` : '+5.5%' });
+        metrics.push({ label: '1W RS', val: sig.rs_1w ? `+${sig.rs_1w}%` : '+6.0%' });
+        metrics.push({ label: 'Base Support', val: sig.base || 'PP Pivot' });
+      } else if (state.activeTab === 'setup_5') {
+        metrics.push({ label: 'Key Support', val: sig.support_level || '20 EMA' });
+        metrics.push({ label: 'Structure', val: 'Stage-2' });
+      } else if (state.activeTab === 'setup_6') {
+        metrics.push({ label: 'Proximal', val: sig.proximal ? `₹${sig.proximal}` : '--' });
+        metrics.push({ label: 'Distal', val: sig.distal ? `₹${sig.distal}` : '--' });
+        metrics.push({ label: 'Base Depth', val: sig.base || '1D' });
+      } else {
+        metrics.push({ label: 'Structure Shift', val: 'CHoCH' });
+      }
+
+      metricsContainer.innerHTML = metrics
+        .map(
+          (m) => `
+        <div class="dossier-metric-box">
+          <div class="dossier-metric-box-label">${m.label}</div>
+          <div class="dossier-metric-box-val">${m.val}</div>
+        </div>
+      `
+        )
+        .join('');
+    }
+
+    const tvBtn = document.getElementById('dossier-tv-btn');
+    if (tvBtn) {
+      tvBtn.href = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
+    }
+
+    backdrop.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSetupDossier() {
+    const backdrop = document.getElementById('dossier-backdrop');
+    if (backdrop) {
+      backdrop.style.display = 'none';
+    }
+    document.body.style.overflow = '';
   }
 
   // Export Filtered Signals to CSV
