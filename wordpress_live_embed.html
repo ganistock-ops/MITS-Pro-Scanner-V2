@@ -494,26 +494,39 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 }
 
 #mits-pro-embed-root .wp-pro-table {
-  min-width: 1100px !important;
+  table-layout: fixed !important;
   width: 100% !important;
-  border-collapse: separate !important;
-  border-spacing: 0 !important;
+  min-width: 1100px !important;
+  border-collapse: collapse !important;
   font-size: 0.85rem !important;
   text-align: left !important;
 }
 
+#mits-pro-embed-root .wp-pro-table thead {
+  background: #0a0f1d !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+}
+
 #mits-pro-embed-root .wp-pro-table th {
-  background: #101726 !important;
-  padding: 0.85rem 1rem !important;
-  font-size: 0.72rem !important;
-  font-weight: 700 !important;
+  background: #0a0f1d !important;
+  padding: 12px 16px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.06em !important;
-  color: #64748b !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  letter-spacing: 0.5px !important;
+  color: #8B949E !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
   white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
   position: relative !important;
   user-select: none !important;
+  box-sizing: border-box !important;
 }
 
 #mits-pro-embed-root .wp-pro-table th.wp-sortable {
@@ -522,8 +535,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 }
 
 #mits-pro-embed-root .wp-pro-table th.wp-sortable:hover {
-  color: #fbbf24 !important;
-  background-color: rgba(245, 158, 11, 0.05) !important;
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.02) !important;
 }
 
 #mits-pro-embed-root .wp-pro-table th.wp-sortable.active-sort {
@@ -534,16 +547,16 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 #mits-pro-embed-root .wp-sort-icon {
   display: inline-block !important;
   margin-left: 5px !important;
-  font-size: 0.74rem !important;
+  font-size: 11px !important;
   color: #64748b !important;
-  opacity: 0.5 !important;
+  opacity: 0.6 !important;
   transition: color 0.15s ease, opacity 0.15s ease !important;
   vertical-align: middle !important;
 }
 
 #mits-pro-embed-root .wp-pro-table th.wp-sortable:hover .wp-sort-icon {
-  opacity: 0.85 !important;
-  color: #fbbf24 !important;
+  opacity: 0.9 !important;
+  color: #ffffff !important;
 }
 
 #mits-pro-embed-root .wp-sort-icon.active {
@@ -572,7 +585,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   bottom: 20% !important;
   right: 4px !important;
   width: 2px !important;
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: transparent !important;
   border-radius: 1px !important;
   transition: background 0.15s ease, box-shadow 0.15s ease !important;
 }
@@ -584,16 +597,39 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 }
 
 #mits-pro-embed-root .wp-pro-table td {
-  padding: 0.85rem 1rem !important;
+  padding: 12px 16px !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
   color: #f8fafc !important;
   white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
   vertical-align: middle !important;
+  box-sizing: border-box !important;
+}
+
+#mits-pro-embed-root .wp-pro-table tbody tr {
+  transition: background 0.15s ease !important;
 }
 
 #mits-pro-embed-root .wp-pro-table tbody tr:hover {
-  background-color: rgba(245, 158, 11, 0.04) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
 }
+
+/* Column Width Proportions & Alignments in WP Embed */
+#mits-pro-embed-root .wp-pro-table th:nth-child(1), #mits-pro-embed-root .wp-pro-table td:nth-child(1) { width: 15% !important; text-align: left !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(2), #mits-pro-embed-root .wp-pro-table td:nth-child(2) { width: 9% !important; text-align: right !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(3), #mits-pro-embed-root .wp-pro-table td:nth-child(3) { width: 11% !important; text-align: left !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(4), #mits-pro-embed-root .wp-pro-table td:nth-child(4) { width: 8% !important; text-align: center !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(5), #mits-pro-embed-root .wp-pro-table td:nth-child(5) { width: 7% !important; text-align: center !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(6), #mits-pro-embed-root .wp-pro-table td:nth-child(6) { width: 9% !important; text-align: center !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(7), #mits-pro-embed-root .wp-pro-table td:nth-child(7) { width: 11% !important; text-align: center !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(8), #mits-pro-embed-root .wp-pro-table td:nth-child(8) { width: 8% !important; text-align: right !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(9), #mits-pro-embed-root .wp-pro-table td:nth-child(9) { width: 10% !important; text-align: center !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(10), #mits-pro-embed-root .wp-pro-table td:nth-child(10) { width: 7% !important; text-align: center !important; }
+#mits-pro-embed-root .wp-pro-table th:nth-child(11), #mits-pro-embed-root .wp-pro-table td:nth-child(11) { width: 5% !important; text-align: center !important; }
 
 /* Sticky columns (Symbol & CMP) on mobile & desktop */
 :root {
@@ -635,22 +671,25 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   right: 0 !important;
   top: 0 !important;
   bottom: 0 !important;
-  width: 2px !important;
-  background: rgba(245, 158, 11, 0.25) !important;
-  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.5) !important;
+  width: 1px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+#mits-pro-embed-root .wp-pro-table tbody tr:hover td.wp-sticky-col {
+  background-color: #121927 !important;
 }
 
 /* Compact Entry and Evidence columns */
 #mits-pro-embed-root .wp-pro-table th.wp-entry-th,
 #mits-pro-embed-root .wp-pro-table td.wp-entry-td {
-  padding: 0.75rem 0.55rem !important;
+  padding: 12px 14px !important;
   font-size: 0.78rem !important;
 }
 
 #mits-pro-embed-root .wp-pro-table th.wp-tags-th,
 #mits-pro-embed-root .wp-pro-table td.wp-tags-td {
-  padding: 0.75rem 0.55rem !important;
-  white-space: normal !important;
+  padding: 12px 14px !important;
   max-width: 210px !important;
 }
 
