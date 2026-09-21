@@ -732,9 +732,13 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
   z-index: 99999 !important;
-  display: flex !important;
+  display: none !important;
   justify-content: flex-end !important;
   transition: opacity 0.25s ease !important;
+}
+
+#mits-pro-embed-root .wp-dossier-backdrop.is-open {
+  display: flex !important;
 }
 
 #mits-pro-embed-root .wp-dossier-drawer {
@@ -6370,6 +6374,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       tvBtn.href = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
     }
 
+    backdrop.classList.add('is-open');
     backdrop.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
@@ -6377,6 +6382,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   function closeWpSetupDossier() {
     const backdrop = document.getElementById('wp-dossier-backdrop');
     if (backdrop) {
+      backdrop.classList.remove('is-open');
       backdrop.style.display = 'none';
     }
     document.body.style.overflow = '';

@@ -5304,6 +5304,7 @@
       tvBtn.href = `https://in.tradingview.com/chart/?symbol=NSE:${sig.symbol}`;
     }
 
+    backdrop.classList.add('is-open');
     backdrop.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
@@ -5311,6 +5312,7 @@
   function closeSetupDossier() {
     const backdrop = document.getElementById('dossier-backdrop');
     if (backdrop) {
+      backdrop.classList.remove('is-open');
       backdrop.style.display = 'none';
     }
     document.body.style.overflow = '';

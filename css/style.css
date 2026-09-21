@@ -1180,9 +1180,13 @@ body.resizing-active {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 99999;
-  display: flex;
+  display: none;
   justify-content: flex-end;
   transition: opacity 0.25s ease;
+}
+
+.dossier-backdrop.is-open {
+  display: flex;
 }
 
 .dossier-drawer {
