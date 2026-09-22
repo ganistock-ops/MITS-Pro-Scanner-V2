@@ -2,45 +2,7 @@
   "setup_id": "tab1_bottom_reversal",
   "title": "\u26a1 Setup 1: Bottom Reversal Pro",
   "subtitle": "Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.",
-  "last_updated": "2026-09-21T22:05:05.666221+05:30",
-  "qualifying_count": 1,
-  "signals": [
-    {
-      "symbol": "CIEINDIA",
-      "name": "CIE Automotive India Ltd.",
-      "sector": "Automobile and Auto Components",
-      "cmp": 395.15,
-      "change_pct": 2.07,
-      "score": 80,
-      "grade": "A",
-      "score_display": "80 (A)",
-      "institutional_score": 80,
-      "invalidation": 362.72,
-      "entry_zone": "\u20b9391.5 - \u20b9395.42",
-      "target_1": 460.01,
-      "target_2": 481.0,
-      "target_zone": "460.01 - 481.0",
-      "risk_reward_ratio": "1:2.0",
-      "rvol": 1.66,
-      "setup_tags": [
-        "Established Decline",
-        "Accumulation Base",
-        "Liquidity Sweep",
-        "Prominent Lower Wick",
-        "CHoCH Confirmed",
-        "Volume Absorption",
-        "R:R 2.0:1"
-      ],
-      "status": "CHoCH CONFIRMED",
-      "timestamp": "2026-09-21",
-      "score_breakdown": {
-        "exhaustion": 10.0,
-        "base": 10.0,
-        "sweep": 20.0,
-        "structure": 20.0,
-        "volume": 15.0,
-        "regime_and_rr": 5.0
-      }
-    }
-  ]
+  "last_updated": "2026-09-22T18:06:47.505566+05:30",
+  "qualifying_count": 0,
+  "signals": []
 }
