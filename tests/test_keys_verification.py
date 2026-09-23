@@ -30,22 +30,22 @@ with open(BASE_DIR / "data" / "scanner_results.json", encoding="utf-8") as f:
     sr = json.load(f)
 
 print(f"Tab 1 signals count: {len(t1['signals'])}")
-assert len(t1["signals"]) >= 1, "Expected at least 1 signal in tab1_bottom_reversal.json"
+assert isinstance(t1.get("signals"), list), "Expected signals list in tab1_bottom_reversal.json"
 
 print(f"Tab 2 signals count: {len(t2['signals'])}")
-assert len(t2["signals"]) >= 1, "Expected at least 1 signal in tab2_alpha_momentum.json"
+assert isinstance(t2.get("signals"), list), "Expected signals list in tab2_alpha_momentum.json"
 
 print(f"Tab 3 signals count: {len(t3['signals'])}")
-assert len(t3["signals"]) >= 1, "Expected at least 1 signal in tab3_htf.json"
+assert isinstance(t3.get("signals"), list), "Expected signals list in tab3_htf.json"
 
 print(f"Tab 4 signals count: {len(t4['signals'])}")
-assert len(t4["signals"]) >= 1, "Expected at least 1 signal in tab4_weekly_swing.json"
+assert isinstance(t4.get("signals"), list), "Expected signals list in tab4_weekly_swing.json"
 
 print(f"Tab 5 signals count: {len(t5['signals'])}")
-assert len(t5["signals"]) >= 1, "Expected at least 1 signal in tab5_stage2_pullback.json"
+assert isinstance(t5.get("signals"), list), "Expected signals list in tab5_stage2_pullback.json"
 
 print(f"Tab 6 signals count: {len(t6['signals'])}")
-assert len(t6["signals"]) >= 1, "Expected at least 1 signal in tab6_dbr.json"
+assert isinstance(t6.get("signals"), list), "Expected signals list in tab6_dbr.json"
 
 required_keys = [
     "symbol", "name", "sector", "cmp", "change_pct", "score", "grade",

@@ -2,7 +2,7 @@
   "setup_id": "tab2_alpha_momentum",
   "title": "\u26a1 Setup 2: Alpha Momentum",
   "subtitle": "Nifty 500 multi-timeframe relative strength outperformance, volume expansion, and 10-60D base recovery.",
-  "last_updated": "2026-09-23T20:40:59.877751+05:30",
+  "last_updated": "2026-09-23T22:05:57.643015+05:30",
   "qualifying_count": 6,
   "signals": [
     {
@@ -198,7 +198,7 @@
       "target_2": 2047.45,
       "target_zone": "1,856.75 - 2,047.45",
       "risk_reward_ratio": "1:2.5",
-      "rvol": 1.42,
+      "rvol": 1.43,
       "setup_tags": [
         "Bullish Trend Stack",
         "Momentum Base",

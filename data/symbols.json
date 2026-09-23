@@ -1425,11 +1425,11 @@
       "yfinance": "HDFCLIFE.NS"
     },
     {
-      "symbol": "HEG",
-      "name": "HEG Ltd.",
+      "symbol": "HEGAM",
+      "name": "HEG Advanced Materials Ltd.",
       "sector": "Capital Goods",
       "exchange": "NSE",
-      "yfinance": "HEG.NS"
+      "yfinance": "HEGAM.NS"
     },
     {
       "symbol": "HFCL",

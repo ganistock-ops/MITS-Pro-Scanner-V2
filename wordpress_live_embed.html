@@ -5455,7 +5455,10 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   function ensureWpBaselineSignals() {
     if (!WP_STATE.scannerData) WP_STATE.scannerData = { setups: {} };
     if (!WP_STATE.scannerData.setups) WP_STATE.scannerData.setups = {};
-    if (!WP_STATE.scannerData.setups.setup_1 || !WP_STATE.scannerData.setups.setup_1.signals || !WP_STATE.scannerData.setups.setup_1.signals.length) {
+
+    const needsBaseline = (id) => !WP_STATE.scannerData.setups[id] || !Array.isArray(WP_STATE.scannerData.setups[id].signals);
+
+    if (needsBaseline('setup_1')) {
       WP_STATE.scannerData.setups.setup_1 = {
         id: 'setup_1',
         title: '⚡ Setup 1: Bottom Reversal Pro',
@@ -5464,7 +5467,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         signals: [...DEFAULT_WP_TAB1_SIGNALS]
       };
     }
-    if (!WP_STATE.scannerData.setups.setup_2 || !WP_STATE.scannerData.setups.setup_2.signals || !WP_STATE.scannerData.setups.setup_2.signals.length) {
+    if (needsBaseline('setup_2')) {
       WP_STATE.scannerData.setups.setup_2 = {
         id: 'setup_2',
         title: '⚡ Setup 2: Alpha Momentum',
@@ -5473,7 +5476,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         signals: [...DEFAULT_WP_TAB2_SIGNALS]
       };
     }
-    if (!WP_STATE.scannerData.setups.setup_3 || !WP_STATE.scannerData.setups.setup_3.signals || !WP_STATE.scannerData.setups.setup_3.signals.length) {
+    if (needsBaseline('setup_3')) {
       WP_STATE.scannerData.setups.setup_3 = {
         id: 'setup_3',
         title: '🚩 Setup 3: High Tight Flag (HTF)',
@@ -5482,7 +5485,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         signals: [...DEFAULT_WP_TAB3_SIGNALS]
       };
     }
-    if (!WP_STATE.scannerData.setups.setup_4 || !WP_STATE.scannerData.setups.setup_4.signals || !WP_STATE.scannerData.setups.setup_4.signals.length) {
+    if (needsBaseline('setup_4')) {
       WP_STATE.scannerData.setups.setup_4 = {
         id: 'setup_4',
         title: '📈 Setup 4: Weekly Swing',
@@ -5491,7 +5494,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         signals: [...DEFAULT_WP_TAB4_SIGNALS]
       };
     }
-    if (!WP_STATE.scannerData.setups.setup_5 || !WP_STATE.scannerData.setups.setup_5.signals || !WP_STATE.scannerData.setups.setup_5.signals.length) {
+    if (needsBaseline('setup_5')) {
       WP_STATE.scannerData.setups.setup_5 = {
         id: 'setup_5',
         title: '🎯 Setup 5: Stage-2 Pullback',
@@ -5500,7 +5503,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         signals: [...DEFAULT_WP_TAB5_SIGNALS]
       };
     }
-    if (!WP_STATE.scannerData.setups.setup_6 || !WP_STATE.scannerData.setups.setup_6.signals || !WP_STATE.scannerData.setups.setup_6.signals.length) {
+    if (needsBaseline('setup_6')) {
       WP_STATE.scannerData.setups.setup_6 = {
         id: 'setup_6',
         title: '📦 Setup 6: DBR Demand Zone',
