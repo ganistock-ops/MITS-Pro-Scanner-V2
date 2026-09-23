@@ -5855,15 +5855,62 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     }
   }
 
+  function formatSyncBadgeDateTime(scanTs, tradeDate) {
+    if (!scanTs && !tradeDate) return '';
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let datePart = '';
+    let timePart = '';
+
+    // 1. Format Trade Date (DD-MMM-YYYY)
+    if (tradeDate && typeof tradeDate === 'string' && /^\d{4}-\d{2}-\d{2}/.test(tradeDate)) {
+      const parts = tradeDate.slice(0, 10).split('-');
+      const mIdx = parseInt(parts[1], 10) - 1;
+      if (mIdx >= 0 && mIdx < 12) {
+        datePart = `${parts[2].padStart(2, '0')}-${months[mIdx]}-${parts[0]}`;
+      }
+    }
+
+    // 2. Format Time (HH:MM AM/PM) & Date fallback from scanTs
+    if (scanTs) {
+      const normalizedTs = typeof scanTs === 'string' ? scanTs.replace(' ', 'T') : scanTs;
+      const dt = new Date(normalizedTs);
+      if (!isNaN(dt.getTime())) {
+        if (!datePart) {
+          const d = String(dt.getDate()).padStart(2, '0');
+          const m = months[dt.getMonth()];
+          const y = dt.getFullYear();
+          datePart = `${d}-${m}-${y}`;
+        }
+        let hours = dt.getHours();
+        const mins = String(dt.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        const hh = String(hours).padStart(2, '0');
+        timePart = `${hh}:${mins} ${ampm}`;
+      }
+    }
+
+    if (datePart && timePart) return `${datePart} | ${timePart}`;
+    return datePart || timePart || (typeof scanTs === 'string' ? scanTs : '');
+  }
+
+  function updateWpSyncBadge() {
+    const syncEl = document.getElementById('wp-last-sync');
+    if (!syncEl) return;
+    const s = WP_STATE.marketSummary;
+    const sc = WP_STATE.scannerData;
+    const scanTs = (s && s.scan_timestamp) || (sc && sc.last_updated);
+    const tradeDate = (s && s.last_session_date) || (sc && sc.last_session_date);
+    if (scanTs || tradeDate) {
+      const formatted = formatSyncBadgeDateTime(scanTs, tradeDate);
+      if (formatted) syncEl.textContent = formatted;
+    }
+  }
+
   function renderWpKPIs() {
+    updateWpSyncBadge();
     const s = WP_STATE.marketSummary;
     if (!s) return;
-
-    const syncEl = document.getElementById('wp-last-sync');
-    if (syncEl && s.scan_timestamp) {
-      const dt = new Date(s.scan_timestamp);
-      syncEl.textContent = isNaN(dt) ? s.scan_timestamp : dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
 
     const b = s.market_breadth || {};
     const advEl = document.getElementById('wp-kpi-adv');
