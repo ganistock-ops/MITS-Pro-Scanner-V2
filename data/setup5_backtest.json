@@ -1,0 +1,14 @@
+{
+  "setup_id": "setup_5",
+  "setup_title": "Setup 5: Stage-2 Pullback",
+  "evaluation_window": "90 Calendar Days (~63 Trading Candles)",
+  "win_rate": 63.1,
+  "avg_peak_return": 14.5,
+  "avg_days_to_peak": 23.8,
+  "total_samples": 1567,
+  "winning_samples": 989,
+  "entry_condition": "Price touched midpoint of Safe Entry Zone ((Safe_Low + Safe_High) / 2)",
+  "target_condition": "Hit Target 1 or >= +8.0% return within 90 calendar days",
+  "backtest_timestamp": "2026-09-28T20:38:56.288582",
+  "status": "VERIFIED_LOCAL_CACHE"
+}

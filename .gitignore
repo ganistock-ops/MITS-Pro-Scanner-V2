@@ -49,3 +49,5 @@ scratch/
 tmp/
 temp/
 data/bhavcopy_cache/
+cache/
+*.parquet
