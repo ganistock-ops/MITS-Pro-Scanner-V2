@@ -139,6 +139,32 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.
       </div>
 
+      <!-- Setup 1: Verified 3-Month Forward Performance Banner -->
+      <div id="wp-setup1-perf-banner" class="wp-setup1-perf-banner" style="display: flex;">
+        <div class="wp-perf-banner-title wp-perf-title-blue">
+          <span class="wp-perf-icon">📊</span>
+          <span>3-MONTH FORWARD PERFORMANCE (SETUP 1 VERIFIED)</span>
+        </div>
+        <div class="wp-perf-pills">
+          <div class="wp-perf-pill">
+            <span class="wp-perf-pill-label">Win Rate:</span>
+            <strong class="wp-perf-pill-val val-green" id="wp-perf1-banner-win">51.1%</strong>
+          </div>
+          <div class="wp-perf-pill">
+            <span class="wp-perf-pill-label">Avg 3M Peak Gain:</span>
+            <strong class="wp-perf-pill-val val-cyan" id="wp-perf1-banner-gain">+10.7%</strong>
+          </div>
+          <div class="wp-perf-pill">
+            <span class="wp-perf-pill-label">Avg Days to Peak:</span>
+            <strong class="wp-perf-pill-val val-amber" id="wp-perf1-banner-days">22.8 Days</strong>
+          </div>
+          <div class="wp-perf-pill">
+            <span class="wp-perf-pill-label">Signals Tested:</span>
+            <strong class="wp-perf-pill-val val-purple" id="wp-perf1-banner-samples">374 Reversal Setups</strong>
+          </div>
+        </div>
+      </div>
+
       <!-- Setup 5: Verified 3-Month Forward Performance Banner -->
       <div id="wp-setup5-perf-banner" class="wp-setup5-perf-banner" style="display: none;">
         <div class="wp-perf-banner-title">
@@ -1542,6 +1568,27 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
 #mits-pro-embed-root .wp-perf-title-purple {
   color: #c084fc !important;
+}
+
+/* Setup 1: Verified 3-Month Forward Performance Glassmorphic Banner */
+#mits-pro-embed-root .wp-setup1-perf-banner {
+  border: 1px solid rgba(59, 130, 246, 0.35) !important;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.09) 0%, rgba(29, 78, 216, 0.28) 50%, rgba(15, 23, 42, 0.65) 100%) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  margin-top: 10px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(59, 130, 246, 0.06) !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  animation: wpPerfFadeIn 0.3s ease-out !important;
+}
+
+#mits-pro-embed-root .wp-perf-title-blue {
+  color: #60a5fa !important;
 }
 
 #mits-pro-embed-root .wp-dossier-tags {
@@ -6109,10 +6156,21 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           const descEl = document.getElementById('wp-active-setup-desc');
           if (descEl) descEl.textContent = SETUPS_DESC[tab] || '';
 
+          const perfBanner1 = document.getElementById('wp-setup1-perf-banner');
           const perfBanner2 = document.getElementById('wp-setup2-perf-banner');
           const perfBanner4 = document.getElementById('wp-setup4-perf-banner');
           const perfBanner5 = document.getElementById('wp-setup5-perf-banner');
           const perfBanner6 = document.getElementById('wp-setup6-perf-banner');
+
+          if (perfBanner1) {
+            if (tab === 'setup_1') {
+              perfBanner1.style.setProperty('display', 'flex', 'important');
+              perfBanner1.style.display = 'flex';
+            } else {
+              perfBanner1.style.setProperty('display', 'none', 'important');
+              perfBanner1.style.display = 'none';
+            }
+          }
 
           if (perfBanner2) {
             if (tab === 'setup_2') {
@@ -6343,7 +6401,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   async function fetchFreshWpData(force) {
     try {
       const ts = Date.now();
-      const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2, resBacktest4, resBacktest6] = await Promise.allSettled([
+      const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2, resBacktest4, resBacktest6, resBacktest1] = await Promise.allSettled([
         fetch(MITS_PRO_REMOTE_BASE + 'scanner_results.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'market_summary.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'tab1_bottom_reversal.json?t=' + ts),
@@ -6355,7 +6413,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         fetch(MITS_PRO_REMOTE_BASE + 'setup5_backtest.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'setup2_backtest.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'setup4_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup6_backtest.json?t=' + ts)
+        fetch(MITS_PRO_REMOTE_BASE + 'setup6_backtest.json?t=' + ts),
+        fetch(MITS_PRO_REMOTE_BASE + 'setup1_backtest.json?t=' + ts)
       ]);
 
 
@@ -6565,6 +6624,29 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           }
         } catch (e) {
           console.warn('[MITS WP] Could not parse setup6_backtest.json:', e);
+        }
+      }
+
+      if (resBacktest1 && resBacktest1.status === 'fulfilled' && resBacktest1.value.ok) {
+        try {
+          const bt1 = await resBacktest1.value.json();
+          if (bt1) {
+            const winStr = `${bt1.win_rate}%`;
+            const gainStr = `+${bt1.avg_peak_return}%`;
+            const daysStr = `${bt1.avg_days_to_peak} Days`;
+            const samplesStr = `${Number(bt1.total_samples).toLocaleString('en-IN')} Reversal Setups`;
+
+            const bWin = document.getElementById('wp-perf1-banner-win');
+            const bGain = document.getElementById('wp-perf1-banner-gain');
+            const bDays = document.getElementById('wp-perf1-banner-days');
+            const bSamp = document.getElementById('wp-perf1-banner-samples');
+            if (bWin) bWin.textContent = winStr;
+            if (bGain) bGain.textContent = gainStr;
+            if (bDays) bDays.textContent = daysStr;
+            if (bSamp) bSamp.textContent = samplesStr;
+          }
+        } catch (e) {
+          console.warn('[MITS WP] Could not parse setup1_backtest.json:', e);
         }
       }
 
@@ -6835,10 +6917,21 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     const thead = document.querySelector('#mits-pro-embed-root .wp-pro-table thead');
     if (!tbody) return;
 
+    const perfBanner1 = document.getElementById('wp-setup1-perf-banner');
     const perfBanner2 = document.getElementById('wp-setup2-perf-banner');
     const perfBanner4 = document.getElementById('wp-setup4-perf-banner');
     const perfBanner5 = document.getElementById('wp-setup5-perf-banner');
     const perfBanner6 = document.getElementById('wp-setup6-perf-banner');
+
+    if (perfBanner1) {
+      if (WP_STATE.activeTab === 'setup_1') {
+        perfBanner1.style.setProperty('display', 'flex', 'important');
+        perfBanner1.style.display = 'flex';
+      } else {
+        perfBanner1.style.setProperty('display', 'none', 'important');
+        perfBanner1.style.display = 'none';
+      }
+    }
 
     if (perfBanner2) {
       if (WP_STATE.activeTab === 'setup_2') {
