@@ -1204,7 +1204,6 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   padding: 10px 14px !important;
   margin-top: 10px !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(16, 185, 129, 0.06) !important;
-  display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   flex-wrap: wrap !important;
@@ -5929,7 +5928,13 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
           const perfBanner = document.getElementById('wp-setup5-perf-banner');
           if (perfBanner) {
-            perfBanner.style.display = (tab === 'setup_5') ? 'flex' : 'none';
+            if (tab === 'setup_5') {
+              perfBanner.style.setProperty('display', 'flex', 'important');
+              perfBanner.style.display = 'flex';
+            } else {
+              perfBanner.style.setProperty('display', 'none', 'important');
+              perfBanner.style.display = 'none';
+            }
           }
 
           populateWpSectors();
@@ -6531,6 +6536,17 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     const tbody = document.getElementById('wp-table-body');
     const thead = document.querySelector('#mits-pro-embed-root .wp-pro-table thead');
     if (!tbody) return;
+
+    const perfBanner = document.getElementById('wp-setup5-perf-banner');
+    if (perfBanner) {
+      if (WP_STATE.activeTab === 'setup_5') {
+        perfBanner.style.setProperty('display', 'flex', 'important');
+        perfBanner.style.display = 'flex';
+      } else {
+        perfBanner.style.setProperty('display', 'none', 'important');
+        perfBanner.style.display = 'none';
+      }
+    }
 
     if (thead) {
       const getArrow = (col) => WP_STATE.sortColumn === col ? (WP_STATE.sortDirection === 'desc' ? '<span class="wp-sort-icon active">▼</span>' : '<span class="wp-sort-icon active">▲</span>') : '<span class="wp-sort-icon">↕</span>';
