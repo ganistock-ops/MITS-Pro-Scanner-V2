@@ -45,6 +45,12 @@ from tab3_htf import HighTightFlagEngine
 from tab4_weekly_swing import WeeklySwingEngine
 from tab5_stage2_pullback import Stage2PullbackEngine
 from tab6_dbr import DBRDemandZoneEngine
+from smart_money_radar import (
+    fetch_nse_bhavcopy_series,
+    enrich_signal_with_smart_money,
+    check_price_consolidation_or_pullback,
+    BHAVCOPY_CACHE_DIR
+)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("PipelineRunner")
@@ -66,53 +72,8 @@ def fetch_latest_nse_bhavcopy(days: int = 5) -> Tuple[Optional[datetime.date], D
     Downloads the official NSE Security-wise Delivery Bhavcopy CSV for the latest available trading day.
     Guarantees official unadjusted Open, High, Low, Close, Volume, and Delivery metrics for all EQ stocks.
     """
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-    }
-    ist_now = get_ist_now()
-    d = ist_now.date()
-    bhav_map = {}
-
-    for _ in range(days):
-        if d.weekday() < 5:  # Weekdays only (Mon-Fri)
-            ds = d.strftime("%d%m%Y")
-            url = f"https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_{ds}.csv"
-            try:
-                r = requests.get(url, headers=headers, timeout=10)
-                if r.status_code == 200 and len(r.text) > 5000:
-                    df = pd.read_csv(io.StringIO(r.text))
-                    df.columns = [c.strip() for c in df.columns]
-                    if "SERIES" in df.columns:
-                        df["SERIES"] = df["SERIES"].astype(str).str.strip()
-                        df = df[df["SERIES"] == "EQ"]
-
-                    df["SYMBOL"] = df["SYMBOL"].astype(str).str.strip()
-                    for _, row in df.iterrows():
-                        sym = row["SYMBOL"]
-                        try:
-                            bhav_map[sym] = {
-                                "open": float(row.get("OPEN_PRICE", 0.0)),
-                                "high": float(row.get("HIGH_PRICE", 0.0)),
-                                "low": float(row.get("LOW_PRICE", 0.0)),
-                                "close": float(row.get("CLOSE_PRICE", 0.0)),
-                                "prev_close": float(row.get("PREV_CLOSE", 0.0)),
-                                "volume": float(row.get("TTL_TRD_QNTY", 0.0)),
-                                "deliv_qty": float(row.get("DELIV_QTY", 0.0)) if pd.notna(row.get("DELIV_QTY")) else 0.0,
-                                "deliv_per": float(row.get("DELIV_PER", 0.0)) if pd.notna(row.get("DELIV_PER")) else 0.0,
-                                "date": d
-                            }
-                        except (ValueError, TypeError):
-                            continue
-
-                    logger.info(f"Successfully loaded official NSE Bhavcopy for {d.strftime('%Y-%m-%d')} ({len(bhav_map)} EQ equities).")
-                    return d, bhav_map
-            except Exception as e:
-                logger.warning(f"Could not download NSE Bhavcopy for {d}: {e}")
-        d -= timedelta(days=1)
-
-    logger.warning("Could not download recent NSE Bhavcopy; proceeding with pure market feeds.")
-    return None, bhav_map
+    latest_date, latest_bhav_map, _ = fetch_nse_bhavcopy_series(target_days=1, max_lookback_days=days)
+    return latest_date, latest_bhav_map
 
 def fetch_benchmark_data(bhav_date: Optional[datetime.date]) -> Tuple[Optional[pd.DataFrame], float, float, float, bool]:
     """
@@ -160,8 +121,8 @@ def run_pipeline():
     symbols = load_symbols()
     logger.info(f"Loaded {len(symbols)} symbols from universe ({SYMBOLS_FILE}).")
 
-    # Step 1: Download official NSE Bhavcopy for today's trade date
-    bhav_date, bhav_map = fetch_latest_nse_bhavcopy(days=5)
+    # Step 1: Download official NSE Bhavcopy series and 10-day delivery radar
+    bhav_date, bhav_map, delivery_analytics_map = fetch_nse_bhavcopy_series(target_days=10, max_lookback_days=25)
 
     # Step 2: Market Benchmark Check (NIFTY 50 above 20 EMA & 1Y series)
     n_df, cmp_n, chg_n, chg_pct_n, nifty_above_ema20 = fetch_benchmark_data(bhav_date)
@@ -299,8 +260,16 @@ def run_pipeline():
                 df.loc[df.index[-1], "Close"] = bhav_info["close"]
                 df.loc[df.index[-1], "Volume"] = bhav_info["volume"]
 
-            item["delivery_pct"] = bhav_info.get("deliv_per", 0.0)
-            item["delivery_qty"] = bhav_info.get("deliv_qty", 0.0)
+            deliv_data = delivery_analytics_map.get(sym)
+            if deliv_data:
+                item["delivery_pct"] = deliv_data.get("delivery_pct", 0.0)
+                item["delivery_qty"] = deliv_data.get("delivery_qty", 0.0)
+                item["avg_deliv_10d"] = deliv_data.get("avg_deliv_10d", 0.0)
+                item["avg_deliv_vol_10d"] = deliv_data.get("avg_deliv_vol_10d", 0.0)
+                item["delivery_spike_pct"] = deliv_data.get("delivery_spike_pct", 0.0)
+            else:
+                item["delivery_pct"] = bhav_info.get("deliv_per", 0.0)
+                item["delivery_qty"] = bhav_info.get("deliv_qty", 0.0)
 
         success_count += 1
 
@@ -320,36 +289,44 @@ def run_pipeline():
         if abs(chg) >= 2.0 or features.get("rvol", 1.0) >= 2.0:
             momentum_count += 1
 
+        deliv_meta = delivery_analytics_map.get(sym)
+
         # Tab 1: Bottom Reversal Pro evaluation (Zero Look-Ahead EOD)
         b_sig = bottom_engine.evaluate(item, df, nifty_above_ema20=nifty_above_ema20)
         if b_sig:
+            enrich_signal_with_smart_money(b_sig, deliv_meta)
             results_by_setup["setup_1"].append(b_sig)
 
         # Tab 2: Alpha Momentum evaluation (Multi-Timeframe RS vs NIFTY 50)
         if n_df is not None and not n_df.empty:
             alpha_sig = alpha_engine.evaluate(item, df, n_df)
             if alpha_sig:
+                enrich_signal_with_smart_money(alpha_sig, deliv_meta)
                 results_by_setup["setup_2"].append(alpha_sig)
 
         # Tab 3: High Tight Flag (HTF) evaluation
         htf_sig = htf_engine.evaluate(item, df)
         if htf_sig:
+            enrich_signal_with_smart_money(htf_sig, deliv_meta)
             results_by_setup["setup_3"].append(htf_sig)
 
         # Tab 4: Weekly Swing Watchlist evaluation
         if n_df is not None and not n_df.empty:
             swing_sig = weekly_swing_engine.evaluate(item, df, n_df)
             if swing_sig:
+                enrich_signal_with_smart_money(swing_sig, deliv_meta)
                 results_by_setup["setup_4"].append(swing_sig)
 
         # Tab 5: Stage-2 Pullback evaluation
         pb_sig = stage2_pullback_engine.evaluate(item, df)
         if pb_sig:
+            enrich_signal_with_smart_money(pb_sig, deliv_meta)
             results_by_setup["setup_5"].append(pb_sig)
 
         # Tab 6: Drop-Base-Rally (DBR) Demand Zone evaluation
         dbr_sig = dbr_engine.evaluate(item, df)
         if dbr_sig:
+            enrich_signal_with_smart_money(dbr_sig, deliv_meta)
             results_by_setup["setup_6"].append(dbr_sig)
 
     duration = time.time() - t0

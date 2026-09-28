@@ -5253,6 +5253,48 @@
       }
     }
 
+    // Populate Institutional Smart Money Radar
+    const radarDelivPctEl = document.getElementById('dossier-radar-delivery-pct');
+    const radarDelivAvgEl = document.getElementById('dossier-radar-delivery-avg');
+    const radarDelivSpikeEl = document.getElementById('dossier-radar-delivery-spike');
+    const radarStatusBadgeEl = document.getElementById('dossier-radar-status-badge');
+
+    const curDeliv = (sig.delivery_pct !== undefined && sig.delivery_pct !== null) ? Number(sig.delivery_pct) : 0;
+    const avgDeliv = (sig.avg_deliv_10d !== undefined && sig.avg_deliv_10d !== null) ? Number(sig.avg_deliv_10d) : 0;
+    const spikePct = (sig.delivery_spike_pct !== undefined && sig.delivery_spike_pct !== null) ? Number(sig.delivery_spike_pct) :
+                     (avgDeliv > 0 ? Number(((curDeliv - avgDeliv) / avgDeliv * 100).toFixed(1)) : 0);
+
+    if (radarDelivPctEl) radarDelivPctEl.textContent = curDeliv > 0 ? `${curDeliv.toFixed(1)}%` : '--%';
+    if (radarDelivAvgEl) radarDelivAvgEl.textContent = avgDeliv > 0 ? `${avgDeliv.toFixed(1)}%` : '--%';
+    if (radarDelivSpikeEl) {
+      const isPositive = spikePct >= 0;
+      radarDelivSpikeEl.textContent = `${isPositive ? '+' : ''}${spikePct.toFixed(1)}%`;
+      radarDelivSpikeEl.className = isPositive ? 'radar-spike-val' : 'radar-spike-val spike-negative';
+    }
+
+    if (radarStatusBadgeEl) {
+      let statusText = sig.smart_money_status;
+      if (!statusText) {
+        if (sig.whale_absorption_flag && curDeliv > 55.0) {
+          statusText = 'High Institutional Absorption';
+        } else if (curDeliv >= 40.0 && curDeliv <= 55.0) {
+          statusText = 'Active Accumulation';
+        } else {
+          statusText = 'Standard Flow';
+        }
+      }
+
+      radarStatusBadgeEl.textContent = statusText;
+      radarStatusBadgeEl.className = 'radar-status-pill';
+      if (statusText === 'High Institutional Absorption') {
+        radarStatusBadgeEl.classList.add('status-green');
+      } else if (statusText === 'Active Accumulation') {
+        radarStatusBadgeEl.classList.add('status-cyan');
+      } else {
+        radarStatusBadgeEl.classList.add('status-neutral');
+      }
+    }
+
     const tagsContainer = document.getElementById('dossier-tags');
     if (tagsContainer) {
       const tags = (sig.setup_tags && sig.setup_tags.length > 0) ? sig.setup_tags : ['Quantitative Edge Confirmed', 'Volume Expansion', 'Institutional Flow'];

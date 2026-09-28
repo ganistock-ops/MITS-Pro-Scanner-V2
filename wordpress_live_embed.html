@@ -224,6 +224,30 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             </div>
           </div>
 
+          <!-- Institutional Smart Money & Delivery Footprint Radar -->
+          <div class="wp-smart-money-radar" id="wp-smart-money-radar">
+            <div class="wp-radar-header">
+              <div class="wp-radar-title">
+                <span class="wp-radar-icon">🐋</span>
+                <span>INSTITUTIONAL SMART MONEY RADAR</span>
+              </div>
+              <span class="wp-radar-micro-badge">Delivery Footprint: NSE Official Bhavcopy Verified</span>
+            </div>
+            
+            <div class="wp-radar-metric-line">
+              <span class="wp-radar-label">Delivery Surge:</span>
+              <span class="wp-radar-values">
+                <strong id="wp-radar-delivery-pct" class="wp-radar-val-main">--%</strong>
+                <span class="wp-radar-val-sub">(10D Avg: <span id="wp-radar-delivery-avg">--%</span> | Spike: <span id="wp-radar-delivery-spike" class="wp-radar-spike-val">--%</span>)</span>
+              </span>
+            </div>
+
+            <div class="wp-radar-metric-line wp-radar-status-line">
+              <span class="wp-radar-label">Smart Money Status:</span>
+              <span id="wp-radar-status-badge" class="wp-radar-status-pill status-cyan">Active Accumulation</span>
+            </div>
+          </div>
+
           <div class="wp-dossier-section-title">Quantitative Evidence & Setup Badges</div>
           <div id="wp-dossier-tags" class="wp-dossier-tags"></div>
 
@@ -986,6 +1010,134 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   color: #94a3b8 !important;
 }
 
+/* Institutional Smart Money & Delivery Footprint Radar */
+#mits-pro-embed-root .wp-smart-money-radar {
+  border: 1px solid rgba(0, 242, 254, 0.25) !important;
+  background: rgba(16, 24, 39, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border-radius: 12px !important;
+  padding: 14px !important;
+  margin: 12px 0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(0, 242, 254, 0.05) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+#mits-pro-embed-root .wp-radar-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding-bottom: 8px !important;
+}
+
+#mits-pro-embed-root .wp-radar-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.6px !important;
+  color: #38bdf8 !important;
+  text-transform: uppercase !important;
+}
+
+#mits-pro-embed-root .wp-radar-icon {
+  font-size: 1rem !important;
+  line-height: 1 !important;
+}
+
+#mits-pro-embed-root .wp-radar-micro-badge {
+  font-size: 0.65rem !important;
+  color: #94a3b8 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(0, 242, 254, 0.2) !important;
+  border-radius: 4px !important;
+  padding: 2px 7px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  white-space: nowrap !important;
+}
+
+#mits-pro-embed-root .wp-radar-metric-line {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  font-size: 0.82rem !important;
+}
+
+#mits-pro-embed-root .wp-radar-label {
+  color: #94a3b8 !important;
+  font-weight: 600 !important;
+}
+
+#mits-pro-embed-root .wp-radar-values {
+  font-family: 'JetBrains Mono', monospace !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex-wrap: wrap !important;
+}
+
+#mits-pro-embed-root .wp-radar-val-main {
+  color: #38bdf8 !important;
+  font-weight: 800 !important;
+  font-size: 0.92rem !important;
+}
+
+#mits-pro-embed-root .wp-radar-val-sub {
+  color: #cbd5e1 !important;
+  font-size: 0.76rem !important;
+}
+
+#mits-pro-embed-root .wp-radar-spike-val {
+  font-weight: 700 !important;
+  color: #10b981 !important;
+}
+
+#mits-pro-embed-root .wp-radar-spike-val.spike-negative {
+  color: #f43f5e !important;
+}
+
+#mits-pro-embed-root .wp-radar-status-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  padding: 4px 10px !important;
+  border-radius: 9999px !important;
+  letter-spacing: 0.3px !important;
+  text-transform: uppercase !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+#mits-pro-embed-root .wp-radar-status-pill.status-green {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border: 1px solid rgba(16, 185, 129, 0.45) !important;
+  color: #34d399 !important;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2) !important;
+}
+
+#mits-pro-embed-root .wp-radar-status-pill.status-cyan {
+  background: rgba(0, 242, 254, 0.15) !important;
+  border: 1px solid rgba(0, 242, 254, 0.4) !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2) !important;
+}
+
+#mits-pro-embed-root .wp-radar-status-pill.status-neutral {
+  background: rgba(148, 163, 184, 0.12) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  color: #94a3b8 !important;
+}
+
 #mits-pro-embed-root .wp-dossier-tags {
   display: flex !important;
   flex-wrap: wrap !important;
@@ -1284,7 +1436,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   'use strict';
 
   // Live GitHub Pages absolute data endpoint for Native WordPress Direct Embedding (No iFrame)
-  const MITS_PRO_REMOTE_BASE = 'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/'; 
+  // When running locally on localhost, loads local data/ directory for instant verification
+  const MITS_PRO_REMOTE_BASE = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'data/' : 'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/'; 
 
   const DEFAULT_WP_TAB1_SIGNALS = [
     {
@@ -5853,6 +6006,12 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       renderWpKPIs();
       populateWpSectors();
       renderWpTable();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('test_modal')) {
+        const testSym = urlParams.get('test_modal') === '1' ? 'SONACOMS' : urlParams.get('test_modal');
+        setTimeout(() => openWpSetupDossier(testSym), 100);
+      }
     } catch (err) {
       console.error('[MITS WP] Fetch error:', err);
     }
@@ -6346,9 +6505,24 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
   function openWpSetupDossier(symbol) {
     const setups = WP_STATE.scannerData ? WP_STATE.scannerData.setups : null;
+    let sig = null;
+    let activeTabKey = WP_STATE.activeTab;
     const setup = setups ? setups[WP_STATE.activeTab] : null;
-    const signals = setup && setup.signals ? setup.signals : [];
-    const sig = signals.find(s => s.symbol === symbol);
+    if (setup && setup.signals) {
+      sig = setup.signals.find(s => s.symbol === symbol);
+    }
+    if (!sig && setups) {
+      for (const [sKey, sObj] of Object.entries(setups)) {
+        if (sObj && sObj.signals) {
+          const match = sObj.signals.find(s => s.symbol === symbol);
+          if (match) {
+            sig = match;
+            activeTabKey = sKey;
+            break;
+          }
+        }
+      }
+    }
     if (!sig) return;
 
     const backdrop = document.getElementById('wp-dossier-backdrop');
@@ -6388,7 +6562,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       setup_6: 'DBR Demand Zone'
     };
     if (setupTagEl) {
-      setupTagEl.textContent = tabNames[WP_STATE.activeTab] || 'Institutional Setup';
+      setupTagEl.textContent = tabNames[activeTabKey] || 'Institutional Setup';
     }
 
     const statusValEl = document.getElementById('wp-dossier-status');
@@ -6427,6 +6601,48 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       t2El.textContent = sig.target_2 ? `₹${Number(sig.target_2).toLocaleString('en-IN', {minimumFractionDigits: 2})}` : '--';
       if (rr2El) {
         rr2El.textContent = 'Target 2 Extended Runner';
+      }
+    }
+
+    // Populate Institutional Smart Money Radar
+    const radarDelivPctEl = document.getElementById('wp-radar-delivery-pct');
+    const radarDelivAvgEl = document.getElementById('wp-radar-delivery-avg');
+    const radarDelivSpikeEl = document.getElementById('wp-radar-delivery-spike');
+    const radarStatusBadgeEl = document.getElementById('wp-radar-status-badge');
+
+    const curDeliv = (sig.delivery_pct !== undefined && sig.delivery_pct !== null) ? Number(sig.delivery_pct) : 0;
+    const avgDeliv = (sig.avg_deliv_10d !== undefined && sig.avg_deliv_10d !== null) ? Number(sig.avg_deliv_10d) : 0;
+    const spikePct = (sig.delivery_spike_pct !== undefined && sig.delivery_spike_pct !== null) ? Number(sig.delivery_spike_pct) :
+                     (avgDeliv > 0 ? Number(((curDeliv - avgDeliv) / avgDeliv * 100).toFixed(1)) : 0);
+
+    if (radarDelivPctEl) radarDelivPctEl.textContent = curDeliv > 0 ? `${curDeliv.toFixed(1)}%` : '--%';
+    if (radarDelivAvgEl) radarDelivAvgEl.textContent = avgDeliv > 0 ? `${avgDeliv.toFixed(1)}%` : '--%';
+    if (radarDelivSpikeEl) {
+      const isPositive = spikePct >= 0;
+      radarDelivSpikeEl.textContent = `${isPositive ? '+' : ''}${spikePct.toFixed(1)}%`;
+      radarDelivSpikeEl.className = isPositive ? 'wp-radar-spike-val' : 'wp-radar-spike-val spike-negative';
+    }
+
+    if (radarStatusBadgeEl) {
+      let statusText = sig.smart_money_status;
+      if (!statusText) {
+        if (sig.whale_absorption_flag && curDeliv > 55.0) {
+          statusText = 'High Institutional Absorption';
+        } else if (curDeliv >= 40.0 && curDeliv <= 55.0) {
+          statusText = 'Active Accumulation';
+        } else {
+          statusText = 'Standard Flow';
+        }
+      }
+
+      radarStatusBadgeEl.textContent = statusText;
+      radarStatusBadgeEl.className = 'wp-radar-status-pill';
+      if (statusText === 'High Institutional Absorption') {
+        radarStatusBadgeEl.classList.add('status-green');
+      } else if (statusText === 'Active Accumulation') {
+        radarStatusBadgeEl.classList.add('status-cyan');
+      } else {
+        radarStatusBadgeEl.classList.add('status-neutral');
       }
     }
 

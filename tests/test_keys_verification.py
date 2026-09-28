@@ -51,7 +51,8 @@ required_keys = [
     "symbol", "name", "sector", "cmp", "change_pct", "score", "grade",
     "score_display", "institutional_score", "invalidation", "entry_zone",
     "target_1", "target_2", "target_zone", "risk_reward_ratio", "rvol",
-    "setup_tags", "status"
+    "setup_tags", "status",
+    "delivery_pct", "avg_deliv_10d", "delivery_spike_pct", "whale_absorption_flag", "smart_money_status"
 ]
 
 tab2_specific_keys = [

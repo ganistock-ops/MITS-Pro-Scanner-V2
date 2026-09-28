@@ -1508,6 +1508,134 @@ body.resizing-active {
   box-shadow: 0 0 25px rgba(251, 191, 36, 0.6);
 }
 
+/* Institutional Smart Money & Delivery Footprint Radar */
+.dossier-smart-money-radar {
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  background: rgba(16, 24, 39, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 12px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(0, 242, 254, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.radar-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.radar-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.radar-micro-badge {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.radar-metric-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.82rem;
+}
+
+.radar-label {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.radar-values {
+  font-family: 'JetBrains Mono', monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.radar-val-main {
+  color: #38bdf8;
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+
+.radar-val-sub {
+  color: #cbd5e1;
+  font-size: 0.76rem;
+}
+
+.radar-spike-val {
+  font-weight: 700;
+  color: #10b981;
+}
+
+.radar-spike-val.spike-negative {
+  color: #f43f5e;
+}
+
+.radar-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.radar-status-pill.status-green {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #34d399;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+
+.radar-status-pill.status-cyan {
+  background: rgba(0, 242, 254, 0.15);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  color: #38bdf8;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+}
+
+.radar-status-pill.status-neutral {
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #94a3b8;
+}
+
 @media (max-width: 768px) {
   .dossier-drawer {
     width: 100vw;
