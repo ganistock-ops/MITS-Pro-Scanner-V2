@@ -1,0 +1,14 @@
+{
+  "setup_id": "setup_3",
+  "setup_title": "Setup 3: High Tight Flag",
+  "evaluation_window": "90 Calendar Days (~63 Trading Candles)",
+  "win_rate": 72.9,
+  "avg_peak_return": 19.1,
+  "avg_days_to_peak": 29.1,
+  "total_samples": 715,
+  "winning_samples": 521,
+  "entry_condition": "Flag breakout / consolidation high break level",
+  "target_condition": "Hit Target 1 or >= +8.0% return within 90 calendar days",
+  "backtest_timestamp": "2026-09-28T22:04:18.434738",
+  "status": "VERIFIED_LOCAL_CACHE"
+}
