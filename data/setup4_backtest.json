@@ -1,0 +1,14 @@
+{
+  "setup_id": "setup_4",
+  "setup_title": "Setup 4: Weekly Swing",
+  "evaluation_window": "90 Calendar Days (~63 Trading Candles)",
+  "win_rate": 60.5,
+  "avg_peak_return": 15.7,
+  "avg_days_to_peak": 27.4,
+  "total_samples": 501,
+  "winning_samples": 303,
+  "entry_condition": "Weekly swing midpoint confirmation level",
+  "target_condition": "Hit Target 1 or >= +8.0% return within 90 calendar days",
+  "backtest_timestamp": "2026-09-28T21:31:57.372592",
+  "status": "VERIFIED_LOCAL_CACHE"
+}

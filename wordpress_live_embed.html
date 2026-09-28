@@ -190,6 +190,32 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           </div>
         </div>
       </div>
+
+      <!-- Setup 4: Verified 3-Month Forward Performance Banner -->
+      <div id="wp-setup4-perf-banner" class="wp-setup4-perf-banner" style="display: none;">
+        <div class="wp-perf-banner-title wp-perf-title-amber">
+          <span class="wp-perf-icon">📊</span>
+          <span>3-MONTH FORWARD PERFORMANCE (SETUP 4 VERIFIED)</span>
+        </div>
+        <div class="wp-perf-pills">
+          <div class="wp-perf-pill">
+            <span class="wp-perf-pill-label">Win Rate:</span>
+            <strong class="wp-perf-pill-val val-green" id="wp-perf4-banner-win">60.5%</strong>
+          </div>
+          <div class="wp-perf-pill">
+            <span class="wp-perf-pill-label">Avg 3M Peak Gain:</span>
+            <strong class="wp-perf-pill-val val-cyan" id="wp-perf4-banner-gain">+15.7%</strong>
+          </div>
+          <div class="wp-perf-pill">
+            <span class="wp-perf-pill-label">Avg Days to Peak:</span>
+            <strong class="wp-perf-pill-val val-amber" id="wp-perf4-banner-days">27.4 Days</strong>
+          </div>
+          <div class="wp-perf-pill">
+            <span class="wp-perf-pill-label">Signals Tested:</span>
+            <strong class="wp-perf-pill-val val-purple" id="wp-perf4-banner-samples">501 Swing Setups</strong>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Responsive Signals Table with Sticky Symbol Column -->
@@ -1448,6 +1474,27 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
 #mits-pro-embed-root .wp-perf-title-cyan {
   color: #38bdf8 !important;
+}
+
+/* Setup 4: Verified 3-Month Forward Performance Glassmorphic Banner */
+#mits-pro-embed-root .wp-setup4-perf-banner {
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.09) 0%, rgba(180, 83, 9, 0.28) 50%, rgba(15, 23, 42, 0.65) 100%) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  margin-top: 10px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(245, 158, 11, 0.06) !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  animation: wpPerfFadeIn 0.3s ease-out !important;
+}
+
+#mits-pro-embed-root .wp-perf-title-amber {
+  color: #fbbf24 !important;
 }
 
 #mits-pro-embed-root .wp-dossier-tags {
@@ -6016,6 +6063,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           if (descEl) descEl.textContent = SETUPS_DESC[tab] || '';
 
           const perfBanner2 = document.getElementById('wp-setup2-perf-banner');
+          const perfBanner4 = document.getElementById('wp-setup4-perf-banner');
           const perfBanner5 = document.getElementById('wp-setup5-perf-banner');
 
           if (perfBanner2) {
@@ -6025,6 +6073,16 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             } else {
               perfBanner2.style.setProperty('display', 'none', 'important');
               perfBanner2.style.display = 'none';
+            }
+          }
+
+          if (perfBanner4) {
+            if (tab === 'setup_4') {
+              perfBanner4.style.setProperty('display', 'flex', 'important');
+              perfBanner4.style.display = 'flex';
+            } else {
+              perfBanner4.style.setProperty('display', 'none', 'important');
+              perfBanner4.style.display = 'none';
             }
           }
 
@@ -6227,7 +6285,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   async function fetchFreshWpData(force) {
     try {
       const ts = Date.now();
-      const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2] = await Promise.allSettled([
+      const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2, resBacktest4] = await Promise.allSettled([
         fetch(MITS_PRO_REMOTE_BASE + 'scanner_results.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'market_summary.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'tab1_bottom_reversal.json?t=' + ts),
@@ -6237,7 +6295,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         fetch(MITS_PRO_REMOTE_BASE + 'tab5_stage2_pullback.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'tab6_dbr.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'setup5_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup2_backtest.json?t=' + ts)
+        fetch(MITS_PRO_REMOTE_BASE + 'setup2_backtest.json?t=' + ts),
+        fetch(MITS_PRO_REMOTE_BASE + 'setup4_backtest.json?t=' + ts)
       ]);
 
 
@@ -6401,6 +6460,29 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           }
         } catch (e) {
           console.warn('[MITS WP] Could not parse setup2_backtest.json:', e);
+        }
+      }
+
+      if (resBacktest4 && resBacktest4.status === 'fulfilled' && resBacktest4.value.ok) {
+        try {
+          const bt4 = await resBacktest4.value.json();
+          if (bt4) {
+            const winStr = `${bt4.win_rate}%`;
+            const gainStr = `+${bt4.avg_peak_return}%`;
+            const daysStr = `${bt4.avg_days_to_peak} Days`;
+            const samplesStr = `${Number(bt4.total_samples).toLocaleString('en-IN')} Swing Setups`;
+
+            const bWin = document.getElementById('wp-perf4-banner-win');
+            const bGain = document.getElementById('wp-perf4-banner-gain');
+            const bDays = document.getElementById('wp-perf4-banner-days');
+            const bSamp = document.getElementById('wp-perf4-banner-samples');
+            if (bWin) bWin.textContent = winStr;
+            if (bGain) bGain.textContent = gainStr;
+            if (bDays) bDays.textContent = daysStr;
+            if (bSamp) bSamp.textContent = samplesStr;
+          }
+        } catch (e) {
+          console.warn('[MITS WP] Could not parse setup4_backtest.json:', e);
         }
       }
 
@@ -6672,6 +6754,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     if (!tbody) return;
 
     const perfBanner2 = document.getElementById('wp-setup2-perf-banner');
+    const perfBanner4 = document.getElementById('wp-setup4-perf-banner');
     const perfBanner5 = document.getElementById('wp-setup5-perf-banner');
 
     if (perfBanner2) {
@@ -6681,6 +6764,16 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       } else {
         perfBanner2.style.setProperty('display', 'none', 'important');
         perfBanner2.style.display = 'none';
+      }
+    }
+
+    if (perfBanner4) {
+      if (WP_STATE.activeTab === 'setup_4') {
+        perfBanner4.style.setProperty('display', 'flex', 'important');
+        perfBanner4.style.display = 'flex';
+      } else {
+        perfBanner4.style.setProperty('display', 'none', 'important');
+        perfBanner4.style.display = 'none';
       }
     }
 
