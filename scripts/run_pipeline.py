@@ -336,12 +336,17 @@ def run_pipeline():
     for s_id in PRO_SETUPS.keys():
         results_by_setup[s_id].sort(key=lambda x: x.get("score", 0), reverse=True)
 
+    trade_session_date = bhav_date.strftime("%Y-%m-%d") if bhav_date else ist_now.strftime("%Y-%m-%d")
+    session_date_display = bhav_date.strftime("%d-%b-%Y") if bhav_date else ist_now.strftime("%d-%b-%Y")
+
     # Dedicated Tab 1 Output
     tab1_payload = {
         "setup_id": "tab1_bottom_reversal",
         "title": "⚡ Setup 1: Bottom Reversal Pro",
         "subtitle": "Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.",
         "last_updated": iso_timestamp,
+        "last_session_date": trade_session_date,
+        "session_date_display": session_date_display,
         "qualifying_count": len(results_by_setup["setup_1"]),
         "signals": results_by_setup["setup_1"]
     }
@@ -355,6 +360,8 @@ def run_pipeline():
         "title": "⚡ Setup 2: Alpha Momentum",
         "subtitle": "Nifty 500 multi-timeframe relative strength outperformance, volume expansion, and 10-60D base recovery.",
         "last_updated": iso_timestamp,
+        "last_session_date": trade_session_date,
+        "session_date_display": session_date_display,
         "qualifying_count": len(results_by_setup["setup_2"]),
         "signals": results_by_setup["setup_2"]
     }
@@ -368,6 +375,8 @@ def run_pipeline():
         "title": "🚩 Setup 3: High Tight Flag (HTF)",
         "subtitle": "Explosive institutional momentum rally (>= +40% in <= 40D), tight base contraction (<= 20%), and volume dry-up.",
         "last_updated": iso_timestamp,
+        "last_session_date": trade_session_date,
+        "session_date_display": session_date_display,
         "qualifying_count": len(results_by_setup["setup_3"]),
         "signals": results_by_setup["setup_3"]
     }
@@ -381,6 +390,8 @@ def run_pipeline():
         "title": "📈 Setup 4: Weekly Swing",
         "subtitle": "Multi-timeframe institutional weekly swing structure, trend alignment, and low-risk accumulation.",
         "last_updated": iso_timestamp,
+        "last_session_date": trade_session_date,
+        "session_date_display": session_date_display,
         "qualifying_count": len(results_by_setup["setup_4"]),
         "signals": results_by_setup["setup_4"]
     }
@@ -394,6 +405,8 @@ def run_pipeline():
         "title": "🎯 Setup 5: Stage-2 Pullback",
         "subtitle": "Institutional low-risk entries at key EMA supports during verified Stage-2 uptrends.",
         "last_updated": iso_timestamp,
+        "last_session_date": trade_session_date,
+        "session_date_display": session_date_display,
         "qualifying_count": len(results_by_setup["setup_5"]),
         "signals": results_by_setup["setup_5"]
     }
@@ -407,6 +420,8 @@ def run_pipeline():
         "title": "📦 Setup 6: DBR Demand Zone",
         "subtitle": "Institutional order block accumulation, fresh demand zone retests, and explosive leg-out expansions.",
         "last_updated": iso_timestamp,
+        "last_session_date": trade_session_date,
+        "session_date_display": session_date_display,
         "qualifying_count": len(results_by_setup["setup_6"]),
         "signals": results_by_setup["setup_6"]
     }
@@ -417,6 +432,8 @@ def run_pipeline():
     # Update scanner_results.json
     output_payload = {
         "last_updated": iso_timestamp,
+        "last_session_date": trade_session_date,
+        "session_date_display": session_date_display,
         "generated_by": "MITS Pro Quantitative Engine V2 - Real Market EOD",
         "universe_scanned": len(symbols),
         "successful_evaluations": success_count,
@@ -472,6 +489,7 @@ def run_pipeline():
         "scan_timestamp": iso_timestamp,
         "market_status": "CLOSED" if ist_now.hour >= 16 else "OPEN",
         "last_session_date": trade_session_date,
+        "session_date_display": session_date_display,
         "indices": {
             "NIFTY_50": { "name": "NIFTY 50", "price": round(cmp_n, 2), "change": round(chg_n, 2), "change_pct": round(chg_pct_n, 2), "trend": nifty_trend },
             "BANKNIFTY": { "name": "BANK NIFTY", "price": round(bn_cmp, 2), "change": round(bn_chg, 2), "change_pct": round(bn_pct, 2), "trend": bn_trend },

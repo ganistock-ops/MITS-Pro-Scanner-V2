@@ -1,7 +1,8 @@
 {
-  "scan_timestamp": "2026-09-28T17:56:06.911003+05:30",
+  "scan_timestamp": "2026-09-28T19:53:15.905921+05:30",
   "market_status": "CLOSED",
   "last_session_date": "2026-09-28",
+  "session_date_display": "28-Sep-2026",
   "indices": {
     "NIFTY_50": {
       "name": "NIFTY 50",
