@@ -1,0 +1,25 @@
+{
+  "setup_id": "setup_7",
+  "setup_title": "Setup 7: Momentum Leader PRO",
+  "entry_condition": "Exact Entry Zone Midpoint: (min(20 EMA, Close * 0.98) + Close) / 2",
+  "win_condition": "Hit Target 1 (1:2.0 R:R) or >= +8.0% peak gain from Entry Midpoint",
+  "backtest_timestamp": "2026-09-29T14:31:46.791553Z",
+  "1M": {
+    "win_rate": 57.1,
+    "avg_peak_return": 11.7,
+    "avg_days_to_peak": 11.4,
+    "total_samples": 625
+  },
+  "2M": {
+    "win_rate": 71.4,
+    "avg_peak_return": 16.5,
+    "avg_days_to_peak": 22.9,
+    "total_samples": 625
+  },
+  "3M": {
+    "win_rate": 76.5,
+    "avg_peak_return": 19.9,
+    "avg_days_to_peak": 31.3,
+    "total_samples": 625
+  }
+}
