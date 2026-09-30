@@ -5135,6 +5135,52 @@
       initColumnResizing(document.querySelector('.pro-table'), state.columnWidths);
     }
 
+    // Compute sector frequency across all signals in current tab/view
+    const sectorCounts = {};
+    signals.forEach((s) => {
+      if (s && s.sector) {
+        sectorCounts[s.sector] = (sectorCounts[s.sector] || 0) + 1;
+      }
+    });
+
+    // Helper: Generate institutional conviction micro-badges
+    function getConvictionBadgesHtml(sig) {
+      if (!sig) return '';
+      try {
+        const badges = [];
+
+        // 1. Sector Tailwind: >= 3 stocks in current view belong to the same sector
+        if (sig.sector && (sectorCounts[sig.sector] || 0) >= 3) {
+          badges.push('<span class="badge-pill badge-sector-fire">Sector on Fire 🔥</span>');
+        }
+
+        // 2. Whale Footprint: Delivery % >= 50% && delivery spike >= 1.5x (or whale flag)
+        const curDeliv = Number(sig.delivery_pct || 0);
+        const avgDeliv = Number(sig.avg_deliv_10d || 0);
+        const spikeRatio = avgDeliv > 0 ? (curDeliv / avgDeliv) : (Number(sig.delivery_spike_pct || 0) / 100 + 1);
+        if ((curDeliv >= 50.0 && spikeRatio >= 1.5) || sig.whale_absorption_flag === true) {
+          badges.push('<span class="badge-pill badge-whale">🐋 Whale Footprint</span>');
+        }
+
+        // 3. Volatility Squeeze: Tight range / volume dry-up
+        const tagsStr = (sig.setup_tags || []).join(' ').toLowerCase();
+        if ((sig.rvol !== undefined && sig.rvol !== null && sig.rvol > 0 && sig.rvol < 0.85) ||
+            tagsStr.includes('vcp') || tagsStr.includes('tight') || tagsStr.includes('squeeze') || tagsStr.includes('contraction')) {
+          badges.push('<span class="badge-pill badge-squeeze">⏳ Squeeze</span>');
+        }
+
+        // 4. Trend Stack: 20 EMA > 50 EMA > 200 EMA
+        if (tagsStr.includes('trend stack') || tagsStr.includes('bullish trend') || (sig.score_breakdown && sig.score_breakdown.trend_alignment >= 18)) {
+          badges.push('<span class="badge-pill badge-trend">🚀 Trend Stack</span>');
+        }
+
+        if (badges.length === 0) return '';
+        return `<div class="conviction-badges">${badges.join('')}</div>`;
+      } catch (err) {
+        return '';
+      }
+    }
+
     // Render Streamlined 6-Column Rows
     DOM.tableBody.innerHTML = paginatedSignals
       .map((sig) => {
@@ -5149,6 +5195,7 @@
               <div class="ticker-cell">
                 <span class="ticker-symbol">${sig.symbol}</span>
                 <span class="ticker-name">${sig.name || ''}</span>
+                ${getConvictionBadgesHtml(sig)}
               </div>
             </td>
             <td class="sticky-col sticky-col-2 num-cell" style="font-family: var(--font-mono); font-weight: 700; color: #ffffff;">₹${formatCurrency(sig.cmp)}</td>

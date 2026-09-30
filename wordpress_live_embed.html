@@ -1756,6 +1756,60 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   box-shadow: 0 0 25px rgba(251, 191, 36, 0.6) !important;
 }
 
+/* Conviction Badges & Sector Tailwind Styles */
+#mits-pro-embed-root .wp-conviction-badges {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+  margin-top: 4px !important;
+  align-items: center !important;
+}
+
+#mits-pro-embed-root .wp-badge-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+}
+
+#mits-pro-embed-root .badge-sector-fire {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border: 1px solid rgba(248, 113, 113, 0.45) !important;
+  color: #fca5a5 !important;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.25) !important;
+  animation: wpBadgePulseFire 2.5s infinite ease-in-out !important;
+}
+
+#mits-pro-embed-root .badge-whale {
+  background: rgba(6, 182, 212, 0.15) !important;
+  border: 1px solid rgba(34, 211, 238, 0.45) !important;
+  color: #67e8f9 !important;
+  box-shadow: 0 0 6px rgba(6, 182, 212, 0.2) !important;
+}
+
+#mits-pro-embed-root .badge-squeeze {
+  background: rgba(245, 158, 11, 0.15) !important;
+  border: 1px solid rgba(251, 191, 36, 0.45) !important;
+  color: #fde68a !important;
+}
+
+#mits-pro-embed-root .badge-trend {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(52, 211, 153, 0.45) !important;
+  color: #6ee7b7 !important;
+}
+
+@keyframes wpBadgePulseFire {
+  0%, 100% { box-shadow: 0 0 6px rgba(239, 68, 68, 0.2); }
+  50% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.45); }
+}
+
 /* Institutional Fundamental Profile Styles */
 #mits-pro-embed-root .wp-dossier-fund-grid {
   display: grid !important;
@@ -7277,6 +7331,52 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       return;
     }
 
+    // Compute sector frequency across all signals in current tab/view
+    const wpSectorCounts = {};
+    signals.forEach((s) => {
+      if (s && s.sector) {
+        wpSectorCounts[s.sector] = (wpSectorCounts[s.sector] || 0) + 1;
+      }
+    });
+
+    // Helper: Generate institutional conviction micro-badges
+    function getWpConvictionBadgesHtml(sig) {
+      if (!sig) return '';
+      try {
+        const badges = [];
+
+        // 1. Sector Tailwind: >= 3 stocks in current view belong to the same sector
+        if (sig.sector && (wpSectorCounts[sig.sector] || 0) >= 3) {
+          badges.push('<span class="wp-badge-pill badge-sector-fire">Sector on Fire 🔥</span>');
+        }
+
+        // 2. Whale Footprint: Delivery % >= 50% && delivery spike >= 1.5x (or whale flag)
+        const curDeliv = Number(sig.delivery_pct || 0);
+        const avgDeliv = Number(sig.avg_deliv_10d || 0);
+        const spikeRatio = avgDeliv > 0 ? (curDeliv / avgDeliv) : (Number(sig.delivery_spike_pct || 0) / 100 + 1);
+        if ((curDeliv >= 50.0 && spikeRatio >= 1.5) || sig.whale_absorption_flag === true) {
+          badges.push('<span class="wp-badge-pill badge-whale">🐋 Whale Footprint</span>');
+        }
+
+        // 3. Volatility Squeeze: Tight range / volume dry-up
+        const tagsStr = (sig.setup_tags || []).join(' ').toLowerCase();
+        if ((sig.rvol !== undefined && sig.rvol !== null && sig.rvol > 0 && sig.rvol < 0.85) ||
+            tagsStr.includes('vcp') || tagsStr.includes('tight') || tagsStr.includes('squeeze') || tagsStr.includes('contraction')) {
+          badges.push('<span class="wp-badge-pill badge-squeeze">⏳ Squeeze</span>');
+        }
+
+        // 4. Trend Stack: 20 EMA > 50 EMA > 200 EMA
+        if (tagsStr.includes('trend stack') || tagsStr.includes('bullish trend') || (sig.score_breakdown && sig.score_breakdown.trend_alignment >= 18)) {
+          badges.push('<span class="wp-badge-pill badge-trend">🚀 Trend Stack</span>');
+        }
+
+        if (badges.length === 0) return '';
+        return `<div class="wp-conviction-badges">${badges.join('')}</div>`;
+      } catch (err) {
+        return '';
+      }
+    }
+
     tbody.innerHTML = paginatedSignals.map(sig => {
       const chgColor = sig.change_pct >= 0 ? '#10b981' : '#f43f5e';
       const chgSign = sig.change_pct >= 0 ? '+' : '';
@@ -7289,6 +7389,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           <td>
             <span class="wp-sym-bold">${sig.symbol}</span>
             <span class="wp-sym-sub">${sig.name || ''}</span>
+            ${getWpConvictionBadgesHtml(sig)}
           </td>
           <td>
             <span class="wp-sector-pill">${sig.sector || 'NSE'}</span>
