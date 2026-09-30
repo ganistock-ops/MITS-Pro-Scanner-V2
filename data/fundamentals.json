@@ -1,0 +1,3607 @@
+{
+  "generated_at": "2026-09-30T20:49:23.341737",
+  "total_symbols": 120,
+  "source": "Yahoo Finance (Official Real Metrics)",
+  "data": {
+    "EMCURE": {
+      "symbol": "EMCURE",
+      "market_cap": "\u20b936,861 Cr",
+      "pe_ratio": "36.46",
+      "roe": "20.4%",
+      "roce": "25.7%",
+      "debt_to_equity": "0.31",
+      "book_value": "\u20b9261.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,580.4 Cr",
+          "net_profit_cr": "\u20b9294.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,469.7 Cr",
+          "net_profit_cr": "\u20b9243.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,363.5 Cr",
+          "net_profit_cr": "\u20b9230.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "APARINDS": {
+      "symbol": "APARINDS",
+      "market_cap": "\u20b972,791 Cr",
+      "pe_ratio": "59.18",
+      "roe": "22.1%",
+      "roce": "33.2%",
+      "debt_to_equity": "0.18",
+      "book_value": "\u20b91342.6",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b96,566.6 Cr",
+          "net_profit_cr": "\u20b9467.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b96,571.2 Cr",
+          "net_profit_cr": "\u20b9253.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b95,461.0 Cr",
+          "net_profit_cr": "\u20b9208.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "KIRLOSENG": {
+      "symbol": "KIRLOSENG",
+      "market_cap": "\u20b933,541 Cr",
+      "pe_ratio": "61.49",
+      "roe": "15.1%",
+      "roce": "17.3%",
+      "debt_to_equity": "1.55",
+      "book_value": "\u20b9249.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,999.5 Cr",
+          "net_profit_cr": "\u20b9113.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,116.2 Cr",
+          "net_profit_cr": "\u20b9158.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,872.6 Cr",
+          "net_profit_cr": "\u20b9111.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "FINCABLES": {
+      "symbol": "FINCABLES",
+      "market_cap": "\u20b922,181 Cr",
+      "pe_ratio": "27.76",
+      "roe": "13.1%",
+      "roce": "10.0%",
+      "debt_to_equity": "0.31",
+      "book_value": "\u20b9397.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,013.2 Cr",
+          "net_profit_cr": "\u20b9249.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,951.1 Cr",
+          "net_profit_cr": "\u20b9224.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,598.6 Cr",
+          "net_profit_cr": "\u20b9164.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "WELCORP": {
+      "symbol": "WELCORP",
+      "market_cap": "\u20b971,648 Cr",
+      "pe_ratio": "30.99",
+      "roe": "24.2%",
+      "roce": "16.1%",
+      "debt_to_equity": "0.25",
+      "book_value": "\u20b9347.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b94,081.1 Cr",
+          "net_profit_cr": "\u20b91,046.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b94,312.6 Cr",
+          "net_profit_cr": "\u20b9370.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b94,532.5 Cr",
+          "net_profit_cr": "\u20b9452.6 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "SAILIFE": {
+      "symbol": "SAILIFE",
+      "market_cap": "\u20b932,383 Cr",
+      "pe_ratio": "89.68",
+      "roe": "13.6%",
+      "roce": "16.5%",
+      "debt_to_equity": "0.12",
+      "book_value": "\u20b9117.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9554.3 Cr",
+          "net_profit_cr": "\u20b973.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9602.1 Cr",
+          "net_profit_cr": "\u20b9104.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9556.5 Cr",
+          "net_profit_cr": "\u20b9100.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "CPPLUS": {
+      "symbol": "CPPLUS",
+      "market_cap": "\u20b947,168 Cr",
+      "pe_ratio": "95.05",
+      "roe": "25.4%",
+      "roce": "32.3%",
+      "debt_to_equity": "0.10",
+      "book_value": "\u20b9159.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,402.4 Cr",
+          "net_profit_cr": "\u20b9142.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,422.0 Cr",
+          "net_profit_cr": "\u20b9169.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,139.1 Cr",
+          "net_profit_cr": "\u20b996.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "WOCKPHARMA": {
+      "symbol": "WOCKPHARMA",
+      "market_cap": "\u20b934,388 Cr",
+      "pe_ratio": "84.11",
+      "roe": "4.9%",
+      "roce": "6.1%",
+      "debt_to_equity": "0.42",
+      "book_value": "\u20b9304.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9929.0 Cr",
+          "net_profit_cr": "\u20b9106.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9965.0 Cr",
+          "net_profit_cr": "\u20b9166.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9888.0 Cr",
+          "net_profit_cr": "\u20b959.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "REDINGTON": {
+      "symbol": "REDINGTON",
+      "market_cap": "\u20b931,818 Cr",
+      "pe_ratio": "18.70",
+      "roe": "15.6%",
+      "roce": "19.9%",
+      "debt_to_equity": "0.27",
+      "book_value": "\u20b9130.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b934,922.5 Cr",
+          "net_profit_cr": "\u20b9486.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b933,213.0 Cr",
+          "net_profit_cr": "\u20b9391.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b930,921.7 Cr",
+          "net_profit_cr": "\u20b9435.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "TEGA": {
+      "symbol": "TEGA",
+      "market_cap": "\u20b915,827 Cr",
+      "pe_ratio": "567.84",
+      "roe": "0.6%",
+      "roce": "2.4%",
+      "debt_to_equity": "0.12",
+      "book_value": "\u20b9453.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,723.4 Cr",
+          "net_profit_cr": "\u20b9-86.2 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9526.8 Cr",
+          "net_profit_cr": "\u20b942.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9403.7 Cr",
+          "net_profit_cr": "\u20b919.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "SYRMA": {
+      "symbol": "SYRMA",
+      "market_cap": "\u20b934,343 Cr",
+      "pe_ratio": "92.38",
+      "roe": "12.9%",
+      "roce": "15.8%",
+      "debt_to_equity": "0.13",
+      "book_value": "\u20b9149.6",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,588.6 Cr",
+          "net_profit_cr": "\u20b9100.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,465.0 Cr",
+          "net_profit_cr": "\u20b9101.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,264.2 Cr",
+          "net_profit_cr": "\u20b9102.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "JYOTICNC": {
+      "symbol": "JYOTICNC",
+      "market_cap": "\u20b923,649 Cr",
+      "pe_ratio": "73.28",
+      "roe": "16.1%",
+      "roce": "19.8%",
+      "debt_to_equity": "0.43",
+      "book_value": "\u20b987.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9508.5 Cr",
+          "net_profit_cr": "\u20b957.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9599.2 Cr",
+          "net_profit_cr": "\u20b990.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9575.9 Cr",
+          "net_profit_cr": "\u20b988.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "JSWINFRA": {
+      "symbol": "JSWINFRA",
+      "market_cap": "\u20b982,559 Cr",
+      "pe_ratio": "50.23",
+      "roe": "13.9%",
+      "roce": "11.1%",
+      "debt_to_equity": "0.59",
+      "book_value": "\u20b952.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,444.8 Cr",
+          "net_profit_cr": "\u20b9346.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,522.3 Cr",
+          "net_profit_cr": "\u20b9418.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,349.7 Cr",
+          "net_profit_cr": "\u20b9359.1 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "WELSPUNLIV": {
+      "symbol": "WELSPUNLIV",
+      "market_cap": "\u20b921,402 Cr",
+      "pe_ratio": "78.12",
+      "roe": "5.6%",
+      "roce": "32.8%",
+      "debt_to_equity": "0.47",
+      "book_value": "\u20b951.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,795.4 Cr",
+          "net_profit_cr": "\u20b9160.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,435.4 Cr",
+          "net_profit_cr": "\u20b9103.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,262.2 Cr",
+          "net_profit_cr": "\u20b90.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "CHENNPETRO": {
+      "symbol": "CHENNPETRO",
+      "market_cap": "\u20b921,388 Cr",
+      "pe_ratio": "5.12",
+      "roe": "30.7%",
+      "roce": "35.6%",
+      "debt_to_equity": "0.18",
+      "book_value": "\u20b9746.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b927,369.3 Cr",
+          "net_profit_cr": "\u20b91,031.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b916,817.3 Cr",
+          "net_profit_cr": "\u20b91,421.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b915,683.2 Cr",
+          "net_profit_cr": "\u20b91,001.6 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "PTCIL": {
+      "symbol": "PTCIL",
+      "market_cap": "\u20b933,268 Cr",
+      "pe_ratio": "266.13",
+      "roe": "8.3%",
+      "roce": "7.7%",
+      "debt_to_equity": "0.17",
+      "book_value": "\u20b91005.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9191.8 Cr",
+          "net_profit_cr": "\u20b929.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9225.5 Cr",
+          "net_profit_cr": "\u20b959.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9155.5 Cr",
+          "net_profit_cr": "\u20b918.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AUROPHARMA": {
+      "symbol": "AUROPHARMA",
+      "market_cap": "\u20b996,203 Cr",
+      "pe_ratio": "26.12",
+      "roe": "9.7%",
+      "roce": "12.9%",
+      "debt_to_equity": "0.21",
+      "book_value": "\u20b9652.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b99,105.8 Cr",
+          "net_profit_cr": "\u20b91,032.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b98,751.5 Cr",
+          "net_profit_cr": "\u20b9921.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b98,604.5 Cr",
+          "net_profit_cr": "\u20b9910.3 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "URBANCO": {
+      "symbol": "URBANCO",
+      "market_cap": "\u20b923,190 Cr",
+      "pe_ratio": "-179.60",
+      "roe": "-12.8%",
+      "roce": "-15.2%",
+      "debt_to_equity": "0.06",
+      "book_value": "\u20b913.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9528.3 Cr",
+          "net_profit_cr": "\u20b9-92.1 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9425.6 Cr",
+          "net_profit_cr": "\u20b9-161.2 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9382.7 Cr",
+          "net_profit_cr": "\u20b9-21.3 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "SHYAMMETL": {
+      "symbol": "SHYAMMETL",
+      "market_cap": "\u20b929,642 Cr",
+      "pe_ratio": "26.30",
+      "roe": "9.7%",
+      "roce": "12.4%",
+      "debt_to_equity": "0.08",
+      "book_value": "\u20b9404.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b95,455.1 Cr",
+          "net_profit_cr": "\u20b9345.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b95,240.4 Cr",
+          "net_profit_cr": "\u20b9319.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b94,421.5 Cr",
+          "net_profit_cr": "\u20b9197.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "SONACOMS": {
+      "symbol": "SONACOMS",
+      "market_cap": "\u20b951,803 Cr",
+      "pe_ratio": "74.31",
+      "roe": "10.8%",
+      "roce": "12.2%",
+      "debt_to_equity": "0.07",
+      "book_value": "\u20b996.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,301.2 Cr",
+          "net_profit_cr": "\u20b9180.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,257.5 Cr",
+          "net_profit_cr": "\u20b9191.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,199.8 Cr",
+          "net_profit_cr": "\u20b9150.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "LENSKART": {
+      "symbol": "LENSKART",
+      "market_cap": "\u20b91.19L Cr",
+      "pe_ratio": "181.23",
+      "roe": "7.0%",
+      "roce": "7.0%",
+      "debt_to_equity": "0.35",
+      "book_value": "\u20b950.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,714.2 Cr",
+          "net_profit_cr": "\u20b9221.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,515.7 Cr",
+          "net_profit_cr": "\u20b9200.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,307.7 Cr",
+          "net_profit_cr": "\u20b9131.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "GRAPHITE": {
+      "symbol": "GRAPHITE",
+      "market_cap": "\u20b914,942 Cr",
+      "pe_ratio": "70.17",
+      "roe": "3.6%",
+      "roce": "-0.1%",
+      "debt_to_equity": "0.06",
+      "book_value": "\u20b9299.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9842.0 Cr",
+          "net_profit_cr": "\u20b9172.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9816.0 Cr",
+          "net_profit_cr": "\u20b9-104.0 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9642.0 Cr",
+          "net_profit_cr": "\u20b968.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "GRANULES": {
+      "symbol": "GRANULES",
+      "market_cap": "\u20b923,092 Cr",
+      "pe_ratio": "31.40",
+      "roe": "13.0%",
+      "roce": "17.2%",
+      "debt_to_equity": "0.30",
+      "book_value": "\u20b9205.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,465.0 Cr",
+          "net_profit_cr": "\u20b9180.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,457.4 Cr",
+          "net_profit_cr": "\u20b9201.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,378.0 Cr",
+          "net_profit_cr": "\u20b9150.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "TBOTEK": {
+      "symbol": "TBOTEK",
+      "market_cap": "\u20b917,995 Cr",
+      "pe_ratio": "68.17",
+      "roe": "16.8%",
+      "roce": "14.7%",
+      "debt_to_equity": "0.49",
+      "book_value": "\u20b9145.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9925.8 Cr",
+          "net_profit_cr": "\u20b983.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9814.4 Cr",
+          "net_profit_cr": "\u20b960.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9784.3 Cr",
+          "net_profit_cr": "\u20b953.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "RRKABEL": {
+      "symbol": "RRKABEL",
+      "market_cap": "\u20b928,487 Cr",
+      "pe_ratio": "46.87",
+      "roe": "22.6%",
+      "roce": "28.9%",
+      "debt_to_equity": "0.13",
+      "book_value": "\u20b9227.6",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,168.2 Cr",
+          "net_profit_cr": "\u20b9205.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,964.1 Cr",
+          "net_profit_cr": "\u20b9168.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,535.9 Cr",
+          "net_profit_cr": "\u20b9118.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "GLENMARK": {
+      "symbol": "GLENMARK",
+      "market_cap": "\u20b965,891 Cr",
+      "pe_ratio": "36.64",
+      "roe": "17.1%",
+      "roce": "30.9%",
+      "debt_to_equity": "0.06",
+      "book_value": "\u20b9372.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,931.7 Cr",
+          "net_profit_cr": "\u20b9482.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b93,760.3 Cr",
+          "net_profit_cr": "\u20b9301.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,888.0 Cr",
+          "net_profit_cr": "\u20b9403.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "PPLPHARMA": {
+      "symbol": "PPLPHARMA",
+      "market_cap": "\u20b927,364 Cr",
+      "pe_ratio": "50.70",
+      "roe": "-3.6%",
+      "roce": "0.8%",
+      "debt_to_equity": "0.70",
+      "book_value": "\u20b961.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,269.9 Cr",
+          "net_profit_cr": "\u20b9-69.4 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,751.8 Cr",
+          "net_profit_cr": "\u20b9-8.8 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,139.9 Cr",
+          "net_profit_cr": "\u20b9-136.2 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "PAYTM": {
+      "symbol": "PAYTM",
+      "market_cap": "\u20b91.07L Cr",
+      "pe_ratio": "166.14",
+      "roe": "4.7%",
+      "roce": "0.0%",
+      "debt_to_equity": "1.07",
+      "book_value": "\u20b9250.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,448.0 Cr",
+          "net_profit_cr": "\u20b9220.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,264.0 Cr",
+          "net_profit_cr": "\u20b9184.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,194.0 Cr",
+          "net_profit_cr": "\u20b9225.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AJANTPHARM": {
+      "symbol": "AJANTPHARM",
+      "market_cap": "\u20b945,245 Cr",
+      "pe_ratio": "39.91",
+      "roe": "25.0%",
+      "roce": "63.3%",
+      "debt_to_equity": "0.06",
+      "book_value": "\u20b9362.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,626.0 Cr",
+          "net_profit_cr": "\u20b9334.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,421.6 Cr",
+          "net_profit_cr": "\u20b9266.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,374.8 Cr",
+          "net_profit_cr": "\u20b9273.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "TORNTPHARM": {
+      "symbol": "TORNTPHARM",
+      "market_cap": "\u20b91.83L Cr",
+      "pe_ratio": "76.63",
+      "roe": "26.0%",
+      "roce": "10.2%",
+      "debt_to_equity": "0.85",
+      "book_value": "\u20b9247.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b94,835.0 Cr",
+          "net_profit_cr": "\u20b9566.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b94,128.0 Cr",
+          "net_profit_cr": "\u20b9389.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,251.0 Cr",
+          "net_profit_cr": "\u20b9635.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "CARTRADE": {
+      "symbol": "CARTRADE",
+      "market_cap": "\u20b914,097 Cr",
+      "pe_ratio": "62.54",
+      "roe": "8.6%",
+      "roce": "7.9%",
+      "debt_to_equity": "0.05",
+      "book_value": "\u20b9518.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9201.2 Cr",
+          "net_profit_cr": "\u20b951.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9203.1 Cr",
+          "net_profit_cr": "\u20b964.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9209.7 Cr",
+          "net_profit_cr": "\u20b955.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ACUTAAS": {
+      "symbol": "ACUTAAS",
+      "market_cap": "\u20b926,849 Cr",
+      "pe_ratio": "69.89",
+      "roe": "21.7%",
+      "roce": "26.3%",
+      "debt_to_equity": "2.08",
+      "book_value": "\u20b9201.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9329.7 Cr",
+          "net_profit_cr": "\u20b974.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9422.4 Cr",
+          "net_profit_cr": "\u20b9131.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9393.2 Cr",
+          "net_profit_cr": "\u20b9108.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "MRPL": {
+      "symbol": "MRPL",
+      "market_cap": "\u20b929,670 Cr",
+      "pe_ratio": "9.45",
+      "roe": "15.8%",
+      "roce": "17.7%",
+      "debt_to_equity": "1.08",
+      "book_value": "\u20b981.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b938,254.2 Cr",
+          "net_profit_cr": "\u20b9945.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b923,949.7 Cr",
+          "net_profit_cr": "\u20b9117.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b924,711.7 Cr",
+          "net_profit_cr": "\u20b91,450.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "RKFORGE": {
+      "symbol": "RKFORGE",
+      "market_cap": "\u20b913,007 Cr",
+      "pe_ratio": "119.85",
+      "roe": "3.2%",
+      "roce": "7.1%",
+      "debt_to_equity": "0.74",
+      "book_value": "\u20b9181.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,216.7 Cr",
+          "net_profit_cr": "\u20b946.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,216.8 Cr",
+          "net_profit_cr": "\u20b955.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,098.5 Cr",
+          "net_profit_cr": "\u20b913.6 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "MEESHO": {
+      "symbol": "MEESHO",
+      "market_cap": "\u20b91.05L Cr",
+      "pe_ratio": "167.44",
+      "roe": "-27.4%",
+      "roce": "-33.1%",
+      "debt_to_equity": "1.43",
+      "book_value": "\u20b99.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,712.8 Cr",
+          "net_profit_cr": "\u20b9-132.8 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b93,531.2 Cr",
+          "net_profit_cr": "\u20b9-166.3 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,517.6 Cr",
+          "net_profit_cr": "\u20b9-490.7 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "POONAWALLA": {
+      "symbol": "POONAWALLA",
+      "market_cap": "\u20b938,877 Cr",
+      "pe_ratio": "46.38",
+      "roe": "7.5%",
+      "roce": "5.0%",
+      "debt_to_equity": "4.68",
+      "book_value": "\u20b9128.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,277.2 Cr",
+          "net_profit_cr": "\u20b9307.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,032.3 Cr",
+          "net_profit_cr": "\u20b9254.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,775.4 Cr",
+          "net_profit_cr": "\u20b9150.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "PFOCUS": {
+      "symbol": "PFOCUS",
+      "market_cap": "\u20b924,609 Cr",
+      "pe_ratio": "225.71",
+      "roe": "5.5%",
+      "roce": "22.8%",
+      "debt_to_equity": "2.25",
+      "book_value": "\u20b926.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,256.1 Cr",
+          "net_profit_cr": "\u20b9-41.3 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,375.5 Cr",
+          "net_profit_cr": "\u20b982.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,192.1 Cr",
+          "net_profit_cr": "\u20b971.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "IIFL": {
+      "symbol": "IIFL",
+      "market_cap": "\u20b925,549 Cr",
+      "pe_ratio": "12.23",
+      "roe": "14.1%",
+      "roce": "N/A",
+      "debt_to_equity": "4.47",
+      "book_value": "\u20b9327.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,172.8 Cr",
+          "net_profit_cr": "\u20b9675.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,075.7 Cr",
+          "net_profit_cr": "\u20b9586.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,983.0 Cr",
+          "net_profit_cr": "\u20b9464.3 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "FSL": {
+      "symbol": "FSL",
+      "market_cap": "\u20b917,664 Cr",
+      "pe_ratio": "26.90",
+      "roe": "15.1%",
+      "roce": "20.4%",
+      "debt_to_equity": "0.67",
+      "book_value": "\u20b963.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,751.8 Cr",
+          "net_profit_cr": "\u20b9165.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,613.0 Cr",
+          "net_profit_cr": "\u20b9205.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,467.4 Cr",
+          "net_profit_cr": "\u20b9120.3 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AEGISLOG": {
+      "symbol": "AEGISLOG",
+      "market_cap": "\u20b948,442 Cr",
+      "pe_ratio": "38.65",
+      "roe": "20.7%",
+      "roce": "15.6%",
+      "debt_to_equity": "0.47",
+      "book_value": "\u20b9172.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,356.9 Cr",
+          "net_profit_cr": "\u20b9484.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,594.4 Cr",
+          "net_profit_cr": "\u20b9410.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,725.4 Cr",
+          "net_profit_cr": "\u20b9176.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "IGIL": {
+      "symbol": "IGIL",
+      "market_cap": "\u20b913,652 Cr",
+      "pe_ratio": "26.68",
+      "roe": "43.7%",
+      "roce": "50.7%",
+      "debt_to_equity": "0.10",
+      "book_value": "\u20b934.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9370.8 Cr",
+          "net_profit_cr": "\u20b9165.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9368.6 Cr",
+          "net_profit_cr": "\u20b9179.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9304.7 Cr",
+          "net_profit_cr": "\u20b9140.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "PAGEIND": {
+      "symbol": "PAGEIND",
+      "market_cap": "\u20b940,583 Cr",
+      "pe_ratio": "53.77",
+      "roe": "50.3%",
+      "roce": "59.4%",
+      "debt_to_equity": "0.18",
+      "book_value": "\u20b91347.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,420.4 Cr",
+          "net_profit_cr": "\u20b9192.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,252.6 Cr",
+          "net_profit_cr": "\u20b9178.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,386.8 Cr",
+          "net_profit_cr": "\u20b9189.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "SOBHA": {
+      "symbol": "SOBHA",
+      "market_cap": "\u20b913,065 Cr",
+      "pe_ratio": "56.74",
+      "roe": "3.6%",
+      "roce": "3.5%",
+      "debt_to_equity": "0.25",
+      "book_value": "\u20b9441.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,278.2 Cr",
+          "net_profit_cr": "\u20b950.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,987.8 Cr",
+          "net_profit_cr": "\u20b991.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9943.1 Cr",
+          "net_profit_cr": "\u20b915.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "HONAUT": {
+      "symbol": "HONAUT",
+      "market_cap": "\u20b929,603 Cr",
+      "pe_ratio": "53.81",
+      "roe": "12.5%",
+      "roce": "12.9%",
+      "debt_to_equity": "2.48",
+      "book_value": "\u20b95047.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,204.4 Cr",
+          "net_profit_cr": "\u20b9150.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,180.7 Cr",
+          "net_profit_cr": "\u20b9159.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,168.7 Cr",
+          "net_profit_cr": "\u20b9121.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ENDURANCE": {
+      "symbol": "ENDURANCE",
+      "market_cap": "\u20b937,367 Cr",
+      "pe_ratio": "38.49",
+      "roe": "14.2%",
+      "roce": "15.5%",
+      "debt_to_equity": "0.19",
+      "book_value": "\u20b9486.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b94,314.9 Cr",
+          "net_profit_cr": "\u20b9244.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b94,085.9 Cr",
+          "net_profit_cr": "\u20b9276.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,608.2 Cr",
+          "net_profit_cr": "\u20b9221.6 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AIIL": {
+      "symbol": "AIIL",
+      "market_cap": "\u20b946,419 Cr",
+      "pe_ratio": "28.57",
+      "roe": "14.2%",
+      "roce": "14.4%",
+      "debt_to_equity": "0.25",
+      "book_value": "\u20b9173.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,469.5 Cr",
+          "net_profit_cr": "\u20b91,110.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9310.7 Cr",
+          "net_profit_cr": "\u20b959.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9478.0 Cr",
+          "net_profit_cr": "\u20b9161.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "BERGEPAINT": {
+      "symbol": "BERGEPAINT",
+      "market_cap": "\u20b953,106 Cr",
+      "pe_ratio": "43.63",
+      "roe": "19.2%",
+      "roce": "22.6%",
+      "debt_to_equity": "0.09",
+      "book_value": "\u20b959.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,583.8 Cr",
+          "net_profit_cr": "\u20b9404.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,868.0 Cr",
+          "net_profit_cr": "\u20b9334.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,984.0 Cr",
+          "net_profit_cr": "\u20b9271.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "KIMS": {
+      "symbol": "KIMS",
+      "market_cap": "\u20b931,349 Cr",
+      "pe_ratio": "146.93",
+      "roe": "9.1%",
+      "roce": "7.7%",
+      "debt_to_equity": "1.66",
+      "book_value": "\u20b956.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,179.5 Cr",
+          "net_profit_cr": "\u20b941.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,074.6 Cr",
+          "net_profit_cr": "\u20b942.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9997.7 Cr",
+          "net_profit_cr": "\u20b953.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "IRFC": {
+      "symbol": "IRFC",
+      "market_cap": "\u20b91.04L Cr",
+      "pe_ratio": "14.44",
+      "roe": "12.6%",
+      "roce": "1.5%",
+      "debt_to_equity": "7.73",
+      "book_value": "\u20b943.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b98,242.0 Cr",
+          "net_profit_cr": "\u20b91,927.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b97,335.8 Cr",
+          "net_profit_cr": "\u20b91,684.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b96,657.1 Cr",
+          "net_profit_cr": "\u20b91,802.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ABB": {
+      "symbol": "ABB",
+      "market_cap": "\u20b91.44L Cr",
+      "pe_ratio": "90.83",
+      "roe": "19.1%",
+      "roce": "7.9%",
+      "debt_to_equity": "1.55",
+      "book_value": "\u20b9440.6",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,521.0 Cr",
+          "net_profit_cr": "\u20b9362.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b93,162.4 Cr",
+          "net_profit_cr": "\u20b91,783.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,495.8 Cr",
+          "net_profit_cr": "\u20b9432.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "3MINDIA": {
+      "symbol": "3MINDIA",
+      "market_cap": "\u20b936,228 Cr",
+      "pe_ratio": "65.91",
+      "roe": "31.9%",
+      "roce": "45.8%",
+      "debt_to_equity": "0.10",
+      "book_value": "\u20b91569.6",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,423.2 Cr",
+          "net_profit_cr": "\u20b9233.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,399.2 Cr",
+          "net_profit_cr": "\u20b9215.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,228.1 Cr",
+          "net_profit_cr": "\u20b9-62.1 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ACMESOLAR": {
+      "symbol": "ACMESOLAR",
+      "market_cap": "\u20b931,006 Cr",
+      "pe_ratio": "45.35",
+      "roe": "12.2%",
+      "roce": "6.4%",
+      "debt_to_equity": "3.93",
+      "book_value": "\u20b983.6",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9857.5 Cr",
+          "net_profit_cr": "\u20b9235.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9547.8 Cr",
+          "net_profit_cr": "\u20b9139.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9496.6 Cr",
+          "net_profit_cr": "\u20b9113.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AIAENG": {
+      "symbol": "AIAENG",
+      "market_cap": "\u20b936,106 Cr",
+      "pe_ratio": "28.49",
+      "roe": "15.8%",
+      "roce": "14.0%",
+      "debt_to_equity": "0.13",
+      "book_value": "\u20b9860.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,153.2 Cr",
+          "net_profit_cr": "\u20b9301.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,251.1 Cr",
+          "net_profit_cr": "\u20b9393.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,048.7 Cr",
+          "net_profit_cr": "\u20b9294.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "360ONE": {
+      "symbol": "360ONE",
+      "market_cap": "\u20b942,015 Cr",
+      "pe_ratio": "34.28",
+      "roe": "12.5%",
+      "roce": "6.7%",
+      "debt_to_equity": "1.62",
+      "book_value": "\u20b9242.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9898.3 Cr",
+          "net_profit_cr": "\u20b9330.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9810.7 Cr",
+          "net_profit_cr": "\u20b9288.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9807.1 Cr",
+          "net_profit_cr": "\u20b9327.3 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ACC": {
+      "symbol": "ACC",
+      "market_cap": "\u20b922,611 Cr",
+      "pe_ratio": "11.88",
+      "roe": "5.7%",
+      "roce": "6.7%",
+      "debt_to_equity": "2.08",
+      "book_value": "\u20b91094.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b95,790.0 Cr",
+          "net_profit_cr": "\u20b9147.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b97,124.5 Cr",
+          "net_profit_cr": "\u20b9238.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b96,391.2 Cr",
+          "net_profit_cr": "\u20b9404.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "APLAPOLLO": {
+      "symbol": "APLAPOLLO",
+      "market_cap": "\u20b960,810 Cr",
+      "pe_ratio": "49.45",
+      "roe": "22.0%",
+      "roce": "25.7%",
+      "debt_to_equity": "0.09",
+      "book_value": "\u20b9190.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b95,438.2 Cr",
+          "net_profit_cr": "\u20b9263.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b96,076.0 Cr",
+          "net_profit_cr": "\u20b9354.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b95,648.5 Cr",
+          "net_profit_cr": "\u20b9310.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AUBANK": {
+      "symbol": "AUBANK",
+      "market_cap": "\u20b975,713 Cr",
+      "pe_ratio": "26.80",
+      "roe": "14.4%",
+      "roce": "N/A",
+      "debt_to_equity": "N/A",
+      "book_value": "\u20b9267.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,384.7 Cr",
+          "net_profit_cr": "\u20b9796.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b93,313.3 Cr",
+          "net_profit_cr": "\u20b9831.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,065.1 Cr",
+          "net_profit_cr": "\u20b9667.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AWL": {
+      "symbol": "AWL",
+      "market_cap": "\u20b922,953 Cr",
+      "pe_ratio": "19.87",
+      "roe": "11.0%",
+      "roce": "13.6%",
+      "debt_to_equity": "0.11",
+      "book_value": "\u20b980.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b920,048.1 Cr",
+          "net_profit_cr": "\u20b9350.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b921,464.8 Cr",
+          "net_profit_cr": "\u20b9292.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b918,602.7 Cr",
+          "net_profit_cr": "\u20b9268.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AADHARHFC": {
+      "symbol": "AADHARHFC",
+      "market_cap": "\u20b919,114 Cr",
+      "pe_ratio": "16.91",
+      "roe": "15.1%",
+      "roce": "5.7%",
+      "debt_to_equity": "2.56",
+      "book_value": "\u20b9173.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9937.0 Cr",
+          "net_profit_cr": "\u20b9282.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9910.6 Cr",
+          "net_profit_cr": "\u20b9310.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9884.3 Cr",
+          "net_profit_cr": "\u20b9281.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ACE": {
+      "symbol": "ACE",
+      "market_cap": "\u20b914,664 Cr",
+      "pe_ratio": "33.61",
+      "roe": "22.1%",
+      "roce": "23.7%",
+      "debt_to_equity": "0.39",
+      "book_value": "\u20b9169.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9785.7 Cr",
+          "net_profit_cr": "\u20b9119.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,029.5 Cr",
+          "net_profit_cr": "\u20b9110.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9854.6 Cr",
+          "net_profit_cr": "\u20b9116.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AARTIIND": {
+      "symbol": "AARTIIND",
+      "market_cap": "\u20b917,256 Cr",
+      "pe_ratio": "32.56",
+      "roe": "7.9%",
+      "roce": "8.6%",
+      "debt_to_equity": "0.83",
+      "book_value": "\u20b9164.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,387.0 Cr",
+          "net_profit_cr": "\u20b9155.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,205.0 Cr",
+          "net_profit_cr": "\u20b9137.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,318.0 Cr",
+          "net_profit_cr": "\u20b9133.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AAVAS": {
+      "symbol": "AAVAS",
+      "market_cap": "\u20b99,610 Cr",
+      "pe_ratio": "14.07",
+      "roe": "13.6%",
+      "roce": "3.4%",
+      "debt_to_equity": "3.11",
+      "book_value": "\u20b9637.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9642.0 Cr",
+          "net_profit_cr": "\u20b9171.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9627.0 Cr",
+          "net_profit_cr": "\u20b9181.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9602.4 Cr",
+          "net_profit_cr": "\u20b9170.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ABBOTINDIA": {
+      "symbol": "ABBOTINDIA",
+      "market_cap": "\u20b957,639 Cr",
+      "pe_ratio": "35.65",
+      "roe": "33.8%",
+      "roce": "37.7%",
+      "debt_to_equity": "3.60",
+      "book_value": "\u20b92246.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,813.7 Cr",
+          "net_profit_cr": "\u20b9428.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,709.5 Cr",
+          "net_profit_cr": "\u20b9394.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,724.0 Cr",
+          "net_profit_cr": "\u20b9376.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ADANIGREEN": {
+      "symbol": "ADANIGREEN",
+      "market_cap": "\u20b92.11L Cr",
+      "pe_ratio": "122.18",
+      "roe": "6.0%",
+      "roce": "5.1%",
+      "debt_to_equity": "3.47",
+      "book_value": "\u20b9117.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b94,323.0 Cr",
+          "net_profit_cr": "\u20b9845.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b93,328.0 Cr",
+          "net_profit_cr": "\u20b9397.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,433.0 Cr",
+          "net_profit_cr": "\u20b9-41.0 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ADANIENSOL": {
+      "symbol": "ADANIENSOL",
+      "market_cap": "\u20b91.61L Cr",
+      "pe_ratio": "54.12",
+      "roe": "11.4%",
+      "roce": "10.0%",
+      "debt_to_equity": "1.95",
+      "book_value": "\u20b9211.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b99,711.1 Cr",
+          "net_profit_cr": "\u20b91,149.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b97,443.3 Cr",
+          "net_profit_cr": "\u20b9683.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b96,729.6 Cr",
+          "net_profit_cr": "\u20b9552.3 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ADANIENT": {
+      "symbol": "ADANIENT",
+      "market_cap": "\u20b94.13L Cr",
+      "pe_ratio": "50.35",
+      "roe": "5.2%",
+      "roce": "3.4%",
+      "debt_to_equity": "1.20",
+      "book_value": "\u20b9626.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b932,924.0 Cr",
+          "net_profit_cr": "\u20b9-1,160.2 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b932,439.3 Cr",
+          "net_profit_cr": "\u20b9-220.7 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b924,819.6 Cr",
+          "net_profit_cr": "\u20b95,627.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ADANIPOWER": {
+      "symbol": "ADANIPOWER",
+      "market_cap": "\u20b93.93L Cr",
+      "pe_ratio": "27.64",
+      "roe": "22.6%",
+      "roce": "14.8%",
+      "debt_to_equity": "0.82",
+      "book_value": "\u20b933.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b918,901.9 Cr",
+          "net_profit_cr": "\u20b94,805.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b914,223.1 Cr",
+          "net_profit_cr": "\u20b94,017.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b912,451.4 Cr",
+          "net_profit_cr": "\u20b92,479.6 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ABCAPITAL": {
+      "symbol": "ABCAPITAL",
+      "market_cap": "\u20b91.04L Cr",
+      "pe_ratio": "24.62",
+      "roe": "11.9%",
+      "roce": "N/A",
+      "debt_to_equity": "4.96",
+      "book_value": "\u20b9131.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b911,748.5 Cr",
+          "net_profit_cr": "\u20b91,174.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b913,077.5 Cr",
+          "net_profit_cr": "\u20b91,129.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b911,500.5 Cr",
+          "net_profit_cr": "\u20b9945.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ADANIPORTS": {
+      "symbol": "ADANIPORTS",
+      "market_cap": "\u20b94.14L Cr",
+      "pe_ratio": "30.65",
+      "roe": "13.9%",
+      "roce": "10.5%",
+      "debt_to_equity": "0.64",
+      "book_value": "\u20b9416.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b910,820.8 Cr",
+          "net_profit_cr": "\u20b93,620.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b910,737.6 Cr",
+          "net_profit_cr": "\u20b93,329.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b99,704.6 Cr",
+          "net_profit_cr": "\u20b93,053.6 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ATGL": {
+      "symbol": "ATGL",
+      "market_cap": "\u20b965,318 Cr",
+      "pe_ratio": "102.93",
+      "roe": "13.0%",
+      "roce": "12.6%",
+      "debt_to_equity": "0.59",
+      "book_value": "\u20b944.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,753.5 Cr",
+          "net_profit_cr": "\u20b9141.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,557.2 Cr",
+          "net_profit_cr": "\u20b9168.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,507.3 Cr",
+          "net_profit_cr": "\u20b9158.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ABFRL": {
+      "symbol": "ABFRL",
+      "market_cap": "\u20b95,636 Cr",
+      "pe_ratio": "-8.11",
+      "roe": "-12.5%",
+      "roce": "-4.8%",
+      "debt_to_equity": "0.99",
+      "book_value": "\u20b948.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,025.6 Cr",
+          "net_profit_cr": "\u20b9-215.2 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,990.1 Cr",
+          "net_profit_cr": "\u20b9-148.4 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,373.7 Cr",
+          "net_profit_cr": "\u20b9-152.2 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ABSLAMC": {
+      "symbol": "ABSLAMC",
+      "market_cap": "\u20b928,802 Cr",
+      "pe_ratio": "28.61",
+      "roe": "25.8%",
+      "roce": "24.9%",
+      "debt_to_equity": "1.58",
+      "book_value": "\u20b9139.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9463.0 Cr",
+          "net_profit_cr": "\u20b9309.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9458.2 Cr",
+          "net_profit_cr": "\u20b9187.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9478.1 Cr",
+          "net_profit_cr": "\u20b9269.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ABLBL": {
+      "symbol": "ABLBL",
+      "market_cap": "\u20b99,294 Cr",
+      "pe_ratio": "52.77",
+      "roe": "12.5%",
+      "roce": "56.8%",
+      "debt_to_equity": "2.14",
+      "book_value": "\u20b911.6",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,045.7 Cr",
+          "net_profit_cr": "\u20b929.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,174.2 Cr",
+          "net_profit_cr": "\u20b954.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,343.2 Cr",
+          "net_profit_cr": "\u20b969.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ABREL": {
+      "symbol": "ABREL",
+      "market_cap": "\u20b912,503 Cr",
+      "pe_ratio": "19.35",
+      "roe": "-3.4%",
+      "roce": "-3.1%",
+      "debt_to_equity": "1.52",
+      "book_value": "\u20b9334.6",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9188.1 Cr",
+          "net_profit_cr": "\u20b9-38.5 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b982.0 Cr",
+          "net_profit_cr": "\u20b910.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b980.8 Cr",
+          "net_profit_cr": "\u20b9-72.8 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AEGISVOPAK": {
+      "symbol": "AEGISVOPAK",
+      "market_cap": "\u20b932,885 Cr",
+      "pe_ratio": "107.15",
+      "roe": "5.8%",
+      "roce": "6.7%",
+      "debt_to_equity": "0.84",
+      "book_value": "\u20b938.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9233.8 Cr",
+          "net_profit_cr": "\u20b966.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9243.5 Cr",
+          "net_profit_cr": "\u20b968.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9197.5 Cr",
+          "net_profit_cr": "\u20b961.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AFFLE": {
+      "symbol": "AFFLE",
+      "market_cap": "\u20b921,266 Cr",
+      "pe_ratio": "44.74",
+      "roe": "12.9%",
+      "roce": "13.7%",
+      "debt_to_equity": "0.41",
+      "book_value": "\u20b9260.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9747.2 Cr",
+          "net_profit_cr": "\u20b9128.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9724.4 Cr",
+          "net_profit_cr": "\u20b9119.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9717.5 Cr",
+          "net_profit_cr": "\u20b9119.3 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ALKEM": {
+      "symbol": "ALKEM",
+      "market_cap": "\u20b961,737 Cr",
+      "pe_ratio": "28.59",
+      "roe": "15.6%",
+      "roce": "16.4%",
+      "debt_to_equity": "0.14",
+      "book_value": "\u20b91155.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,740.2 Cr",
+          "net_profit_cr": "\u20b9520.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b93,603.3 Cr",
+          "net_profit_cr": "\u20b9236.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,736.8 Cr",
+          "net_profit_cr": "\u20b9636.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ABDL": {
+      "symbol": "ABDL",
+      "market_cap": "\u20b920,108 Cr",
+      "pe_ratio": "91.35",
+      "roe": "12.8%",
+      "roce": "22.6%",
+      "debt_to_equity": "0.68",
+      "book_value": "\u20b959.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9978.9 Cr",
+          "net_profit_cr": "\u20b949.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,006.9 Cr",
+          "net_profit_cr": "\u20b941.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,003.0 Cr",
+          "net_profit_cr": "\u20b966.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AFCONS": {
+      "symbol": "AFCONS",
+      "market_cap": "\u20b99,114 Cr",
+      "pe_ratio": "63.54",
+      "roe": "2.7%",
+      "roce": "7.0%",
+      "debt_to_equity": "0.67",
+      "book_value": "\u20b9148.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,671.0 Cr",
+          "net_profit_cr": "\u20b930.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,613.8 Cr",
+          "net_profit_cr": "\u20b9-88.4 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,975.8 Cr",
+          "net_profit_cr": "\u20b997.1 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "ARE&M": {
+      "symbol": "ARE&M",
+      "market_cap": "\u20b913,810 Cr",
+      "pe_ratio": "14.99",
+      "roe": "10.0%",
+      "roce": "10.5%",
+      "debt_to_equity": "0.05",
+      "book_value": "\u20b9442.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b94,214.5 Cr",
+          "net_profit_cr": "\u20b9190.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b93,535.8 Cr",
+          "net_profit_cr": "\u20b9314.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,410.2 Cr",
+          "net_profit_cr": "\u20b9140.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:48"
+    },
+    "AMBER": {
+      "symbol": "AMBER",
+      "market_cap": "\u20b923,532 Cr",
+      "pe_ratio": "252.46",
+      "roe": "5.3%",
+      "roce": "10.1%",
+      "debt_to_equity": "0.47",
+      "book_value": "\u20b91242.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,887.7 Cr",
+          "net_profit_cr": "\u20b922.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b94,147.5 Cr",
+          "net_profit_cr": "\u20b9133.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,942.8 Cr",
+          "net_profit_cr": "\u20b9-27.2 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "AMBUJACEM": {
+      "symbol": "AMBUJACEM",
+      "market_cap": "\u20b992,932 Cr",
+      "pe_ratio": "20.95",
+      "roe": "4.4%",
+      "roce": "2.0%",
+      "debt_to_equity": "1.21",
+      "book_value": "\u20b9240.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b99,474.0 Cr",
+          "net_profit_cr": "\u20b9577.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b910,891.7 Cr",
+          "net_profit_cr": "\u20b91,830.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b910,180.5 Cr",
+          "net_profit_cr": "\u20b9203.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ANANDRATHI": {
+      "symbol": "ANANDRATHI",
+      "market_cap": "\u20b935,201 Cr",
+      "pe_ratio": "77.03",
+      "roe": "36.6%",
+      "roce": "27.0%",
+      "debt_to_equity": "0.08",
+      "book_value": "\u20b960.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9322.0 Cr",
+          "net_profit_cr": "\u20b9162.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9287.8 Cr",
+          "net_profit_cr": "\u20b9103.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9289.6 Cr",
+          "net_profit_cr": "\u20b999.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ANANTRAJ": {
+      "symbol": "ANANTRAJ",
+      "market_cap": "\u20b921,553 Cr",
+      "pe_ratio": "36.70",
+      "roe": "10.0%",
+      "roce": "9.7%",
+      "debt_to_equity": "0.12",
+      "book_value": "\u20b9160.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9631.4 Cr",
+          "net_profit_cr": "\u20b9149.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9646.8 Cr",
+          "net_profit_cr": "\u20b9146.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9641.6 Cr",
+          "net_profit_cr": "\u20b9144.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ANGELONE": {
+      "symbol": "ANGELONE",
+      "market_cap": "\u20b925,060 Cr",
+      "pe_ratio": "24.73",
+      "roe": "13.4%",
+      "roce": "24.1%",
+      "debt_to_equity": "1.29",
+      "book_value": "\u20b967.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,424.4 Cr",
+          "net_profit_cr": "\u20b9231.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,455.0 Cr",
+          "net_profit_cr": "\u20b9320.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,330.4 Cr",
+          "net_profit_cr": "\u20b9268.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "APOLLOHOSP": {
+      "symbol": "APOLLOHOSP",
+      "market_cap": "\u20b91.17L Cr",
+      "pe_ratio": "56.13",
+      "roe": "21.6%",
+      "roce": "19.3%",
+      "debt_to_equity": "0.85",
+      "book_value": "\u20b9659.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b97,043.5 Cr",
+          "net_profit_cr": "\u20b9580.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b96,605.5 Cr",
+          "net_profit_cr": "\u20b9529.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b96,477.4 Cr",
+          "net_profit_cr": "\u20b9502.3 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ANTHEM": {
+      "symbol": "ANTHEM",
+      "market_cap": "\u20b948,229 Cr",
+      "pe_ratio": "85.09",
+      "roe": "18.9%",
+      "roce": "21.1%",
+      "debt_to_equity": "1.77",
+      "book_value": "\u20b954.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9418.2 Cr",
+          "net_profit_cr": "\u20b9119.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9610.9 Cr",
+          "net_profit_cr": "\u20b9189.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9423.2 Cr",
+          "net_profit_cr": "\u20b992.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ANURAS": {
+      "symbol": "ANURAS",
+      "market_cap": "\u20b913,446 Cr",
+      "pe_ratio": "76.54",
+      "roe": "5.0%",
+      "roce": "7.2%",
+      "debt_to_equity": "0.41",
+      "book_value": "\u20b9293.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9655.0 Cr",
+          "net_profit_cr": "\u20b938.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9635.8 Cr",
+          "net_profit_cr": "\u20b942.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9512.4 Cr",
+          "net_profit_cr": "\u20b949.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "APTUS": {
+      "symbol": "APTUS",
+      "market_cap": "\u20b911,646 Cr",
+      "pe_ratio": "11.82",
+      "roe": "19.3%",
+      "roce": "N/A",
+      "debt_to_equity": "1.56",
+      "book_value": "\u20b9101.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9441.0 Cr",
+          "net_profit_cr": "\u20b9260.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9432.6 Cr",
+          "net_profit_cr": "\u20b9261.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9406.0 Cr",
+          "net_profit_cr": "\u20b9236.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "APOLLOTYRE": {
+      "symbol": "APOLLOTYRE",
+      "market_cap": "\u20b925,601 Cr",
+      "pe_ratio": "15.01",
+      "roe": "10.2%",
+      "roce": "12.2%",
+      "debt_to_equity": "0.22",
+      "book_value": "\u20b9264.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b97,397.8 Cr",
+          "net_profit_cr": "\u20b9348.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b97,335.7 Cr",
+          "net_profit_cr": "\u20b9631.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b97,743.1 Cr",
+          "net_profit_cr": "\u20b9470.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ASAHIINDIA": {
+      "symbol": "ASAHIINDIA",
+      "market_cap": "\u20b924,444 Cr",
+      "pe_ratio": "55.30",
+      "roe": "11.1%",
+      "roce": "12.3%",
+      "debt_to_equity": "0.56",
+      "book_value": "\u20b9154.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,392.1 Cr",
+          "net_profit_cr": "\u20b9149.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,325.5 Cr",
+          "net_profit_cr": "\u20b9132.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,220.4 Cr",
+          "net_profit_cr": "\u20b999.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ASIANPAINT": {
+      "symbol": "ASIANPAINT",
+      "market_cap": "\u20b92.30L Cr",
+      "pe_ratio": "48.29",
+      "roe": "22.3%",
+      "roce": "23.7%",
+      "debt_to_equity": "0.18",
+      "book_value": "\u20b9222.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b910,521.4 Cr",
+          "net_profit_cr": "\u20b91,539.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b99,228.5 Cr",
+          "net_profit_cr": "\u20b91,172.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b98,849.7 Cr",
+          "net_profit_cr": "\u20b91,059.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ASHOKLEY": {
+      "symbol": "ASHOKLEY",
+      "market_cap": "\u20b990,569 Cr",
+      "pe_ratio": "26.05",
+      "roe": "24.4%",
+      "roce": "16.5%",
+      "debt_to_equity": "3.45",
+      "book_value": "\u20b924.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b913,020.0 Cr",
+          "net_profit_cr": "\u20b9615.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b917,138.9 Cr",
+          "net_profit_cr": "\u20b91,290.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b914,762.0 Cr",
+          "net_profit_cr": "\u20b9813.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ATHERENERG": {
+      "symbol": "ATHERENERG",
+      "market_cap": "\u20b956,447 Cr",
+      "pe_ratio": "505.42",
+      "roe": "-15.2%",
+      "roce": "-14.2%",
+      "debt_to_equity": "0.26",
+      "book_value": "\u20b967.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,216.9 Cr",
+          "net_profit_cr": "\u20b9-51.1 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,174.7 Cr",
+          "net_profit_cr": "\u20b9-100.2 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9953.6 Cr",
+          "net_profit_cr": "\u20b9-84.6 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ASTERDM": {
+      "symbol": "ASTERDM",
+      "market_cap": "\u20b960,769 Cr",
+      "pe_ratio": "112.99",
+      "roe": "6.4%",
+      "roce": "9.1%",
+      "debt_to_equity": "0.46",
+      "book_value": "\u20b988.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,310.7 Cr",
+          "net_profit_cr": "\u20b916.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,182.4 Cr",
+          "net_profit_cr": "\u20b9140.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,185.8 Cr",
+          "net_profit_cr": "\u20b952.5 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "AXISBANK": {
+      "symbol": "AXISBANK",
+      "market_cap": "\u20b93.82L Cr",
+      "pe_ratio": "13.80",
+      "roe": "13.4%",
+      "roce": "1.5%",
+      "debt_to_equity": "N/A",
+      "book_value": "\u20b9717.5",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b922,998.1 Cr",
+          "net_profit_cr": "\u20b97,632.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b922,063.0 Cr",
+          "net_profit_cr": "\u20b97,602.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b922,113.3 Cr",
+          "net_profit_cr": "\u20b97,010.6 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ASTRAL": {
+      "symbol": "ASTRAL",
+      "market_cap": "\u20b936,816 Cr",
+      "pe_ratio": "63.89",
+      "roe": "12.9%",
+      "roce": "17.2%",
+      "debt_to_equity": "0.06",
+      "book_value": "\u20b9151.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,578.0 Cr",
+          "net_profit_cr": "\u20b9120.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,088.5 Cr",
+          "net_profit_cr": "\u20b9213.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,541.5 Cr",
+          "net_profit_cr": "\u20b9107.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "DMART": {
+      "symbol": "DMART",
+      "market_cap": "\u20b92.48L Cr",
+      "pe_ratio": "80.61",
+      "roe": "12.9%",
+      "roce": "17.1%",
+      "debt_to_equity": "0.10",
+      "book_value": "\u20b9375.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b918,794.5 Cr",
+          "net_profit_cr": "\u20b9860.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b917,683.9 Cr",
+          "net_profit_cr": "\u20b9656.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b918,100.9 Cr",
+          "net_profit_cr": "\u20b9855.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "ATUL": {
+      "symbol": "ATUL",
+      "market_cap": "\u20b917,416 Cr",
+      "pe_ratio": "21.88",
+      "roe": "12.0%",
+      "roce": "12.4%",
+      "debt_to_equity": "2.91",
+      "book_value": "\u20b92113.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,848.0 Cr",
+          "net_profit_cr": "\u20b9245.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,670.0 Cr",
+          "net_profit_cr": "\u20b9210.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,573.6 Cr",
+          "net_profit_cr": "\u20b9160.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BEML": {
+      "symbol": "BEML",
+      "market_cap": "\u20b916,594 Cr",
+      "pe_ratio": "93.19",
+      "roe": "2.3%",
+      "roce": "3.4%",
+      "debt_to_equity": "0.11",
+      "book_value": "\u20b9352.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9819.6 Cr",
+          "net_profit_cr": "\u20b9-27.0 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,794.2 Cr",
+          "net_profit_cr": "\u20b9179.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,083.3 Cr",
+          "net_profit_cr": "\u20b9-22.4 Cr",
+          "is_profit": false
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BLS": {
+      "symbol": "BLS",
+      "market_cap": "\u20b98,982 Cr",
+      "pe_ratio": "12.78",
+      "roe": "28.6%",
+      "roce": "24.3%",
+      "debt_to_equity": "0.15",
+      "book_value": "\u20b959.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9890.5 Cr",
+          "net_profit_cr": "\u20b9190.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9814.6 Cr",
+          "net_profit_cr": "\u20b9177.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9736.5 Cr",
+          "net_profit_cr": "\u20b9162.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BSE": {
+      "symbol": "BSE",
+      "market_cap": "\u20b91.26L Cr",
+      "pe_ratio": "43.52",
+      "roe": "42.4%",
+      "roce": "41.4%",
+      "debt_to_equity": "0.00",
+      "book_value": "\u20b9194.2",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,566.0 Cr",
+          "net_profit_cr": "\u20b9874.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,563.5 Cr",
+          "net_profit_cr": "\u20b9797.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,244.1 Cr",
+          "net_profit_cr": "\u20b9601.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BAJAJ-AUTO": {
+      "symbol": "BAJAJ-AUTO",
+      "market_cap": "\u20b92.99L Cr",
+      "pe_ratio": "25.86",
+      "roe": "30.3%",
+      "roce": "24.0%",
+      "debt_to_equity": "0.56",
+      "book_value": "\u20b91389.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b920,870.2 Cr",
+          "net_profit_cr": "\u20b93,225.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b917,108.0 Cr",
+          "net_profit_cr": "\u20b93,661.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b915,378.2 Cr",
+          "net_profit_cr": "\u20b92,749.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BAJFINANCE": {
+      "symbol": "BAJFINANCE",
+      "market_cap": "\u20b95.97L Cr",
+      "pe_ratio": "29.43",
+      "roe": "17.8%",
+      "roce": "N/A",
+      "debt_to_equity": "3.15",
+      "book_value": "\u20b9183.3",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b914,170.9 Cr",
+          "net_profit_cr": "\u20b95,985.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b913,162.7 Cr",
+          "net_profit_cr": "\u20b95,464.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b912,866.5 Cr",
+          "net_profit_cr": "\u20b93,977.8 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BAJAJFINSV": {
+      "symbol": "BAJAJFINSV",
+      "market_cap": "\u20b92.77L Cr",
+      "pe_ratio": "27.37",
+      "roe": "13.0%",
+      "roce": "N/A",
+      "debt_to_equity": "2.56",
+      "book_value": "\u20b9487.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b936,859.3 Cr",
+          "net_profit_cr": "\u20b93,132.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b933,482.6 Cr",
+          "net_profit_cr": "\u20b92,538.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b932,619.5 Cr",
+          "net_profit_cr": "\u20b92,229.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BAJAJHLDNG": {
+      "symbol": "BAJAJHLDNG",
+      "market_cap": "\u20b91.20L Cr",
+      "pe_ratio": "13.55",
+      "roe": "11.6%",
+      "roce": "N/A",
+      "debt_to_equity": "0.01",
+      "book_value": "\u20b96572.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,778.0 Cr",
+          "net_profit_cr": "\u20b92,706.4 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,338.1 Cr",
+          "net_profit_cr": "\u20b92,575.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,133.0 Cr",
+          "net_profit_cr": "\u20b92,016.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BAJAJHFL": {
+      "symbol": "BAJAJHFL",
+      "market_cap": "\u20b968,295 Cr",
+      "pe_ratio": "25.39",
+      "roe": "12.7%",
+      "roce": "3.5%",
+      "debt_to_equity": "4.61",
+      "book_value": "\u20b927.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,029.8 Cr",
+          "net_profit_cr": "\u20b9715.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,883.7 Cr",
+          "net_profit_cr": "\u20b9669.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,864.6 Cr",
+          "net_profit_cr": "\u20b9664.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BALKRISIND": {
+      "symbol": "BALKRISIND",
+      "market_cap": "\u20b940,925 Cr",
+      "pe_ratio": "29.11",
+      "roe": "13.0%",
+      "roce": "13.8%",
+      "debt_to_equity": "0.38",
+      "book_value": "\u20b9566.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,455.3 Cr",
+          "net_profit_cr": "\u20b9450.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,932.8 Cr",
+          "net_profit_cr": "\u20b9299.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,736.8 Cr",
+          "net_profit_cr": "\u20b9382.1 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BANKBARODA": {
+      "symbol": "BANKBARODA",
+      "market_cap": "\u20b91.19L Cr",
+      "pe_ratio": "6.56",
+      "roe": "11.3%",
+      "roce": "0.9%",
+      "debt_to_equity": "N/A",
+      "book_value": "\u20b9326.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b920,015.6 Cr",
+          "net_profit_cr": "\u20b91,783.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b919,212.0 Cr",
+          "net_profit_cr": "\u20b95,800.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b919,413.2 Cr",
+          "net_profit_cr": "\u20b95,442.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "MAHABANK": {
+      "symbol": "MAHABANK",
+      "market_cap": "\u20b961,048 Cr",
+      "pe_ratio": "8.11",
+      "roe": "23.0%",
+      "roce": "1.9%",
+      "debt_to_equity": "N/A",
+      "book_value": "\u20b946.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b94,799.2 Cr",
+          "net_profit_cr": "\u20b92,023.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b94,641.2 Cr",
+          "net_profit_cr": "\u20b92,044.9 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b94,355.6 Cr",
+          "net_profit_cr": "\u20b91,799.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BALRAMCHIN": {
+      "symbol": "BALRAMCHIN",
+      "market_cap": "\u20b914,026 Cr",
+      "pe_ratio": "36.48",
+      "roe": "9.0%",
+      "roce": "10.1%",
+      "debt_to_equity": "0.77",
+      "book_value": "\u20b9204.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,636.8 Cr",
+          "net_profit_cr": "\u20b944.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,604.0 Cr",
+          "net_profit_cr": "\u20b9159.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,454.1 Cr",
+          "net_profit_cr": "\u20b9113.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BANKINDIA": {
+      "symbol": "BANKINDIA",
+      "market_cap": "\u20b959,294 Cr",
+      "pe_ratio": "4.82",
+      "roe": "13.7%",
+      "roce": "N/A",
+      "debt_to_equity": "N/A",
+      "book_value": "\u20b9199.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b99,556.4 Cr",
+          "net_profit_cr": "\u20b93,302.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b910,068.3 Cr",
+          "net_profit_cr": "\u20b93,087.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b98,875.0 Cr",
+          "net_profit_cr": "\u20b92,812.3 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BANDHANBNK": {
+      "symbol": "BANDHANBNK",
+      "market_cap": "\u20b928,715 Cr",
+      "pe_ratio": "21.24",
+      "roe": "6.3%",
+      "roce": "N/A",
+      "debt_to_equity": "N/A",
+      "book_value": "\u20b9159.0",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b93,524.4 Cr",
+          "net_profit_cr": "\u20b9501.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b93,566.3 Cr",
+          "net_profit_cr": "\u20b9534.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b93,379.3 Cr",
+          "net_profit_cr": "\u20b9205.6 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BATAINDIA": {
+      "symbol": "BATAINDIA",
+      "market_cap": "\u20b97,953 Cr",
+      "pe_ratio": "54.52",
+      "roe": "11.6%",
+      "roce": "12.3%",
+      "debt_to_equity": "0.87",
+      "book_value": "\u20b9124.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9978.9 Cr",
+          "net_profit_cr": "\u20b964.0 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9827.6 Cr",
+          "net_profit_cr": "\u20b92.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9944.7 Cr",
+          "net_profit_cr": "\u20b966.1 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BAYERCROP": {
+      "symbol": "BAYERCROP",
+      "market_cap": "\u20b916,303 Cr",
+      "pe_ratio": "22.28",
+      "roe": "24.7%",
+      "roce": "24.8%",
+      "debt_to_equity": "2.76",
+      "book_value": "\u20b9659.9",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b91,835.0 Cr",
+          "net_profit_cr": "\u20b9321.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b91,100.8 Cr",
+          "net_profit_cr": "\u20b9162.1 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b91,106.2 Cr",
+          "net_profit_cr": "\u20b995.7 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BHARATFORG": {
+      "symbol": "BHARATFORG",
+      "market_cap": "\u20b994,118 Cr",
+      "pe_ratio": "130.49",
+      "roe": "7.4%",
+      "roce": "15.4%",
+      "debt_to_equity": "0.76",
+      "book_value": "\u20b9200.4",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b94,639.9 Cr",
+          "net_profit_cr": "\u20b9-89.7 Cr",
+          "is_profit": false
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b94,528.0 Cr",
+          "net_profit_cr": "\u20b9232.6 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b94,342.9 Cr",
+          "net_profit_cr": "\u20b9264.2 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BEL": {
+      "symbol": "BEL",
+      "market_cap": "\u20b92.84L Cr",
+      "pe_ratio": "46.17",
+      "roe": "24.3%",
+      "roce": "28.3%",
+      "debt_to_equity": "0.27",
+      "book_value": "\u20b932.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b95,547.0 Cr",
+          "net_profit_cr": "\u20b91,054.3 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b910,224.4 Cr",
+          "net_profit_cr": "\u20b92,225.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b97,153.9 Cr",
+          "net_profit_cr": "\u20b91,579.1 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BDL": {
+      "symbol": "BDL",
+      "market_cap": "\u20b940,692 Cr",
+      "pe_ratio": "78.12",
+      "roe": "12.3%",
+      "roce": "3.5%",
+      "debt_to_equity": "0.01",
+      "book_value": "\u20b9115.8",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b9565.7 Cr",
+          "net_profit_cr": "\u20b9118.8 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b9488.6 Cr",
+          "net_profit_cr": "\u20b9113.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b9548.6 Cr",
+          "net_profit_cr": "\u20b972.9 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BELRISE": {
+      "symbol": "BELRISE",
+      "market_cap": "\u20b923,246 Cr",
+      "pe_ratio": "42.17",
+      "roe": "9.7%",
+      "roce": "13.0%",
+      "debt_to_equity": "0.29",
+      "book_value": "\u20b958.7",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b92,546.5 Cr",
+          "net_profit_cr": "\u20b9121.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b92,552.8 Cr",
+          "net_profit_cr": "\u20b9130.2 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b92,340.5 Cr",
+          "net_profit_cr": "\u20b9122.0 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    },
+    "BHEL": {
+      "symbol": "BHEL",
+      "market_cap": "\u20b91.45L Cr",
+      "pe_ratio": "59.44",
+      "roe": "6.1%",
+      "roce": "4.4%",
+      "debt_to_equity": "0.31",
+      "book_value": "\u20b975.1",
+      "quarters": [
+        {
+          "quarter": "Jun 2026",
+          "revenue_cr": "\u20b97,697.7 Cr",
+          "net_profit_cr": "\u20b9376.7 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Mar 2026",
+          "revenue_cr": "\u20b912,310.4 Cr",
+          "net_profit_cr": "\u20b91,290.5 Cr",
+          "is_profit": true
+        },
+        {
+          "quarter": "Dec 2025",
+          "revenue_cr": "\u20b98,473.1 Cr",
+          "net_profit_cr": "\u20b9390.4 Cr",
+          "is_profit": true
+        }
+      ],
+      "last_updated": "30-Sep-2026 20:49"
+    }
+  }
+}

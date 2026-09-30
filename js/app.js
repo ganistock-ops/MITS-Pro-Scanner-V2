@@ -4181,6 +4181,7 @@
     isLoading: false,
     currentPage: 1,
     pageSize: 10,
+    fundamentalsData: null,
   };
 
   // Setup Metadata Mapping
@@ -4563,7 +4564,7 @@
 
     try {
       const ts = Date.now();
-      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res] = await Promise.allSettled([
+      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes] = await Promise.allSettled([
         fetch(basePath + 'scanner_results.json?t=' + ts),
         fetch(basePath + 'market_summary.json?t=' + ts),
         fetch(basePath + 'tab1_bottom_reversal.json?t=' + ts),
@@ -4572,6 +4573,7 @@
         fetch(basePath + 'tab4_weekly_swing.json?t=' + ts),
         fetch(basePath + 'tab5_stage2_pullback.json?t=' + ts),
         fetch(basePath + 'tab6_dbr.json?t=' + ts),
+        fetch(basePath + 'fundamentals.json?t=' + ts),
       ]);
 
       let newScanner = null;
@@ -4582,6 +4584,15 @@
       let newTab4 = null;
       let newTab5 = null;
       let newTab6 = null;
+
+      if (fundRes && fundRes.status === 'fulfilled' && fundRes.value.ok) {
+        try {
+          const fundJson = await fundRes.value.json();
+          state.fundamentalsData = fundJson.data || {};
+        } catch (e) {
+          console.warn('Fundamentals JSON parse error:', e);
+        }
+      }
 
       if (scannerRes.status === 'fulfilled' && scannerRes.value.ok) {
         newScanner = await scannerRes.value.json();
@@ -5339,6 +5350,39 @@
       `
         )
         .join('');
+    }
+
+    // Populate Institutional Fundamentals & Quarters
+    const fundMap = state.fundamentalsData || {};
+    const fund = fundMap[sig.symbol] || null;
+
+    const fundMcEl = document.getElementById('dossier-fund-mc');
+    const fundPeEl = document.getElementById('dossier-fund-pe');
+    const fundRoeEl = document.getElementById('dossier-fund-roe');
+    const fundRoceEl = document.getElementById('dossier-fund-roce');
+    const fundDeEl = document.getElementById('dossier-fund-de');
+    const fundTableBody = document.getElementById('dossier-fund-table-body');
+
+    if (fundMcEl) fundMcEl.textContent = fund?.market_cap || 'N/A';
+    if (fundPeEl) fundPeEl.textContent = fund?.pe_ratio || 'N/A';
+    if (fundRoeEl) fundRoeEl.textContent = fund?.roe || 'N/A';
+    if (fundRoceEl) fundRoceEl.textContent = fund?.roce || 'N/A';
+    if (fundDeEl) fundDeEl.textContent = fund?.debt_to_equity || 'N/A';
+
+    if (fundTableBody) {
+      if (fund && Array.isArray(fund.quarters) && fund.quarters.length > 0) {
+        fundTableBody.innerHTML = fund.quarters.map(q => `
+          <tr>
+            <td><strong>${q.quarter || '--'}</strong></td>
+            <td>${q.revenue_cr || 'N/A'}</td>
+            <td style="color: ${q.is_profit ? 'var(--bullish, #10b981)' : 'var(--bearish, #f43f5e)'}; font-weight: 600;">
+              ${q.net_profit_cr || 'N/A'}
+            </td>
+          </tr>
+        `).join('');
+      } else {
+        fundTableBody.innerHTML = `<tr><td colspan="3" class="fund-empty">Quarterly Financial Data Not Available for ${sig.symbol}</td></tr>`;
+      }
     }
 
     const tvBtn = document.getElementById('dossier-tv-btn');

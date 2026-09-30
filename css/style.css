@@ -1636,6 +1636,92 @@ body.resizing-active {
   color: #94a3b8;
 }
 
+/* ==========================================================================
+   Institutional Fundamental Ratios & Quarters Table Styles
+   ========================================================================== */
+.dossier-fund-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.dossier-fund-card {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  transition: all 0.2s ease;
+}
+
+.dossier-fund-card:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(15, 23, 42, 0.85);
+}
+
+.fund-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fund-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  color: #f8fafc;
+}
+
+.dossier-fund-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  margin-bottom: 0.85rem;
+}
+
+.dossier-fund-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.dossier-fund-table th {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.45rem 0.65rem;
+  font-weight: 600;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dossier-fund-table td {
+  padding: 0.5rem 0.65rem;
+  color: #e2e8f0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: var(--font-mono, monospace);
+}
+
+.dossier-fund-table tr:last-child td {
+  border-bottom: none;
+}
+
+.fund-empty {
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+  padding: 0.75rem !important;
+}
+
 @media (max-width: 768px) {
   .dossier-drawer {
     width: 100vw;
@@ -1645,6 +1731,9 @@ body.resizing-active {
     grid-template-columns: 1fr;
   }
   .dossier-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dossier-fund-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }

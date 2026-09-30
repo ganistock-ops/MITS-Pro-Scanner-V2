@@ -464,6 +464,48 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             </div>
           </div>
 
+          <!-- Institutional Fundamentals Profile (Real Metrics & Last 3 Quarters) -->
+          <div class="wp-dossier-section-title">Institutional Fundamental Profile</div>
+          <div class="wp-dossier-fund-grid" id="wp-dossier-fund-grid">
+            <div class="wp-dossier-fund-card">
+              <span class="wp-fund-label">Market Cap</span>
+              <strong id="wp-dossier-fund-mc" class="wp-fund-val text-gold">--</strong>
+            </div>
+            <div class="wp-dossier-fund-card">
+              <span class="wp-fund-label">P/E Ratio</span>
+              <strong id="wp-dossier-fund-pe" class="wp-fund-val">--</strong>
+            </div>
+            <div class="wp-dossier-fund-card">
+              <span class="wp-fund-label">ROE</span>
+              <strong id="wp-dossier-fund-roe" class="wp-fund-val text-emerald">--</strong>
+            </div>
+            <div class="wp-dossier-fund-card">
+              <span class="wp-fund-label">ROCE</span>
+              <strong id="wp-dossier-fund-roce" class="wp-fund-val text-emerald">--</strong>
+            </div>
+            <div class="wp-dossier-fund-card">
+              <span class="wp-fund-label">Debt-to-Equity</span>
+              <strong id="wp-dossier-fund-de" class="wp-fund-val">--</strong>
+            </div>
+          </div>
+
+          <!-- Last 3 Quarters Performance -->
+          <div class="wp-dossier-section-title" style="margin-top: 14px;">Recent Quarterly Financials (Last 3 Quarters)</div>
+          <div class="wp-dossier-fund-table-wrap">
+            <table class="wp-dossier-fund-table" id="wp-dossier-fund-table">
+              <thead>
+                <tr>
+                  <th>Quarter</th>
+                  <th>Total Revenue</th>
+                  <th>Net Profit</th>
+                </tr>
+              </thead>
+              <tbody id="wp-dossier-fund-table-body">
+                <tr><td colspan="3" class="wp-fund-empty">Loading fundamentals...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
           <div class="wp-dossier-section-title">Quantitative Evidence & Setup Badges</div>
           <div id="wp-dossier-tags" class="wp-dossier-tags"></div>
 
@@ -1714,6 +1756,84 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   box-shadow: 0 0 25px rgba(251, 191, 36, 0.6) !important;
 }
 
+/* Institutional Fundamental Profile Styles */
+#mits-pro-embed-root .wp-dossier-fund-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
+  gap: 0.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-fund-card {
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  padding: 0.55rem 0.65rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.2rem !important;
+}
+
+#mits-pro-embed-root .wp-fund-label {
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  color: #94a3b8 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+#mits-pro-embed-root .wp-fund-val {
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  font-family: monospace, Courier, sans-serif !important;
+  color: #f8fafc !important;
+}
+
+#mits-pro-embed-root .wp-dossier-fund-table-wrap {
+  width: 100% !important;
+  overflow-x: auto !important;
+  background: rgba(15, 23, 42, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  margin-bottom: 0.85rem !important;
+}
+
+#mits-pro-embed-root .wp-dossier-fund-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 0.8rem !important;
+  text-align: left !important;
+}
+
+#mits-pro-embed-root .wp-dossier-fund-table th {
+  background: rgba(255, 255, 255, 0.04) !important;
+  padding: 0.45rem 0.65rem !important;
+  font-weight: 600 !important;
+  font-size: 0.7rem !important;
+  color: #94a3b8 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+#mits-pro-embed-root .wp-dossier-fund-table td {
+  padding: 0.5rem 0.65rem !important;
+  color: #e2e8f0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  font-family: monospace, Courier, sans-serif !important;
+}
+
+#mits-pro-embed-root .wp-dossier-fund-table tr:last-child td {
+  border-bottom: none !important;
+}
+
+#mits-pro-embed-root .wp-fund-empty {
+  text-align: center !important;
+  color: #64748b !important;
+  font-style: italic !important;
+  padding: 0.75rem !important;
+}
+
 @media (max-width: 768px) {
   #mits-pro-embed-root .wp-dossier-drawer {
     width: 100vw !important;
@@ -1721,6 +1841,9 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   }
   #mits-pro-embed-root .wp-dossier-grid {
     grid-template-columns: 1fr !important;
+  }
+  #mits-pro-embed-root .wp-dossier-fund-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
@@ -6092,7 +6215,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     sortDirection: 'desc',
     columnWidths: {},
     currentPage: 1,
-    pageSize: 10
+    pageSize: 10,
+    fundamentalsData: null
   };
 
   const SETUPS_DESC = {
@@ -6459,7 +6583,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   async function fetchFreshWpData(force) {
     try {
       const ts = Date.now();
-      const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2, resBacktest4, resBacktest6, resBacktest1, resBacktest3] = await Promise.allSettled([
+      const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2, resBacktest4, resBacktest6, resBacktest1, resBacktest3, resFund] = await Promise.allSettled([
         fetch(MITS_PRO_REMOTE_BASE + 'scanner_results.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'market_summary.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'tab1_bottom_reversal.json?t=' + ts),
@@ -6473,9 +6597,19 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         fetch(MITS_PRO_REMOTE_BASE + 'setup4_backtest.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'setup6_backtest.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'setup1_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup3_backtest.json?t=' + ts)
+        fetch(MITS_PRO_REMOTE_BASE + 'setup3_backtest.json?t=' + ts),
+        fetch(MITS_PRO_REMOTE_BASE + 'fundamentals.json?t=' + ts)
       ]);
 
+
+      if (resFund && resFund.status === 'fulfilled' && resFund.value.ok) {
+        try {
+          const fundJson = await resFund.value.json();
+          WP_STATE.fundamentalsData = fundJson.data || {};
+        } catch (e) {
+          console.warn('Fundamentals JSON parse error in WP embed:', e);
+        }
+      }
 
       if (resScan.status === 'fulfilled' && resScan.value.ok) {
         WP_STATE.scannerData = await resScan.value.json();
@@ -7498,6 +7632,39 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           <div class="wp-metric-box-val">${m.val}</div>
         </div>
       `).join('');
+    }
+
+    // Populate Institutional Fundamentals & Quarters in WP Embed
+    const fundMap = WP_STATE.fundamentalsData || {};
+    const fund = fundMap[sig.symbol] || null;
+
+    const fundMcEl = document.getElementById('wp-dossier-fund-mc');
+    const fundPeEl = document.getElementById('wp-dossier-fund-pe');
+    const fundRoeEl = document.getElementById('wp-dossier-fund-roe');
+    const fundRoceEl = document.getElementById('wp-dossier-fund-roce');
+    const fundDeEl = document.getElementById('wp-dossier-fund-de');
+    const fundTableBody = document.getElementById('wp-dossier-fund-table-body');
+
+    if (fundMcEl) fundMcEl.textContent = fund?.market_cap || 'N/A';
+    if (fundPeEl) fundPeEl.textContent = fund?.pe_ratio || 'N/A';
+    if (fundRoeEl) fundRoeEl.textContent = fund?.roe || 'N/A';
+    if (fundRoceEl) fundRoceEl.textContent = fund?.roce || 'N/A';
+    if (fundDeEl) fundDeEl.textContent = fund?.debt_to_equity || 'N/A';
+
+    if (fundTableBody) {
+      if (fund && Array.isArray(fund.quarters) && fund.quarters.length > 0) {
+        fundTableBody.innerHTML = fund.quarters.map(q => `
+          <tr>
+            <td><strong>${q.quarter || '--'}</strong></td>
+            <td>${q.revenue_cr || 'N/A'}</td>
+            <td style="color: ${q.is_profit ? '#10b981' : '#f43f5e'}; font-weight: 600;">
+              ${q.net_profit_cr || 'N/A'}
+            </td>
+          </tr>
+        `).join('');
+      } else {
+        fundTableBody.innerHTML = `<tr><td colspan="3" class="wp-fund-empty">Quarterly Financial Data Not Available for ${sig.symbol}</td></tr>`;
+      }
     }
 
     const tvBtn = document.getElementById('wp-dossier-tv-btn');
