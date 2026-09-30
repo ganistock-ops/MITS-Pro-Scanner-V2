@@ -464,6 +464,40 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             </div>
           </div>
 
+          <!-- MITS AI Institutional Copilot Briefing -->
+          <div class="wp-dossier-ai-copilot" id="wp-dossier-ai-copilot" style="display: none;">
+            <div class="wp-ai-copilot-header">
+              <div class="wp-ai-copilot-title">
+                <span class="wp-ai-copilot-icon">🤖</span>
+                <span>MITS AI Institutional Copilot</span>
+              </div>
+              <span id="wp-dossier-ai-score" class="wp-ai-confidence-pill">AI Confidence: --</span>
+            </div>
+            <div class="wp-ai-copilot-body">
+              <div class="wp-ai-insight-row">
+                <span class="wp-ai-insight-icon">📊</span>
+                <div class="wp-ai-insight-content">
+                  <span class="wp-ai-insight-label">Technical & Volume Verdict:</span>
+                  <p id="wp-dossier-ai-technical" class="wp-ai-insight-text">--</p>
+                </div>
+              </div>
+              <div class="wp-ai-insight-row">
+                <span class="wp-ai-insight-icon">💼</span>
+                <div class="wp-ai-insight-content">
+                  <span class="wp-ai-insight-label">Fundamental & Earnings Quality:</span>
+                  <p id="wp-dossier-ai-fundamental" class="wp-ai-insight-text">--</p>
+                </div>
+              </div>
+              <div class="wp-ai-insight-row">
+                <span class="wp-ai-insight-icon">⚖️</span>
+                <div class="wp-ai-insight-content">
+                  <span class="wp-ai-insight-label">Risk-to-Reward Execution Note:</span>
+                  <p id="wp-dossier-ai-execution" class="wp-ai-insight-text">--</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Institutional Fundamentals Profile (Real Metrics & Last 3 Quarters) -->
           <div class="wp-dossier-section-title">Institutional Fundamental Profile</div>
           <div class="wp-dossier-fund-grid" id="wp-dossier-fund-grid">
@@ -1808,6 +1842,84 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 @keyframes wpBadgePulseFire {
   0%, 100% { box-shadow: 0 0 6px rgba(239, 68, 68, 0.2); }
   50% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.45); }
+}
+
+/* MITS AI Institutional Copilot Card Styles */
+#mits-pro-embed-root .wp-dossier-ai-copilot {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.85) 100%) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-radius: 10px !important;
+  padding: 0.85rem 1rem !important;
+  margin-bottom: 0.95rem !important;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.12) !important;
+}
+
+#mits-pro-embed-root .wp-ai-copilot-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding-bottom: 0.5rem !important;
+  margin-bottom: 0.65rem !important;
+}
+
+#mits-pro-embed-root .wp-ai-copilot-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  color: #fbbf24 !important;
+}
+
+#mits-pro-embed-root .wp-ai-confidence-pill {
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  font-family: monospace, Courier, sans-serif !important;
+  padding: 2px 8px !important;
+  border-radius: 9999px !important;
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  color: #6ee7b7 !important;
+}
+
+#mits-pro-embed-root .wp-ai-copilot-body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.55rem !important;
+}
+
+#mits-pro-embed-root .wp-ai-insight-row {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.55rem !important;
+}
+
+#mits-pro-embed-root .wp-ai-insight-icon {
+  font-size: 0.85rem !important;
+  line-height: 1.4 !important;
+}
+
+#mits-pro-embed-root .wp-ai-insight-content {
+  flex: 1 !important;
+}
+
+#mits-pro-embed-root .wp-ai-insight-label {
+  display: inline-block !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: #e2e8f0 !important;
+  margin-right: 0.35rem !important;
+}
+
+#mits-pro-embed-root .wp-ai-insight-text {
+  font-size: 0.77rem !important;
+  line-height: 1.45 !important;
+  color: #cbd5e1 !important;
+  margin: 0 !important;
+  display: inline !important;
 }
 
 /* Institutional Fundamental Profile Styles */
@@ -6270,7 +6382,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     columnWidths: {},
     currentPage: 1,
     pageSize: 10,
-    fundamentalsData: null
+    fundamentalsData: null,
+    aiAnalysisData: null
   };
 
   const SETUPS_DESC = {
@@ -6652,7 +6765,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         fetch(MITS_PRO_REMOTE_BASE + 'setup6_backtest.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'setup1_backtest.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'setup3_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'fundamentals.json?t=' + ts)
+        fetch(MITS_PRO_REMOTE_BASE + 'fundamentals.json?t=' + ts),
+        fetch(MITS_PRO_REMOTE_BASE + 'ai_analysis.json?t=' + ts)
       ]);
 
 
@@ -6662,6 +6776,15 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           WP_STATE.fundamentalsData = fundJson.data || {};
         } catch (e) {
           console.warn('Fundamentals JSON parse error in WP embed:', e);
+        }
+      }
+
+      if (resAi && resAi.status === 'fulfilled' && resAi.value.ok) {
+        try {
+          const aiJson = await resAi.value.json();
+          WP_STATE.aiAnalysisData = aiJson.data || {};
+        } catch (e) {
+          console.warn('AI analysis JSON parse error in WP embed:', e);
         }
       }
 
@@ -7733,6 +7856,28 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           <div class="wp-metric-box-val">${m.val}</div>
         </div>
       `).join('');
+    }
+
+    // Populate MITS AI Institutional Copilot Insights in WP Embed
+    const aiMap = WP_STATE.aiAnalysisData || {};
+    const aiInsight = aiMap[sig.symbol] || null;
+    const aiContainer = document.getElementById('wp-dossier-ai-copilot');
+
+    if (aiContainer) {
+      if (aiInsight && (aiInsight.technical_verdict || aiInsight.fundamental_quality)) {
+        aiContainer.style.display = 'block';
+        const scoreEl = document.getElementById('wp-dossier-ai-score');
+        const techEl = document.getElementById('wp-dossier-ai-technical');
+        const fundEl = document.getElementById('wp-dossier-ai-fundamental');
+        const execEl = document.getElementById('wp-dossier-ai-execution');
+
+        if (scoreEl) scoreEl.textContent = `AI Confidence: ${aiInsight.confidence_score || 90}/100`;
+        if (techEl) techEl.textContent = aiInsight.technical_verdict || '--';
+        if (fundEl) fundEl.textContent = aiInsight.fundamental_quality || '--';
+        if (execEl) execEl.textContent = aiInsight.execution_note || '--';
+      } else {
+        aiContainer.style.display = 'none';
+      }
     }
 
     // Populate Institutional Fundamentals & Quarters in WP Embed

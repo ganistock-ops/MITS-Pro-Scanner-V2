@@ -46,6 +46,12 @@ jobs:
         run: |
           python scripts/run_pipeline.py
 
+      - name: Pre-generate AI Copilot Institutional Insights
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python scripts/generate_ai_summary.py
+
       - name: Commit and Push Updated Data Feeds
         run: |
           git config --global user.name "github-actions[bot]"

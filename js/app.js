@@ -4182,6 +4182,7 @@
     currentPage: 1,
     pageSize: 10,
     fundamentalsData: null,
+    aiAnalysisData: null,
   };
 
   // Setup Metadata Mapping
@@ -4564,7 +4565,7 @@
 
     try {
       const ts = Date.now();
-      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes] = await Promise.allSettled([
+      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes, aiRes] = await Promise.allSettled([
         fetch(basePath + 'scanner_results.json?t=' + ts),
         fetch(basePath + 'market_summary.json?t=' + ts),
         fetch(basePath + 'tab1_bottom_reversal.json?t=' + ts),
@@ -4574,6 +4575,7 @@
         fetch(basePath + 'tab5_stage2_pullback.json?t=' + ts),
         fetch(basePath + 'tab6_dbr.json?t=' + ts),
         fetch(basePath + 'fundamentals.json?t=' + ts),
+        fetch(basePath + 'ai_analysis.json?t=' + ts),
       ]);
 
       let newScanner = null;
@@ -4584,6 +4586,15 @@
       let newTab4 = null;
       let newTab5 = null;
       let newTab6 = null;
+
+      if (aiRes && aiRes.status === 'fulfilled' && aiRes.value.ok) {
+        try {
+          const aiJson = await aiRes.value.json();
+          state.aiAnalysisData = aiJson.data || {};
+        } catch (e) {
+          console.warn('AI Analysis JSON parse error:', e);
+        }
+      }
 
       if (fundRes && fundRes.status === 'fulfilled' && fundRes.value.ok) {
         try {
@@ -5397,6 +5408,28 @@
       `
         )
         .join('');
+    }
+
+    // Populate MITS AI Institutional Copilot Insights
+    const aiMap = state.aiAnalysisData || {};
+    const aiInsight = aiMap[sig.symbol] || null;
+    const aiContainer = document.getElementById('dossier-ai-copilot');
+
+    if (aiContainer) {
+      if (aiInsight && (aiInsight.technical_verdict || aiInsight.fundamental_quality)) {
+        aiContainer.style.display = 'block';
+        const scoreEl = document.getElementById('dossier-ai-score');
+        const techEl = document.getElementById('dossier-ai-technical');
+        const fundEl = document.getElementById('dossier-ai-fundamental');
+        const execEl = document.getElementById('dossier-ai-execution');
+
+        if (scoreEl) scoreEl.textContent = `AI Confidence: ${aiInsight.confidence_score || 90}/100`;
+        if (techEl) techEl.textContent = aiInsight.technical_verdict || '--';
+        if (fundEl) fundEl.textContent = aiInsight.fundamental_quality || '--';
+        if (execEl) execEl.textContent = aiInsight.execution_note || '--';
+      } else {
+        aiContainer.style.display = 'none';
+      }
     }
 
     // Populate Institutional Fundamentals & Quarters
