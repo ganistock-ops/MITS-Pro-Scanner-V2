@@ -239,13 +239,20 @@ def main():
     print(f"Total Universe: {len(target_list)} symbols (Active Signals: {len(priority_symbols)})")
 
     # Sync using ThreadPoolExecutor
-    # If called with --active-only, only fetch active signals for instant 10s run
     active_only = "--active-only" in sys.argv
-    symbols_to_fetch = priority_symbols if active_only else target_list[:120]  # Fast batch for immediate availability
+    force_refresh = "--force" in sys.argv
 
-    print(f"Fetching fundamentals for {len(symbols_to_fetch)} symbols...")
+    if active_only:
+        symbols_to_fetch = priority_symbols
+    elif force_refresh:
+        symbols_to_fetch = target_list
+    else:
+        # Incrementally fetch symbols not yet in cache or missing quarters
+        symbols_to_fetch = [s for s in target_list if s not in fundamentals_map or not fundamentals_map[s].get('quarters')]
+
+    print(f"Symbols to fetch: {len(symbols_to_fetch)} (Already cached: {len(fundamentals_map)})")
     success_count = 0
-    with ThreadPoolExecutor(max_workers=8) as executor:
+    with ThreadPoolExecutor(max_workers=10) as executor:
         futures = {
             executor.submit(fetch_single_ticker, sym, symbol_to_yf.get(sym, f"{sym}.NS")): sym
             for sym in symbols_to_fetch
