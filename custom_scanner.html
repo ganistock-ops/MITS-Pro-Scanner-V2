@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MITS Pro Institutional Suite - Custom Scanner Engine</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="MITS Pro Custom Institutional Scanner - Fast in-memory multi-factor screening across 500+ NSE liquid equities. Real-time EOD breakout, RSI, VCP, candle footprint, and delivery volume flow.">
+  <meta name="theme-color" content="#06090e">
+
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Dedicated Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/custom_scanner.css">
+</head>
+<body>
+
+  <div class="cs-container">
+
+    <!-- Top Header -->
+    <header class="cs-header">
+      <div class="cs-brand-group">
+        <div class="cs-crest">M</div>
+        <div class="cs-title-box">
+          <h1>
+            MITS Custom Scanner
+            <span class="cs-badge-pro">Institutional V2</span>
+          </h1>
+          <div class="cs-subtitle">High-Conviction Multi-Factor Quantitative Screening Engine</div>
+        </div>
+      </div>
+
+      <!-- Center EOD Badge -->
+      <div class="cs-header-center">
+        <div class="cs-eod-badge" title="Official NSE Market Data Verified">
+          <span class="cs-eod-pulse">⚡</span>
+          <span>EOD Market Data | Updates Daily After 6:00 PM</span>
+        </div>
+      </div>
+
+      <!-- Navigation & Sync Info -->
+      <div class="cs-header-actions">
+        <a href="wordpress_live_embed.html" class="cs-nav-btn" title="Back to MITS Pro Live Dashboard">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Main Pro Suite</span>
+        </a>
+        <div class="cs-eod-badge" style="font-size: 0.78rem; background: var(--bg-surface-2); border-color: var(--border-subtle); color: var(--text-secondary);">
+          <span>Trade Date: <strong id="cs-session-date" style="color: #ffffff;">Loading...</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Strategy Presets Bar -->
+    <div class="cs-presets-bar">
+      <div class="cs-presets-left">
+        <span class="cs-presets-label">⚡ Institutional Presets:</span>
+        <button type="button" class="cs-preset-pill" data-preset="whale" title="Delivery % > 50%, Spike > 50%, CMP > 20 EMA">
+          <span>🐳 Whale Footprint</span>
+        </button>
+        <button type="button" class="cs-preset-pill" data-preset="momentum" title="20D Breakout, RVOL > 2.0x, CLV > 90%">
+          <span>🚀 Momentum Breakout</span>
+        </button>
+        <button type="button" class="cs-preset-pill" data-preset="vcp" title="BB Squeeze or NR7, Near 20 EMA, RS Score > 70">
+          <span>🎯 Low-Risk VCP Pullback</span>
+        </button>
+      </div>
+
+      <div class="cs-presets-right">
+        <select id="cs-saved-presets-select" class="cs-select" style="min-width: 180px; max-width: 240px;" aria-label="Load Saved Preset">
+          <option value="">-- Load Saved Strategy --</option>
+        </select>
+        <button type="button" id="cs-save-preset-btn" class="cs-btn-sm" title="Save current criteria to LocalStorage">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          <span>Save Preset</span>
+        </button>
+        <button type="button" id="cs-reset-btn" class="cs-btn-sm cs-btn-reset" title="Clear all filters">
+          <span>Reset All</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Rule Builder Controls Grid -->
+    <div class="cs-builder-grid">
+
+      <!-- Section A: Breakout & Retest Engine -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>⚡ Breakout &amp; Retest</span>
+          </div>
+          <span class="cs-card-badge">Section A</span>
+        </div>
+        <div class="cs-control-group">
+          <div class="cs-field-row">
+            <label for="cs-bo-type" class="cs-field-label">Condition</label>
+            <select id="cs-bo-type" class="cs-select">
+              <option value="ANY">Any / No Filter</option>
+              <option value="BREAKOUT">Break Out (Close &gt; High)</option>
+              <option value="BREAKDOWN">Break Down (Close &lt; Low)</option>
+              <option value="RETEST_SUPPORT">Retest Support (Holds Level)</option>
+              <option value="RETEST_RESISTANCE">Retest Resistance (Rejects Level)</option>
+            </select>
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-bo-days" class="cs-field-label">Lookback</label>
+            <select id="cs-bo-days" class="cs-select">
+              <option value="10">10-Day Range</option>
+              <option value="20" selected>20-Day Range (1 Month)</option>
+              <option value="50">50-Day Range (1 Quarter)</option>
+              <option value="52W">52-Week Range (1 Year)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B: Simplified RSI Engine -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>📈 RSI (14) Momentum</span>
+          </div>
+          <span class="cs-card-badge">Section B</span>
+        </div>
+        <div class="cs-control-group">
+          <div class="cs-field-row">
+            <label for="cs-rsi-mode" class="cs-field-label">Filter Mode</label>
+            <select id="cs-rsi-mode" class="cs-select">
+              <option value="ANY">Any / Off</option>
+              <option value="ABOVE">Above (&gt;)</option>
+              <option value="BELOW">Below (&lt;)</option>
+              <option value="BETWEEN">Between (Range)</option>
+            </select>
+          </div>
+          <div id="cs-rsi-inputs" class="cs-field-row" style="display: none;">
+            <label class="cs-field-label">Threshold</label>
+            <input type="number" id="cs-rsi-val1" class="cs-input cs-input-num" value="50" min="0" max="100" step="1">
+            <span id="cs-rsi-between-box" style="display: none; align-items: center; gap: 0.4rem;">
+              <span style="color: var(--text-muted); font-size: 0.8rem;">to</span>
+              <input type="number" id="cs-rsi-val2" class="cs-input cs-input-num" value="70" min="0" max="100" step="1">
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section C: 52-Week High / Low Proximity -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>🏆 52-Week Proximity</span>
+          </div>
+          <span class="cs-card-badge">Section C</span>
+        </div>
+        <div class="cs-control-group">
+          <div class="cs-field-row">
+            <label for="cs-52w-prox" class="cs-field-label">Proximity</label>
+            <select id="cs-52w-prox" class="cs-select">
+              <option value="ANY">Any Distance</option>
+              <option value="NEW_HIGH">New 52-Week High</option>
+              <option value="WITHIN_2">Within 2% of 52W High</option>
+              <option value="WITHIN_5">Within 5% of 52W High</option>
+              <option value="WITHIN_10">Within 10% of 52W High</option>
+              <option value="STAGE2_BASE">Stage-2 Base (&gt; 30% from 52W Low)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section D: Volatility & VCP Engine -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>🗜️ Volatility &amp; VCP</span>
+          </div>
+          <span class="cs-card-badge">Section D</span>
+        </div>
+        <div class="cs-toggles-grid">
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-bb-squeeze">
+            <span>BB Squeeze (P10)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-nr7">
+            <span>NR7 Coil</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-atr">
+            <span>ATR Contraction</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section E: Candle Footprint -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>🕯️ Candle Footprint</span>
+          </div>
+          <span class="cs-card-badge">Section E</span>
+        </div>
+        <div class="cs-toggles-grid">
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-marubozu">
+            <span>Open = Low (Marubozu)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-clv">
+            <span>Close Near High (CLV &ge; 90%)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-hammer">
+            <span>Hammer / Sweep</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section F: MA Proximity & Pullback -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>📐 Moving Average Confluence</span>
+          </div>
+          <span class="cs-card-badge">Section F</span>
+        </div>
+        <div class="cs-toggles-grid">
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-near-ema20">
+            <span>Near 20 EMA (&le; 1.5%)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-near-ema20-2">
+            <span>Near 20 EMA (&le; 2.0%)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-ema20-bounce">
+            <span>20 EMA Retest Bounce</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-trend-stack">
+            <span>Trend Stack (20&gt;50&gt;200)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section G: Smart Money & Flow Dynamics -->
+      <div class="cs-card" style="grid-column: 1 / -1;">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>💧 Smart Money &amp; Volume Flow Dynamics</span>
+          </div>
+          <span class="cs-card-badge">Section G</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem;">
+          <div class="cs-field-row">
+            <label for="cs-inp-deliv-pct" class="cs-field-label">Min Delivery %</label>
+            <input type="number" id="cs-inp-deliv-pct" class="cs-input cs-input-num" placeholder="e.g. 50" min="0" max="100">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-deliv-spike" class="cs-field-label">Delivery Spike %</label>
+            <input type="number" id="cs-inp-deliv-spike" class="cs-input cs-input-num" placeholder="e.g. 30" min="0" max="500">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-rvol" class="cs-field-label">Min RVOL (x)</label>
+            <input type="number" id="cs-inp-rvol" class="cs-input cs-input-num" placeholder="e.g. 1.5" min="0" max="20" step="0.1">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-deliv-turnover" class="cs-field-label">Deliv Turnover</label>
+            <input type="number" id="cs-inp-deliv-turnover" class="cs-input cs-input-num" placeholder="&ge; ₹ Cr" min="0" step="5">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-turnover" class="cs-field-label">Total Turnover</label>
+            <input type="number" id="cs-inp-turnover" class="cs-input cs-input-num" placeholder="&ge; ₹ Cr" min="0" step="10">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-rs-score" class="cs-field-label">Min RS Score</label>
+            <input type="number" id="cs-inp-rs-score" class="cs-input cs-input-num" placeholder="1-99" min="0" max="99">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-sector-select" class="cs-field-label">Sector</label>
+            <select id="cs-sector-select" class="cs-select">
+              <option value="ALL">All Sectors</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Explicit Scan Execution Action Bar -->
+    <div class="cs-scan-actions-bar">
+      <button type="button" id="cs-run-scan-btn" class="cs-btn-run-scan" title="Execute Multi-Factor Institutional Scan Across Universe">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>🔍 Run Institutional Scan</span>
+      </button>
+
+      <button type="button" id="cs-reset-all-btn" class="cs-btn-reset-prominent" title="Reset all filters to default universe">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+        <span>🔄 Reset All</span>
+      </button>
+    </div>
+
+    <!-- Live Filter Stats & Search Bar -->
+    <div class="cs-stats-bar">
+      <div class="cs-stats-left">
+        <div class="cs-match-count" id="cs-match-count">
+          <span>0</span> of 501 stocks
+        </div>
+        <div class="cs-eval-speed" id="cs-eval-speed">⚡ 0.00 ms</div>
+      </div>
+
+      <div class="cs-stats-right">
+        <input type="text" id="cs-search-input" class="cs-search-input" placeholder="Search symbol or name..." aria-label="Search Symbol">
+        <button type="button" id="cs-export-btn" class="cs-btn-export" title="Export qualified stocks to CSV">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Export CSV</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Table Card -->
+    <div class="cs-table-card">
+      <div class="cs-table-wrap">
+        <table class="cs-table">
+          <thead>
+            <tr>
+              <th data-col="symbol">Symbol</th>
+              <th data-col="sector">Sector</th>
+              <th data-col="cmp">CMP (₹)</th>
+              <th data-col="change_pct">Change %</th>
+              <th data-col="delivery_pct">Delivery %</th>
+              <th data-col="rvol">RVOL / Turnover</th>
+              <th data-col="rsi_14">RSI (14)</th>
+              <th data-col="breakout_status">Breakout Status</th>
+              <th data-col="clv">Footprint / CLV</th>
+              <th data-col="dist_ema20_pct">MA Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cs-table-body">
+            <tr>
+              <td colspan="11" style="text-align:center; padding: 3rem; color: var(--text-muted);">
+                Initializing MITS Pro Custom Scanner Engine...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="cs-pagination" id="cs-pagination" style="display: none;">
+        <div class="cs-page-info" id="cs-page-info">Showing 1-20 of 0 results</div>
+        <div class="cs-page-controls" id="cs-page-controls"></div>
+      </div>
+    </div>
+
+    <!-- Footer Disclaimer -->
+    <footer class="cs-footer">
+      <div class="cs-footer-badge">🛡️ AI &amp; Quantitative Educational Research Only</div>
+      <p>
+        The MITS Pro Custom Scanner is a quantitative algorithmic analytical tool designed strictly for institutional market research and educational evaluation. All screening criteria and metrics are calculated on finalized EOD Bhavcopy datasets. No information herein constitutes an investment recommendation, advisory, or solicitation under SEBI regulations. Always practice disciplined risk management.
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Custom Strategy Preset Modal -->
+  <div class="cs-modal-overlay" id="cs-modal-overlay">
+    <div class="cs-modal">
+      <div class="cs-modal-title">Save Custom Strategy</div>
+      <div class="cs-modal-sub">Save your active filter confluence to your browser's LocalStorage for instant 1-click loading.</div>
+      <input type="text" id="cs-preset-name-input" class="cs-input" placeholder="e.g. My High Volume Pullback" style="width: 100%; margin-bottom: 1rem;">
+      <div class="cs-modal-actions">
+        <button type="button" class="cs-btn-sm" id="cs-modal-cancel">Cancel</button>
+        <button type="button" class="cs-btn-sm" id="cs-modal-save" style="background: var(--gold-400); color: #06090e; font-weight: 700; border-color: var(--gold-400);">Save Preset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pre-baked Dataset Global (Guarantees zero-CORS file:// and HTTP loading) -->
+  <script src="data/master_universe_eod.js"></script>
+  <!-- Dedicated Custom Scanner Engine Script -->
+  <script src="js/custom_scanner.js"></script>
+</body>
+</html>

@@ -1,0 +1,2256 @@
+<!--
+===================================================================================
+MITS PRO INSTITUTIONAL SUITE V2 - CUSTOM SCANNER WORDPRESS & ELEMENTOR LIVE EMBED
+===================================================================================
+HOW TO USE IN WORDPRESS / ELEMENTOR:
+1. In Elementor or WordPress Block Editor, add an "HTML" widget (or "Custom HTML" block).
+2. Set the container / section / column layout to "Full Width" (Stretch Section in Elementor).
+3. Copy & paste this entire code snippet into the HTML widget.
+4. Native Direct Embedding (No iFrame):
+   Data is automatically fetched directly from GitHub Pages / Raw CDN:
+   https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/master_universe_eod.json
+5. (Optional) Custom Main Suite Return URL:
+   To customize where the "Main Pro Suite" back button redirects, define this on your WordPress page:
+   <script>window.MITS_PRO_SUITE_URL = '/mits-pro-scanner/';</script>
+===================================================================================
+-->
+
+<!-- Google Fonts Preload -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<div id="mits-custom-scanner-embed-root">
+  <div class="cs-embed-wrap">
+
+    <!-- Top Header -->
+    <header class="cs-header">
+      <div class="cs-brand-group">
+        <div class="cs-crest">M</div>
+        <div class="cs-title-box">
+          <h1 class="cs-main-title">
+            MITS Custom Scanner
+            <span class="cs-badge-pro">Institutional V2</span>
+          </h1>
+          <div class="cs-subtitle">High-Conviction Multi-Factor Quantitative Screening Engine</div>
+        </div>
+      </div>
+
+      <!-- Center EOD Badge -->
+      <div class="cs-header-center">
+        <div class="cs-eod-badge" title="Official NSE Market Data Verified">
+          <span class="cs-eod-pulse">⚡</span>
+          <span>EOD Market Data | Updates Daily After 6:00 PM</span>
+        </div>
+      </div>
+
+      <!-- Navigation & Sync Info -->
+      <div class="cs-header-actions">
+        <a href="javascript:void(0);" id="cs-back-to-suite-btn" class="cs-nav-btn" title="Back to Main MITS Pro Dashboard">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Main Pro Suite</span>
+        </a>
+        <div class="cs-eod-badge cs-badge-trade-date">
+          <span>Trade Date: <strong id="cs-session-date" style="color: #ffffff;">Loading...</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Strategy Presets Bar -->
+    <div class="cs-presets-bar">
+      <div class="cs-presets-left">
+        <span class="cs-presets-label">⚡ Institutional Presets:</span>
+        <button type="button" class="cs-preset-pill" data-preset="whale" title="Delivery % > 50%, Spike > 50%, CMP > 20 EMA">
+          <span>🐳 Whale Footprint</span>
+        </button>
+        <button type="button" class="cs-preset-pill" data-preset="momentum" title="20D Breakout, RVOL > 2.0x, CLV > 90%">
+          <span>🚀 Momentum Breakout</span>
+        </button>
+        <button type="button" class="cs-preset-pill" data-preset="vcp" title="BB Squeeze or NR7, Near 20 EMA, RS Score > 70">
+          <span>🎯 Low-Risk VCP Pullback</span>
+        </button>
+      </div>
+
+      <div class="cs-presets-right">
+        <select id="cs-saved-presets-select" class="cs-select cs-select-saved" aria-label="Load Saved Preset">
+          <option value="">-- Load Saved Strategy --</option>
+        </select>
+        <button type="button" id="cs-save-preset-btn" class="cs-btn-sm" title="Save current criteria to LocalStorage">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          <span>Save Preset</span>
+        </button>
+        <button type="button" id="cs-reset-btn" class="cs-btn-sm cs-btn-reset" title="Clear all filters">
+          <span>Reset All</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Rule Builder Controls Grid -->
+    <div class="cs-builder-grid">
+
+      <!-- Section A: Breakout & Retest Engine -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>⚡ Breakout &amp; Retest</span>
+          </div>
+          <span class="cs-card-badge">Section A</span>
+        </div>
+        <div class="cs-control-group">
+          <div class="cs-field-row">
+            <label for="cs-bo-type" class="cs-field-label">Condition</label>
+            <select id="cs-bo-type" class="cs-select">
+              <option value="ANY">Any / No Filter</option>
+              <option value="BREAKOUT">Break Out (Close &gt; High)</option>
+              <option value="BREAKDOWN">Break Down (Close &lt; Low)</option>
+              <option value="RETEST_SUPPORT">Retest Support (Holds Level)</option>
+              <option value="RETEST_RESISTANCE">Retest Resistance (Rejects Level)</option>
+            </select>
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-bo-days" class="cs-field-label">Lookback</label>
+            <select id="cs-bo-days" class="cs-select">
+              <option value="10">10-Day Range</option>
+              <option value="20" selected>20-Day Range (1 Month)</option>
+              <option value="50">50-Day Range (1 Quarter)</option>
+              <option value="52W">52-Week Range (1 Year)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section B: Simplified RSI Engine -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>📈 RSI (14) Momentum</span>
+          </div>
+          <span class="cs-card-badge">Section B</span>
+        </div>
+        <div class="cs-control-group">
+          <div class="cs-field-row">
+            <label for="cs-rsi-mode" class="cs-field-label">Filter Mode</label>
+            <select id="cs-rsi-mode" class="cs-select">
+              <option value="ANY">Any / Off</option>
+              <option value="ABOVE">Above (&gt;)</option>
+              <option value="BELOW">Below (&lt;)</option>
+              <option value="BETWEEN">Between (Range)</option>
+            </select>
+          </div>
+          <div id="cs-rsi-inputs" class="cs-field-row" style="display: none;">
+            <label class="cs-field-label">Threshold</label>
+            <input type="number" id="cs-rsi-val1" class="cs-input cs-input-num" value="50" min="0" max="100" step="1">
+            <span id="cs-rsi-between-box" style="display: none; align-items: center; gap: 0.4rem;">
+              <span style="color: #64748b; font-size: 0.8rem;">to</span>
+              <input type="number" id="cs-rsi-val2" class="cs-input cs-input-num" value="70" min="0" max="100" step="1">
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section C: 52-Week High / Low Proximity -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>🏆 52-Week Proximity</span>
+          </div>
+          <span class="cs-card-badge">Section C</span>
+        </div>
+        <div class="cs-control-group">
+          <div class="cs-field-row">
+            <label for="cs-52w-prox" class="cs-field-label">Proximity</label>
+            <select id="cs-52w-prox" class="cs-select">
+              <option value="ANY">Any Distance</option>
+              <option value="NEW_HIGH">New 52-Week High</option>
+              <option value="WITHIN_2">Within 2% of 52W High</option>
+              <option value="WITHIN_5">Within 5% of 52W High</option>
+              <option value="WITHIN_10">Within 10% of 52W High</option>
+              <option value="STAGE2_BASE">Stage-2 Base (&gt; 30% from 52W Low)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section D: Volatility & VCP Engine -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>🗜️ Volatility &amp; VCP</span>
+          </div>
+          <span class="cs-card-badge">Section D</span>
+        </div>
+        <div class="cs-toggles-grid">
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-bb-squeeze">
+            <span>BB Squeeze (P10)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-nr7">
+            <span>NR7 Coil</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-atr">
+            <span>ATR Contraction</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section E: Candle Footprint -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>🕯️ Candle Footprint</span>
+          </div>
+          <span class="cs-card-badge">Section E</span>
+        </div>
+        <div class="cs-toggles-grid">
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-marubozu">
+            <span>Open = Low (Marubozu)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-clv">
+            <span>Close Near High (CLV &ge; 90%)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-hammer">
+            <span>Hammer / Sweep</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section F: MA Proximity & Pullback -->
+      <div class="cs-card">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>📐 Moving Average Confluence</span>
+          </div>
+          <span class="cs-card-badge">Section F</span>
+        </div>
+        <div class="cs-toggles-grid">
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-near-ema20">
+            <span>Near 20 EMA (&le; 1.5%)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-near-ema20-2">
+            <span>Near 20 EMA (&le; 2.0%)</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-ema20-bounce">
+            <span>20 EMA Retest Bounce</span>
+          </label>
+          <label class="cs-toggle-chip">
+            <input type="checkbox" id="cs-chk-trend-stack">
+            <span>Trend Stack (20&gt;50&gt;200)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Section G: Smart Money & Flow Dynamics -->
+      <div class="cs-card cs-card-full">
+        <div class="cs-card-header">
+          <div class="cs-card-title">
+            <span>💧 Smart Money &amp; Volume Flow Dynamics</span>
+          </div>
+          <span class="cs-card-badge">Section G</span>
+        </div>
+        <div class="cs-flow-inputs-grid">
+          <div class="cs-field-row">
+            <label for="cs-inp-deliv-pct" class="cs-field-label">Min Delivery %</label>
+            <input type="number" id="cs-inp-deliv-pct" class="cs-input cs-input-num" placeholder="e.g. 50" min="0" max="100">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-deliv-spike" class="cs-field-label">Delivery Spike %</label>
+            <input type="number" id="cs-inp-deliv-spike" class="cs-input cs-input-num" placeholder="e.g. 30" min="0" max="500">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-rvol" class="cs-field-label">Min RVOL (x)</label>
+            <input type="number" id="cs-inp-rvol" class="cs-input cs-input-num" placeholder="e.g. 1.5" min="0" max="20" step="0.1">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-deliv-turnover" class="cs-field-label">Deliv Turnover</label>
+            <input type="number" id="cs-inp-deliv-turnover" class="cs-input cs-input-num" placeholder="&ge; ₹ Cr" min="0" step="5">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-turnover" class="cs-field-label">Total Turnover</label>
+            <input type="number" id="cs-inp-turnover" class="cs-input cs-input-num" placeholder="&ge; ₹ Cr" min="0" step="10">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-inp-rs-score" class="cs-field-label">Min RS Score</label>
+            <input type="number" id="cs-inp-rs-score" class="cs-input cs-input-num" placeholder="1-99" min="0" max="99">
+          </div>
+          <div class="cs-field-row">
+            <label for="cs-sector-select" class="cs-field-label">Sector</label>
+            <select id="cs-sector-select" class="cs-select">
+              <option value="ALL">All Sectors</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Explicit Scan Execution Action Bar -->
+    <div class="cs-scan-actions-bar">
+      <button type="button" id="cs-run-scan-btn" class="cs-btn-run-scan" title="Execute Multi-Factor Institutional Scan Across Universe">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>🔍 Run Institutional Scan</span>
+      </button>
+
+      <button type="button" id="cs-reset-all-btn" class="cs-btn-reset-prominent" title="Reset all filters to default universe">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+        <span>🔄 Reset All</span>
+      </button>
+    </div>
+
+    <!-- Live Filter Stats & Search Bar -->
+    <div class="cs-stats-bar">
+      <div class="cs-stats-left">
+        <div class="cs-match-count" id="cs-match-count">
+          <span>0</span> of 499 stocks
+        </div>
+        <div class="cs-eval-speed" id="cs-eval-speed">⚡ 0.00 ms</div>
+      </div>
+
+      <div class="cs-stats-right">
+        <input type="text" id="cs-search-input" class="cs-search-input" placeholder="Search symbol or name..." aria-label="Search Symbol">
+        <button type="button" id="cs-export-btn" class="cs-btn-export" title="Export qualified stocks to CSV">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Export CSV</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Table Card -->
+    <div class="cs-table-card">
+      <div class="cs-table-wrap">
+        <table class="cs-table">
+          <thead>
+            <tr>
+              <th data-col="symbol">Symbol</th>
+              <th data-col="sector">Sector</th>
+              <th data-col="cmp">CMP (₹)</th>
+              <th data-col="change_pct">Change %</th>
+              <th data-col="delivery_pct">Delivery %</th>
+              <th data-col="rvol">RVOL / Turnover</th>
+              <th data-col="rsi_14">RSI (14)</th>
+              <th data-col="breakout_status">Breakout Status</th>
+              <th data-col="clv">Footprint / CLV</th>
+              <th data-col="dist_ema20_pct">MA Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cs-table-body">
+            <tr>
+              <td colspan="11" class="cs-loading-cell">
+                Initializing MITS Pro Custom Scanner Engine...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="cs-pagination" id="cs-pagination" style="display: none;">
+        <div class="cs-page-info" id="cs-page-info">Showing 1-20 of 0 results</div>
+        <div class="cs-page-controls" id="cs-page-controls"></div>
+      </div>
+    </div>
+
+    <!-- Footer Disclaimer -->
+    <footer class="cs-footer">
+      <div class="cs-footer-badge">🛡️ AI &amp; Quantitative Educational Research Only</div>
+      <p>
+        The MITS Pro Custom Scanner is a quantitative algorithmic analytical tool designed strictly for institutional market research and educational evaluation. All screening criteria and metrics are calculated on finalized EOD market datasets. No information herein constitutes an investment recommendation, advisory, or solicitation under SEBI regulations. Always practice disciplined risk management.
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Custom Strategy Preset Modal -->
+  <div class="cs-modal-overlay" id="cs-modal-overlay">
+    <div class="cs-modal">
+      <div class="cs-modal-title">Save Custom Strategy</div>
+      <div class="cs-modal-sub">Save your active filter confluence to your browser's LocalStorage for instant 1-click loading.</div>
+      <input type="text" id="cs-preset-name-input" class="cs-input" placeholder="e.g. My High Volume Pullback" style="width: 100%; margin-bottom: 1rem;">
+      <div class="cs-modal-actions">
+        <button type="button" class="cs-btn-sm" id="cs-modal-cancel">Cancel</button>
+        <button type="button" class="cs-btn-sm cs-btn-modal-save" id="cs-modal-save">Save Preset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================================================
+     ENCAPSULATED SCOPED CSS (Strictly scoped to #mits-custom-scanner-embed-root)
+     =================================================================================== -->
+<style>
+#mits-custom-scanner-embed-root {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  background-color: #06090e !important;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(251, 191, 36, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(16, 185, 129, 0.04), transparent) !important;
+  color: #f8fafc !important;
+  margin: 0 !important;
+  padding: clamp(0.75rem, 2vw, 1.75rem) !important;
+  line-height: 1.5 !important;
+  text-align: left !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+#mits-custom-scanner-embed-root * {
+  box-sizing: border-box !important;
+}
+
+#mits-custom-scanner-embed-root .cs-embed-wrap {
+  width: 100% !important;
+  max-width: 1540px !important;
+  margin: 0 auto !important;
+}
+
+/* Header */
+#mits-custom-scanner-embed-root .cs-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 1.25rem !important;
+  padding-bottom: 1.5rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-brand-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-crest {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24, #b45309) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 800 !important;
+  font-size: 1.35rem !important;
+  color: #06090e !important;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4) !important;
+  flex-shrink: 0 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-main-title {
+  font-size: 1.5rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-badge-pro {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  padding: 0.18rem 0.55rem !important;
+  border-radius: 9999px !important;
+  background: rgba(251, 191, 36, 0.14) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(251, 191, 36, 0.28) !important;
+  letter-spacing: 0.05em !important;
+}
+
+#mits-custom-scanner-embed-root .cs-subtitle {
+  font-size: 0.85rem !important;
+  color: #64748b !important;
+  margin-top: 0.2rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-header-center {
+  display: flex !important;
+  align-items: center !important;
+}
+
+#mits-custom-scanner-embed-root .cs-eod-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  background: rgba(251, 191, 36, 0.08) !important;
+  border: 1px solid rgba(251, 191, 36, 0.28) !important;
+  color: #fde68a !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  padding: 0.45rem 0.95rem !important;
+  border-radius: 9999px !important;
+}
+
+#mits-custom-scanner-embed-root .cs-badge-trade-date {
+  font-size: 0.78rem !important;
+  background: #0f172a !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #94a3b8 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-eod-pulse {
+  animation: cs-pulse-gold 2s infinite ease-in-out !important;
+}
+
+@keyframes cs-pulse-gold {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+#mits-custom-scanner-embed-root .cs-header-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-nav-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  padding: 0.5rem 0.9rem !important;
+  border-radius: 10px !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  background: #0f172a !important;
+  color: #94a3b8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.2s ease !important;
+}
+
+#mits-custom-scanner-embed-root .cs-nav-btn:hover {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: #182236 !important;
+}
+
+/* Presets Bar */
+#mits-custom-scanner-embed-root .cs-presets-bar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(251, 191, 36, 0.28) !important;
+  border-radius: 14px !important;
+  padding: 0.85rem 1.25rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-presets-left {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.6rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-presets-label {
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #fbbf24 !important;
+  letter-spacing: 0.05em !important;
+  margin-right: 0.25rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-preset-pill {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  padding: 0.4rem 0.85rem !important;
+  border-radius: 9999px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-preset-pill:hover {
+  background: rgba(251, 191, 36, 0.12) !important;
+  border-color: rgba(251, 191, 36, 0.6) !important;
+  color: #fde68a !important;
+  transform: translateY(-1px) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-preset-pill.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(251, 191, 36, 0.15)) !important;
+  border-color: #fbbf24 !important;
+  color: #fde68a !important;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.2) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-presets-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-select-saved {
+  min-width: 180px !important;
+  max-width: 240px !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-sm {
+  background: #182236 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #94a3b8 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  padding: 0.4rem 0.8rem !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-sm:hover {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-reset {
+  color: #f87171 !important;
+  border-color: rgba(248, 113, 113, 0.3) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-reset:hover {
+  background: rgba(248, 113, 113, 0.12) !important;
+  color: #fca5a5 !important;
+  border-color: rgba(248, 113, 113, 0.5) !important;
+}
+
+/* Rule Builder Grid */
+#mits-custom-scanner-embed-root .cs-builder-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+  gap: 1.25rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-card {
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px !important;
+  padding: 1.25rem !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#mits-custom-scanner-embed-root .cs-card:hover {
+  border-color: rgba(251, 191, 36, 0.3) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-card-full {
+  grid-column: 1 / -1 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-card-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 1rem !important;
+  padding-bottom: 0.6rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-card-title {
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-card-badge {
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  color: #fbbf24 !important;
+  background: rgba(251, 191, 36, 0.1) !important;
+  padding: 0.15rem 0.5rem !important;
+  border-radius: 9999px !important;
+}
+
+#mits-custom-scanner-embed-root .cs-control-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.85rem !important;
+  flex: 1 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-field-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  flex-wrap: wrap !important;
+}
+
+#mits-custom-scanner-embed-root .cs-field-label {
+  font-size: 0.82rem !important;
+  color: #94a3b8 !important;
+  font-weight: 500 !important;
+  min-width: 90px !important;
+}
+
+#mits-custom-scanner-embed-root .cs-select, 
+#mits-custom-scanner-embed-root .cs-input {
+  background: #0a0f18 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 0.85rem !important;
+  padding: 0.45rem 0.75rem !important;
+  border-radius: 6px !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+  flex: 1 !important;
+  min-width: 110px !important;
+}
+
+#mits-custom-scanner-embed-root .cs-select:focus, 
+#mits-custom-scanner-embed-root .cs-input:focus {
+  border-color: #fbbf24 !important;
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-input-num {
+  font-family: 'JetBrains Mono', monospace !important;
+  width: 75px !important;
+  flex: none !important;
+  text-align: center !important;
+}
+
+#mits-custom-scanner-embed-root .cs-toggles-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+  gap: 0.5rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-toggle-chip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  background: #0a0f18 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+  padding: 0.5rem 0.65rem !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: all 0.2s ease !important;
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  color: #94a3b8 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-toggle-chip:hover {
+  background: #0f172a !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #f8fafc !important;
+}
+
+#mits-custom-scanner-embed-root .cs-toggle-chip input[type="checkbox"] {
+  accent-color: #fbbf24 !important;
+  cursor: pointer !important;
+  width: 15px !important;
+  height: 15px !important;
+}
+
+#mits-custom-scanner-embed-root .cs-flow-inputs-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)) !important;
+  gap: 1rem !important;
+}
+
+/* Explicit Scan Execution Action Bar */
+#mits-custom-scanner-embed-root .cs-scan-actions-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1.25rem !important;
+  margin-bottom: 1.75rem !important;
+  padding: 1.25rem !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(251, 191, 36, 0.28) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(251, 191, 36, 0.15) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-run-scan {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%) !important;
+  color: #06090e !important;
+  border: 1px solid rgba(251, 191, 36, 0.8) !important;
+  padding: 0.85rem 2.2rem !important;
+  border-radius: 10px !important;
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.45), 0 4px 10px rgba(0, 0, 0, 0.4) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  user-select: none !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-run-scan:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 35px rgba(251, 191, 36, 0.65), 0 6px 14px rgba(0, 0, 0, 0.5) !important;
+  background: linear-gradient(135deg, #fbbf24 0%, #fde68a 50%, #f59e0b 100%) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-run-scan:active {
+  transform: translateY(0) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-reset-prominent {
+  background: rgba(244, 63, 94, 0.1) !important;
+  color: #fca5a5 !important;
+  border: 1px solid rgba(244, 63, 94, 0.35) !important;
+  padding: 0.85rem 1.6rem !important;
+  border-radius: 10px !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  user-select: none !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-reset-prominent:hover {
+  background: rgba(244, 63, 94, 0.2) !important;
+  border-color: rgba(244, 63, 94, 0.6) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Live Stats & Filter Summary Bar */
+#mits-custom-scanner-embed-root .cs-stats-bar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+  background: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px !important;
+  padding: 0.9rem 1.4rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-stats-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  flex-wrap: wrap !important;
+}
+
+#mits-custom-scanner-embed-root .cs-match-count {
+  font-size: 1.1rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+}
+
+#mits-custom-scanner-embed-root .cs-match-count span {
+  color: #fbbf24 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+#mits-custom-scanner-embed-root .cs-eval-speed {
+  font-size: 0.78rem !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  padding: 0.2rem 0.55rem !important;
+  border-radius: 9999px !important;
+}
+
+#mits-custom-scanner-embed-root .cs-stats-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  flex-wrap: wrap !important;
+}
+
+#mits-custom-scanner-embed-root .cs-search-input {
+  background: #0a0f18 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  padding: 0.45rem 0.85rem !important;
+  border-radius: 10px !important;
+  font-size: 0.85rem !important;
+  min-width: 220px !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+}
+
+#mits-custom-scanner-embed-root .cs-search-input:focus {
+  border-color: #fbbf24 !important;
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-export {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.1)) !important;
+  border: 1px solid rgba(251, 191, 36, 0.28) !important;
+  color: #fde68a !important;
+  padding: 0.45rem 0.9rem !important;
+  border-radius: 10px !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-export:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.35), rgba(251, 191, 36, 0.2)) !important;
+  border-color: #fbbf24 !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Results Table */
+#mits-custom-scanner-embed-root .cs-table-card {
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table-wrap {
+  width: 100% !important;
+  overflow-x: auto !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 0.85rem !important;
+  text-align: left !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table th {
+  background: #0f172a !important;
+  color: #94a3b8 !important;
+  font-weight: 700 !important;
+  font-size: 0.78rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 0.85rem 1rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: all 0.2s ease !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table th:hover {
+  color: #fde68a !important;
+  background: #182236 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table th.sorted-asc::after {
+  content: ' ▲' !important;
+  color: #fbbf24 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table th.sorted-desc::after {
+  content: ' ▼' !important;
+  color: #fbbf24 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table td {
+  padding: 0.85rem 1rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table tbody tr {
+  transition: all 0.2s ease !important;
+}
+
+#mits-custom-scanner-embed-root .cs-table tbody tr:hover {
+  background: rgba(251, 191, 36, 0.03) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-loading-cell {
+  text-align: center !important;
+  padding: 3rem !important;
+  color: #64748b !important;
+}
+
+#mits-custom-scanner-embed-root .cs-sym-box {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#mits-custom-scanner-embed-root .cs-sym-link {
+  font-weight: 800 !important;
+  font-size: 0.95rem !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-sym-link:hover {
+  color: #fbbf24 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-sym-name {
+  font-size: 0.74rem !important;
+  color: #64748b !important;
+  max-width: 150px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+#mits-custom-scanner-embed-root .cs-tag-bullish {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  color: #34d399 !important;
+  padding: 0.15rem 0.45rem !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.78rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-tag-bearish {
+  background: rgba(244, 63, 94, 0.12) !important;
+  border: 1px solid rgba(244, 63, 94, 0.35) !important;
+  color: #fb7185 !important;
+  padding: 0.15rem 0.45rem !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.78rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-badge-signal {
+  display: inline-block !important;
+  padding: 0.2rem 0.55rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.74rem !important;
+  font-weight: 700 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-sig-breakout {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-sig-retest {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #fde68a !important;
+  border: 1px solid rgba(251, 191, 36, 0.28) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-sig-breakdown {
+  background: rgba(244, 63, 94, 0.15) !important;
+  color: #fb7185 !important;
+  border: 1px solid rgba(244, 63, 94, 0.35) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-sig-neutral {
+  background: rgba(148, 163, 184, 0.1) !important;
+  color: #64748b !important;
+  border: 1px solid rgba(148, 163, 184, 0.2) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-tv-btn {
+  background: rgba(41, 98, 255, 0.12) !important;
+  border: 1px solid rgba(41, 98, 255, 0.3) !important;
+  color: #60a5fa !important;
+  padding: 0.3rem 0.6rem !important;
+  border-radius: 6px !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  transition: all 0.2s ease !important;
+}
+
+#mits-custom-scanner-embed-root .cs-tv-btn:hover {
+  background: rgba(41, 98, 255, 0.25) !important;
+  border-color: #60a5fa !important;
+  color: #93c5fd !important;
+}
+
+/* Pagination */
+#mits-custom-scanner-embed-root .cs-pagination {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 1rem 1.25rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: #0a0f18 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-page-info {
+  font-size: 0.82rem !important;
+  color: #94a3b8 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-page-controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-page-btn {
+  background: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+  padding: 0.35rem 0.75rem !important;
+  border-radius: 6px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+#mits-custom-scanner-embed-root .cs-page-btn:hover:not(:disabled) {
+  border-color: #fbbf24 !important;
+  color: #fde68a !important;
+}
+
+#mits-custom-scanner-embed-root .cs-page-btn:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+}
+
+#mits-custom-scanner-embed-root .cs-page-btn.active {
+  background: #fbbf24 !important;
+  color: #06090e !important;
+  border-color: #fbbf24 !important;
+}
+
+/* Empty State */
+#mits-custom-scanner-embed-root .cs-empty-state {
+  text-align: center !important;
+  padding: 4rem 1.5rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-empty-icon {
+  font-size: 3rem !important;
+  margin-bottom: 0.75rem !important;
+  opacity: 0.8 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-empty-title {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  margin-bottom: 0.5rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-empty-sub {
+  font-size: 0.88rem !important;
+  color: #64748b !important;
+  max-width: 480px !important;
+  margin: 0 auto 1.5rem !important;
+}
+
+/* Footer Notice */
+#mits-custom-scanner-embed-root .cs-footer {
+  margin-top: 2rem !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  text-align: center !important;
+  font-size: 0.78rem !important;
+  color: #64748b !important;
+  line-height: 1.6 !important;
+}
+
+#mits-custom-scanner-embed-root .cs-footer-badge {
+  display: inline-block !important;
+  font-weight: 700 !important;
+  color: #fbbf24 !important;
+  margin-bottom: 0.4rem !important;
+}
+
+/* Modal for saving custom presets */
+#mits-custom-scanner-embed-root .cs-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(6px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: all 0.2s ease !important;
+}
+
+#mits-custom-scanner-embed-root .cs-modal-overlay.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#mits-custom-scanner-embed-root .cs-modal {
+  background: #0f172a !important;
+  border: 1px solid rgba(251, 191, 36, 0.28) !important;
+  border-radius: 14px !important;
+  padding: 1.5rem !important;
+  width: 90% !important;
+  max-width: 420px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7) !important;
+  transform: translateY(10px) !important;
+  transition: all 0.2s ease !important;
+}
+
+#mits-custom-scanner-embed-root .cs-modal-overlay.active .cs-modal {
+  transform: translateY(0) !important;
+}
+
+#mits-custom-scanner-embed-root .cs-modal-title {
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.5rem !important;
+  color: #ffffff !important;
+}
+
+#mits-custom-scanner-embed-root .cs-modal-sub {
+  font-size: 0.82rem !important;
+  color: #94a3b8 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-modal-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 0.6rem !important;
+  margin-top: 1.25rem !important;
+}
+
+#mits-custom-scanner-embed-root .cs-btn-modal-save {
+  background: #fbbf24 !important;
+  color: #06090e !important;
+  font-weight: 700 !important;
+  border-color: #fbbf24 !important;
+}
+
+@media (max-width: 1024px) {
+  #mits-custom-scanner-embed-root {
+    padding: 0.75rem !important;
+  }
+  #mits-custom-scanner-embed-root .cs-builder-grid {
+    grid-template-columns: 1fr !important;
+  }
+  #mits-custom-scanner-embed-root .cs-scan-actions-bar {
+    flex-direction: column !important;
+  }
+  #mits-custom-scanner-embed-root .cs-btn-run-scan,
+  #mits-custom-scanner-embed-root .cs-btn-reset-prominent {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+</style>
+
+<!-- ===================================================================================
+     SELF-CONTAINED CLIENT-SIDE SCANNER ENGINE
+     =================================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  // Dynamic Production / CDN Raw GitHub URL Alignment (Matches wordpress_live_embed.html)
+  const MITS_PRO_REMOTE_BASE = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:' || !window.location.hostname))
+    ? 'data/'
+    : 'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/';
+
+  // State Management
+  const state = {
+    masterData: [],
+    meta: {},
+    filteredStocks: [],
+    currentPage: 1,
+    pageSize: 20,
+    sortColumn: 'turnover_cr',
+    sortDirection: 'desc',
+    activePreset: null,
+    searchQuery: '',
+    filters: {
+      breakoutType: 'ANY',
+      breakoutDays: '20',
+      rsiMode: 'ANY',
+      rsiVal1: 50,
+      rsiVal2: 70,
+      proximity52w: 'ANY',
+      bbSqueeze: false,
+      nr7Coil: false,
+      atrContraction: false,
+      openEqualsLow: false,
+      clvHigh: false,
+      hammerSweep: false,
+      nearEma20: false,
+      nearEma20_2: false,
+      ema20Bounce: false,
+      trendStack: false,
+      minDeliveryPct: 0,
+      minDeliverySpike: 0,
+      minRvol: 0,
+      minDelivTurnoverCr: 0,
+      minTurnoverCr: 0,
+      minRsScore: 0,
+      sector: 'ALL'
+    }
+  };
+
+  // Preset Definitions
+  const PRESETS = {
+    whale: {
+      name: "🐳 Whale Footprint",
+      description: "High institutional absorption: Delivery % > 50%, Spike > 50%, Price above 20 EMA",
+      filters: {
+        minDeliveryPct: 50,
+        minDeliverySpike: 50
+      },
+      customPredicate: (s) => s.cmp > s.ema_20 && s.delivery_pct >= 50 && s.delivery_spike_pct >= 50
+    },
+    momentum: {
+      name: "🚀 Momentum Breakout",
+      description: "High-conviction 20D expansion: 20D Breakout, RVOL > 2.0x (or 1.5x with strong close)",
+      filters: {
+        breakoutType: 'BREAKOUT',
+        breakoutDays: '20',
+        minRvol: 2.0,
+        clvHigh: true
+      },
+      customPredicate: (s) => (s.breakout_20d || s.breakout_50d) && (s.rvol >= 2.0 || (s.rvol >= 1.5 && s.clv >= 0.80))
+    },
+    vcp: {
+      name: "🎯 Low-Risk VCP Pullback",
+      description: "Volatility contraction coil: BB Squeeze or NR7, near 20 EMA, RS Score > 70",
+      filters: {
+        nearEma20: true,
+        minRsScore: 70
+      },
+      customPredicate: (s) => (s.bb_squeeze || s.is_nr7) && Math.abs(s.dist_ema20_pct) <= 2.0 && s.rs_score >= 70
+    }
+  };
+
+  // DOM Elements Cache
+  const dom = {};
+
+  function cacheDom() {
+    dom.sessionDate = document.getElementById('cs-session-date');
+    dom.matchCount = document.getElementById('cs-match-count');
+    dom.evalSpeed = document.getElementById('cs-eval-speed');
+    dom.tableBody = document.getElementById('cs-table-body');
+    dom.pagination = document.getElementById('cs-pagination');
+    dom.pageInfo = document.getElementById('cs-page-info');
+    dom.pageControls = document.getElementById('cs-page-controls');
+    dom.exportBtn = document.getElementById('cs-export-btn');
+    dom.resetBtn = document.getElementById('cs-reset-btn');
+    dom.searchInput = document.getElementById('cs-search-input');
+    dom.sectorSelect = document.getElementById('cs-sector-select');
+
+    // Controls
+    dom.breakoutType = document.getElementById('cs-bo-type');
+    dom.breakoutDays = document.getElementById('cs-bo-days');
+    dom.rsiMode = document.getElementById('cs-rsi-mode');
+    dom.rsiVal1 = document.getElementById('cs-rsi-val1');
+    dom.rsiVal2 = document.getElementById('cs-rsi-val2');
+    dom.rsiInputs = document.getElementById('cs-rsi-inputs');
+    dom.rsiBetweenBox = document.getElementById('cs-rsi-between-box');
+    dom.proximity52w = document.getElementById('cs-52w-prox');
+
+    // Toggles
+    dom.bbSqueeze = document.getElementById('cs-chk-bb-squeeze');
+    dom.nr7Coil = document.getElementById('cs-chk-nr7');
+    dom.atrContraction = document.getElementById('cs-chk-atr');
+    dom.openEqualsLow = document.getElementById('cs-chk-marubozu');
+    dom.clvHigh = document.getElementById('cs-chk-clv');
+    dom.hammerSweep = document.getElementById('cs-chk-hammer');
+    dom.nearEma20 = document.getElementById('cs-chk-near-ema20');
+    dom.nearEma20_2 = document.getElementById('cs-chk-near-ema20-2');
+    dom.ema20Bounce = document.getElementById('cs-chk-ema20-bounce');
+    dom.trendStack = document.getElementById('cs-chk-trend-stack');
+
+    // Number Inputs
+    dom.minDeliveryPct = document.getElementById('cs-inp-deliv-pct');
+    dom.minDeliverySpike = document.getElementById('cs-inp-deliv-spike');
+    dom.minRvol = document.getElementById('cs-inp-rvol');
+    dom.minDelivTurnoverCr = document.getElementById('cs-inp-deliv-turnover');
+    dom.minTurnoverCr = document.getElementById('cs-inp-turnover');
+    dom.minRsScore = document.getElementById('cs-inp-rs-score');
+
+    // Explicit Action Buttons
+    dom.runScanBtn = document.getElementById('cs-run-scan-btn');
+    dom.resetAllBtn = document.getElementById('cs-reset-all-btn');
+
+    // Modal
+    dom.savePresetBtn = document.getElementById('cs-save-preset-btn');
+    dom.modalOverlay = document.getElementById('cs-modal-overlay');
+    dom.presetNameInput = document.getElementById('cs-preset-name-input');
+    dom.modalCancelBtn = document.getElementById('cs-modal-cancel');
+    dom.modalSaveBtn = document.getElementById('cs-modal-save');
+    dom.savedPresetsSelect = document.getElementById('cs-saved-presets-select');
+  }
+
+  function applyLoadedUniverse(data) {
+    state.masterData = data.stocks || [];
+    state.meta = {
+      updatedAt: data.updated_at,
+      tradeDate: data.trade_session_date,
+      dateDisplay: data.session_date_display || data.trade_session_date,
+      universeCount: data.universe_count || state.masterData.length
+    };
+
+    if (dom.sessionDate) {
+      dom.sessionDate.textContent = state.meta.dateDisplay || 'EOD';
+    }
+    populateSectorDropdown();
+    loadCustomPresetsFromStorage();
+    evaluateFilters();
+  }
+
+  // Data Ingestion with Multi-URL Fallback & Cache-Busting
+  async function loadUniverseData() {
+    // 1. Check window global first if available (CORS-free instant)
+    if (window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks && window.MITS_MASTER_UNIVERSE_DATA.stocks.length > 0) {
+      applyLoadedUniverse(window.MITS_MASTER_UNIVERSE_DATA);
+      return;
+    }
+
+    const ts = Date.now();
+    const urls = [
+      MITS_PRO_REMOTE_BASE + 'master_universe_eod.json?t=' + ts,
+      'https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/master_universe_eod.json?t=' + ts,
+      'data/master_universe_eod.json?t=' + ts
+    ];
+
+    let data = null;
+    for (const url of urls) {
+      try {
+        const resp = await fetch(url);
+        if (resp.ok) {
+          data = await resp.json();
+          if (data && data.stocks) break;
+        }
+      } catch (err) {
+        // try next endpoint
+      }
+    }
+
+    if (!data || !data.stocks) {
+      if (dom.tableBody) {
+        dom.tableBody.innerHTML = `
+          <tr>
+            <td colspan="11" style="text-align:center; padding: 3rem; color: #f87171;">
+              ⚠️ Unable to load EOD Master Universe data.<br>
+              <small style="color: #94a3b8; margin-top: 8px; display: inline-block;">
+                Feed Endpoint: <code>${MITS_PRO_REMOTE_BASE}master_universe_eod.json</code>
+              </small>
+            </td>
+          </tr>
+        `;
+      }
+      return;
+    }
+
+    applyLoadedUniverse(data);
+  }
+
+  function populateSectorDropdown() {
+    if (!dom.sectorSelect) return;
+    const sectors = new Set();
+    state.masterData.forEach(s => {
+      if (s.sector) sectors.add(s.sector);
+    });
+
+    const sortedSectors = Array.from(sectors).sort();
+    let html = '<option value="ALL">All Sectors (' + sortedSectors.length + ')</option>';
+    sortedSectors.forEach(sec => {
+      html += `<option value="${sec}">${sec}</option>`;
+    });
+    dom.sectorSelect.innerHTML = html;
+  }
+
+  // Fast In-Memory Screening Engine (< 2ms)
+  function evaluateFilters() {
+    const t0 = performance.now();
+    const f = state.filters;
+    const q = state.searchQuery.toLowerCase().trim();
+
+    let predicate = (s) => true;
+
+    if (state.activePreset && PRESETS[state.activePreset] && PRESETS[state.activePreset].customPredicate) {
+      predicate = PRESETS[state.activePreset].customPredicate;
+    }
+
+    const results = [];
+    const len = state.masterData.length;
+
+    for (let i = 0; i < len; i++) {
+      const s = state.masterData[i];
+
+      // Text Search
+      if (q) {
+        const symMatch = s.symbol.toLowerCase().includes(q);
+        const nameMatch = s.name && s.name.toLowerCase().includes(q);
+        if (!symMatch && !nameMatch) continue;
+      }
+
+      // Check preset predicate
+      if (!predicate(s)) continue;
+
+      // Section A: Breakout / Retest
+      if (f.breakoutType !== 'ANY') {
+        const days = f.breakoutDays;
+        if (f.breakoutType === 'BREAKOUT') {
+          if (days === '10' && !s.breakout_10d) continue;
+          if (days === '20' && !s.breakout_20d) continue;
+          if (days === '50' && !s.breakout_50d) continue;
+          if (days === '52W' && !s.breakout_52w) continue;
+        } else if (f.breakoutType === 'BREAKDOWN') {
+          if (days === '10' && !s.breakdown_10d) continue;
+          if (days === '20' && !s.breakdown_20d) continue;
+          if (days === '50' && !s.breakdown_50d) continue;
+          if (days === '52W' && !s.breakdown_52w) continue;
+        } else if (f.breakoutType === 'RETEST_SUPPORT') {
+          if (days === '10' && !s.retest_support_10d) continue;
+          if (days === '20' && !s.retest_support_20d) continue;
+          if (days === '50' && !s.retest_support_50d) continue;
+          if (days === '52W' && !s.retest_support_52w) continue;
+        } else if (f.breakoutType === 'RETEST_RESISTANCE') {
+          if (days === '10' && !s.retest_resistance_10d) continue;
+          if (days === '20' && !s.retest_resistance_20d) continue;
+          if (days === '50' && !s.retest_resistance_50d) continue;
+          if (days === '52W' && !s.retest_resistance_52w) continue;
+        }
+      }
+
+      // Section B: RSI (14)
+      if (f.rsiMode === 'ABOVE') {
+        if (s.rsi_14 < f.rsiVal1) continue;
+      } else if (f.rsiMode === 'BELOW') {
+        if (s.rsi_14 > f.rsiVal1) continue;
+      } else if (f.rsiMode === 'BETWEEN') {
+        const rMin = Math.min(f.rsiVal1, f.rsiVal2);
+        const rMax = Math.max(f.rsiVal1, f.rsiVal2);
+        if (s.rsi_14 < rMin || s.rsi_14 > rMax) continue;
+      }
+
+      // Section C: 52-Week Proximity
+      if (f.proximity52w === 'NEW_HIGH') {
+        if (!s.is_new_52w_high) continue;
+      } else if (f.proximity52w === 'WITHIN_2') {
+        if (s.dist_52w_high_pct > 2.0) continue;
+      } else if (f.proximity52w === 'WITHIN_5') {
+        if (s.dist_52w_high_pct > 5.0) continue;
+      } else if (f.proximity52w === 'WITHIN_10') {
+        if (s.dist_52w_high_pct > 10.0) continue;
+      } else if (f.proximity52w === 'STAGE2_BASE') {
+        if (s.dist_52w_low_pct < 30.0) continue;
+      }
+
+      // Section D: Volatility & VCP Toggles
+      if (f.bbSqueeze && !s.bb_squeeze) continue;
+      if (f.nr7Coil && !s.is_nr7) continue;
+      if (f.atrContraction && !s.atr_contraction) continue;
+
+      // Section E: Candle Footprint
+      if (f.openEqualsLow && !s.open_equals_low) continue;
+      if (f.clvHigh && !s.clv_high) continue;
+      if (f.hammerSweep && !s.hammer_liquidity_sweep) continue;
+
+      // Section F: MA Proximity & Bounce
+      if (f.nearEma20 && !s.near_ema20) continue;
+      if (f.nearEma20_2 && !s.near_ema20_2) continue;
+      if (f.ema20Bounce && !s.ema20_bounce) continue;
+      if (f.trendStack && !s.trend_stack) continue;
+
+      // Section G: Smart Money & Volume Footprint
+      if (f.minDeliveryPct > 0 && s.delivery_pct < f.minDeliveryPct) continue;
+      if (f.minDeliverySpike > 0 && s.delivery_spike_pct < f.minDeliverySpike) continue;
+      if (f.minRvol > 0 && s.rvol < f.minRvol) continue;
+      if (f.minDelivTurnoverCr > 0 && s.deliv_turnover_cr < f.minDelivTurnoverCr) continue;
+      if (f.minTurnoverCr > 0 && s.turnover_cr < f.minTurnoverCr) continue;
+      if (f.minRsScore > 0 && s.rs_score < f.minRsScore) continue;
+      if (f.sector !== 'ALL' && s.sector !== f.sector) continue;
+
+      results.push(s);
+    }
+
+    sortResults(results, state.sortColumn, state.sortDirection);
+
+    state.filteredStocks = results;
+    state.currentPage = 1;
+
+    const t1 = performance.now();
+    const evalMs = (t1 - t0).toFixed(2);
+
+    if (dom.matchCount) {
+      dom.matchCount.innerHTML = `<span>${results.length}</span> of ${state.masterData.length} stocks`;
+    }
+    if (dom.evalSpeed) {
+      dom.evalSpeed.textContent = `⚡ ${evalMs} ms`;
+    }
+
+    renderTable();
+  }
+
+  function sortResults(arr, col, dir) {
+    const mult = dir === 'asc' ? 1 : -1;
+    arr.sort((a, b) => {
+      let va = a[col];
+      let vb = b[col];
+      if (typeof va === 'string') {
+        return va.localeCompare(vb) * mult;
+      }
+      if (va == null) va = -Infinity;
+      if (vb == null) vb = -Infinity;
+      return (va - vb) * mult;
+    });
+  }
+
+  // Render Table & Pagination
+  function renderTable() {
+    if (!dom.tableBody) return;
+
+    if (state.filteredStocks.length === 0) {
+      dom.tableBody.innerHTML = `
+        <tr>
+          <td colspan="11">
+            <div class="cs-empty-state">
+              <div class="cs-empty-icon">🔍</div>
+              <div class="cs-empty-title">No Qualifying Institutional Setups</div>
+              <div class="cs-empty-sub">
+                No stocks currently match your exact filter confluence. Try loosening parameters, clicking a Quick Preset, or clearing active filters.
+              </div>
+              <button class="cs-btn-sm cs-btn-reset" onclick="window.customScannerReset()">Reset All Filters</button>
+            </div>
+          </td>
+        </tr>
+      `;
+      renderPagination(0);
+      return;
+    }
+
+    const startIdx = (state.currentPage - 1) * state.pageSize;
+    const endIdx = Math.min(startIdx + state.pageSize, state.filteredStocks.length);
+    const pageRows = state.filteredStocks.slice(startIdx, endIdx);
+
+    let html = '';
+    for (let i = 0; i < pageRows.length; i++) {
+      const s = pageRows[i];
+
+      const chgClass = s.change_pct >= 0 ? 'cs-tag-bullish' : 'cs-tag-bearish';
+      const chgSign = s.change_pct >= 0 ? '+' : '';
+
+      let sigBadgeClass = 'cs-sig-neutral';
+      if (s.breakout_status.includes('Breakout')) {
+        sigBadgeClass = 'cs-sig-breakout';
+      } else if (s.breakout_status.includes('Retest')) {
+        sigBadgeClass = 'cs-sig-retest';
+      } else if (s.breakout_status.includes('Breakdown')) {
+        sigBadgeClass = 'cs-sig-breakdown';
+      }
+
+      const rsStar = s.rs_score >= 80 ? ' <span title="Institutional RS Leader (Score > 80)" style="color:#fbbf24;">★</span>' : '';
+      const newHighBadge = s.is_new_52w_high ? ' <span style="font-size:0.68rem; background:rgba(251,191,36,0.18); color:#fbbf24; border:1px solid rgba(251,191,36,0.4); padding:1px 4px; border-radius:4px; font-weight:700;">52W HIGH</span>' : '';
+
+      let maHtml = '';
+      if (s.near_ema20) {
+        maHtml += `<span style="color:#34d399; font-weight:600;">Near 20 EMA (${s.dist_ema20_pct > 0 ? '+' : ''}${s.dist_ema20_pct}%)</span>`;
+      } else {
+        maHtml += `<span style="color:#94a3b8;">${s.dist_ema20_pct > 0 ? '+' : ''}${s.dist_ema20_pct}%</span>`;
+      }
+      if (s.trend_stack) {
+        maHtml += ` <span title="Trend Stack (CMP > 20 > 50 > 200 EMA)" style="color:#fbbf24; font-size:0.75rem;">▲ Stack</span>`;
+      }
+
+      const tvUrl = s.tv_url || `https://in.tradingview.com/chart/?symbol=NSE:${s.symbol}`;
+
+      html += `
+        <tr>
+          <td>
+            <div class="cs-sym-box">
+              <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="cs-sym-link">
+                ${s.symbol}${rsStar}${newHighBadge}
+              </a>
+              <div class="cs-sym-name" title="${s.name}">${s.name}</div>
+            </div>
+          </td>
+          <td><span style="color:#94a3b8; font-size:0.8rem;">${s.sector}</span></td>
+          <td>
+            <strong style="font-family:'JetBrains Mono',monospace; color:#ffffff;">₹${s.cmp.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>
+          </td>
+          <td>
+            <span class="${chgClass}">${chgSign}${s.change_pct.toFixed(2)}%</span>
+          </td>
+          <td>
+            <div style="font-family:'JetBrains Mono',monospace; font-weight:600; color:#f8fafc;">
+              ${s.delivery_pct.toFixed(1)}%
+              ${s.delivery_spike_pct > 20 ? `<small style="color:#34d399; margin-left:4px;">(+${s.delivery_spike_pct.toFixed(0)}%)</small>` : ''}
+            </div>
+          </td>
+          <td>
+            <div style="font-family:'JetBrains Mono',monospace; color:${s.rvol >= 2.0 ? '#fbbf24' : '#f8fafc'}; font-weight:${s.rvol >= 2.0 ? '700' : '500'};">
+              ${s.rvol.toFixed(2)}x
+            </div>
+            <div style="font-size:0.72rem; color:#64748b;">₹${s.turnover_cr.toFixed(1)} Cr</div>
+          </td>
+          <td>
+            <span style="font-family:'JetBrains Mono',monospace; font-weight:600; color:${s.rsi_14 >= 60 ? '#34d399' : (s.rsi_14 <= 40 ? '#fb7185' : '#e2e8f0')};">
+              ${s.rsi_14.toFixed(1)}
+            </span>
+          </td>
+          <td>
+            <span class="cs-badge-signal ${sigBadgeClass}">${s.breakout_status}</span>
+          </td>
+          <td>
+            <div style="font-size:0.78rem; font-weight:600; color:#e2e8f0;">
+              ${s.candle_pattern}
+            </div>
+            <div style="font-size:0.72rem; color:#64748b; font-family:'JetBrains Mono',monospace;">
+              CLV: ${(s.clv * 100).toFixed(0)}%
+            </div>
+          </td>
+          <td>
+            <div style="font-size:0.78rem;">${maHtml}</div>
+          </td>
+          <td>
+            <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="cs-tv-btn" title="Open TradingView Chart">
+              <span>Chart</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </td>
+        </tr>
+      `;
+    }
+
+    dom.tableBody.innerHTML = html;
+    renderPagination(state.filteredStocks.length);
+  }
+
+  function renderPagination(totalCount) {
+    if (!dom.pagination) return;
+    if (totalCount === 0) {
+      dom.pagination.style.display = 'none';
+      return;
+    }
+    dom.pagination.style.display = 'flex';
+
+    const totalPages = Math.ceil(totalCount / state.pageSize);
+    const startIdx = (state.currentPage - 1) * state.pageSize + 1;
+    const endIdx = Math.min(startIdx + state.pageSize - 1, totalCount);
+
+    if (dom.pageInfo) {
+      dom.pageInfo.textContent = `Showing ${startIdx}-${endIdx} of ${totalCount} results`;
+    }
+
+    if (dom.pageControls) {
+      let btns = '';
+      btns += `<button class="cs-page-btn" ${state.currentPage === 1 ? 'disabled' : ''} onclick="window.customScannerPage(${state.currentPage - 1})">Prev</button>`;
+
+      const maxPagesToShow = 5;
+      let startP = Math.max(1, state.currentPage - 2);
+      let endP = Math.min(totalPages, startP + maxPagesToShow - 1);
+      if (endP - startP < maxPagesToShow - 1) {
+        startP = Math.max(1, endP - maxPagesToShow + 1);
+      }
+
+      for (let p = startP; p <= endP; p++) {
+        btns += `<button class="cs-page-btn ${p === state.currentPage ? 'active' : ''}" onclick="window.customScannerPage(${p})">${p}</button>`;
+      }
+
+      btns += `<button class="cs-page-btn" ${state.currentPage === totalPages ? 'disabled' : ''} onclick="window.customScannerPage(${state.currentPage + 1})">Next</button>`;
+      dom.pageControls.innerHTML = btns;
+    }
+  }
+
+  // Presets & LocalStorage
+  function applyPreset(key) {
+    state.activePreset = key;
+    document.querySelectorAll('#mits-custom-scanner-embed-root .cs-preset-pill').forEach(el => {
+      el.classList.toggle('active', el.getAttribute('data-preset') === key);
+    });
+
+    if (key && PRESETS[key]) {
+      const p = PRESETS[key];
+      Object.assign(state.filters, p.filters);
+      syncDomFromFilterState();
+    }
+    evaluateFilters();
+  }
+
+  function syncDomFromFilterState() {
+    const f = state.filters;
+    if (dom.breakoutType) dom.breakoutType.value = f.breakoutType;
+    if (dom.breakoutDays) dom.breakoutDays.value = f.breakoutDays;
+    if (dom.rsiMode) dom.rsiMode.value = f.rsiMode;
+    if (dom.rsiVal1) dom.rsiVal1.value = f.rsiVal1;
+    if (dom.rsiVal2) dom.rsiVal2.value = f.rsiVal2;
+    if (dom.proximity52w) dom.proximity52w.value = f.proximity52w;
+
+    if (dom.bbSqueeze) dom.bbSqueeze.checked = f.bbSqueeze;
+    if (dom.nr7Coil) dom.nr7Coil.checked = f.nr7Coil;
+    if (dom.atrContraction) dom.atrContraction.checked = f.atrContraction;
+    if (dom.openEqualsLow) dom.openEqualsLow.checked = f.openEqualsLow;
+    if (dom.clvHigh) dom.clvHigh.checked = f.clvHigh;
+    if (dom.hammerSweep) dom.hammerSweep.checked = f.hammerSweep;
+    if (dom.nearEma20) dom.nearEma20.checked = f.nearEma20;
+    if (dom.nearEma20_2) dom.nearEma20_2.checked = f.nearEma20_2;
+    if (dom.ema20Bounce) dom.ema20Bounce.checked = f.ema20Bounce;
+    if (dom.trendStack) dom.trendStack.checked = f.trendStack;
+
+    if (dom.minDeliveryPct) dom.minDeliveryPct.value = f.minDeliveryPct || '';
+    if (dom.minDeliverySpike) dom.minDeliverySpike.value = f.minDeliverySpike || '';
+    if (dom.minRvol) dom.minRvol.value = f.minRvol || '';
+    if (dom.minDelivTurnoverCr) dom.minDelivTurnoverCr.value = f.minDelivTurnoverCr || '';
+    if (dom.minTurnoverCr) dom.minTurnoverCr.value = f.minTurnoverCr || '';
+    if (dom.minRsScore) dom.minRsScore.value = f.minRsScore || '';
+    if (dom.sectorSelect) dom.sectorSelect.value = f.sector;
+
+    updateRsiVisibility();
+  }
+
+  function updateRsiVisibility() {
+    if (!dom.rsiInputs) return;
+    const mode = dom.rsiMode.value;
+    if (mode === 'ANY') {
+      dom.rsiInputs.style.display = 'none';
+    } else {
+      dom.rsiInputs.style.display = 'flex';
+      if (dom.rsiBetweenBox) {
+        dom.rsiBetweenBox.style.display = mode === 'BETWEEN' ? 'inline-flex' : 'none';
+      }
+    }
+  }
+
+  function resetFilters() {
+    state.activePreset = null;
+    state.searchQuery = '';
+    if (dom.searchInput) dom.searchInput.value = '';
+
+    state.filters = {
+      breakoutType: 'ANY',
+      breakoutDays: '20',
+      rsiMode: 'ANY',
+      rsiVal1: 50,
+      rsiVal2: 70,
+      proximity52w: 'ANY',
+      bbSqueeze: false,
+      nr7Coil: false,
+      atrContraction: false,
+      openEqualsLow: false,
+      clvHigh: false,
+      hammerSweep: false,
+      nearEma20: false,
+      nearEma20_2: false,
+      ema20Bounce: false,
+      trendStack: false,
+      minDeliveryPct: 0,
+      minDeliverySpike: 0,
+      minRvol: 0,
+      minDelivTurnoverCr: 0,
+      minTurnoverCr: 0,
+      minRsScore: 0,
+      sector: 'ALL'
+    };
+
+    document.querySelectorAll('#mits-custom-scanner-embed-root .cs-preset-pill').forEach(el => el.classList.remove('active'));
+    syncDomFromFilterState();
+    evaluateFilters();
+  }
+
+  const STORAGE_KEY = 'mits_pro_custom_scanner_presets';
+
+  function getSavedPresets() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveCustomPreset(name) {
+    if (!name || !name.trim()) return;
+    const presets = getSavedPresets();
+    presets[name.trim()] = {
+      filters: Object.assign({}, state.filters),
+      savedAt: new Date().toISOString()
+    };
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(presets));
+      loadCustomPresetsFromStorage();
+    } catch (e) {
+      alert('Could not save preset to LocalStorage.');
+    }
+  }
+
+  function loadCustomPresetsFromStorage() {
+    if (!dom.savedPresetsSelect) return;
+    const presets = getSavedPresets();
+    const names = Object.keys(presets);
+
+    let html = '<option value="">-- Load Saved Strategy --</option>';
+    names.forEach(name => {
+      html += `<option value="${name}">${name}</option>`;
+    });
+    dom.savedPresetsSelect.innerHTML = html;
+  }
+
+  function loadSavedPreset(name) {
+    const presets = getSavedPresets();
+    const target = presets[name];
+    if (target && target.filters) {
+      state.activePreset = null;
+      document.querySelectorAll('#mits-custom-scanner-embed-root .cs-preset-pill').forEach(el => el.classList.remove('active'));
+      Object.assign(state.filters, target.filters);
+      syncDomFromFilterState();
+      evaluateFilters();
+    }
+  }
+
+  function exportCSV() {
+    if (!state.filteredStocks || state.filteredStocks.length === 0) {
+      alert('No data to export.');
+      return;
+    }
+
+    const headers = [
+      'Symbol', 'Name', 'Sector', 'CMP', 'Change_Pct',
+      'Delivery_Pct', 'Delivery_Spike_Pct', 'RVOL', 'Turnover_Cr',
+      'Deliv_Turnover_Cr', 'RSI_14', 'Breakout_Status', 'Candle_Pattern',
+      'CLV', 'EMA_20', 'Dist_EMA20_Pct', 'Trend_Stack', 'RS_Score',
+      'BB_Squeeze', 'NR7', 'ATR_Contraction', 'TradingView_URL'
+    ];
+
+    const rows = state.filteredStocks.map(s => [
+      `"${s.symbol}"`,
+      `"${(s.name || '').replace(/"/g, '""')}"`,
+      `"${s.sector}"`,
+      s.cmp,
+      s.change_pct,
+      s.delivery_pct,
+      s.delivery_spike_pct,
+      s.rvol,
+      s.turnover_cr,
+      s.deliv_turnover_cr,
+      s.rsi_14,
+      `"${s.breakout_status}"`,
+      `"${s.candle_pattern}"`,
+      s.clv,
+      s.ema_20,
+      s.dist_ema20_pct,
+      s.trend_stack ? 'YES' : 'NO',
+      s.rs_score,
+      s.bb_squeeze ? 'YES' : 'NO',
+      s.is_nr7 ? 'YES' : 'NO',
+      s.atr_contraction ? 'YES' : 'NO',
+      `"${s.tv_url || 'https://in.tradingview.com/chart/?symbol=NSE:' + s.symbol}"`
+    ]);
+
+    const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const dateStr = state.meta.tradeDate || new Date().toISOString().slice(0, 10);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `MITS_Custom_Scanner_${dateStr}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function bindEvents() {
+    document.querySelectorAll('#mits-custom-scanner-embed-root .cs-preset-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-preset');
+        if (state.activePreset === key) {
+          resetFilters();
+        } else {
+          applyPreset(key);
+        }
+      });
+    });
+
+    if (dom.runScanBtn) {
+      dom.runScanBtn.addEventListener('click', () => {
+        evaluateFilters();
+        const tableCard = document.querySelector('#mits-custom-scanner-embed-root .cs-table-card');
+        if (tableCard) {
+          tableCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+
+    if (dom.resetAllBtn) {
+      dom.resetAllBtn.addEventListener('click', resetFilters);
+    }
+
+    if (dom.resetBtn) {
+      dom.resetBtn.addEventListener('click', resetFilters);
+    }
+
+    if (dom.exportBtn) {
+      dom.exportBtn.addEventListener('click', exportCSV);
+    }
+
+    const backBtn = document.getElementById('cs-back-to-suite-btn');
+    if (backBtn) {
+      backBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // 1. Explicit global URL configuration (if specified by WordPress)
+        if (window.MITS_PRO_SUITE_URL) {
+          window.location.href = window.MITS_PRO_SUITE_URL;
+          return;
+        }
+        // 2. Referrer if originating from dashboard / same host
+        if (document.referrer && (document.referrer.indexOf(window.location.host) !== -1 || document.referrer.includes('scanner') || document.referrer.includes('mits'))) {
+          window.location.href = document.referrer;
+          return;
+        }
+        // 3. Browser history back
+        if (window.history.length > 1) {
+          window.history.back();
+          return;
+        }
+        // 4. Default fallback: relative root/parent
+        window.location.href = '../';
+      });
+    }
+
+    if (dom.searchInput) {
+      dom.searchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        evaluateFilters();
+      });
+    }
+
+    if (dom.sectorSelect) {
+      dom.sectorSelect.addEventListener('change', (e) => {
+        state.filters.sector = e.target.value;
+        state.activePreset = null;
+        evaluateFilters();
+      });
+    }
+
+    if (dom.breakoutType) {
+      dom.breakoutType.addEventListener('change', (e) => {
+        state.filters.breakoutType = e.target.value;
+        state.activePreset = null;
+        evaluateFilters();
+      });
+    }
+    if (dom.breakoutDays) {
+      dom.breakoutDays.addEventListener('change', (e) => {
+        state.filters.breakoutDays = e.target.value;
+        state.activePreset = null;
+        evaluateFilters();
+      });
+    }
+
+    if (dom.rsiMode) {
+      dom.rsiMode.addEventListener('change', (e) => {
+        state.filters.rsiMode = e.target.value;
+        state.activePreset = null;
+        updateRsiVisibility();
+        evaluateFilters();
+      });
+    }
+    if (dom.rsiVal1) {
+      dom.rsiVal1.addEventListener('input', (e) => {
+        state.filters.rsiVal1 = parseFloat(e.target.value) || 50;
+        state.activePreset = null;
+        evaluateFilters();
+      });
+    }
+    if (dom.rsiVal2) {
+      dom.rsiVal2.addEventListener('input', (e) => {
+        state.filters.rsiVal2 = parseFloat(e.target.value) || 70;
+        state.activePreset = null;
+        evaluateFilters();
+      });
+    }
+
+    if (dom.proximity52w) {
+      dom.proximity52w.addEventListener('change', (e) => {
+        state.filters.proximity52w = e.target.value;
+        state.activePreset = null;
+        evaluateFilters();
+      });
+    }
+
+    function bindCheck(el, prop) {
+      if (!el) return;
+      el.addEventListener('change', (e) => {
+        state.filters[prop] = e.target.checked;
+        state.activePreset = null;
+        evaluateFilters();
+      });
+    }
+
+    bindCheck(dom.bbSqueeze, 'bbSqueeze');
+    bindCheck(dom.nr7Coil, 'nr7Coil');
+    bindCheck(dom.atrContraction, 'atrContraction');
+    bindCheck(dom.openEqualsLow, 'openEqualsLow');
+    bindCheck(dom.clvHigh, 'clvHigh');
+    bindCheck(dom.hammerSweep, 'hammerSweep');
+    bindCheck(dom.nearEma20, 'nearEma20');
+    bindCheck(dom.nearEma20_2, 'nearEma20_2');
+    bindCheck(dom.ema20Bounce, 'ema20Bounce');
+    bindCheck(dom.trendStack, 'trendStack');
+
+    function bindNum(el, prop) {
+      if (!el) return;
+      el.addEventListener('input', (e) => {
+        state.filters[prop] = parseFloat(e.target.value) || 0;
+        state.activePreset = null;
+        evaluateFilters();
+      });
+    }
+
+    bindNum(dom.minDeliveryPct, 'minDeliveryPct');
+    bindNum(dom.minDeliverySpike, 'minDeliverySpike');
+    bindNum(dom.minRvol, 'minRvol');
+    bindNum(dom.minDelivTurnoverCr, 'minDelivTurnoverCr');
+    bindNum(dom.minTurnoverCr, 'minTurnoverCr');
+    bindNum(dom.minRsScore, 'minRsScore');
+
+    document.querySelectorAll('#mits-custom-scanner-embed-root .cs-table th[data-col]').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.getAttribute('data-col');
+        if (state.sortColumn === col) {
+          state.sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+          state.sortColumn = col;
+          state.sortDirection = 'desc';
+        }
+
+        document.querySelectorAll('#mits-custom-scanner-embed-root .cs-table th').forEach(h => {
+          h.classList.remove('sorted-asc', 'sorted-desc');
+        });
+        th.classList.add(state.sortDirection === 'asc' ? 'sorted-asc' : 'sorted-desc');
+
+        evaluateFilters();
+      });
+    });
+
+    if (dom.savePresetBtn && dom.modalOverlay) {
+      dom.savePresetBtn.addEventListener('click', () => {
+        dom.modalOverlay.classList.add('active');
+        if (dom.presetNameInput) dom.presetNameInput.focus();
+      });
+    }
+
+    if (dom.modalCancelBtn && dom.modalOverlay) {
+      dom.modalCancelBtn.addEventListener('click', () => {
+        dom.modalOverlay.classList.remove('active');
+      });
+    }
+
+    if (dom.modalSaveBtn && dom.modalOverlay) {
+      dom.modalSaveBtn.addEventListener('click', () => {
+        const name = dom.presetNameInput ? dom.presetNameInput.value.trim() : '';
+        if (name) {
+          saveCustomPreset(name);
+          dom.presetNameInput.value = '';
+          dom.modalOverlay.classList.remove('active');
+        } else {
+          alert('Please enter a name for the strategy preset.');
+        }
+      });
+    }
+
+    if (dom.savedPresetsSelect) {
+      dom.savedPresetsSelect.addEventListener('change', (e) => {
+        if (e.target.value) {
+          loadSavedPreset(e.target.value);
+        }
+      });
+    }
+  }
+
+  window.customScannerPage = function (pageNum) {
+    state.currentPage = pageNum;
+    renderTable();
+    const tableCard = document.querySelector('#mits-custom-scanner-embed-root .cs-table-card');
+    if (tableCard) {
+      tableCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  window.customScannerReset = function () {
+    resetFilters();
+  };
+
+  function init() {
+    cacheDom();
+    bindEvents();
+    loadUniverseData();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

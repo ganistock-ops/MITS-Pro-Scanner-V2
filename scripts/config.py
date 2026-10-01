@@ -29,6 +29,7 @@ TAB3_HTF_FILE = DATA_DIR / "tab3_htf.json"
 TAB4_WEEKLY_SWING_FILE = DATA_DIR / "tab4_weekly_swing.json"
 TAB5_STAGE2_PULLBACK_FILE = DATA_DIR / "tab5_stage2_pullback.json"
 TAB6_DBR_FILE = DATA_DIR / "tab6_dbr.json"
+MASTER_UNIVERSE_EOD_FILE = DATA_DIR / "master_universe_eod.json"
 
 # Operational Constants
 TIMEZONE = "Asia/Kolkata"

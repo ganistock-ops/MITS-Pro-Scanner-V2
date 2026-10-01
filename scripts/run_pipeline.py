@@ -245,6 +245,19 @@ def run_pipeline():
         if bhav_info and bhav_date is not None:
             last_dt = df.index[-1].date()
             if last_dt < bhav_date:
+                prev_trade_date = bhav_date - timedelta(days=1)
+                while prev_trade_date.weekday() >= 5:
+                    prev_trade_date -= timedelta(days=1)
+                if last_dt < prev_trade_date and bhav_info.get("prev_close", 0) > 0:
+                    prev_row = pd.DataFrame([{
+                        "Open": bhav_info["prev_close"],
+                        "High": bhav_info["prev_close"],
+                        "Low": bhav_info["prev_close"],
+                        "Close": bhav_info["prev_close"],
+                        "Volume": 0.0,
+                    }], index=[pd.to_datetime(prev_trade_date)])
+                    df = pd.concat([df, prev_row])
+
                 new_row = pd.DataFrame([{
                     "Open": bhav_info["open"],
                     "High": bhav_info["high"],
@@ -271,12 +284,19 @@ def run_pipeline():
                 item["delivery_pct"] = bhav_info.get("deliv_per", 0.0)
                 item["delivery_qty"] = bhav_info.get("deliv_qty", 0.0)
 
+        stock_dfs[sym] = df
         success_count += 1
 
         features = yf_feed.calculate_technical_features(df)
         features["timestamp"] = timestamp_str
 
-        chg = features.get("change_pct", 0.0)
+        # Strictly use official single-day change formula:
+        if bhav_info and bhav_info.get("prev_close", 0) > 0:
+            chg = round(((bhav_info["close"] - bhav_info["prev_close"]) / bhav_info["prev_close"]) * 100.0, 2)
+            features["change_pct"] = chg
+            features["cmp"] = round(float(bhav_info["close"]), 2)
+        else:
+            chg = features.get("change_pct", 0.0)
         if chg > 0:
             advances += 1
         elif chg < 0:
@@ -523,6 +543,21 @@ def run_pipeline():
             logger.info("Enriched market_summary.json with quantitative sector rotation.")
     except Exception as e:
         logger.warning(f"Sector rotation analysis bypassed: {e}")
+
+    # Isolated Master Universe EOD Exporter (Zero-Regression Custom Scanner Snapshot)
+    try:
+        from master_universe_exporter import generate_master_universe_eod
+        generate_master_universe_eod(
+            symbols=symbols,
+            stock_dfs=stock_dfs,
+            bhav_date=bhav_date,
+            bhav_map=bhav_map,
+            delivery_analytics_map=delivery_analytics_map,
+            n_df=n_df
+        )
+        logger.info("Enriched data/master_universe_eod.json with full 501-stock quantitative universe.")
+    except Exception as e:
+        logger.warning(f"Master universe export bypassed or error: {e}")
 
     print("\n" + "=" * 75)
     print("MITS PRO SCANNER - NIFTY 500 REAL MARKET PIPELINE COMPLETE")
