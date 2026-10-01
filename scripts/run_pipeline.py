@@ -512,6 +512,18 @@ def run_pipeline():
         json.dump(summary_payload, f, indent=2)
     logger.info(f"Updated {MARKET_SUMMARY_FILE}")
 
+    # Isolated quantitative Sector Rotation integration (Zero Regression)
+    try:
+        from sector_rotation_analyzer import analyze_sector_rotation
+        sector_rot = analyze_sector_rotation()
+        if sector_rot:
+            summary_payload["sector_rotation"] = sector_rot
+            with open(MARKET_SUMMARY_FILE, "w", encoding="utf-8") as f:
+                json.dump(summary_payload, f, indent=2)
+            logger.info("Enriched market_summary.json with quantitative sector rotation.")
+    except Exception as e:
+        logger.warning(f"Sector rotation analysis bypassed: {e}")
+
     print("\n" + "=" * 75)
     print("MITS PRO SCANNER - NIFTY 500 REAL MARKET PIPELINE COMPLETE")
     print(f"Time Taken: {duration:.2f}s | Scanned: {success_count}/{len(symbols)} Equities")

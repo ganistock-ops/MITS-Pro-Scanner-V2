@@ -33,6 +33,12 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         </div>
       </div>
 
+      <!-- Top Center EOD Notice Badge -->
+      <div class="wp-header-eod-badge" title="EOD Data Feed">
+        <span class="wp-eod-pulse">⚡</span>
+        <span>EOD Data (Not Real-Time) | Updates Daily After 6:00 PM</span>
+      </div>
+
       <div class="wp-header-controls">
         <div class="wp-status-pill">
           <span class="wp-pulse"></span>
@@ -85,6 +91,54 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         <div class="wp-kpi-label"><span>Active Signals</span></div>
         <div class="wp-kpi-value" id="wp-kpi-alerts" style="color: #ffffff;">44</div>
         <div class="wp-kpi-sub" style="color: #fbbf24;">6 Setups Scanned</div>
+      </div>
+    </div>
+
+    <!-- Daily Sector Rotation Bar (Institutional Flow Radar) -->
+    <div id="wp-sector-rotation-container" class="wp-rotation-wrap">
+      <div class="wp-rotation-header">
+        <div class="wp-rotation-title">
+          <span class="wp-rotation-icon">⚡</span>
+          <span>SECTOR ROTATION</span>
+          <span class="wp-rotation-sub" id="wp-rotation-date">30-Sep-2026</span>
+        </div>
+        <div class="wp-rotation-legend">
+          <span class="wp-flow-legend-item"><span class="wp-dot-inflow"></span> Accumulation</span>
+          <span class="wp-flow-legend-item"><span class="wp-dot-outflow"></span> Distribution</span>
+        </div>
+      </div>
+      <div class="wp-rotation-pills" id="wp-rotation-pills-list">
+        <div class="wp-sector-pill inflow" title="Media (Selective Inflow)&#10;Avg Perf: +3.28%&#10;+106.4% Deliv&#10;Leaders: SUNTV, PVRINOX&#10;Click to filter table" onclick="filterWpBySector('Media Entertainment &amp; Publication')">
+          <span>🟢 Media</span>
+          <span class="wp-pill-perf">+3.28%</span>
+          <span class="wp-pill-spike">+106.4% Deliv</span>
+        </div>
+        <div class="wp-sector-pill inflow" title="Construction (Selective Inflow)&#10;Avg Perf: +2.18%&#10;+60.9% Deliv&#10;Leaders: IRCON, RITES&#10;Click to filter table" onclick="filterWpBySector('Construction')">
+          <span>🟢 Construction</span>
+          <span class="wp-pill-perf">+2.18%</span>
+          <span class="wp-pill-spike">+60.9% Deliv</span>
+        </div>
+        <div class="wp-sector-pill inflow" title="Textiles (Selective Inflow)&#10;Avg Perf: +0.63%&#10;+162.3% Deliv&#10;Leaders: KPRMILL, VTL&#10;Click to filter table" onclick="filterWpBySector('Textiles')">
+          <span>🟢 Textiles</span>
+          <span class="wp-pill-perf">+0.63%</span>
+          <span class="wp-pill-spike">+162.3% Deliv</span>
+        </div>
+        <span style="color: #475569; font-size: 0.72rem; padding: 0 0.2rem; font-weight: 700;">VS</span>
+        <div class="wp-sector-pill outflow" title="Healthcare &amp; Pharma (Selective Outflow)&#10;Avg Perf: -1.97%&#10;+76.5% Deliv&#10;Leaders: LALPATHLAB, AJANTPHARM&#10;Click to filter table" onclick="filterWpBySector('Healthcare')">
+          <span>🔴 Healthcare &amp; Pharma</span>
+          <span class="wp-pill-perf">-1.97%</span>
+          <span class="wp-pill-spike">+76.5% Deliv</span>
+        </div>
+        <div class="wp-sector-pill outflow" title="Metals &amp; Mining (Selective Outflow)&#10;Avg Perf: -0.57%&#10;+19.4% Deliv&#10;Leaders: JAINREC, JSL&#10;Click to filter table" onclick="filterWpBySector('Metals &amp; Mining')">
+          <span>🔴 Metals &amp; Mining</span>
+          <span class="wp-pill-perf">-0.57%</span>
+          <span class="wp-pill-spike">+19.4% Deliv</span>
+        </div>
+        <div class="wp-sector-pill outflow" title="FMCG (Selective Outflow)&#10;Avg Perf: -0.51%&#10;+20.0% Deliv&#10;Leaders: DOMS, GODFRYPHLP&#10;Click to filter table" onclick="filterWpBySector('Fast Moving Consumer Goods')">
+          <span>🔴 FMCG</span>
+          <span class="wp-pill-perf">-0.51%</span>
+          <span class="wp-pill-spike">+20.0% Deliv</span>
+        </div>
       </div>
     </div>
 
@@ -558,7 +612,15 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
     <div class="wp-footer">
       <span>MITS Pro Institutional Suite V2 • WordPress Live Feed</span>
-      <span>Auto-sync daily at 16:15 IST (4:15 PM)</span>
+      <span>Auto-sync daily after 18:00 IST (6:00 PM)</span>
+    </div>
+
+    <!-- Comprehensive Legal & Educational Disclaimer Strip -->
+    <div class="wp-disclaimer-strip">
+      <p class="wp-disclaimer-text">
+        <span class="wp-disclaimer-icon">⚠️</span>
+        <strong>Disclaimer:</strong> For Educational &amp; Quantitative Research Only • Not SEBI Registered / Not Financial Advice. AI insights and institutional copilot summaries are algorithmically generated and may contain inaccuracies. Please conduct your own due diligence before making any investment decisions.
+      </p>
     </div>
 
   </div>
@@ -649,6 +711,29 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 #mits-pro-embed-root .wp-brand-sub {
   font-size: 0.8rem !important;
   color: #94a3b8 !important;
+}
+
+#mits-pro-embed-root .wp-header-eod-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+  border: 1px solid rgba(245, 158, 11, 0.25) !important;
+  color: #fbbf24 !important;
+  padding: 0.35rem 0.85rem !important;
+  border-radius: 999px !important;
+  font-size: 0.73rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.08) !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+#mits-pro-embed-root .wp-eod-pulse {
+  color: #fbbf24 !important;
+  font-size: 0.8rem !important;
 }
 
 #mits-pro-embed-root .wp-header-controls {
@@ -762,6 +847,133 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   padding: 1px 6px !important;
   border-radius: 4px !important;
   font-size: 0.74rem !important;
+}
+
+/* Sector Rotation Strip */
+#mits-pro-embed-root .wp-rotation-wrap {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  padding: 0.65rem 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  margin: 0.2rem 0 !important;
+}
+
+#mits-pro-embed-root .wp-rotation-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 0.72rem !important;
+}
+
+#mits-pro-embed-root .wp-rotation-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  font-weight: 700 !important;
+  color: #fbbf24 !important;
+  letter-spacing: 0.05em !important;
+}
+
+#mits-pro-embed-root .wp-rotation-sub {
+  color: #64748b !important;
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  padding: 1px 6px !important;
+  border-radius: 4px !important;
+}
+
+#mits-pro-embed-root .wp-rotation-legend {
+  display: flex !important;
+  gap: 0.8rem !important;
+  color: #94a3b8 !important;
+  font-size: 0.7rem !important;
+}
+
+#mits-pro-embed-root .wp-flow-legend-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+}
+
+#mits-pro-embed-root .wp-dot-inflow {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: #10b981 !important;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5) !important;
+}
+
+#mits-pro-embed-root .wp-dot-outflow {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: #f43f5e !important;
+  box-shadow: 0 0 6px rgba(244, 63, 94, 0.5) !important;
+}
+
+#mits-pro-embed-root .wp-rotation-pills {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.45rem !important;
+  align-items: center !important;
+}
+
+#mits-pro-embed-root .wp-sector-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  padding: 0.28rem 0.65rem !important;
+  border-radius: 6px !important;
+  font-size: 0.76rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.18s ease-in-out !important;
+  user-select: none !important;
+  border: 1px solid transparent !important;
+}
+
+#mits-pro-embed-root .wp-sector-pill.inflow {
+  background: rgba(16, 185, 129, 0.1) !important;
+  color: #34d399 !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+}
+
+#mits-pro-embed-root .wp-sector-pill.inflow:hover {
+  background: rgba(16, 185, 129, 0.22) !important;
+  border-color: #10b981 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25) !important;
+}
+
+#mits-pro-embed-root .wp-sector-pill.outflow {
+  background: rgba(244, 63, 94, 0.1) !important;
+  color: #fb7185 !important;
+  border-color: rgba(244, 63, 94, 0.25) !important;
+}
+
+#mits-pro-embed-root .wp-sector-pill.outflow:hover {
+  background: rgba(244, 63, 94, 0.22) !important;
+  border-color: #f43f5e !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.25) !important;
+}
+
+#mits-pro-embed-root .wp-pill-perf {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-weight: 700 !important;
+  font-size: 0.72rem !important;
+}
+
+#mits-pro-embed-root .wp-pill-spike {
+  font-size: 0.65rem !important;
+  padding: 1px 4px !important;
+  border-radius: 3px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #cbd5e1 !important;
 }
 
 /* Tabs */
@@ -2159,6 +2371,34 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   padding-top: 0.75rem !important;
 }
 
+#mits-pro-embed-root .wp-disclaimer-strip {
+  background: rgba(15, 23, 42, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 10px !important;
+  padding: 0.85rem 1.25rem !important;
+  text-align: center !important;
+  margin-top: 0.25rem !important;
+}
+
+#mits-pro-embed-root .wp-disclaimer-text {
+  margin: 0 !important;
+  font-size: 0.72rem !important;
+  color: #94a3b8 !important;
+  line-height: 1.55 !important;
+  max-width: 980px !important;
+  margin: 0 auto !important;
+}
+
+#mits-pro-embed-root .wp-disclaimer-text strong {
+  color: #fbbf24 !important;
+  font-weight: 700 !important;
+}
+
+#mits-pro-embed-root .wp-disclaimer-icon {
+  margin-right: 0.25rem !important;
+  font-size: 0.8rem !important;
+}
+
 /* ==========================================================================
    Mobile Responsive Layout (Disable Sticky Columns on Mobile Screens)
    ========================================================================== */
@@ -2214,6 +2454,14 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     justify-content: center !important;
     gap: 0.25rem !important;
   }
+
+  #mits-pro-embed-root .wp-header-eod-badge {
+    order: 3 !important;
+    width: 100% !important;
+    justify-content: center !important;
+    white-space: normal !important;
+    font-size: 0.68rem !important;
+  }
 }
 </style>
 
@@ -2226,7 +2474,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
   // Live GitHub Pages absolute data endpoint for Native WordPress Direct Embedding (No iFrame)
   // When running locally on localhost, loads local data/ directory for instant verification
-  const MITS_PRO_REMOTE_BASE = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? 'data/' : 'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/'; 
+  const MITS_PRO_REMOTE_BASE = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:' || !window.location.hostname)) ? 'data/' : 'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/'; 
 
   const DEFAULT_WP_TAB1_SIGNALS = [
     {
@@ -7152,7 +7400,99 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
         if (badge) badge.textContent = setup ? (setup.signals ? setup.signals.length : 0) : 0;
       });
     }
+
+    // Render Daily Sector Rotation (Zero-Regression)
+    renderWpSectorRotation();
   }
+
+  function renderWpSectorRotation() {
+    const wrap = document.getElementById('wp-sector-rotation-container');
+    const list = document.getElementById('wp-rotation-pills-list');
+    if (!wrap || !list) return;
+
+    const summary = WP_STATE.marketSummary;
+    const rot = summary ? summary.sector_rotation : null;
+    if (!rot || (!rot.top_inflows || !rot.top_inflows.length) && (!rot.top_outflows || !rot.top_outflows.length)) {
+      if (!list || list.children.length === 0) {
+        wrap.style.setProperty('display', 'none', 'important');
+      }
+      return;
+    }
+
+    const dateEl = document.getElementById('wp-rotation-date');
+    if (dateEl && rot.session_date_display) {
+      dateEl.textContent = rot.session_date_display;
+    }
+
+    list.innerHTML = '';
+
+    // Inflows (Top 3)
+    (rot.top_inflows || []).slice(0, 3).forEach(s => {
+      const perf = s.avg_change_pct >= 0 ? `+${s.avg_change_pct}%` : `${s.avg_change_pct}%`;
+      const spike = s.delivery_spike_pct > 0 ? `+${s.delivery_spike_pct}% Deliv` : '';
+      const leaders = s.leaders && s.leaders.length ? `Leaders: ${s.leaders.join(', ')}` : '';
+      const tooltip = `${s.display_name} (${s.bias_display || 'Inflow'})\nAvg Perf: ${perf}\n${spike}\n${leaders}\nClick to filter table`;
+
+      const pill = document.createElement('div');
+      pill.className = 'wp-sector-pill inflow';
+      pill.title = tooltip;
+      pill.innerHTML = `<span>🟢 ${s.display_name}</span><span class="wp-pill-perf">${perf}</span>${spike ? `<span class="wp-pill-spike">${spike}</span>` : ''}`;
+      pill.addEventListener('click', () => window.filterWpBySector(s.sector));
+      list.appendChild(pill);
+    });
+
+    // Separator VS
+    const sep = document.createElement('span');
+    sep.style.cssText = 'color: #475569; font-size: 0.72rem; padding: 0 0.2rem; font-weight: 700;';
+    sep.textContent = 'VS';
+    list.appendChild(sep);
+
+    // Outflows (Top 3)
+    (rot.top_outflows || []).slice(0, 3).forEach(s => {
+      const perf = s.avg_change_pct >= 0 ? `+${s.avg_change_pct}%` : `${s.avg_change_pct}%`;
+      const spike = s.delivery_spike_pct > 0 ? `+${s.delivery_spike_pct}% Deliv` : '';
+      const leaders = s.leaders && s.leaders.length ? `Leaders: ${s.leaders.join(', ')}` : '';
+      const tooltip = `${s.display_name} (${s.bias_display || 'Outflow'})\nAvg Perf: ${perf}\n${spike}\n${leaders}\nClick to filter table`;
+
+      const pill = document.createElement('div');
+      pill.className = 'wp-sector-pill outflow';
+      pill.title = tooltip;
+      pill.innerHTML = `<span>🔴 ${s.display_name}</span><span class="wp-pill-perf">${perf}</span>${spike ? `<span class="wp-pill-spike">${spike}</span>` : ''}`;
+      pill.addEventListener('click', () => window.filterWpBySector(s.sector));
+      list.appendChild(pill);
+    });
+
+    wrap.style.setProperty('display', 'flex', 'important');
+    wrap.style.display = 'flex';
+  }
+
+  window.filterWpBySector = function(sectorName) {
+    const secSelect = document.getElementById('wp-sector-select');
+    if (!secSelect) return;
+
+    let matched = 'ALL';
+    for (let i = 0; i < secSelect.options.length; i++) {
+      const val = secSelect.options[i].value;
+      if (
+        val.toLowerCase() === sectorName.toLowerCase() ||
+        val.toLowerCase().includes(sectorName.toLowerCase()) ||
+        sectorName.toLowerCase().includes(val.toLowerCase())
+      ) {
+        matched = val;
+        break;
+      }
+    }
+
+    secSelect.value = matched;
+    WP_STATE.sector = matched;
+    WP_STATE.currentPage = 1;
+    renderWpTable();
+
+    const toolbar = document.querySelector('#mits-pro-embed-root .wp-toolbar');
+    if (toolbar) {
+      toolbar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
 
   function populateWpSectors() {
     const secSelect = document.getElementById('wp-sector-select');

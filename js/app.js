@@ -4752,6 +4752,7 @@
 
   function renderAll() {
     renderKPIs();
+    renderSectorRotation();
     populateSectorFilter();
     updateTabBadges();
     renderTable();
@@ -4799,7 +4800,95 @@
         DOM.kpiBankNiftyChange.innerHTML = `<span class="${chg >= 0 ? 'text-bullish' : 'text-bearish'}">${chg >= 0 ? '+' : ''}${chg}%</span>`;
       }
     }
+
+    renderSectorRotation();
   }
+
+  // Standalone Daily Sector Rotation Widget (Strict Zero-Regression)
+  function renderSectorRotation() {
+    const container = document.getElementById('sector-rotation-container');
+    const pillsList = document.getElementById('sector-rotation-pills');
+    if (!container || !pillsList) return;
+
+    const summary = state.marketSummary;
+    const rot = summary ? summary.sector_rotation : null;
+    if (!rot || (!rot.top_inflows || !rot.top_inflows.length) && (!rot.top_outflows || !rot.top_outflows.length)) {
+      if (!pillsList || pillsList.children.length === 0) {
+        container.style.display = 'none';
+      }
+      return;
+    }
+
+    const dateBadge = document.getElementById('rotation-date-badge');
+    if (dateBadge && rot.session_date_display) {
+      dateBadge.textContent = rot.session_date_display;
+    }
+
+    pillsList.innerHTML = '';
+
+    // Inflows (Top 3)
+    (rot.top_inflows || []).slice(0, 3).forEach((s) => {
+      const perf = s.avg_change_pct >= 0 ? `+${s.avg_change_pct}%` : `${s.avg_change_pct}%`;
+      const spike = s.delivery_spike_pct > 0 ? `+${s.delivery_spike_pct}% Deliv` : '';
+      const leaders = s.leaders && s.leaders.length ? `Leaders: ${s.leaders.join(', ')}` : '';
+      const tooltip = `${s.display_name} (${s.bias_display || 'Inflow'})\nAvg Perf: ${perf}\n${spike}\n${leaders}\nClick to filter table`;
+
+      const pill = document.createElement('div');
+      pill.className = 'sector-rot-pill inflow';
+      pill.title = tooltip;
+      pill.innerHTML = `<span>🟢 ${s.display_name}</span><span class="rot-perf">${perf}</span>${spike ? `<span class="rot-spike">${spike}</span>` : ''}`;
+      pill.addEventListener('click', () => window.filterBySector(s.sector));
+      pillsList.appendChild(pill);
+    });
+
+    // Separator VS
+    const sep = document.createElement('span');
+    sep.className = 'rot-vs-divider';
+    sep.textContent = 'VS';
+    pillsList.appendChild(sep);
+
+    // Outflows (Top 3)
+    (rot.top_outflows || []).slice(0, 3).forEach((s) => {
+      const perf = s.avg_change_pct >= 0 ? `+${s.avg_change_pct}%` : `${s.avg_change_pct}%`;
+      const spike = s.delivery_spike_pct > 0 ? `+${s.delivery_spike_pct}% Deliv` : '';
+      const leaders = s.leaders && s.leaders.length ? `Leaders: ${s.leaders.join(', ')}` : '';
+      const tooltip = `${s.display_name} (${s.bias_display || 'Outflow'})\nAvg Perf: ${perf}\n${spike}\n${leaders}\nClick to filter table`;
+
+      const pill = document.createElement('div');
+      pill.className = 'sector-rot-pill outflow';
+      pill.title = tooltip;
+      pill.innerHTML = `<span>🔴 ${s.display_name}</span><span class="rot-perf">${perf}</span>${spike ? `<span class="rot-spike">${spike}</span>` : ''}`;
+      pill.addEventListener('click', () => window.filterBySector(s.sector));
+      pillsList.appendChild(pill);
+    });
+
+    container.style.display = 'flex';
+  }
+
+  window.filterBySector = function(sectorName) {
+    if (!DOM.sectorSelect) return;
+    let matched = 'ALL';
+    for (let i = 0; i < DOM.sectorSelect.options.length; i++) {
+      const val = DOM.sectorSelect.options[i].value;
+      if (
+        val.toLowerCase() === sectorName.toLowerCase() ||
+        val.toLowerCase().includes(sectorName.toLowerCase()) ||
+        sectorName.toLowerCase().includes(val.toLowerCase())
+      ) {
+        matched = val;
+        break;
+      }
+    }
+    DOM.sectorSelect.value = matched;
+    state.selectedSector = matched;
+    state.currentPage = 1;
+    renderTable();
+
+    const toolbar = document.querySelector('.controls-bar');
+    if (toolbar) {
+      toolbar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
 
   // Update Badge Counts on Tabs
   function updateTabBadges() {

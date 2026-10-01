@@ -1887,3 +1887,206 @@ body.resizing-active {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ==========================================================================
+   Daily Sector Rotation Radar (Whale Accumulation vs Distribution)
+   ========================================================================== */
+.sector-rotation-bar {
+  background: var(--bg-surface-2, rgba(15, 23, 42, 0.6));
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rotation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.rotation-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: var(--gold-400, #fbbf24);
+  letter-spacing: 0.06em;
+  font-size: 0.76rem;
+}
+
+.rotation-date-tag {
+  color: var(--text-muted, #64748b);
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.rotation-legend {
+  display: flex;
+  gap: 1rem;
+  color: var(--text-secondary, #94a3b8);
+  font-size: 0.72rem;
+}
+
+.rotation-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dot-inflow {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.dot-outflow {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f43f5e;
+  box-shadow: 0 0 6px rgba(244, 63, 94, 0.6);
+}
+
+.rotation-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.sector-rot-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.sector-rot-pill.inflow {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.sector-rot-pill.inflow:hover {
+  background: rgba(16, 185, 129, 0.22);
+  border-color: #10b981;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.sector-rot-pill.outflow {
+  background: rgba(244, 63, 94, 0.1);
+  color: #fb7185;
+  border-color: rgba(244, 63, 94, 0.25);
+}
+
+.sector-rot-pill.outflow:hover {
+  background: rgba(244, 63, 94, 0.22);
+  border-color: #f43f5e;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.25);
+}
+
+.sector-rot-pill .rot-perf {
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  font-size: 0.74rem;
+}
+
+.sector-rot-pill .rot-spike {
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary, #cbd5e1);
+}
+
+.rot-vs-divider {
+  color: var(--text-muted, #475569);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0 0.3rem;
+}
+
+/* Header EOD Notice Badge */
+.header-eod-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #fbbf24;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.08);
+  margin: 0 auto;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.eod-pulse {
+  color: #fbbf24;
+  font-size: 0.8rem;
+}
+
+/* Bottom Comprehensive Disclaimer Strip */
+.disclaimer-strip {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 0.85rem 1.25rem;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.disclaimer-text {
+  margin: 0;
+  font-size: 0.72rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.disclaimer-text strong {
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.disclaimer-icon {
+  margin-right: 0.25rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 900px) {
+  .header-eod-badge {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+    font-size: 0.68rem;
+  }
+}
+

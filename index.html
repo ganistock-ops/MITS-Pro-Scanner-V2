@@ -69,6 +69,12 @@
         </div>
       </div>
 
+      <!-- Top Center EOD Notice Badge -->
+      <div class="header-eod-badge" title="EOD Data Feed">
+        <span class="eod-pulse">⚡</span>
+        <span>EOD Data (Not Real-Time) | Updates Daily After 6:00 PM</span>
+      </div>
+
       <div class="header-actions">
         <div class="system-status">
           <span class="pulse-dot"></span>
@@ -164,6 +170,54 @@
         </div>
       </div>
 
+    </section>
+ 
+    <!-- 2.5 Daily Sector Rotation Radar (Whale Accumulation vs Distribution) -->
+    <section id="sector-rotation-container" class="sector-rotation-bar" aria-label="Daily Sector Rotation Radar">
+      <div class="rotation-header">
+        <div class="rotation-title">
+          <span class="rotation-icon">⚡</span>
+          <span>SECTOR ROTATION RADAR</span>
+          <span class="rotation-date-tag" id="rotation-date-badge">30-Sep-2026</span>
+        </div>
+        <div class="rotation-legend">
+          <span class="legend-item"><span class="dot-inflow"></span> Accumulation</span>
+          <span class="legend-item"><span class="dot-outflow"></span> Distribution</span>
+        </div>
+      </div>
+      <div class="rotation-pills" id="sector-rotation-pills">
+        <div class="sector-rot-pill inflow" title="Media (Selective Inflow)&#10;Avg Perf: +3.28%&#10;+106.4% Deliv&#10;Leaders: SUNTV, PVRINOX&#10;Click to filter table" onclick="window.filterBySector('Media Entertainment &amp; Publication')">
+          <span>🟢 Media</span>
+          <span class="rot-perf">+3.28%</span>
+          <span class="rot-spike">+106.4% Deliv</span>
+        </div>
+        <div class="sector-rot-pill inflow" title="Construction (Selective Inflow)&#10;Avg Perf: +2.18%&#10;+60.9% Deliv&#10;Leaders: IRCON, RITES&#10;Click to filter table" onclick="window.filterBySector('Construction')">
+          <span>🟢 Construction</span>
+          <span class="rot-perf">+2.18%</span>
+          <span class="rot-spike">+60.9% Deliv</span>
+        </div>
+        <div class="sector-rot-pill inflow" title="Textiles (Selective Inflow)&#10;Avg Perf: +0.63%&#10;+162.3% Deliv&#10;Leaders: KPRMILL, VTL&#10;Click to filter table" onclick="window.filterBySector('Textiles')">
+          <span>🟢 Textiles</span>
+          <span class="rot-perf">+0.63%</span>
+          <span class="rot-spike">+162.3% Deliv</span>
+        </div>
+        <span class="rot-vs-divider">VS</span>
+        <div class="sector-rot-pill outflow" title="Healthcare &amp; Pharma (Selective Outflow)&#10;Avg Perf: -1.97%&#10;+76.5% Deliv&#10;Leaders: LALPATHLAB, AJANTPHARM&#10;Click to filter table" onclick="window.filterBySector('Healthcare')">
+          <span>🔴 Healthcare &amp; Pharma</span>
+          <span class="rot-perf">-1.97%</span>
+          <span class="rot-spike">+76.5% Deliv</span>
+        </div>
+        <div class="sector-rot-pill outflow" title="Metals &amp; Mining (Selective Outflow)&#10;Avg Perf: -0.57%&#10;+19.4% Deliv&#10;Leaders: JAINREC, JSL&#10;Click to filter table" onclick="window.filterBySector('Metals &amp; Mining')">
+          <span>🔴 Metals &amp; Mining</span>
+          <span class="rot-perf">-0.57%</span>
+          <span class="rot-spike">+19.4% Deliv</span>
+        </div>
+        <div class="sector-rot-pill outflow" title="FMCG (Selective Outflow)&#10;Avg Perf: -0.51%&#10;+20.0% Deliv&#10;Leaders: DOMS, GODFRYPHLP&#10;Click to filter table" onclick="window.filterBySector('Fast Moving Consumer Goods')">
+          <span>🔴 FMCG</span>
+          <span class="rot-perf">-0.51%</span>
+          <span class="rot-spike">+20.0% Deliv</span>
+        </div>
+      </div>
     </section>
 
     <!-- 3. Navigation Tabs (6 Designated Pro Setups) -->
@@ -273,9 +327,17 @@
         <span>MITS Pro Institutional Suite V2.0 • Real-Time Quantitative Engine</span>
       </div>
       <div>
-        <span>Automated daily cron sync scheduled at <strong>16:15 IST (4:15 PM)</strong></span>
+        <span>Auto-sync daily after <strong>18:00 IST (6:00 PM)</strong></span>
       </div>
     </footer>
+
+    <!-- Comprehensive Legal & Educational Disclaimer Strip -->
+    <div class="disclaimer-strip">
+      <p class="disclaimer-text">
+        <span class="disclaimer-icon">⚠️</span>
+        <strong>Disclaimer:</strong> For Educational &amp; Quantitative Research Only • Not SEBI Registered / Not Financial Advice. AI insights and institutional copilot summaries are algorithmically generated and may contain inaccuracies. Please conduct your own due diligence before making any investment decisions.
+      </p>
+    </div>
 
     <!-- ===================================================================================
          INSTITUTIONAL SETUP DOSSIER SLIDE-OVER DRAWER & BACKDROP
