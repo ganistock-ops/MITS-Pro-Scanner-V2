@@ -1,66 +1,66 @@
 {
-  "scan_timestamp": "2026-10-01T09:46:34.539635+05:30",
+  "scan_timestamp": "2026-10-01T10:02:09.843285+05:30",
   "market_status": "OPEN",
   "last_session_date": "2026-09-30",
   "session_date_display": "30-Sep-2026",
   "indices": {
     "NIFTY_50": {
       "name": "NIFTY 50",
-      "price": 22556.95,
-      "change": -63.5,
-      "change_pct": -0.28,
+      "price": 22593.8,
+      "change": -26.65,
+      "change_pct": -0.12,
       "trend": "DEFENSIVE"
     },
     "BANKNIFTY": {
       "name": "BANK NIFTY",
-      "price": 54877.95,
-      "change": 244.9,
-      "change_pct": 0.45,
+      "price": 54959.7,
+      "change": 326.65,
+      "change_pct": 0.6,
       "trend": "BULLISH"
     },
     "INDIA_VIX": {
       "name": "INDIA VIX",
-      "price": 13.78,
-      "change": 0.3,
-      "change_pct": 2.22,
+      "price": 13.54,
+      "change": 0.05,
+      "change_pct": 0.37,
       "trend": "MODERATE_VOLATILITY"
     }
   },
   "market_breadth": {
-    "advances": 143,
-    "declines": 356,
-    "ratio": "0.4:1",
+    "advances": 186,
+    "declines": 313,
+    "ratio": "0.59:1",
     "institutional_bias": "DEFENSIVE / SELECTIVE ACCUMULATION",
     "bias_color": "amber",
     "total_scanned": 500,
-    "high_momentum_count": 101,
-    "pro_alerts_count": 38
+    "high_momentum_count": 86,
+    "pro_alerts_count": 44
   },
   "sector_matrix": [
     {
       "sector": "Healthcare",
-      "performance": "-1.36%",
-      "bias": "DEFENSIVE"
+      "performance": "-0.98%",
+      "bias": "CONSOLIDATING"
     },
     {
       "sector": "Banking & Fin",
-      "performance": "-0.39%",
+      "performance": "-0.17%",
       "bias": "CONSOLIDATING"
     },
     {
       "sector": "IT & Tech",
-      "performance": "-0.05%",
-      "bias": "CONSOLIDATING"
+      "performance": "+0.38%",
+      "bias": "SELECTIVE_ACCUMULATION"
     },
     {
       "sector": "Metals & Mining",
-      "performance": "-1.61%",
+      "performance": "-1.26%",
       "bias": "DEFENSIVE"
     },
     {
       "sector": "Auto & Mobility",
-      "performance": "-1.20%",
-      "bias": "DEFENSIVE"
+      "performance": "-0.96%",
+      "bias": "CONSOLIDATING"
     }
   ]
 }
