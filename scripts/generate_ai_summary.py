@@ -31,7 +31,7 @@ FUNDAMENTALS_FILE = os.path.join(WORKSPACE_ROOT, "data", "fundamentals.json")
 OUTPUT_FILE = os.path.join(WORKSPACE_ROOT, "data", "ai_analysis.json")
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
 
 def build_algorithmic_fallback(sig, fund):
     """
@@ -108,7 +108,7 @@ def build_algorithmic_fallback(sig, fund):
     }
 
 def call_gemini_api(sig, fund):
-    """Call Google Gemini 1.5 Flash API with strict JSON schema."""
+    """Call Google Gemini 3.5 Flash Lite API with strict JSON schema."""
     if not GEMINI_API_KEY:
         return None
 
@@ -168,7 +168,7 @@ Provide a high-conviction institutional briefing in strictly valid JSON format w
                 if cleaned.endswith("```"):
                     cleaned = cleaned[:-3]
                 parsed = json.loads(cleaned.strip())
-                parsed["model"] = "Google Gemini 1.5 Flash"
+                parsed["model"] = "Google Gemini 3.5 Flash Lite"
                 return parsed
         else:
             print(f"  [API Warning] {sym} Gemini returned status {resp.status_code}: {resp.text[:100]}")

@@ -56,11 +56,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main || true
           git add data/
-          if git diff --staged --quiet; then
-            echo "No data changes detected in this run."
-          else
-            git commit -m "chore(data): automated institutional EOD scan update [$(date -u +'%Y-%m-%d %H:%M UTC')]"
-            git push origin main
-          fi
+          git commit -m "Auto-generate AI copilot insights and scanner feeds [skip ci]" || exit 0
+          git pull origin main --rebase || (git rebase --abort && git pull origin main --no-rebase)
+          git push origin main
