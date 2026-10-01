@@ -54,36 +54,36 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       <div class="wp-kpi-box highlight">
         <div class="wp-kpi-label">
           <span>Market Breadth</span>
-          <span id="wp-kpi-bias" style="color: #fbbf24; font-weight: 700;">ACCUMULATION</span>
+          <span id="wp-kpi-bias" style="color: #fbbf24; font-weight: 700;">DEFENSIVE</span>
         </div>
         <div class="wp-kpi-value wp-gold">
-          <span id="wp-kpi-adv">34</span> <small style="color: #64748b; font-size: 0.8rem;">ADV</small> /
-          <span id="wp-kpi-dec" style="color: #94a3b8;">16</span> <small style="color: #64748b; font-size: 0.8rem;">DEC</small>
+          <span id="wp-kpi-adv">186</span> <small style="color: #64748b; font-size: 0.8rem;">ADV</small> /
+          <span id="wp-kpi-dec" style="color: #94a3b8;">313</span> <small style="color: #64748b; font-size: 0.8rem;">DEC</small>
         </div>
-        <div class="wp-meter"><div id="wp-meter-bar" class="wp-meter-fill" style="width: 68%;"></div></div>
+        <div class="wp-meter"><div id="wp-meter-bar" class="wp-meter-fill" style="width: 37%;"></div></div>
       </div>
 
       <div class="wp-kpi-box">
-        <div class="wp-kpi-label"><span>NIFTY 50</span> <span id="wp-nifty-chg" class="wp-tag-bullish">+0.53%</span></div>
-        <div class="wp-kpi-value" id="wp-nifty-val">₹25,418.30</div>
+        <div class="wp-kpi-label"><span>NIFTY 50</span> <span id="wp-nifty-chg" class="wp-tag-bearish">-0.12%</span></div>
+        <div class="wp-kpi-value" id="wp-nifty-val">₹22,593.80</div>
+        <div class="wp-kpi-sub" style="color: #f59e0b;">■ Defensive Trend</div>
+      </div>
+
+      <div class="wp-kpi-box">
+        <div class="wp-kpi-label"><span>BANK NIFTY</span> <span id="wp-banknifty-chg" class="wp-tag-bullish">+0.60%</span></div>
+        <div class="wp-kpi-value" id="wp-banknifty-val">₹54,959.70</div>
         <div class="wp-kpi-sub" style="color: #10b981;">▲ Bullish Trend</div>
       </div>
 
       <div class="wp-kpi-box">
-        <div class="wp-kpi-label"><span>BANK NIFTY</span> <span id="wp-banknifty-chg" class="wp-tag-bullish">+0.67%</span></div>
-        <div class="wp-kpi-value" id="wp-banknifty-val">₹52,180.45</div>
-        <div class="wp-kpi-sub" style="color: #10b981;">▲ Outperforming</div>
-      </div>
-
-      <div class="wp-kpi-box">
         <div class="wp-kpi-label"><span>Momentum RVOL &gt; 2x</span></div>
-        <div class="wp-kpi-value wp-gold" id="wp-kpi-momentum">278</div>
+        <div class="wp-kpi-value wp-gold" id="wp-kpi-momentum">86</div>
         <div class="wp-kpi-sub">501 Liquid Stocks</div>
       </div>
 
       <div class="wp-kpi-box">
         <div class="wp-kpi-label"><span>Active Signals</span></div>
-        <div class="wp-kpi-value" id="wp-kpi-alerts" style="color: #ffffff;">108</div>
+        <div class="wp-kpi-value" id="wp-kpi-alerts" style="color: #ffffff;">44</div>
         <div class="wp-kpi-sub" style="color: #fbbf24;">6 Setups Scanned</div>
       </div>
     </div>
@@ -6622,7 +6622,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     });
   }
 
-  const WP_CACHE_VERSION = '_V4';
+  const WP_CACHE_VERSION = '_V5';
   const WP_CACHE_KEY_SCAN = 'MITS_WP_SCAN_CACHE' + WP_CACHE_VERSION;
   const WP_CACHE_KEY_SUMM = 'MITS_WP_SUMM_CACHE' + WP_CACHE_VERSION;
   const WP_CACHE_KEY_TAB1 = 'MITS_WP_TAB1_CACHE' + WP_CACHE_VERSION;
@@ -6635,13 +6635,14 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   function loadCachedData() {
     try {
       try {
-        localStorage.removeItem('MITS_WP_TAB5_CACHE_V3');
-        localStorage.removeItem('MITS_WP_TAB5_CACHE');
-        localStorage.removeItem('MITS_WP_TAB2_CACHE_V3');
-        localStorage.removeItem('MITS_WP_TAB2_CACHE');
-        localStorage.removeItem('MITS_WP_TAB6_CACHE');
-        localStorage.removeItem('MITS_WP_SCAN_CACHE_V3');
-        localStorage.removeItem('MITS_WP_SCAN_CACHE');
+        localStorage.removeItem('MITS_WP_SCAN_CACHE_V4');
+        localStorage.removeItem('MITS_WP_SUMM_CACHE_V4');
+        localStorage.removeItem('MITS_WP_TAB1_CACHE_V4');
+        localStorage.removeItem('MITS_WP_TAB2_CACHE_V4');
+        localStorage.removeItem('MITS_WP_TAB3_CACHE_V4');
+        localStorage.removeItem('MITS_WP_TAB4_CACHE_V4');
+        localStorage.removeItem('MITS_WP_TAB5_CACHE_V4');
+        localStorage.removeItem('MITS_WP_TAB6_CACHE_V4');
       } catch (_) {}
       const cachedScan = localStorage.getItem(WP_CACHE_KEY_SCAN);
       const cachedSumm = localStorage.getItem(WP_CACHE_KEY_SUMM);
@@ -6750,7 +6751,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
   async function fetchFreshWpData(force) {
     try {
       const ts = Date.now();
-      const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2, resBacktest4, resBacktest6, resBacktest1, resBacktest3, resFund] = await Promise.allSettled([
+      const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2, resBacktest4, resBacktest6, resBacktest1, resBacktest3, resFund, resAi] = await Promise.allSettled([
         fetch(MITS_PRO_REMOTE_BASE + 'scanner_results.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'market_summary.json?t=' + ts),
         fetch(MITS_PRO_REMOTE_BASE + 'tab1_bottom_reversal.json?t=' + ts),
