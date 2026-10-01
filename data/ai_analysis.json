@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-09-30T22:08:53.258154",
-  "total_symbols": 50,
+  "generated_at": "2026-10-01T04:18:50.021604",
+  "total_symbols": 67,
   "engine": "MITS AI Copilot Institutional Insights Engine",
   "data": {
     "AEGISLOG": {
       "technical_verdict": "Displaying Bullish Trend Stack, Deep Base (-21%). with delivery volume at 28.8%.",
       "fundamental_quality": "Market Cap at ₹48,442 Cr with P/E multiple of 38.65; delivering robust capital efficiency with 20.7% ROE; conservative leverage (D/E 0.47); Latest Jun 2026 reported Net Profit of ₹484.4 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹1,351.11 - ₹1,380.10. Invalidation stop loss strictly anchored at ₹1,232.00. Primary expansion objective targeting ₹1,602.25 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹1,355.51 - ₹1,397.30. Invalidation stop loss strictly anchored at ₹1,232.00. Primary expansion objective targeting ₹1,645.25 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 92,
       "model": "MITS Algorithmic Institutional Model"
     },
     "SYRMA": {
-      "technical_verdict": "Displaying Bullish Trend Stack, Momentum Base. with delivery volume at 22.6%.",
+      "technical_verdict": "Displaying In-Flag Compression, Tightness < 10%. with delivery volume at 22.6%.",
       "fundamental_quality": "Market Cap at ₹34,343 Cr with P/E multiple of 92.38; delivering robust capital efficiency with 12.9% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹100.1 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹1,648.68 - ₹1,782.90. Invalidation stop loss strictly anchored at ₹1,405.50. Primary expansion objective targeting ₹2,349.00 at a favorable 1:2.5 Risk-to-Reward ratio.",
-      "confidence_score": 92,
+      "execution_note": "Optimal accumulation within safe entry band ₹1,780.30 - ₹1,803.90. Invalidation stop loss strictly anchored at ₹1,685.00. Primary expansion objective targeting ₹1,923.25 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     },
     "CARBORUNIV": {
@@ -27,14 +27,14 @@
     "CPPLUS": {
       "technical_verdict": "Displaying Bullish Trend Stack, Deep Base (-21%). with delivery volume at 55.9%.",
       "fundamental_quality": "Market Cap at ₹47,168 Cr with P/E multiple of 95.05; delivering robust capital efficiency with 25.4% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹142.2 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹3,688.93 - ₹3,846.50. Invalidation stop loss strictly anchored at ₹3,321.00. Primary expansion objective targeting ₹4,634.75 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹3,684.77 - ₹3,802.80. Invalidation stop loss strictly anchored at ₹3,321.00. Primary expansion objective targeting ₹4,525.50 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 88,
       "model": "MITS Algorithmic Institutional Model"
     },
     "REDINGTON": {
       "technical_verdict": "Displaying In-Flag Compression, Tightness < 10%. with official Bhavcopy delivery at 54.4% (1.2x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹31,818 Cr with P/E multiple of 18.70; delivering robust capital efficiency with 15.6% ROE; conservative leverage (D/E 0.27); Latest Jun 2026 reported Net Profit of ₹486.0 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹407.00 - ₹413.20. Invalidation stop loss strictly anchored at ₹390.70. Primary expansion objective targeting ₹431.45 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹404.35 - ₹413.20. Invalidation stop loss strictly anchored at ₹390.70. Primary expansion objective targeting ₹424.83 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 98,
       "model": "MITS Algorithmic Institutional Model"
     },
@@ -48,14 +48,14 @@
     "WELSPUNLIV": {
       "technical_verdict": "Displaying In-Flag Compression, Tightness < 10%. with official Bhavcopy delivery at 40.5% (1.0x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹21,402 Cr with P/E multiple of 78.12; delivering robust capital efficiency with 5.6% ROE; conservative leverage (D/E 0.47); Latest Jun 2026 reported Net Profit of ₹160.7 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹227.33 - ₹233.00. Invalidation stop loss strictly anchored at ₹217.19. Primary expansion objective targeting ₹242.54 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹231.63 - ₹233.00. Invalidation stop loss strictly anchored at ₹217.19. Primary expansion objective targeting ₹253.29 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 95,
       "model": "MITS Algorithmic Institutional Model"
     },
     "FINCABLES": {
       "technical_verdict": "Displaying In-Flag Compression, Tightness < 15%. with official Bhavcopy delivery at 51.3% (1.3x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹22,181 Cr with P/E multiple of 27.76; delivering robust capital efficiency with 13.1% ROE; conservative leverage (D/E 0.31); Latest Jun 2026 reported Net Profit of ₹249.0 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹1,450.30 - ₹1,498.00. Invalidation stop loss strictly anchored at ₹1,299.10. Primary expansion objective targeting ₹1,677.10 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹1,456.00 - ₹1,498.00. Invalidation stop loss strictly anchored at ₹1,299.10. Primary expansion objective targeting ₹1,691.35 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 90,
       "model": "MITS Algorithmic Institutional Model"
     },
@@ -76,7 +76,7 @@
     "WELCORP": {
       "technical_verdict": "Displaying In-Flag Compression, Tightness < 20%. with official Bhavcopy delivery at 44.5% (1.3x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹71,648 Cr with P/E multiple of 30.99; delivering robust capital efficiency with 24.2% ROE; conservative leverage (D/E 0.25); Latest Jun 2026 reported Net Profit of ₹1,046.5 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹2,717.00 - ₹2,784.80. Invalidation stop loss strictly anchored at ₹2,240.20. Primary expansion objective targeting ₹3,432.20 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹2,624.30 - ₹2,784.80. Invalidation stop loss strictly anchored at ₹2,240.20. Primary expansion objective targeting ₹3,200.45 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     },
@@ -90,8 +90,8 @@
     "AEGISVOPAK": {
       "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with official Bhavcopy delivery at 43.1% (1.1x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹32,885 Cr with P/E multiple of 107.15; delivering robust capital efficiency with 5.8% ROE; conservative leverage (D/E 0.84); Latest Jun 2026 reported Net Profit of ₹66.1 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹294.70 - ₹296.80. Invalidation stop loss strictly anchored at ₹280.25. Primary expansion objective targeting ₹321.62 at a favorable 1:2.5 Risk-to-Reward ratio.",
-      "confidence_score": 95,
+      "execution_note": "Optimal accumulation within safe entry band ₹294.90 - ₹296.85. Invalidation stop loss strictly anchored at ₹280.25. Primary expansion objective targeting ₹321.75 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 98,
       "model": "MITS Algorithmic Institutional Model"
     },
     "PCBL": {
@@ -125,22 +125,22 @@
     "LENSKART": {
       "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 57.0%.",
       "fundamental_quality": "Market Cap at ₹1.19L Cr with P/E multiple of 181.23; delivering robust capital efficiency with 7.0% ROE; conservative leverage (D/E 0.35); Latest Jun 2026 reported Net Profit of ₹221.8 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹674.56 - ₹685.05. Invalidation stop loss strictly anchored at ₹634.60. Primary expansion objective targeting ₹760.72 at a favorable 1:2.5 Risk-to-Reward ratio.",
-      "confidence_score": 89,
+      "execution_note": "Optimal accumulation within safe entry band ₹675.12 - ₹680.45. Invalidation stop loss strictly anchored at ₹636.13. Primary expansion objective targeting ₹746.93 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 98,
       "model": "MITS Algorithmic Institutional Model"
     },
     "AIIL": {
       "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 45.0%.",
       "fundamental_quality": "Market Cap at ₹46,419 Cr with P/E multiple of 28.57; delivering robust capital efficiency with 14.2% ROE; conservative leverage (D/E 0.25); Latest Jun 2026 reported Net Profit of ₹1,110.5 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹543.87 - ₹546.60. Invalidation stop loss strictly anchored at ₹524.15. Primary expansion objective targeting ₹580.27 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹544.92 - ₹548.60. Invalidation stop loss strictly anchored at ₹524.15. Primary expansion objective targeting ₹585.27 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 87,
       "model": "MITS Algorithmic Institutional Model"
     },
     "CUB": {
       "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 29.6%.",
       "fundamental_quality": "Market Cap at ₹22,397 Cr with P/E multiple of 15.99; delivering robust capital efficiency with 10.2% ROE; Latest Jun 2026 reported Net Profit of ₹382.6 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹224.92 - ₹226.05. Invalidation stop loss strictly anchored at ₹210.69. Primary expansion objective targeting ₹249.09 at a favorable 1:2.5 Risk-to-Reward ratio.",
-      "confidence_score": 87,
+      "execution_note": "Optimal accumulation within safe entry band ₹224.31 - ₹225.44. Invalidation stop loss strictly anchored at ₹210.69. Primary expansion objective targeting ₹247.57 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 95,
       "model": "MITS Algorithmic Institutional Model"
     },
     "MINDACORP": {
@@ -167,8 +167,8 @@
     "TBOTEK": {
       "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with official Bhavcopy delivery at 69.1% (1.3x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹17,995 Cr with P/E multiple of 68.17; delivering robust capital efficiency with 16.8% ROE; conservative leverage (D/E 0.49); Latest Jun 2026 reported Net Profit of ₹83.4 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹1,676.77 - ₹1,685.20. Invalidation stop loss strictly anchored at ₹1,617.52. Primary expansion objective targeting ₹1,786.72 at a favorable 1:2.5 Risk-to-Reward ratio.",
-      "confidence_score": 87,
+      "execution_note": "Optimal accumulation within safe entry band ₹1,686.92 - ₹1,728.10. Invalidation stop loss strictly anchored at ₹1,619.18. Primary expansion objective targeting ₹1,891.48 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 92,
       "model": "MITS Algorithmic Institutional Model"
     },
     "ADANIPORTS": {
@@ -181,8 +181,8 @@
     "KAJARIACER": {
       "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 63.7%.",
       "fundamental_quality": "Market Cap at ₹19,409 Cr with P/E multiple of 36.02; delivering robust capital efficiency with 17.0% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹169.5 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹1,212.78 - ₹1,235.10. Invalidation stop loss strictly anchored at ₹1,167.00. Primary expansion objective targeting ₹1,337.25 at a favorable 1:2.5 Risk-to-Reward ratio.",
-      "confidence_score": 85,
+      "execution_note": "Optimal accumulation within safe entry band ₹1,213.24 - ₹1,240.00. Invalidation stop loss strictly anchored at ₹1,167.00. Primary expansion objective targeting ₹1,349.50 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 92,
       "model": "MITS Algorithmic Institutional Model"
     },
     "TVSMOTOR": {
@@ -209,7 +209,7 @@
     "FSL": {
       "technical_verdict": "Displaying 100% Fresh Demand, Zone Retest Hold. with delivery volume at 8.6%.",
       "fundamental_quality": "Market Cap at ₹17,664 Cr with P/E multiple of 26.90; delivering robust capital efficiency with 15.1% ROE; conservative leverage (D/E 0.67); Latest Jun 2026 reported Net Profit of ₹165.9 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹245.12 - ₹255.80. Invalidation stop loss strictly anchored at ₹246.06. Primary expansion objective targeting ₹270.41 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹245.12 - ₹251.35. Invalidation stop loss strictly anchored at ₹246.05. Primary expansion objective targeting ₹259.30 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 92,
       "model": "MITS Algorithmic Institutional Model"
     },
@@ -228,10 +228,10 @@
       "model": "MITS Algorithmic Institutional Model"
     },
     "WOCKPHARMA": {
-      "technical_verdict": "Displaying 100% Fresh Demand, Zone Retest Hold. with official Bhavcopy delivery at 42.8% (1.3x surge above 10D benchmark), indicating institutional whale absorption.",
+      "technical_verdict": "Displaying Zone Retest, Zone Retest Hold. with official Bhavcopy delivery at 42.8% (1.3x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹34,388 Cr with P/E multiple of 84.11; delivering robust capital efficiency with 4.9% ROE; conservative leverage (D/E 0.42); Latest Jun 2026 reported Net Profit of ₹106.0 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹2,088.21 - ₹2,119.85. Invalidation stop loss strictly anchored at ₹2,033.47. Primary expansion objective targeting ₹2,240.55 at a favorable 1:2.5 Risk-to-Reward ratio.",
-      "confidence_score": 87,
+      "execution_note": "Optimal accumulation within safe entry band ₹2,078.55 - ₹2,119.85. Invalidation stop loss strictly anchored at ₹2,033.65. Primary expansion objective targeting ₹2,172.02 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     },
     "NAVINFLUOR": {
@@ -244,7 +244,7 @@
     "PAGEIND": {
       "technical_verdict": "Displaying 100% Fresh Demand, Zone Retest Hold. with official Bhavcopy delivery at 55.5% (1.4x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹40,583 Cr with P/E multiple of 53.77; delivering robust capital efficiency with 50.3% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹192.8 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹35,937.00 - ₹36,481.50. Invalidation stop loss strictly anchored at ₹35,353.02. Primary expansion objective targeting ₹37,932.97 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹35,937.00 - ₹36,755.00. Invalidation stop loss strictly anchored at ₹35,353.02. Primary expansion objective targeting ₹38,857.97 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     },
@@ -258,7 +258,7 @@
     "BERGEPAINT": {
       "technical_verdict": "Displaying Zone Retest, Zone Retest Hold. with delivery volume at 55.8%.",
       "fundamental_quality": "Market Cap at ₹53,106 Cr with P/E multiple of 43.63; delivering robust capital efficiency with 19.2% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹404.3 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹447.83 - ₹455.45. Invalidation stop loss strictly anchored at ₹442.12. Primary expansion objective targeting ₹475.44 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹447.83 - ₹454.61. Invalidation stop loss strictly anchored at ₹442.12. Primary expansion objective targeting ₹464.20 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     },
@@ -293,7 +293,7 @@
     "ATGL": {
       "technical_verdict": "Displaying Zone Retest, Zone Retest Hold. with official Bhavcopy delivery at 27.8% (1.2x surge above 10D benchmark), indicating institutional whale absorption.",
       "fundamental_quality": "Market Cap at ₹65,318 Cr with P/E multiple of 102.93; delivering robust capital efficiency with 13.0% ROE; conservative leverage (D/E 0.59); Latest Jun 2026 reported Net Profit of ₹141.7 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹590.93 - ₹600.24. Invalidation stop loss strictly anchored at ₹577.22. Primary expansion objective targeting ₹618.92 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹588.64 - ₹600.24. Invalidation stop loss strictly anchored at ₹577.22. Primary expansion objective targeting ₹613.17 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     },
@@ -307,14 +307,14 @@
     "IGIL": {
       "technical_verdict": "Displaying Zone Retest, Zone Retest Hold. with delivery volume at 54.4%.",
       "fundamental_quality": "Market Cap at ₹13,652 Cr with P/E multiple of 26.68; delivering robust capital efficiency with 43.7% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹165.7 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹314.32 - ₹319.54. Invalidation stop loss strictly anchored at ₹310.39. Primary expansion objective targeting ₹324.16 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹314.07 - ₹319.54. Invalidation stop loss strictly anchored at ₹310.40. Primary expansion objective targeting ₹323.52 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     },
     "SOBHA": {
       "technical_verdict": "Displaying Zone Retest, Zone Retest Hold. with delivery volume at 36.2%.",
       "fundamental_quality": "Market Cap at ₹13,065 Cr with P/E multiple of 56.74; delivering robust capital efficiency with 3.6% ROE; conservative leverage (D/E 0.25); Latest Jun 2026 reported Net Profit of ₹50.8 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹1,188.69 - ₹1,221.60. Invalidation stop loss strictly anchored at ₹1,167.21. Primary expansion objective targeting ₹1,303.18 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "execution_note": "Optimal accumulation within safe entry band ₹1,188.69 - ₹1,222.60. Invalidation stop loss strictly anchored at ₹1,167.31. Primary expansion objective targeting ₹1,305.53 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     },
@@ -350,6 +350,125 @@
       "technical_verdict": "Displaying Demand Leg-Out, Clean 1-Bar Base. with delivery volume at 40.4%.",
       "fundamental_quality": "Market Cap at ₹12,787 Cr with P/E multiple of 59.15; delivering robust capital efficiency with 17.8% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹44.5 Cr.",
       "execution_note": "Optimal accumulation within safe entry band ₹2,083.00 - ₹2,107.00. Invalidation stop loss strictly anchored at ₹2,011.92. Primary expansion objective targeting ₹2,249.62 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 85,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "HFCL": {
+      "technical_verdict": "Displaying Bullish Trend Stack, Deep Base (-22%). with volume confirmation at ₹238.30.",
+      "fundamental_quality": "Market Cap at ₹34,740 Cr with P/E multiple of 58.97; delivering robust capital efficiency with 9.7% ROE; conservative leverage (D/E 0.38); Latest Jun 2026 reported Net Profit of ₹228.6 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹222.49 - ₹238.30. Invalidation stop loss strictly anchored at ₹199.00. Primary expansion objective targeting ₹297.25 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 98,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "RBLBANK": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 39.1%.",
+      "fundamental_quality": "Market Cap at ₹62,586 Cr with P/E multiple of 33.33; delivering robust capital efficiency with 5.5% ROE; Latest Jun 2026 reported Net Profit of ₹234.2 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹407.34 - ₹411.40. Invalidation stop loss strictly anchored at ₹391.55. Primary expansion objective targeting ₹441.17 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 98,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "AUROPHARMA": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 51.1%.",
+      "fundamental_quality": "Market Cap at ₹96,203 Cr with P/E multiple of 26.12; delivering robust capital efficiency with 9.7% ROE; conservative leverage (D/E 0.21); Latest Jun 2026 reported Net Profit of ₹1,032.6 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹1,683.34 - ₹1,691.80. Invalidation stop loss strictly anchored at ₹1,629.04. Primary expansion objective targeting ₹1,785.94 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 95,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "BANDHANBNK": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 50 EMA Support Hold. with official Bhavcopy delivery at 45.5% (1.0x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹28,715 Cr with P/E multiple of 21.24; delivering robust capital efficiency with 6.3% ROE; Latest Jun 2026 reported Net Profit of ₹501.7 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹177.61 - ₹178.50. Invalidation stop loss strictly anchored at ₹172.50. Primary expansion objective targeting ₹187.50 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 95,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "BELRISE": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 36.8%.",
+      "fundamental_quality": "Market Cap at ₹23,246 Cr with P/E multiple of 42.17; delivering robust capital efficiency with 9.7% ROE; conservative leverage (D/E 0.29); Latest Jun 2026 reported Net Profit of ₹121.7 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹238.91 - ₹240.47. Invalidation stop loss strictly anchored at ₹229.62. Primary expansion objective targeting ₹256.75 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 95,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "EMCURE": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with official Bhavcopy delivery at 53.4% (1.0x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹36,861 Cr with P/E multiple of 36.46; delivering robust capital efficiency with 20.4% ROE; conservative leverage (D/E 0.31); Latest Jun 2026 reported Net Profit of ₹294.0 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹1,946.22 - ₹1,958.10. Invalidation stop loss strictly anchored at ₹1,893.91. Primary expansion objective targeting ₹2,054.38 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 95,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "GLAND": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 45.4%.",
+      "fundamental_quality": "Market Cap at ₹47,843 Cr with P/E multiple of 42.35; delivering robust capital efficiency with 11.2% ROE; D/E 2.74; Latest Jun 2026 reported Net Profit of ₹317.0 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹2,887.39 - ₹2,901.90. Invalidation stop loss strictly anchored at ₹2,761.26. Primary expansion objective targeting ₹3,112.86 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 95,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "INDGN": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with delivery volume at 47.7%.",
+      "fundamental_quality": "Market Cap at ₹14,226 Cr with P/E multiple of 35.63; delivering robust capital efficiency with 13.2% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹116.2 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹587.45 - ₹590.40. Invalidation stop loss strictly anchored at ₹566.30. Primary expansion objective targeting ₹626.55 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 95,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "PHOENIXLTD": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 20 EMA Support Hold. with official Bhavcopy delivery at 63.4% (1.2x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹69,211 Cr with P/E multiple of 54.82; delivering robust capital efficiency with 11.1% ROE; conservative leverage (D/E 0.37); Latest Jun 2026 reported Net Profit of ₹296.9 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹1,925.71 - ₹1,935.80. Invalidation stop loss strictly anchored at ₹1,864.20. Primary expansion objective targeting ₹2,043.20 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 95,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "BALRAMCHIN": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 50 EMA Support Hold. with official Bhavcopy delivery at 25.0% (1.1x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹14,026 Cr with P/E multiple of 36.48; delivering robust capital efficiency with 9.0% ROE; conservative leverage (D/E 0.77); Latest Jun 2026 reported Net Profit of ₹44.1 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹656.06 - ₹664.00. Invalidation stop loss strictly anchored at ₹649.50. Primary expansion objective targeting ₹685.75 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 92,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "PETRONET": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 50 EMA Support Hold. with official Bhavcopy delivery at 72.9% (1.2x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹42,675 Cr with P/E multiple of 10.15; delivering robust capital efficiency with 18.9% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹1,137.1 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹283.72 - ₹285.15. Invalidation stop loss strictly anchored at ₹280.30. Primary expansion objective targeting ₹292.42 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 90,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "RRKABEL": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 50 EMA Support Hold. with official Bhavcopy delivery at 54.6% (1.1x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹28,487 Cr with P/E multiple of 46.87; delivering robust capital efficiency with 22.6% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹205.2 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹2,522.61 - ₹2,552.00. Invalidation stop loss strictly anchored at ₹2,378.10. Primary expansion objective targeting ₹2,812.85 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 90,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "BEML": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 50 EMA Support Hold. with delivery volume at 32.5%.",
+      "fundamental_quality": "Market Cap at ₹16,594 Cr with P/E multiple of 93.19; delivering robust capital efficiency with 2.3% ROE; virtually debt-free; Latest Jun 2026 reported Net Profit of ₹-27.0 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹1,950.95 - ₹1,963.00. Invalidation stop loss strictly anchored at ₹1,930.00. Primary expansion objective targeting ₹2,012.50 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 87,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "CGCL": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 50 EMA Support Hold. with official Bhavcopy delivery at 45.4% (1.1x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹23,808 Cr with P/E multiple of 21.10; delivering robust capital efficiency with 12.4% ROE; D/E 3.35; Latest Jun 2026 reported Net Profit of ₹353.4 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹248.75 - ₹250.00. Invalidation stop loss strictly anchored at ₹244.06. Primary expansion objective targeting ₹258.91 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 87,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "ENRIN": {
+      "technical_verdict": "Displaying Stage-2 Uptrend, 50 EMA Support Hold. with official Bhavcopy delivery at 54.5% (1.1x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹1.14L Cr with P/E multiple of 76.35; delivering robust capital efficiency with 30.9% ROE; D/E 4.48; Latest Jun 2026 reported Net Profit of ₹440.9 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹3,274.48 - ₹3,310.60. Invalidation stop loss strictly anchored at ₹3,110.00. Primary expansion objective targeting ₹3,611.50 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 85,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "POONAWALLA": {
+      "technical_verdict": "Displaying 100% Fresh Demand, Zone Retest Hold. with delivery volume at 49.0%.",
+      "fundamental_quality": "Market Cap at ₹38,877 Cr with P/E multiple of 46.38; delivering robust capital efficiency with 7.5% ROE; D/E 4.68; Latest Jun 2026 reported Net Profit of ₹307.7 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹431.14 - ₹441.15. Invalidation stop loss strictly anchored at ₹425.84. Primary expansion objective targeting ₹464.11 at a favorable 1:2.5 Risk-to-Reward ratio.",
+      "confidence_score": 92,
+      "model": "MITS Algorithmic Institutional Model"
+    },
+    "GAIL": {
+      "technical_verdict": "Displaying Zone Retest, Zone Retest Hold. with official Bhavcopy delivery at 71.5% (1.1x surge above 10D benchmark), indicating institutional whale absorption.",
+      "fundamental_quality": "Market Cap at ₹1.12L Cr with P/E multiple of 11.35; delivering robust capital efficiency with 11.5% ROE; conservative leverage (D/E 0.28); Latest Jun 2026 reported Net Profit of ₹4,665.4 Cr.",
+      "execution_note": "Optimal accumulation within safe entry band ₹170.27 - ₹173.68. Invalidation stop loss strictly anchored at ₹168.05. Primary expansion objective targeting ₹175.75 at a favorable 1:2.5 Risk-to-Reward ratio.",
       "confidence_score": 85,
       "model": "MITS Algorithmic Institutional Model"
     }
