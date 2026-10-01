@@ -2,9 +2,55 @@
   "setup_id": "tab1_bottom_reversal",
   "title": "\u26a1 Setup 1: Bottom Reversal Pro",
   "subtitle": "Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.",
-  "last_updated": "2026-10-01T10:02:09.843285+05:30",
-  "last_session_date": "2026-09-30",
-  "session_date_display": "30-Sep-2026",
-  "qualifying_count": 0,
-  "signals": []
+  "last_updated": "2026-10-01T22:38:15.114556+05:30",
+  "last_session_date": "2026-10-01",
+  "session_date_display": "01-Oct-2026",
+  "qualifying_count": 1,
+  "signals": [
+    {
+      "symbol": "ASIANPAINT",
+      "name": "Asian Paints Ltd.",
+      "sector": "Consumer Durables",
+      "cmp": 2407.0,
+      "change_pct": 0.18,
+      "score": 72,
+      "grade": "B",
+      "score_display": "72 (B)",
+      "institutional_score": 72,
+      "invalidation": 2357.05,
+      "entry_zone": "\u20b92407.0 - \u20b92499.85",
+      "target_1": 2751.0,
+      "target_2": 2864.0,
+      "target_zone": "2751.0 - 2864.0",
+      "risk_reward_ratio": "1:6.89",
+      "rvol": 1.98,
+      "setup_tags": [
+        "Established Decline",
+        "Deceleration",
+        "Tight Base (<8%)",
+        "Demand Absorption",
+        "Liquidity Sweep",
+        "Prominent Lower Wick",
+        "Volume Absorption",
+        "R:R 6.89:1"
+      ],
+      "status": "MSS COILING",
+      "timestamp": "2026-10-01",
+      "score_breakdown": {
+        "exhaustion": 12.0,
+        "base": 20.0,
+        "sweep": 20.0,
+        "structure": 0.0,
+        "volume": 15.0,
+        "regime_and_rr": 5.0
+      },
+      "delivery_pct": 70.4,
+      "delivery_qty": 708123.0,
+      "avg_deliv_10d": 61.1,
+      "avg_deliv_vol_10d": 411368.0,
+      "delivery_spike_pct": 15.2,
+      "whale_absorption_flag": true,
+      "smart_money_status": "High Institutional Absorption"
+    }
+  ]
 }
