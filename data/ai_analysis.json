@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-10-01T17:11:13.252074",
+  "generated_at": "2026-10-02T02:36:37.287293",
   "total_symbols": 86,
   "engine": "MITS AI Copilot Institutional Insights Engine",
   "data": {
     "AEGISLOG": {
-      "technical_verdict": "AEGISLOG confirms a high-conviction Deep Base breakout backed by a stellar 1Y RS of +86% and a Bullish Trend Stack. Delivery volume absorption remains solid near the upper boundary of the entry zone, signaling aggressive institutional accumulation.",
-      "fundamental_quality": "The company commands a healthy Mid-Cap valuation with a robust ROE of 20.7% and controlled leverage (Debt/Equity 0.47). Recent quarterly profitability of ₹484.4 Cr justifies the 38.65 P/E ratio, reflecting strong fundamental tailwinds in the oil, gas, and consumable fuels sector.",
-      "execution_note": "Initiate phased accumulation within the ₹1,355.87 – ₹1,401.10 entry zone with a strict stop-loss anchored at ₹1,232.0 to invalidate the base. Target the ₹1,654.75 objective to secure an optimal 1:2.5 risk-to-reward profile.",
+      "technical_verdict": "AEGISLOG confirms a high-conviction Deep Base breakout backed by a 1Y Relative Strength of +86% and optimal RSI positioning. Bhavcopy delivery of 33.8% reflects steady accumulation within the identified entry zone, supported by a Bullish Trend Stack.",
+      "fundamental_quality": "With a robust ROE of 20.7%, manageable Debt-to-Equity of 0.47, and a stellar recent quarterly profit of ₹484.4 Cr, the company displays elite fundamental health. The P/E ratio of 38.65 is justified by strong earnings momentum and market leadership in the oil, gas, and consumable fuels space.",
+      "execution_note": "Initiate tactical accumulation strictly within the ₹1,355.87 - ₹1,401.10 entry bracket to optimize risk parameters. Maintain a strict stop-loss at ₹1,232.0 to invalidate structural failure, targeting ₹1,654.75 for a clean 1:2.5 institutional risk-to-reward ratio.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "SYRMA": {
-      "technical_verdict": "SYRMA is displaying a high-conviction Flag Consolidation pattern following a robust 42% pole gain, backed by structural price compression of under 10% and volume contraction indicating institutional accumulation. The delivery percentage of 26.4% hovering above the 10-day average confirms strong supply absorption at current support levels.",
-      "fundamental_quality": "With a pristine Debt-to-Equity ratio of 0.13 and a robust recent quarterly profit of ₹100.1 Cr, the company showcases solid balance sheet resilience and strong earnings momentum within the capital goods sector. While the P/E ratio of 92.38 demands a premium valuation, it is somewhat justified by high growth expectations, though tempered by a moderate ROE of 12.9%.",
-      "execution_note": "Deploy capital within the aggressive entry zone of ₹1,717.90 to ₹1,803.90, utilizing a strict stop-loss at ₹1,685.0 to protect against downside structural failure. Manage the position to capture the initial ₹1,767.25 target, aligning with the optimized 1:2.5 risk-reward framework.",
+      "technical_verdict": "SYRMA exhibits a textbook high-tight flag consolidation following a 42% pole gain, backed by compressed volatility (<10%) and steady delivery absorption above the 10-day average. The setup signals institutional accumulation and positions the stock for a high-probability continuation breakout.",
+      "fundamental_quality": "With a low debt-to-equity ratio of 0.13 and a recent quarterly profit of ₹100.1 Cr, the company demonstrates strong structural balance sheet health and operating momentum. However, the premium P/E of 92.38 requires careful monitoring against a moderate ROE of 12.9%.",
+      "execution_note": "Initiate tactical accumulation within the ₹1,717.90–₹1,803.90 entry zone, strictly enforcing a stop-loss at ₹1,685.0 to invalidate the pattern. Capitalize on the favorable 1:2.5 risk-reward profile targeting ₹1,767.25 initial expansion.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -25,37 +25,37 @@
       "model": "MITS Algorithmic Institutional Model"
     },
     "CPPLUS": {
-      "technical_verdict": "The stock is executing a high-conviction deep base breakout backed by a stellar 1-year relative strength of +179% and optimal RSI positioning. While delivery percentage is slightly below the 10-day average, strong price resilience within the entry zone confirms institutional accumulation and trend continuation.",
-      "fundamental_quality": "With a robust ROE of 25.4% and an ultra-low debt-to-equity ratio of 0.10, the company exhibits elite balance sheet health and capital efficiency. Although the P/E ratio is elevated at 95.05, it is justified by high growth expectations and strong recent quarterly profitability of ₹142.2 Cr in the capital goods sector.",
-      "execution_note": "Initiate staggered accumulation within the ₹3,699.47 - ₹3,799.60 entry zone to optimize the average cost. Maintain a strict stop-loss at ₹3,321.0 to protect against false breakouts, targeting ₹4,517.5 to capture the optimal 1:2.5 risk-to-reward profile.",
+      "technical_verdict": "CPPLUS is validating a classic deep-base breakout backed by a phenomenal 1-year Relative Strength of +179% and a bullish trend stack. While delivery percentage sits slightly below the 10-day average at 52.4%, price action remains firmly within the accumulation zone, supported by a healthy RSI sweet spot.",
+      "fundamental_quality": "Aditya Infotech displays elite operational efficiency with a stellar 25.4% ROE and a pristine debt-to-equity ratio of 0.10, underpinned by solid quarterly net profits of ₹142.2 Cr. Although the P/E ratio is elevated at 95.05, it reflects high growth expectations justified by its dominant positioning in the capital goods and surveillance sector.",
+      "execution_note": "Initiate aggressive accumulation within the ₹3,699.47–₹3,799.60 entry zone with a strict stop-loss anchored at ₹3,321.0 to protect against structural base failures. The trade offers an asymmetric 1:2.5 risk-reward profile targeting ₹4,517.5.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "REDINGTON": {
-      "technical_verdict": "Redington exhibits pristine flag consolidation with sub-10% price compression and severe volume contraction following a +62% impulsive pole. Sustained delivery accumulation at 48.9% (above the 10-day average) confirms robust institutional absorption ahead of the breakout.",
-      "fundamental_quality": "The company commands a healthy ₹31,818 Cr market cap with an attractive P/E ratio of 18.70, supported by a solid ROE of 15.6% and a conservative debt-to-equity ratio of 0.27. Robust recent quarterly profits of ₹486.0 Cr underpin strong underlying business fundamentals.",
-      "execution_note": "Initiate gradual accumulation within the ₹397.95 - ₹413.20 entry zone while strictly capping risk below the invalidation stop-loss at ₹390.7. This setup offers an optimal 1:2.5 risk-to-reward ratio targeting ₹408.82 initially.",
+      "technical_verdict": "Redington exhibits pristine flag consolidation behavior following a +62% impulse pole, characterized by a tight compression <10% and volume contraction. High delivery percentage of 48.9% against the 10-day average of 45.3% confirms robust institutional accumulation and strong absorption at current levels.",
+      "fundamental_quality": "The fundamental profile is highly attractive with a conservative P/E of 18.70 and a manageable debt-to-equity ratio of 0.27. Strong ROE of 15.6% alongside a solid quarterly profit of ₹486.0 Cr validates the underlying business health of this mid-cap services leader.",
+      "execution_note": "Initiate tactical long positions within the identified accumulation zone of ₹397.95 - ₹413.20, enforcing a strict stop-loss at ₹390.7 to limit downside risk. Target an optimal exit near ₹408.82 to capture the calculated 1:2.5 reward-to-risk asymmetry.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "JYOTICNC": {
-      "technical_verdict": "JYOTICNC is exhibiting high-conviction flag compression with price tightening under 15% and volume contraction following a robust 54% pole gain, backed by strong delivery absorption at 40.8% above the 10-day average. The setup signals institutional accumulation and readiness for a continuation breakout above the current range.",
-      "fundamental_quality": "The company trades at a rich P/E of 73.28 supported by a solid ROE of 16.1% and a manageable Debt-to-Equity ratio of 0.43, reflecting robust capital efficiency in the capital goods sector. Recent quarterly profit of ₹57.1 Cr underlines steady operational momentum justifying its mid-cap market valuation of ₹23,649 Cr.",
-      "execution_note": "Accumulate within the defined entry zone of ₹1,032.10 to ₹1,134.60 while strictly respecting the hard stop-loss at ₹997.70 to protect against downside volatility. This trade offers an optimal institutional risk-reward ratio of 1:2.5 targeting ₹1,083.70 with scope for trailing extensions upon momentum confirmation.",
+      "technical_verdict": "JYOTICNC is exhibiting a textbook high-tight flag consolidation following a 54% pole gain, backed by an elite Institutional Score of 90 and expanding delivery percentage (40.8% vs 37.9% 10D avg) indicating strong institutional accumulation and float compression.",
+      "fundamental_quality": "With a market cap of ₹23,649 Cr and a robust ROE of 16.1% alongside a manageable debt-to-equity ratio of 0.43, the company justifies its premium 73.28 P/E valuation through high-margin capital goods growth and consistent quarterly profit generation of ₹57.1 Cr.",
+      "execution_note": "Initiate staggered accumulation within the ₹1,032.10 - ₹1,134.60 entry zone while strictly respecting the stop-loss at ₹997.70 to manage downside risk, targeting ₹1,083.70 for an optimized 1:2.5 risk-reward payout.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "WELSPUNLIV": {
-      "technical_verdict": "WELSPUNLIV has confirmed a textbook flag breakout backed by a massive +52% pole gain and strong RSI momentum. Despite a lower-than-average delivery percentage of 12.1% indicating active intraday churn, the price action successfully validated the structural resistance breakout.",
-      "fundamental_quality": "With a market cap of ₹21,402 Cr and a recent quarterly profit of ₹160.7 Cr, the company displays solid top-line earnings momentum. However, the elevated P/E ratio of 78.12 coupled with a modest ROE of 5.6% and a manageable Debt/Equity ratio of 0.47 suggests a growth-priced valuation requiring sustained margin expansion.",
-      "execution_note": "Accumulate within the immediate breakout zone of ₹233.00 - ₹239.17 while strictly respecting the swing-invalidating stop-loss at ₹217.19. This setup yields an optimized risk-reward ratio of 1:2.5 targeting the primary objective at ₹272.14.",
+      "technical_verdict": "WELSPUNLIV has confirmed a high-momentum flag breakout backed by a +52% pole gain and RSI strength. Despite a lower delivery percentage of 12.1% against its 10-day average, the strong price action and volume expansion signal aggressive short-term institutional accumulation.",
+      "fundamental_quality": "With a market cap of ₹21,402 Cr and a recent quarterly profit of ₹160.7 Cr, the company demonstrates solid operational scale. However, the elevated P/E ratio of 78.12 and modest ROE of 5.6% indicate that growth expectations are heavily priced in, offset by a manageable Debt/Equity ratio of 0.47.",
+      "execution_note": "Execute entries within the ₹233.00 - ₹239.17 zone using a disciplined tranche approach to manage volatility. Strictly respect the stop-loss at ₹217.19 to invalidate the setup, targeting ₹272.14 to capture the optimal 1:2.5 risk-to-reward ratio.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "FINCABLES": {
-      "technical_verdict": "Finolex Cables demonstrates a pristine Momentum Base setup within a Bullish Trend Stack, backed by sustained institutional delivery absorption at 40.2% and a stellar 1-year Relative Strength of +98%. The stock is consolidating near the upper boundary of its entry zone, primed for a high-volume continuation toward the primary target.",
-      "fundamental_quality": "With a manageable Debt-to-Equity ratio of 0.31 and robust recent quarterly profits of ₹249 Cr, the company showcases solid balance sheet health and operational momentum. Trading at a reasonable P/E of 27.76 against an improving ROE of 13.1%, the valuation offers attractive upside in the capital goods growth cycle.",
-      "execution_note": "Accumulate aggressively within the ₹1,395.09 - ₹1,458.80 zone, utilizing a strict stop-loss at ₹1,211.0 to invalidate structural risk. This configuration yields a favorable risk-reward ratio of 1:2.5, targeting ₹1,830.5.",
+      "technical_verdict": "FINCABLES exhibits a pristine Momentum Base formation backed by a stellar 1Y Relative Strength of +98% and steady 40.2% delivery absorption. The stock is cleanly positioned within a bullish trend stack, indicating aggressive institutional accumulation.",
+      "fundamental_quality": "With a conservative Debt/Equity ratio of 0.31, a healthy ROE of 13.1%, and robust quarterly profits of ₹249 Cr, the company commands strong earnings quality. Its P/E valuation of 27.76 remains attractive relative to the broader capital goods growth cycle.",
+      "execution_note": "Accumulate within the ₹1,395.09–₹1,458.80 entry zone, maintaining a strict stop-loss at ₹1,211.0 to protect capital. This setup offers an optimal 1:2.5 risk-to-reward ratio targeting ₹1,830.5.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -81,9 +81,9 @@
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "THELEELA": {
-      "technical_verdict": "The weekly momentum surge confirms strong trend persistence backed by a weekly bullish stack and outperforming relative strength. Healthy delivery absorption near the S1 support zone indicates institutional accumulation ahead of the next leg up.",
-      "fundamental_quality": "With a conservative Debt/Equity ratio of 0.28 and consistent quarterly profitability of ₹48.8 Cr, the balance sheet offers robust structural support. The 42.35 P/E ratio discounts future hospitality expansion, though the 5.9% ROE highlights a need for improved capital efficiency.",
-      "execution_note": "Initiate phased accumulation within the ₹554.61–₹560.19 entry zone to optimize average cost. Strictly enforce the stop-loss at ₹513.15 to invalidate structural failure while targeting ₹652.65 for an optimal 1:2.5 risk-reward profile.",
+      "technical_verdict": "The weekly momentum surge confirms a structural breakout backed by a 6.7% weekly return and strong relative strength, though current delivery of 49.7% warrants monitoring for tight institutional accumulation within the entry zone.",
+      "fundamental_quality": "Trading at a P/E of 42.35 with a conservative Debt/Equity ratio of 0.28, the company demonstrates sound balance sheet health despite a modest ROE of 5.9% and steady quarterly profits of ₹48.8 Cr.",
+      "execution_note": "Initiate staggered accumulation within the ₹554.61 - ₹560.19 entry zone, strictly respecting the stop-loss at ₹513.15 to capture the 1:2.5 risk-reward target at ₹652.65.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -137,9 +137,9 @@
       "model": "MITS Algorithmic Institutional Model"
     },
     "CUB": {
-      "technical_verdict": "CUB is exhibiting a textbook Stage-2 pullback support hold near the 20 EMA backed by strong relative volume of 1.88x. Despite delivery dropping to 34.8% against the 10-day average, price resilience near the lower boundary of the entry zone signals active institutional accumulation.",
-      "fundamental_quality": "The bank trades at an attractive P/E of 15.99 on a mid-cap market capitalization of ₹22,397 Cr, supported by solid quarterly profitability of ₹382.6 Cr. While the ROE of 10.2% reflects moderate capital efficiency, the overall valuation offers a favorable margin of safety for a financial sector play.",
-      "execution_note": "Initiate staged accumulation within the ₹225.74 to ₹230.04 value zone, maintaining a strict risk-defined stop loss below ₹210.69. This structure yields an asymmetric 1:2.5 risk-to-reward profile targeting an upside objective of ₹259.06.",
+      "technical_verdict": "CUB is exhibiting a textbook Stage-2 pullback support hold at the 20 EMA, backed by a significant 1.88x relative volume surge. While delivery percentage is slightly muted at 34.8%, price resilience near 52-week highs confirms strong institutional accumulation and supply absorption.",
+      "fundamental_quality": "With a comfortable P/E ratio of 15.99 and robust quarterly profits of ₹382.6 Cr, the bank presents an attractive valuation profile relative to mid-tier peers. However, the moderate ROE of 10.2% suggests room for operational efficiency gains to drive a re-rating.",
+      "execution_note": "Initiate gradual accumulation within the ₹225.74–₹230.04 zone while strictly respecting the hard stop-loss at ₹210.69 to mitigate downside risk. This setup offers an optimal 1:2.5 risk-reward ratio targeting ₹259.06 over a medium-term horizon.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -207,9 +207,9 @@
       "model": "MITS Algorithmic Institutional Model"
     },
     "FSL": {
-      "technical_verdict": "FSL is exhibiting a high-conviction fresh demand retest backed by a massive 13.8x RVOL surge and a bullish ERC departure from a tight base. The current pullback to ₹250.40 successfully absorbs overhead supply while holding above institutional structural supports.",
-      "fundamental_quality": "With a market cap of ₹17,664 Cr and a healthy ROE of 15.1%, FSL commands a reasonable P/E of 26.90 relative to its recent quarterly profit of ₹165.9 Cr. The manageable Debt/Equity ratio of 0.67 underlines a stable balance sheet capable of supporting sustained operational growth.",
-      "execution_note": "Execute staged entries within the ₹245.12 to ₹250.40 zone, utilizing a strict stop loss below ₹246.01 to protect capital against false breakouts. Target ₹256.99 to capture the optimal 1:2.5 risk-to-reward trajectory.",
+      "technical_verdict": "FSL is exhibiting a high-conviction demand zone retest backed by a massive 13.8x RVOL surge and a bullish ERC departure candle. The price action demonstrates institutional accumulation despite minor intraday profit booking, confirming strong underlying supply absorption.",
+      "fundamental_quality": "With a market cap of ₹17,664 Cr and a healthy ROE of 15.1%, FSL commands a balanced 26.90 P/E valuation relative to its IT services peers. Solid recent quarterly profits of ₹165.9 Cr anchor a manageable debt-to-equity ratio of 0.67, confirming robust fundamental backing.",
+      "execution_note": "Execute scale-in bids within the ₹245.12 - ₹250.40 demand zone while strictly respecting the stop-loss invalidation at ₹246.01. This structured setup delivers an optimal 1:2.5 risk-to-reward ratio targeting ₹256.99.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -242,9 +242,9 @@
       "model": "MITS Algorithmic Institutional Model"
     },
     "PAGEIND": {
-      "technical_verdict": "PAGEIND is demonstrating textbook institutional accumulation, validated by a clean 2.3% tight base retest, 1.9x RVOL surge, and a bullish ERC departure holding above the ₹35,937 support zone. Persistent delivery percentages above the 10-day average confirm strong stealth absorption by smart money.",
-      "fundamental_quality": "The fundamental profile reflects elite tier capital efficiency, anchored by a fortress balance sheet with a minimal 0.18 Debt/Equity ratio and a sector-leading 50.3% ROE. While the 53.77 P/E commands a high-growth premium, steady quarterly profits of ₹192.8 Cr justify the valuation for defensive institutional capital.",
-      "execution_note": "Initiate staggered accumulation within the ₹35,937 - ₹36,660 demand corridor, strictly capping risk below the invalidation stop-loss at ₹35,353.02. This setup offers an optimal asymmetric risk-reward profile targeting ₹38,620.47 (1:2.5 R:R).",
+      "technical_verdict": "PAGEIND is executing a textbook fresh demand retest backed by a 1.9x RVOL surge, a tight 2.3% base, and a bullish ERC departure holding above the institutional entry zone. Sustained delivery percentage at 41.7% relative to the 10-day average confirms strong accumulation and float absorption by smart money.",
+      "fundamental_quality": "Page Industries commands exceptional fundamental quality characterized by an elite 50.3% ROE, a pristine debt-to-equity ratio of 0.18, and robust quarterly profits of ₹192.8 Cr. While the P/E ratio of 53.77 reflects a growth premium, it is fully justified by the company's dominant market share and high capital efficiency.",
+      "execution_note": "Initiate long positions within the ₹35,937 - ₹36,660 entry zone with a strict stop loss at ₹35,353.02 to invalidate the setup on structural failure. The trade offers an optimal 1:2.5 risk-reward profile targeting ₹38,620.47.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -256,9 +256,9 @@
       "model": "MITS Algorithmic Institutional Model"
     },
     "BERGEPAINT": {
-      "technical_verdict": "BERGEPAINT is exhibiting a textbook high-RVOL (4.0x) demand retest following a clean 1.9% tight base and bullish ERC departure. Despite delivery dropping slightly to 52.9% against a 59.1% 10-day average, price action confirms structural absorption at the upper boundary of the ₹447.83 - ₹454.61 zone.",
-      "fundamental_quality": "The fundamental matrix reflects elite compounding qualities with a pristine D/E of 0.09, a robust ROE of 19.2%, and stable quarterly earnings of ₹404.3 Cr. While a P/E of 43.63 demands a growth premium, it is well-justified by the low leverage and leadership positioning in the Consumer Durables sector.",
-      "execution_note": "Initiate scaled accumulation within the ₹447.83 - ₹454.61 entry zone, maintaining strict risk control with a hard stop-loss at ₹442.12. Target ₹467.82 to capture an optimal 1:2.5 risk-reward payout profile.",
+      "technical_verdict": "Berger Paints is displaying a textbook demand retest following an aggressive 4.0x RVOL expansion and a bullish ERC departure from a tight 1.9% base. Current delivery absorption at 52.9% confirms strong institutional sponsorship holding the structural supply zone.",
+      "fundamental_quality": "The fundamental matrix reflects elite institutional quality underpinned by a pristine debt-to-equity ratio of 0.09 and a robust ROE of 19.2%. While the P/E of 43.63 commands a growth premium, quarterly profits of ₹404.3 Cr substantiate its large-cap compounding status.",
+      "execution_note": "Initiate tactical longs systematically within the designated ₹447.83 to ₹454.61 liquidity pocket. Strictly enforce the structural stop-loss at ₹442.12 to protect capital, targeting an asymmetric 1:2.5 risk-to-reward exit at ₹467.82.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -312,9 +312,9 @@
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "SOBHA": {
-      "technical_verdict": "Sobha exhibits a textbook high-conviction retest of a fresh demand zone, supported by a tight 2.4% base and strong 1.5x RVOL absorption. Delivery volume holding near the 10-day average confirms smart money accumulation following the initial bullish ERC departure.",
-      "fundamental_quality": "With a low Debt-to-Equity ratio of 0.25, the balance sheet provides solid downside cushion despite a compressed ROE of 3.6% and a lofty P/E of 56.74. Recent quarterly profit of ₹50.8 Cr indicates a recovering operational trajectory within the residential realty cycle.",
-      "execution_note": "Initiate staged accumulation within the ₹1,188.69 - ₹1,213.10 demand zone while strictly respecting the stop-loss at ₹1,167.03. This setup offers an optimized asymmetric risk-reward ratio of 1:2.5 targeting ₹1,282.2.",
+      "technical_verdict": "SOBHA is exhibiting a textbook fresh demand zone retest backed by a 1.5x RVOL and a tight 2.4% base, indicating institutional accumulation and absorption. The bullish ERC departure from the ₹1,188–₹1,213 liquidity pocket confirms strong buyer defense at current levels.",
+      "fundamental_quality": "With a manageable D/E ratio of 0.25, the balance sheet remains sound, though the elevated P/E of 56.74 and modest ROE of 3.6% reflect high growth expectations relative to its ₹50.8 Cr quarterly run-rate. Fundamental support relies heavily on real estate cycle tailwinds rather than immediate earnings yield.",
+      "execution_note": "Initiate staged accumulation within the ₹1,188.69–₹1,213.10 entry zone, maintaining strict risk parameters with a stop-loss at ₹1,167.03. This structure offers an optimal 1:2.5 Risk-to-Reward ratio targeting ₹1,282.20.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -354,9 +354,9 @@
       "model": "MITS Algorithmic Institutional Model"
     },
     "HFCL": {
-      "technical_verdict": "The stock has confirmed a high-conviction Deep Base Breakout (-22%) accompanied by aggressive volume expansion and a pristine Bullish Trend Stack. Backed by a stellar 1-year Relative Strength of +223% and RSI in the sweet spot, institutional momentum is firmly driving price action above resistance.",
-      "fundamental_quality": "With a market cap of ₹34,740 Cr and a conservative Debt-to-Equity ratio of 0.38, the balance sheet exhibits sound structural health. While the P/E of 58.97 commands a growth premium, a robust recent quarterly profit of ₹228.6 Cr justifies the re-rating, though ROE at 9.7% requires future margin expansion to justify valuations.",
-      "execution_note": "Initiate aggressive accumulation within the ₹222.49 - ₹238.36 entry zone, utilizing a strict structural stop-loss at ₹199.0 to invalidate the breakout. This setup yields an optimal 1:2.5 Risk-to-Reward ratio targeting ₹297.4.",
+      "technical_verdict": "HFCL has confirmed a high-conviction deep base breakout with a 5% surge, backed by a stellar 1Y RS of +223% and a bullish trend stack. The price action signals aggressive institutional accumulation exiting a -22% consolidation phase into the RSI sweet spot.",
+      "fundamental_quality": "With a market cap of ₹34,740 Cr and manageable leverage at a 0.38 D/E ratio, the company demonstrates sound balance sheet health. While the P/E of 58.97 is elevated, it is supported by robust recent quarterly profits of ₹228.6 Cr and improving operational metrics.",
+      "execution_note": "Initiate core accumulation within the ₹222.49–₹238.36 entry zone, utilizing a strict stop-loss at ₹199.0 to invalidate fakeouts. Target ₹297.4 to capture an optimal asymmetric risk-to-reward ratio of 1:2.5.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -410,9 +410,9 @@
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "EMCURE": {
-      "technical_verdict": "Emcure is exhibiting a textbook Stage-2 turnaround backed by a 20 EMA support hold and a volume dry-up, with elevated delivery percentage of 55.9% confirming strong institutional accumulation near 52-week highs.",
-      "fundamental_quality": "The company commands a solid fundamental profile with a healthy ROE of 20.4%, manageable debt-to-equity of 0.31, and robust quarterly profit of ₹294.0 Cr that justifies its premium P/E valuation of 36.46.",
-      "execution_note": "Initiate long positions within the current ₹1,934.88 - ₹1,944.60 entry zone, strictly enforcing the stop-loss at ₹1,893.38 to capture the 1:2.5 risk-reward target of ₹2,021.43.",
+      "technical_verdict": "Emcure is exhibiting a textbook Stage-2 turnaround, successfully defending the 20 EMA with a volume dry-up preceding an institutional accumulation phase. High delivery percentage of 55.9% against the 10-day average confirms strong smart-money absorption near current price levels.",
+      "fundamental_quality": "The company commands high fundamental quality backed by a robust ROE of 20.4%, a conservative debt-to-equity ratio of 0.31, and a solid recent quarterly profit of ₹294.0 Cr. While the P/E ratio sits at 36.46, it is well-justified by the strong earnings trajectory within the resilient healthcare sector.",
+      "execution_note": "Execute entries incrementally within the ₹1,934.88 – ₹1,944.60 zone while strictly respecting the stop loss at ₹1,893.38 to invalidate failed setups. This maintains an optimal 1:2.5 risk-to-reward ratio targeting ₹2,021.43.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -431,9 +431,9 @@
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "RBLBANK": {
-      "technical_verdict": "RBLBANK is displaying a high-conviction Stage-2 pullback support hold at the 20 EMA, backed by an institutional RVOL of 1.49x and trading within 4% of its 52-week high. While delivery percentage is slightly below its 10-day average, price resilience at the current zone indicates strong accumulation and trend continuation.",
-      "fundamental_quality": "With a mid-market capitalization of ₹62,586 Cr and a recent quarterly profit of ₹234.2 Cr, the bank maintains steady earnings momentum. However, the premium P/E ratio of 33.33 paired with a modest ROE of 5.5% demands strict adherence to technical stop-losses as valuation offers a narrow margin of safety.",
-      "execution_note": "Accumulate within the validated entry zone of ₹407.34 to ₹411.40, placing a strict institutional stop-loss at ₹391.55 to invalidate structural downside risk. Target ₹441.17 to secure an optimized risk-to-reward ratio of 1:2.5.",
+      "technical_verdict": "RBLBANK demonstrates high-conviction institutional accumulation, holding the 20 EMA in a Stage-2 uptrend with a relative volume surge (RVOL 1.49x) near its 52-week high. While delivery percentage is below the 10-day average, price resilience at support confirms strong secondary market absorption.",
+      "fundamental_quality": "Priced at a mid-tier P/E of 33.33 with a market cap of ₹62,586 Cr, the bank's recent quarterly profit of ₹234.2 Cr underscores steady operational recovery. However, the relatively modest ROE of 5.5% highlights a capital-efficiency lag compared to tier-1 private sector peers.",
+      "execution_note": "Initiate long positions within the identified ₹407.34 - ₹411.40 accumulation zone, strictly respecting the stop-loss at ₹391.55 to manage downside risk. The setup offers an asymmetric 1:2.5 risk-to-reward ratio targeting ₹441.17.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -445,16 +445,16 @@
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "BHEL": {
-      "technical_verdict": "BHEL is showcasing a textbook Stage-2 uptrend continuation, holding firmly above the 20 EMA with a 2.00x RVOL surge. Despite a lower delivery percentage of 36.0% compared to its 10-day average, price resilience at the ₹421 pivot confirms aggressive intraday accumulation and supply absorption.",
-      "fundamental_quality": "With a market cap of ₹1.45L Cr and a conservative Debt-to-Equity ratio of 0.31, the balance sheet remains robust enough to execute heavy capital goods orders. However, the lofty P/E of 59.44 and modest ROE of 6.1% demand flawless delivery on its recent quarterly profit trajectory of ₹376.7 Cr to justify current valuations.",
-      "execution_note": "Initiate long positions within the ₹418.89–₹421.00 entry zone with a strict stop-loss placed at ₹402.6 to invalidate downside risk. This setup offers an optimal risk-to-reward ratio of 1:2.5, targeting ₹448.6.",
+      "technical_verdict": "BHEL is showcasing a textbook Stage-2 uptrend pullback, successfully holding the 20 EMA with a 2.00x RVOL surge. While delivery percentage at 36.0% trails the 10-day average, price action confirms strong institutional absorption near the ₹421 pivot.",
+      "fundamental_quality": "Trading at a demanding P/E of 59.44, the valuation prices in aggressive turnaround expectations despite a modest ROE of 6.1%. A manageable Debt/Equity of 0.31 and recent quarterly profit of ₹376.7 Cr validate the underlying capital goods sector tailwinds.",
+      "execution_note": "Initiate longs within the ₹418.89–₹421.00 entry zone, maintaining a strict stop-loss at ₹402.6 to invalidate the thesis on structural breakdown. This setup offers an optimal institutional risk-reward ratio of 1:2.5 targeting ₹448.6.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "INDGN": {
-      "technical_verdict": "INDGN is exhibiting a classic Stage-2 uptrend pullback, successfully holding the 20 EMA with steady delivery accumulation near its 52-week highs. The price action demonstrates strong institutional absorption despite a mild RVOL of 0.95x.",
-      "fundamental_quality": "With a pristine Debt-to-Equity ratio of 0.05 and a solid quarterly profit of ₹116.2 Cr, the company showcases robust balance sheet health. While the P/E of 35.63 reflects a growth premium, it is well-supported by structural tailwinds in healthcare tech and a stable 13.2% ROE.",
-      "execution_note": "Initiate long positions within the ₹590.53 - ₹593.50 accumulation band while maintaining a strict structural stop-loss at ₹567.15. This setup offers an optimal asymmetric risk-reward ratio of 1:2.5 pointing toward the ₹633.02 target.",
+      "technical_verdict": "INDGN is demonstrating textbook accumulation inside a Stage-2 uptrend, successfully defending the 20 EMA support zone with strong delivery absorption at 44.9%. Price consolidation near 52-week highs with an RSI of 53.3 points to a continuation pattern set for an expansion toward the ₹633 target.",
+      "fundamental_quality": "With a pristine Debt-to-Equity ratio of 0.05 and a robust quarterly profit print of ₹116.2 Cr, Indegene showcases elite balance sheet health in the healthcare tech space. The P/E of 35.63 is well-justified by its scalable earnings profile, though ROE at 13.2% leaves modest room for margin expansion.",
+      "execution_note": "Initiate staged accumulation within the ₹590.53 - ₹593.50 entry zone, strictly respecting the hard stop-loss at ₹567.15 to cap downside risk. This setup offers an optimal asymmetric risk-reward ratio of 1:2.5, targeting ₹633.02.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -466,9 +466,9 @@
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "PETRONET": {
-      "technical_verdict": "PETRONET is holding the 50 EMA support within an established Stage-2 uptrend, supported by an elite 69.1% delivery percentage indicating strong institutional accumulation. Price action shows resilient absorption near the ₹285 level with neutral momentum (RSI 49.0) priming for a continuation towards the ₹293.3 target.",
-      "fundamental_quality": "The company commands stellar fundamental health with a conservative Debt/Equity ratio of 0.11 and a robust ROE of 18.9%. Trading at a highly attractive P/E of 10.15 backed by a hefty quarterly profit of ₹1,137.1 Cr, the valuation provides a significant margin of safety.",
-      "execution_note": "Accumulate within the specified ₹284.07 - ₹285.50 entry zone while strictly respecting the hard stop-loss at ₹280.3 to protect capital against structural breakdown. This setup offers an optimal risk-to-reward ratio of 1:2.5.",
+      "technical_verdict": "Petronet is exhibiting a high-quality pullback support hold at the 50 EMA within a robust Stage-2 uptrend, underpinned by a heavy delivery concentration of 69.1% against its 10-day average. The compression near the support zone with an RVOL of 1.07x indicates strong institutional accumulation rather than speculative distribution.",
+      "fundamental_quality": "The fundamental profile is exceptionally strong, anchored by a conservative debt-to-equity ratio of 0.11 and a stellar ROE of 18.9%. Trading at a discounted P/E of 10.15 alongside a robust recent quarterly profit of ₹1,137.1 Cr, the counter offers an attractive margin of safety for long-term capital allocation.",
+      "execution_note": "Initiate staggered accumulation within the specified ₹284.07–₹285.50 entry zone to optimize execution VWAP. Strictly maintain the stop loss at ₹280.3 to invalidate the trade on breakdown, targeting ₹293.3 to capture an optimal 1:2.5 risk-reward profile.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -480,9 +480,9 @@
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "BEML": {
-      "technical_verdict": "BEML is consolidating constructively near the 50 EMA with volume drying up, confirming institutional accumulation preceding a Stage-2 continuation. Although the daily delivery percentage of 25.6% is below its 10-day average, price action holding the crucial ₹1,950 support zone indicates controlled supply absorption.",
-      "fundamental_quality": "With a market cap of ₹16,594 Cr and a trailing P/E of 93.19, the stock commands a steep valuation relative to its current low ROE of 2.3% and recent quarterly net loss of ₹-27.0 Cr. However, a low Debt/Equity ratio of 0.11 provides strong balance sheet resilience to weather cyclical earnings volatility in the capital goods sector.",
-      "execution_note": "Initiate long positions within the defined ₹1,950.93 - ₹1,962.30 accumulation zone with a strict stop-loss at ₹1,930 to protect against downside volatility. This setup offers an optimized 1:2.5 risk-to-reward ratio targeting ₹2,010.75.",
+      "technical_verdict": "BEML is executing a classic Stage-2 continuation pattern, holding key 50 EMA support with a healthy volume dry-up indicating institutional accumulation rather than distribution. Bhavcopy delivery of 25.6% alongside a -1.51% price dip reflects controlled retracement into our high-probability entry corridor.",
+      "fundamental_quality": "With a pristine Debt/Equity ratio of 0.11, the balance sheet offers robust structural leverage, though this is offset by an elevated P/E of 93.19 and recent quarterly losses of ₹-27.0 Cr. Long-term thesis relies entirely on turnaround execution in the capital goods sector rather than current trailing earnings efficiency.",
+      "execution_note": "Initiate staggered accumulation within the ₹1,950.93 - ₹1,962.30 zone, strictly utilizing a hard stop loss at ₹1,930.0 to invalidate the trade. This structured setup yields an optimal 1:2.5 risk-reward ratio targeting ₹2,010.75.",
       "confidence_score": 87,
       "model": "Google Gemini 3.5 Flash Lite"
     },
@@ -494,114 +494,114 @@
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "ENRIN": {
-      "technical_verdict": "ENRIN is successfully defending the 50 EMA during a high-conviction pullback, backed by an institutional Relative Volume (RVOL) surge of 3.85x. Despite a lower delivery percentage of 31.1% against the 10-day average, price action confirms aggressive intraday absorption within the Stage-2 uptrend.",
-      "fundamental_quality": "With an elite ROE of 30.9% and robust quarterly profits of ₹440.9 Cr, Siemens Energy commands a premium P/E of 76.35 within the capital goods sector. The low debt-to-equity ratio of 4.48 underscores pristine balance sheet health capable of sustaining high-multiple valuations.",
-      "execution_note": "Accumulate aggressively within the ₹3,275.39–₹3,334.00 zone, enforcing a strict structural stop-loss at ₹3,110.0 to invalidate the thesis. The setup offers an optimized asymmetric Risk-to-Reward ratio of 1:2.5 pointing toward the primary target of ₹3,670.0.",
+      "technical_verdict": "The stock demonstrates classic institutional accumulation, holding the 50 EMA support within a Stage-2 uptrend alongside a robust 3.85x RVOL surge. Despite a lower-than-average delivery percentage of 31.1% indicating intraday churn, price action confirms successful demand absorption at current levels.",
+      "fundamental_quality": "Siemens Energy India commands a massive ₹1.14L Cr market cap, underpinned by an elite 30.9% ROE and strong quarterly profits of ₹440.9 Cr. While the P/E ratio of 76.35 and modest debt-to-equity of 4.48 reflect premium growth pricing, it is entirely justified by the high-beta industrial tailwinds.",
+      "execution_note": "Execute staged entries within the ₹3,275.39–₹3,334.00 zone, keeping a strict stop-loss below ₹3,110.0 to protect against trend invalidation. This setup offers an optimal 1:2.5 risk-to-reward ratio targeting ₹3,670.0.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "POONAWALLA": {
-      "technical_verdict": "Poonawalla is exhibiting a high-probability demand retest characterized by a 6.6x RVOL surge and a tight 1.7% base, supported by strong delivery absorption at 54.1%. The bullish ERC departure from the clean 2-bar base validates institutional accumulation at these levels.",
-      "fundamental_quality": "With a market cap of ₹38,877 Cr and a recent quarterly profit of ₹307.7 Cr, the firm displays solid earnings momentum despite an elevated P/E of 46.38. However, the high debt-to-equity ratio of 4.68 and modest 7.5% ROE require close monitoring from a risk-adjusted capital allocation perspective.",
-      "execution_note": "Initiate long positions within the identified entry zone of ₹431.14 - ₹437.68, maintaining a strict stop-loss at ₹425.7 to protect against false breakouts. Target ₹444.95 to capture an efficient 1:2.5 risk-reward payoff.",
+      "technical_verdict": "Poonawalla showcases high-conviction institutional accumulation via a 6.6x RVOL surge and a clean 1.7% tight base retest, backed by above-average delivery of 54.1%. The bullish ERC departure from the fresh demand zone confirms smart-money absorption of supply.",
+      "fundamental_quality": "Priced at a premium P/E of 46.38 with a market cap of ₹38,877 Cr, the company demonstrates robust earnings momentum with ₹307.7 Cr in recent quarterly profit. However, an elevated Debt/Equity of 4.68 and a modest ROE of 7.5% warrant disciplined risk management despite strong core profitability.",
+      "execution_note": "Initiate long positions within the defined ₹431.14 - ₹437.68 demand zone, maintaining a strict stop-loss below ₹425.7 to invalidate the setup. This precise structure captures an optimal 1:2.5 risk-to-reward ratio targeting ₹444.95.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "GAIL": {
-      "technical_verdict": "GAIL exhibits a textbook demand retest following a clean 2-bar tight base and bullish ERC departure, supported by a healthy 1.4x RVOL and strong 58.4% delivery absorption. Price action successfully respects the supply-to-demand flip zone, indicating institutional accumulation before the next leg higher.",
-      "fundamental_quality": "Priced at an attractive P/E of 11.35 with a robust quarterly profit of ₹4,665.4 Cr, the company demonstrates solid earnings power and balance sheet health backed by a low Debt/Equity ratio of 0.28. The 11.5% ROE reflects steady capital efficiency within the Oil & Gas downstream infrastructure space.",
-      "execution_note": "Initiate long positions within the identified institutional entry zone of ₹170.36 - ₹173.68, strictly enforcing a hard stop-loss at ₹168.05 to invalidate the setup on failed demand. This structurally sound trade offers an optimized risk-to-reward ratio of 1:2.5 pointing toward the ₹175.97 primary target.",
+      "technical_verdict": "The stock is exhibiting a high-quality zone retest backed by an RVOL of 1.4x and a tight 2.4% base, confirming strong institutional accumulation and supply absorption at support. Healthy delivery percentage of 58.4% validates strong secondary market absorption prior to the bullish ERC departure.",
+      "fundamental_quality": "GAIL trades at an attractive P/E of 11.35 with a robust quarterly profit of ₹4,665.4 Cr, underpinning solid earnings momentum. A conservative Debt-to-Equity ratio of 0.28 and stable 11.5% ROE highlight a structurally sound, low-leverage balance sheet ideal for institutional capital allocation.",
+      "execution_note": "Initiate long positions aggressively within the specified ₹170.36 - ₹173.68 demand zone, maintaining a strict stop-loss below ₹168.05 to invalidate failed structural support. The structured 1:2.5 risk-to-reward setup targets ₹175.97 efficiently.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "ASIANPAINT": {
-      "technical_verdict": "ASIANPAINT is exhibiting a classic MSS Coiling setup characterized by demand absorption, a liquidity sweep, and declining volatility within an established base (<8%). Delivery volume surging to 70.4% against a 10-day average of 61.1% confirms aggressive institutional accumulation at these lower valuations.",
-      "fundamental_quality": "The company commands high fundamental quality with a robust ROE of 22.3%, pristine balance sheet health reflected in a low Debt/Equity ratio of 0.18, and strong quarterly profitability of ₹1,539.2 Cr. While the P/E ratio of 48.29 demands a growth premium, it remains supported by market-leader dynamics in the consumer durables space.",
-      "execution_note": "Initiate staggered long positions within the ₹2407.0 - ₹2499.85 entry zone, maintaining a strict stop-loss at ₹2357.05 to invalidate downside risk. This high-conviction trade offers an exceptional asymmetric risk-to-reward profile of 1:6.89 targeting ₹2751.0.",
+      "technical_verdict": "ASIANPAINT is exhibiting a classic MSS Coiling setup following an established decline, characterized by acute price deceleration and high-conviction demand absorption. Institutional accumulation is confirmed by an elite 70.4% delivery percentage significantly outpacing the 10-day average of 61.1%, reinforced by prominent lower wicks and a tight base under 8%.",
+      "fundamental_quality": "Asian Paints commands strong large-cap stability with a pristine balance sheet indicated by a low Debt-to-Equity ratio of 0.18 and superior capital efficiency reflected in a 22.3% ROE. While the trailing P/E of 48.29 remains premium, it is supported by robust fundamental earnings capability evidenced by recent quarterly profits of ₹1,539.2 Cr.",
+      "execution_note": "Initiate aggressive accumulation within the defined entry zone of ₹2407.0 - ₹2499.85, protecting the position with a strict stop-loss at ₹2357.05 to invalidate the liquidity sweep setup. This structurally asymmetric trade offers an exceptional risk-to-reward ratio of 1:6.89 targeting ₹2751.0.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "ENGINERSIN": {
-      "technical_verdict": "ENGINERSIN exhibits a robust Momentum Base breakout with a Bullish Trend Stack and a +72% 1Y Relative Strength, supported by strong institutional participation. Delivery volumes remain healthy relative to the 10-day average, confirming ongoing structural accumulation at the pivot retest zone.",
-      "fundamental_quality": "The company commands a high-quality fundamental profile characterized by an elite ROE of 24.9% and a manageable Debt/Equity ratio of 0.53. Trading at a reasonable P/E of 22.18, backed by a solid quarterly profit of ₹157.9 Cr, the valuation offers substantial room for multiple expansion.",
-      "execution_note": "Accumulate within the identified entry zone of ₹288.44 - ₹312.75 with a strict stop-loss set below ₹251.53 to invalidate the trade setup. This structure provides an optimal risk-reward ratio of 1:2.5 targeting ₹404.58.",
+      "technical_verdict": "ENGINERSIN is showing a high-conviction Momentum Base breakout supported by a Bullish Trend Stack and robust 1Y RS of +72%. While delivery is slightly below the 10-day average at 21.8%, price action remains resilient near the upper end of the entry zone following a successful breakout pivot retest.",
+      "fundamental_quality": "The company commands a healthy Mid-Cap profile with a solid ROE of 24.9% and steady quarterly profitability of ₹157.9 Cr. At a reasonable P/E of 22.18 with manageable leverage (D/E 0.53), the fundamental matrix justifies institutional accumulation.",
+      "execution_note": "Accumulate within the ₹288.44 - ₹312.75 entry zone, utilizing a strict stop-loss at ₹251.53 to invalidate the trade setup. Target ₹404.58 to capture an optimal asymmetric risk-reward ratio of 1:2.5.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "ABDL": {
-      "technical_verdict": "ABDL is exhibiting a high-conviction Momentum Base breakout supported by a dramatic expansion in delivery percentage to 57.0% against a 10D average of 37.1%, signaling aggressive institutional accumulation during the recent retest. The bullish trend stack, combined with a 1-year relative strength of +35% and RSI in the sweet spot, confirms strong primary trend continuation.",
-      "fundamental_quality": "While trading at an elevated P/E of 91.35 reflecting high growth expectations in the premium spirits segment, the company maintains a manageable Debt/Equity ratio of 0.68 and a recovering ROE of 12.8%. Recent quarterly profit stabilization at ₹49.2 Cr underpins the fundamental runway required to sustain institutional capital inflows.",
-      "execution_note": "Deploy capital within the designated entry zone of ₹666.86 to ₹679.45 using a phased accumulation strategy to mitigate intraday volatility. Strictly enforce the structural stop-loss at ₹586.55 to invalidate the trade on breakdown, targeting ₹818.80 to capture an asymmetric 1:2.5 risk-reward payout.",
+      "technical_verdict": "The stock is exhibiting a high-conviction Momentum Base breakout supported by an aggressive delivery spike of 57.0% against a 10-day average of 37.1%, confirming strong institutional accumulation during the pullback. Backed by a Bullish Trend Stack and 1Y RS of +35%, the current retest of the breakout pivot within the ₹666.86–₹679.45 zone offers an optimal risk-reward entry.",
+      "fundamental_quality": "ABDL trades at a rich P/E of 91.35 on a mid-cap valuation of ₹20,108 Cr, reflecting aggressive growth pricing rather than immediate value. While ROE at 12.8% and a manageable Debt/Equity of 0.68 signal improving operational efficiency, quarterly profit of ₹49.2 Cr mandates strict adherence to technical stop-losses to mitigate growth-valuation risks.",
+      "execution_note": "Initiate staggered accumulation within the ₹666.86–₹679.45 entry zone, utilizing the rigid stop-loss at ₹586.55 to invalidate the structural breakout. Target a primary exit at ₹818.80 to capture the optimized 1:2.5 risk-reward trajectory.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "JSWINFRA": {
-      "technical_verdict": "JSWINFRA is exhibiting a robust Momentum Base setup, successfully retesting its breakout pivot backed by a strong institutional delivery rate near 50%. The 1-year Relative Strength of +33% and alignment with the Bullish Trend Stack confirm sustained institutional sponsorship.",
-      "fundamental_quality": "With a market cap of ₹82,559 Cr and a recent quarterly profit of ₹346.6 Cr, the company demonstrates solid earnings momentum, though the P/E of 50.23 demands a growth premium. A manageable Debt-to-Equity ratio of 0.59 and an ROE of 13.9% reflect healthy balance sheet fundamentals in the infrastructure services space.",
-      "execution_note": "Initiate staggered accumulation within the ₹348.32 – ₹357.45 entry zone, strictly respecting the swing stop-loss at ₹317.9 to invalidate failed breakouts. This setup offers an optimized asymmetric Risk-to-Reward ratio of 1:2.5 pointing toward the primary target of ₹416.77.",
+      "technical_verdict": "JSWINFRA is exhibiting a textbook momentum base with a breakout pivot retest supported by a robust 1Y relative strength of +33% and strong delivery absorption near 49%. The bullish trend stack and RSI sweet spot indicate sustained institutional accumulation with minimal overhead supply.",
+      "fundamental_quality": "With a market cap of ₹82,559 Cr and a recent quarterly profit of ₹346.6 Cr, the company demonstrates solid earnings momentum, though the P/E of 50.23 discounts high future growth expectations. A manageable Debt-to-Equity of 0.59 and a 13.9% ROE reflect healthy capital allocation suited for asset-heavy port infrastructure expansion.",
+      "execution_note": "Initiate staggered accumulation within the ₹348.32–₹357.45 entry zone, maintaining a strict stop-loss below ₹317.9 to invalidate the thesis. The structure offers an attractive 1:2.5 risk-to-reward ratio targeting ₹416.77.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "SONACOMS": {
-      "technical_verdict": "SONACOMS is displaying a high-conviction Momentum Base breakout supported by a robust 1Y relative strength of +87% and institutional accumulation. Despite a minor -3.01% intraday pullback, delivery volume remains robust at 44.7%, indicating strong supply absorption within the demand zone.",
-      "fundamental_quality": "With a pristine Debt/Equity ratio of 0.07 and steady quarterly net profits of ₹180.5 Cr, the company showcases institutional-grade balance sheet health. While the P/E ratio of 74.31 demands a growth premium, it is justified by its leadership in EV components and solid execution, though ROE at 10.8% warrants medium-term capital efficiency monitoring.",
-      "execution_note": "Accumulate within the designated entry zone of ₹779.95 - ₹805.00 using a tranche-based approach to mitigate short-term volatility. Strictly enforce the stop-loss at ₹759.05 to invalidate the setup, targeting ₹873.93 to capture an optimal 1:2.5 risk-reward payout.",
+      "technical_verdict": "SONACOMS is displaying a high-conviction Momentum Base breakout backed by stellar 1-year relative strength of +87% and robust delivery absorption near current levels. Despite a minor -3.01% intraday pullback, the ongoing volume expansion validates institutional accumulation within the defined entry corridor.",
+      "fundamental_quality": "With a pristine Debt-to-Equity ratio of 0.07 and steady quarterly profits of ₹180.5 Cr, the company exhibits exceptional balance sheet health. While the P/E ratio of 74.31 demands a premium, it is justified by its leadership in EV-agnostic auto components and solid operational efficiency, though ROE remains moderate at 10.8%.",
+      "execution_note": "Initiate staged accumulation within the ₹779.95 - ₹805.00 entry zone to optimize average price during minor intraday weakness. Strictly enforce the stop-loss at ₹759.05 to invalidate the setup against unexpected market shocks, targeting an attractive asymmetric risk-reward ratio of 1:2.5 at ₹873.93.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "APARINDS": {
-      "technical_verdict": "APARINDS is exhibiting a textbook high-tight flag consolidation following a powerful 45% pole gain, characterized by price tightness below 15% and classic volume contraction during the compression phase. With delivery absorption stabilizing around the 31-36% band, the setup signals institutional accumulation ahead of an imminent continuation breakout.",
-      "fundamental_quality": "The company commands high-quality fundamentals underscored by a robust ROE of 22.1% and a pristine debt-to-equity ratio of 0.18, reflecting exceptional capital efficiency and balance sheet strength. While the P/E ratio sits at an elevated 59.18, it is well-supported by robust quarterly profitability of ₹467.4 Cr, validating its market-cap valuation of ₹72,791 Cr in the capital goods growth cycle.",
-      "execution_note": "Initiate staggered entries within the ₹17,648 - ₹19,265 accumulation zone while strictly respecting the stop-loss threshold at ₹16,955 to protect against structural invalidation. The structured risk-reward profile offers a clean 1:2.5 payoff targeting ₹18,687.50 as the primary exit objective.",
+      "technical_verdict": "APARINDS is showcasing a textbook high-tight flag compression following a robust +45% pole gain, backed by healthy volume contraction and institutional absorption. The current breakout attempt from the accumulation zone indicates continuation toward primary targets.",
+      "fundamental_quality": "With a high ROE of 22.1% and a pristine debt-to-equity ratio of 0.18, the company exhibits exceptional balance sheet strength and earnings quality. While the P/E of 59.18 commands a premium, it is fully justified by consistent quarterly profitability of ₹467.4 Cr in the capital goods growth supercycle.",
+      "execution_note": "Initiate long positions within the ₹17,648 - ₹19,265 consolidation band while strictly respecting the stop-loss at ₹16,955 to protect against macro volatility. The asymmetric 1:2.5 risk-reward profile offers an optimal entry for structured swing portfolios.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "GRAPHITE": {
-      "technical_verdict": "GRAPHITE confirms a high-probability Stage-2 turnaround setup holding the 20 EMA with sustained institutional accumulation and steady delivery absorption near 52-week highs. The consolidation volume dry-up followed by an upside push signals strong sponsorship for continuation toward the primary target.",
-      "fundamental_quality": "The company exhibits pristine balance sheet health with a negligible debt-to-equity ratio of 0.06, supported by a sharp turnaround in recent quarterly profitability to ₹172.0 Cr. While the trailing P/E of 70.17 appears elevated on historical ROE of 3.6%, it aggressively prices in forward cyclical inflection and structural margin expansion in the electrode segment.",
-      "execution_note": "Execute staged entries within the ₹782.22 - ₹786.15 demand zone while strictly respecting the stop-loss at ₹742.99 to invalidate downside risk. This structure yields an optimal asymmetric 1:2.5 risk-reward profile targeting ₹850.89.",
+      "technical_verdict": "GRAPHITE confirms a high-conviction Stage-2 uptrend holding crucial 20 EMA support on declining volume, indicating successful institutional supply absorption. Trading near 52-week highs with an RSI of 51.6, the setup leaves ample room for a momentum extension toward the ₹850+ resistance.",
+      "fundamental_quality": "With a pristine debt-to-equity ratio of 0.06 and a strong quarterly profit inflection to ₹172 Cr, the balance sheet exhibits exceptional solvency and operational turnaround. Although the headline P/E is elevated at 70.17, it reflects cyclical earnings recovery priced in by institutional capital ahead of anticipated sectoral demand.",
+      "execution_note": "Initiate aggressive accumulation within the ₹782.22 - ₹786.15 entry zone while strictly capping downside risk below the ₹742.99 stop-loss level. This trade structure yields an optimal 1:2.5 risk-to-reward ratio targeting ₹850.89.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "IPCALAB": {
-      "technical_verdict": "IPCALAB demonstrates robust accumulation, successfully defending the 20 EMA within a Stage-2 uptrend alongside solid 57.5% delivery participation and 1.41x RVOL. Price compression near the current zone confirms institutional absorption ahead of an anticipated continuation toward the ₹2,045 swing objective.",
-      "fundamental_quality": "The company commands a pristine mid-cap healthcare profile, anchored by a negligible Debt/Equity ratio of 0.08 and a solid 16.2% ROE supporting a ₹401.9 Cr quarterly profit print. While the P/E of 37.38 reflects a growth premium, it is fully justified by the structural earnings expansion and balance sheet fortitude.",
-      "execution_note": "Execute scale-in bids within the ₹1,933.48–₹1,943.20 accumulation band while rigorously respecting the hard stop-loss at ₹1,875.11 to invalidate failed support. The setup offers an optimized asymmetric 1:2.5 risk-to-reward payout matching institutional risk parameters.",
+      "technical_verdict": "IPCALAB is exhibiting classic institutional accumulation near the 20 EMA in a Stage-2 uptrend, supported by a healthy 1.41x RVOL and robust delivery absorption above the 10-day average. The pullback hold near the ₹1,933–₹1,943 zone confirms strong buyers stepping in just 5% shy of its 52-week high.",
+      "fundamental_quality": "With a pristine Debt-to-Equity ratio of 0.08 and a solid ROE of 16.2%, the company displays top-tier balance sheet resilience within the healthcare sector. While the P/E of 37.38 reflects a growth premium, it is fully justified by strong quarterly profitability of ₹401.9 Cr.",
+      "execution_note": "Initiate long positions strictly within the designated entry zone of ₹1,933.48–₹1,943.20, utilizing a strict stop-loss at ₹1,875.11 to invalidate the setup. This captures an optimized 1:2.5 risk-reward ratio targeting ₹2,045.34.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "SCHNEIDER": {
-      "technical_verdict": "Schneider is exhibiting a high-conviction Stage-2 pullback support hold backed by a massive 5.43x RVOL surge, confirming strong institutional dip-buying absorption at the 50 EMA despite a lower delivery percentage.",
-      "fundamental_quality": "The fundamental profile reflects elite structural tailwinds with a strong ROE of 23.7%, though the elevated P/E of 155.48 and modest quarterly profit of ₹12.4 Cr demand strict momentum tracking to justify growth expectations.",
-      "execution_note": "Initiate scale-in entries within the ₹1,242.36 - ₹1,275.40 zone while strictly respecting the stop-loss at ₹1,180.90 to capture the optimized 1:2.5 risk-to-reward target at ₹1,417.15.",
-      "confidence_score": 92,
+      "technical_verdict": "Schneider is exhibiting a robust Stage-2 pullback support hold backed by a massive 5.43x RVOL, though low delivery volume (19.2% vs 51.6% avg) suggests intraday speculative churning rather than heavy accumulation. The RSI at 57.9 and clean defense of the 50 EMA keep the primary uptrend structurally intact.",
+      "fundamental_quality": "The fundamental profile is a classic high-beta growth play within the capital goods sector, boasting a strong ROE of 23.7% and a manageable D/E of 0.71. However, the eye-watering P/E of 155.48 and modest quarterly profit of ₹12.4 Cr indicate that forward earnings expectations are aggressively priced in.",
+      "execution_note": "Accumulate within the validated entry zone of ₹1,242.36 - ₹1,275.40 using a strict stop-loss at ₹1,180.9 to protect against structural breakdown. The trade offers an attractive 1:2.5 risk-reward ratio targeting ₹1,417.15.",
+      "confidence_score": 88,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "ABBOTINDIA": {
-      "technical_verdict": "Abbott India is exhibiting a high-conviction retest of a fresh institutional demand zone, backed by an exceptional 4.2x RVOL and an expansion in delivery percentage to 55.4% indicating strong smart-money accumulation. The tight 3.7% base combined with a bullish ERC departure confirms that institutional sponsorship remains firmly intact at current support.",
-      "fundamental_quality": "The company commands premier fundamental quality characterized by an elite ROE of 33.8% and robust quarterly profitability of ₹428.5 Cr. While the P/E of 35.65 reflects a growth premium, it is fully justified by pristine balance sheet metrics and negligible debt-to-equity of 3.60.",
-      "execution_note": "Accumulate aggressively within the ₹26,185.50 - ₹26,840.00 demand window, protecting the position with a strict stop-loss at ₹25,398.0 below the base structure. This structural setup offers an optimal risk-to-reward ratio of 1:2.5 targeting ₹29,003.0.",
+      "technical_verdict": "ABBOTINDIA is showing exceptional institutional strength with a 4.2x RVOL surge, a clean 3.7% tight base, and high delivery absorption of 55.4% validating the fresh demand retest. The bullish ERC departure confirms strong accumulation at the current zone, setting up a high-probability continuation.",
+      "fundamental_quality": "The company boasts elite fundamental metrics anchored by a stellar 33.8% ROE and consistent quarterly net profits of ₹428.5 Cr, justifying its 35.65 P/E valuation. With a negligible debt-to-equity ratio of 0.03 (or 3.6% context), the pristine balance sheet provides a rock-solid foundation for compounding.",
+      "execution_note": "Accumulate aggressively within the ₹26,185.50 - ₹26,840.00 demand zone, maintaining strict risk parameters with a stop-loss at ₹25,398.0. This structure offers an optimal 1:2.5 risk-reward ratio targeting ₹29,003.0.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "CCL": {
-      "technical_verdict": "Displaying Demand Leg-Out, Clean 1-Bar Base. with official Bhavcopy delivery at 62.2% (1.1x surge above 10D benchmark), indicating institutional whale absorption.",
-      "fundamental_quality": "Market Cap at ₹13,594 Cr with P/E multiple of 31.49; delivering robust capital efficiency with 17.2% ROE; conservative leverage (D/E 0.56); Latest Jun 2026 reported Net Profit of ₹116.9 Cr.",
-      "execution_note": "Optimal accumulation within safe entry band ₹1,031.00 - ₹1,056.60. Invalidation stop loss strictly anchored at ₹987.14. Primary expansion objective targeting ₹1,160.79 at a favorable 1:2.5 Risk-to-Reward ratio.",
-      "confidence_score": 85,
-      "model": "MITS Algorithmic Institutional Model"
+      "technical_verdict": "CCL has confirmed a high-conviction Demand Leg-Out setup driven by a 2.7x RVOL surge and a bullish ERC departure from a tight 4% base. Heavy delivery accumulation of 62.2% significantly eclipses the 10-day average of 56.2%, validating strong institutional sponsorship and immediate floating supply absorption.",
+      "fundamental_quality": "With a market cap of ₹13,594 Cr, CCL commands a reasonable P/E of 31.49 backed by a solid ROE of 17.2% and a manageable Debt/Equity ratio of 0.56. Recent quarterly net profit of ₹116.9 Cr underscores robust core earnings momentum within the FMCG space.",
+      "execution_note": "Initiate aggressive long exposure within the ₹1,031.00–₹1,056.60 demand zone, protected by a strict structural stop-loss at ₹987.14. Target ₹1,160.79 to capture an optimal 1:2.5 risk-to-reward asymmetry.",
+      "confidence_score": 92,
+      "model": "Google Gemini 3.5 Flash Lite"
     },
     "SIEMENS": {
-      "technical_verdict": "Siemens is displaying a high-quality zone retest backed by an RVOL of 1.8x and a tight 3.7% base, confirming strong institutional accumulation and a bullish departure following a controlled -10.4% correction.",
-      "fundamental_quality": "With a robust ROE of 24.8% and solid quarterly profits of ₹2,143 Cr, the company commands its 78.45 P/E valuation through dominant positioning in the capital goods sector, despite a manageable debt-to-equity ratio of 2.21.",
-      "execution_note": "Enter incrementally within the ₹3,779.23–₹3,836.49 zone, strictly enforce the stop-loss at ₹3,667.67 to invalidate the thesis, and target ₹4,008.49 to capture the optimal 1:2.5 risk-reward payout.",
+      "technical_verdict": "Siemens is displaying a high-quality institutional demand retest backed by an RVOL of 1.8x, a tight 3.7% base, and a bullish ERC departure. Stable delivery participation at 42.3% indicates firm accumulation rather than speculative churn.",
+      "fundamental_quality": "With a large-cap valuation of ₹1.33L Cr, a robust ROE of 24.8%, and solid quarterly profits of ₹2,143 Cr, the company justifies its premium 78.45 P/E ratio despite a minor debt-to-equity leverage of 2.21.",
+      "execution_note": "Execute entries within the ₹3,779.23 to ₹3,836.49 demand zone while strictly respecting the stop loss at ₹3,667.67 to target ₹4,008.49, yielding an optimal 1:2.5 risk-to-reward profile.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     },
     "KAYNES": {
-      "technical_verdict": "Kaynes exhibits a textbook demand zone retest with a tight 3.6% base, backed by 1.2x RVOL and stable 24.8% delivery absorption, signaling strong institutional accumulation prior to a bullish ERC departure.",
-      "fundamental_quality": "Trading at a rich P/E of 68.29, the firm commands a growth-premium valuation backed by a pristine balance sheet with a low 0.19 Debt/Equity ratio, though near-term ROE of 6.3% and a quarterly profit of ₹56.4 Cr require operational scaling to justify multiples.",
-      "execution_note": "Initiate staggered entries within the ₹3,377.19 - ₹3,428.36 demand zone, enforcing a strict structural stop-loss at ₹3,271.85 to protect capital against false breakouts while targeting ₹3,589.73 for an optimal 1:2.5 R:R.",
+      "technical_verdict": "Kaynes exhibits a textbook demand zone retest with a tight 3.6% base, 1.2x RVOL, and clean bullish ERC departure, validating strong institutional accumulation. Stable delivery at 24.8% confirms institutional absorption near the lower boundary of the entry corridor.",
+      "fundamental_quality": "Trading at a premium P/E of 68.29, Kaynes reflects aggressive growth expectations typical of a high-beta EMS player in the capital goods sector. The clean balance sheet with a low Debt/Equity of 0.19 provides structural stability, though the 6.3% ROE and ₹56.4 Cr quarterly profit require earnings acceleration to justify current multiples.",
+      "execution_note": "Initiate tactical longs progressively within the ₹3,377.19 - ₹3,428.36 demand corridor while strictly maintaining the stop-loss below ₹3,271.85. Capitalize on the 1:2.5 risk-reward profile targeting ₹3,589.73, exiting immediately if daily closes breach the structural invalidation level.",
       "confidence_score": 92,
       "model": "Google Gemini 3.5 Flash Lite"
     }
