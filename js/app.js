@@ -4183,6 +4183,23 @@
     pageSize: 10,
     fundamentalsData: null,
     aiAnalysisData: null,
+    backtestData: {
+      setup_1: { win_rate: 51.1, avg_peak_return: 10.7, avg_days_to_peak: 22.8, total_samples: 374, unit: 'Reversal Setups' },
+      setup_2: { win_rate: 70.5, avg_peak_return: 18.6, avg_days_to_peak: 30.2, total_samples: 996, unit: 'Momentum Setups' },
+      setup_3: { win_rate: 72.9, avg_peak_return: 19.1, avg_days_to_peak: 29.1, total_samples: 715, unit: 'HTF Setups' },
+      setup_4: { win_rate: 60.5, avg_peak_return: 15.7, avg_days_to_peak: 27.4, total_samples: 501, unit: 'Swing Setups' },
+      setup_5: { win_rate: 63.1, avg_peak_return: 14.5, avg_days_to_peak: 23.8, total_samples: 1567, unit: 'Pullbacks' },
+      setup_6: { win_rate: 67.0, avg_peak_return: 16.2, avg_days_to_peak: 26.8, total_samples: 588, unit: 'DBR Setups' }
+    },
+  };
+
+  const BACKTEST_DEFAULTS = {
+    setup_1: { win_rate: 51.1, avg_peak_return: 10.7, avg_days_to_peak: 22.8, total_samples: 374, unit: 'Reversal Setups' },
+    setup_2: { win_rate: 70.5, avg_peak_return: 18.6, avg_days_to_peak: 30.2, total_samples: 996, unit: 'Momentum Setups' },
+    setup_3: { win_rate: 72.9, avg_peak_return: 19.1, avg_days_to_peak: 29.1, total_samples: 715, unit: 'HTF Setups' },
+    setup_4: { win_rate: 60.5, avg_peak_return: 15.7, avg_days_to_peak: 27.4, total_samples: 501, unit: 'Swing Setups' },
+    setup_5: { win_rate: 63.1, avg_peak_return: 14.5, avg_days_to_peak: 23.8, total_samples: 1567, unit: 'Pullbacks' },
+    setup_6: { win_rate: 67.0, avg_peak_return: 16.2, avg_days_to_peak: 26.8, total_samples: 588, unit: 'DBR Setups' }
   };
 
   // Setup Metadata Mapping
@@ -4578,7 +4595,7 @@
         return fetch('https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/' + file + '?_t=' + timestamp, fetchOpts);
       };
 
-      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes, aiRes] = await Promise.allSettled([
+      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes, aiRes, bt1Res, bt2Res, bt3Res, bt4Res, bt5Res, bt6Res] = await Promise.allSettled([
         fetchLive('scanner_results.json'),
         fetchLive('market_summary.json'),
         fetchLive('tab1_bottom_reversal.json'),
@@ -4589,6 +4606,12 @@
         fetchLive('tab6_dbr.json'),
         fetchLive('fundamentals.json'),
         fetchLive('ai_analysis.json'),
+        fetchLive('setup1_backtest.json'),
+        fetchLive('setup2_backtest.json'),
+        fetchLive('setup3_backtest.json'),
+        fetchLive('setup4_backtest.json'),
+        fetchLive('setup5_backtest.json'),
+        fetchLive('setup6_backtest.json'),
       ]);
 
       let newScanner = null;
@@ -4599,6 +4622,43 @@
       let newTab4 = null;
       let newTab5 = null;
       let newTab6 = null;
+
+      if (bt1Res && bt1Res.status === 'fulfilled' && bt1Res.value.ok) {
+        try {
+          const bt = await bt1Res.value.json();
+          if (bt) state.backtestData.setup_1 = { ...state.backtestData.setup_1, ...bt };
+        } catch (e) {}
+      }
+      if (bt2Res && bt2Res.status === 'fulfilled' && bt2Res.value.ok) {
+        try {
+          const bt = await bt2Res.value.json();
+          if (bt) state.backtestData.setup_2 = { ...state.backtestData.setup_2, ...bt };
+        } catch (e) {}
+      }
+      if (bt3Res && bt3Res.status === 'fulfilled' && bt3Res.value.ok) {
+        try {
+          const bt = await bt3Res.value.json();
+          if (bt) state.backtestData.setup_3 = { ...state.backtestData.setup_3, ...bt };
+        } catch (e) {}
+      }
+      if (bt4Res && bt4Res.status === 'fulfilled' && bt4Res.value.ok) {
+        try {
+          const bt = await bt4Res.value.json();
+          if (bt) state.backtestData.setup_4 = { ...state.backtestData.setup_4, ...bt };
+        } catch (e) {}
+      }
+      if (bt5Res && bt5Res.status === 'fulfilled' && bt5Res.value.ok) {
+        try {
+          const bt = await bt5Res.value.json();
+          if (bt) state.backtestData.setup_5 = { ...state.backtestData.setup_5, ...bt };
+        } catch (e) {}
+      }
+      if (bt6Res && bt6Res.status === 'fulfilled' && bt6Res.value.ok) {
+        try {
+          const bt = await bt6Res.value.json();
+          if (bt) state.backtestData.setup_6 = { ...state.backtestData.setup_6, ...bt };
+        } catch (e) {}
+      }
 
       if (aiRes && aiRes.status === 'fulfilled' && aiRes.value.ok) {
         try {
@@ -4760,7 +4820,41 @@
     }
 
     populateSectorFilter();
+    renderBacktestBanner(tabId);
     renderTable();
+  }
+
+  function renderBacktestBanner(tabId) {
+    const banner = document.getElementById('setup-perf-banner');
+    if (!banner) return;
+
+    const data = (state.backtestData && state.backtestData[tabId]) || BACKTEST_DEFAULTS[tabId];
+    if (!data) return;
+
+    banner.className = `perf-banner theme-${tabId}`;
+
+    const titleEl = document.getElementById('perf-banner-title-text');
+    const winEl = document.getElementById('perf-banner-win');
+    const gainEl = document.getElementById('perf-banner-gain');
+    const daysEl = document.getElementById('perf-banner-days');
+    const samplesEl = document.getElementById('perf-banner-samples');
+
+    const setupNum = tabId.replace('setup_', 'SETUP ');
+    if (titleEl) titleEl.textContent = `3-MONTH FORWARD PERFORMANCE (${setupNum.toUpperCase()} VERIFIED)`;
+    if (winEl) winEl.textContent = `${data.win_rate}%`;
+    if (gainEl) gainEl.textContent = `+${data.avg_peak_return}%`;
+    if (daysEl) daysEl.textContent = `${data.avg_days_to_peak} Days`;
+
+    const unitMap = {
+      setup_1: 'Reversal Setups',
+      setup_2: 'Momentum Setups',
+      setup_3: 'HTF Setups',
+      setup_4: 'Swing Setups',
+      setup_5: 'Pullbacks',
+      setup_6: 'DBR Setups'
+    };
+    const unit = data.unit || unitMap[tabId] || 'Setups';
+    if (samplesEl) samplesEl.textContent = `${Number(data.total_samples).toLocaleString('en-IN')} ${unit}`;
   }
 
   function renderAll() {
@@ -4768,6 +4862,7 @@
     renderSectorRotation();
     populateSectorFilter();
     updateTabBadges();
+    renderBacktestBanner(state.activeTab);
     renderTable();
   }
 

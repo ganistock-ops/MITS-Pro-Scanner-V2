@@ -2090,3 +2090,132 @@ body.resizing-active {
   }
 }
 
+/* ==========================================================================
+   Verified 3-Month Forward Performance Glassmorphic Banner
+   ========================================================================== */
+.perf-banner {
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin: 10px 0 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: perfFadeIn 0.3s ease-out;
+  transition: all 0.25s ease;
+}
+
+@keyframes perfFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.perf-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+}
+
+.perf-pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.perf-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+}
+
+.perf-pill-label {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+/* Metric Value Colors */
+.perf-pill-val.val-green  { color: #10b981; font-weight: 800; }
+.perf-pill-val.val-cyan   { color: #06b6d4; font-weight: 800; }
+.perf-pill-val.val-amber  { color: #f59e0b; font-weight: 800; }
+.perf-pill-val.val-purple { color: #c084fc; font-weight: 800; }
+
+/* Thematic Color Accents Matching Setup Tabs */
+.perf-banner.theme-setup_1 {
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.09) 0%, rgba(29, 78, 216, 0.28) 50%, rgba(15, 23, 42, 0.65) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(59, 130, 246, 0.06);
+}
+.perf-banner.theme-setup_1 .perf-banner-title { color: #60a5fa; }
+
+.perf-banner.theme-setup_2 {
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.09) 0%, rgba(3, 105, 161, 0.28) 50%, rgba(15, 23, 42, 0.65) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(0, 242, 254, 0.06);
+}
+.perf-banner.theme-setup_2 .perf-banner-title { color: #38bdf8; }
+
+.perf-banner.theme-setup_3 {
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.09) 0%, rgba(159, 18, 57, 0.28) 50%, rgba(15, 23, 42, 0.65) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(244, 63, 94, 0.06);
+}
+.perf-banner.theme-setup_3 .perf-banner-title { color: #fb7185; }
+
+.perf-banner.theme-setup_4 {
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.09) 0%, rgba(180, 83, 9, 0.28) 50%, rgba(15, 23, 42, 0.65) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(245, 158, 11, 0.06);
+}
+.perf-banner.theme-setup_4 .perf-banner-title { color: #fbbf24; }
+
+.perf-banner.theme-setup_5 {
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.09) 0%, rgba(6, 78, 59, 0.28) 50%, rgba(15, 23, 42, 0.65) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(16, 185, 129, 0.06);
+}
+.perf-banner.theme-setup_5 .perf-banner-title { color: #34d399; }
+
+.perf-banner.theme-setup_6 {
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.09) 0%, rgba(107, 33, 168, 0.28) 50%, rgba(15, 23, 42, 0.65) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(168, 85, 247, 0.06);
+}
+.perf-banner.theme-setup_6 .perf-banner-title { color: #c084fc; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .perf-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+  }
+  .perf-pills {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .perf-pill {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    justify-content: space-between;
+  }
+}
+
