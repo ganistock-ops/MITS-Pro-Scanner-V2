@@ -7001,24 +7001,38 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
   async function fetchFreshWpData(force) {
     try {
-      const ts = Date.now();
+      const timestamp = Date.now();
+      const fetchOpts = {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+      };
+
+      const fetchLive = async (file) => {
+        try {
+          const res = await fetch(MITS_PRO_REMOTE_BASE + file + '?_t=' + timestamp, fetchOpts);
+          if (res && res.ok) return res;
+        } catch (e) {}
+        // Fallback to Raw GitHub CDN with dynamic cache-busting if GitHub Pages is updating
+        return fetch('https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/' + file + '?_t=' + timestamp, fetchOpts);
+      };
+
       const [resScan, resSumm, resTab1, resTab2, resTab3, resTab4, resTab5, resTab6, resBacktest, resBacktest2, resBacktest4, resBacktest6, resBacktest1, resBacktest3, resFund, resAi] = await Promise.allSettled([
-        fetch(MITS_PRO_REMOTE_BASE + 'scanner_results.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'market_summary.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'tab1_bottom_reversal.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'tab2_alpha_momentum.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'tab3_htf.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'tab4_weekly_swing.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'tab5_stage2_pullback.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'tab6_dbr.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup5_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup2_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup4_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup6_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup1_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'setup3_backtest.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'fundamentals.json?t=' + ts),
-        fetch(MITS_PRO_REMOTE_BASE + 'ai_analysis.json?t=' + ts)
+        fetchLive('scanner_results.json'),
+        fetchLive('market_summary.json'),
+        fetchLive('tab1_bottom_reversal.json'),
+        fetchLive('tab2_alpha_momentum.json'),
+        fetchLive('tab3_htf.json'),
+        fetchLive('tab4_weekly_swing.json'),
+        fetchLive('tab5_stage2_pullback.json'),
+        fetchLive('tab6_dbr.json'),
+        fetchLive('setup5_backtest.json'),
+        fetchLive('setup2_backtest.json'),
+        fetchLive('setup4_backtest.json'),
+        fetchLive('setup6_backtest.json'),
+        fetchLive('setup1_backtest.json'),
+        fetchLive('setup3_backtest.json'),
+        fetchLive('fundamentals.json'),
+        fetchLive('ai_analysis.json')
       ]);
 
 

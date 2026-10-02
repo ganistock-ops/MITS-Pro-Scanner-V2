@@ -4564,18 +4564,31 @@
     const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
 
     try {
-      const ts = Date.now();
+      const timestamp = Date.now();
+      const fetchOpts = {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+      };
+
+      const fetchLive = async (file) => {
+        try {
+          const res = await fetch(basePath + file + '?_t=' + timestamp, fetchOpts);
+          if (res && res.ok) return res;
+        } catch (e) {}
+        return fetch('https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/' + file + '?_t=' + timestamp, fetchOpts);
+      };
+
       const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes, aiRes] = await Promise.allSettled([
-        fetch(basePath + 'scanner_results.json?t=' + ts),
-        fetch(basePath + 'market_summary.json?t=' + ts),
-        fetch(basePath + 'tab1_bottom_reversal.json?t=' + ts),
-        fetch(basePath + 'tab2_alpha_momentum.json?t=' + ts),
-        fetch(basePath + 'tab3_htf.json?t=' + ts),
-        fetch(basePath + 'tab4_weekly_swing.json?t=' + ts),
-        fetch(basePath + 'tab5_stage2_pullback.json?t=' + ts),
-        fetch(basePath + 'tab6_dbr.json?t=' + ts),
-        fetch(basePath + 'fundamentals.json?t=' + ts),
-        fetch(basePath + 'ai_analysis.json?t=' + ts),
+        fetchLive('scanner_results.json'),
+        fetchLive('market_summary.json'),
+        fetchLive('tab1_bottom_reversal.json'),
+        fetchLive('tab2_alpha_momentum.json'),
+        fetchLive('tab3_htf.json'),
+        fetchLive('tab4_weekly_swing.json'),
+        fetchLive('tab5_stage2_pullback.json'),
+        fetchLive('tab6_dbr.json'),
+        fetchLive('fundamentals.json'),
+        fetchLive('ai_analysis.json'),
       ]);
 
       let newScanner = null;

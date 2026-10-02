@@ -45,6 +45,10 @@ jobs:
       - name: Execute MITS Pro Scanner Pipeline
         run: |
           python scripts/run_pipeline.py
+          if [ ! -f data/master_universe_eod.json ]; then
+            echo "master_universe_eod.json not found, running standalone exporter..."
+            python scripts/master_universe_exporter.py
+          fi
 
       - name: Pre-generate AI Copilot Institutional Insights
         env:
@@ -52,11 +56,17 @@ jobs:
         run: |
           python scripts/generate_ai_summary.py
 
+      - name: Verify Feeds Integrity
+        run: |
+          test -f data/scanner_results.json || (echo "ERROR: Missing data/scanner_results.json" && exit 1)
+          test -f data/master_universe_eod.json || (echo "ERROR: Missing data/master_universe_eod.json" && exit 1)
+          echo "Feed integrity verified: Both scanner_results.json and master_universe_eod.json exist."
+
       - name: Commit and Push Updated Data Feeds
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          git commit -m "Auto-generate AI copilot insights and scanner feeds [skip ci]" || exit 0
-          git pull origin main --rebase || (git rebase --abort && git pull origin main --no-rebase)
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A data/
+          git diff-index --quiet HEAD || git commit -m "Auto-update EOD Pro & Custom Scanner Datasets [skip ci]"
+          git pull --rebase origin main
           git push origin main

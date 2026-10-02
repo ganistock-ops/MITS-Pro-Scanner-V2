@@ -1464,25 +1464,29 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     evaluateFilters();
   }
 
-  // Data Ingestion with Multi-URL Fallback & Cache-Busting
+  // Data Ingestion with Multi-URL Fallback & Dynamic Cache-Busting
   async function loadUniverseData() {
-    // 1. Check window global first if available (CORS-free instant)
-    if (window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks && window.MITS_MASTER_UNIVERSE_DATA.stocks.length > 0) {
+    // 1. Check window global first ONLY if running on file:// protocol (CORS-free instant)
+    if (window.location.protocol === 'file:' && window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks && window.MITS_MASTER_UNIVERSE_DATA.stocks.length > 0) {
       applyLoadedUniverse(window.MITS_MASTER_UNIVERSE_DATA);
       return;
     }
 
-    const ts = Date.now();
+    const timestamp = Date.now();
+    const fetchOpts = {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+    };
     const urls = [
-      MITS_PRO_REMOTE_BASE + 'master_universe_eod.json?t=' + ts,
-      'https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/master_universe_eod.json?t=' + ts,
-      'data/master_universe_eod.json?t=' + ts
+      MITS_PRO_REMOTE_BASE + 'master_universe_eod.json?_t=' + timestamp,
+      'https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/master_universe_eod.json?_t=' + timestamp,
+      'data/master_universe_eod.json?_t=' + timestamp
     ];
 
     let data = null;
     for (const url of urls) {
       try {
-        const resp = await fetch(url);
+        const resp = await fetch(url, fetchOpts);
         if (resp.ok) {
           data = await resp.json();
           if (data && data.stocks) break;
@@ -1490,6 +1494,10 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       } catch (err) {
         // try next endpoint
       }
+    }
+
+    if ((!data || !data.stocks) && window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks) {
+      data = window.MITS_MASTER_UNIVERSE_DATA;
     }
 
     if (!data || !data.stocks) {

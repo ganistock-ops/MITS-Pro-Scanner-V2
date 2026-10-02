@@ -157,13 +157,19 @@
     evaluateFilters();
   }
 
-  // Data Ingestion
+  // Data Ingestion with dynamic cache-busting
   async function loadUniverseData() {
-    // 1. First check window global (Guarantees 100% CORS-free file:// & local execution)
-    if (window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks && window.MITS_MASTER_UNIVERSE_DATA.stocks.length > 0) {
+    // 1. First check window global ONLY if running on file:// protocol (Guarantees 100% CORS-free file:// execution)
+    if (window.location.protocol === 'file:' && window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks && window.MITS_MASTER_UNIVERSE_DATA.stocks.length > 0) {
       applyLoadedUniverse(window.MITS_MASTER_UNIVERSE_DATA);
       return;
     }
+
+    const timestamp = Date.now();
+    const fetchOpts = {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+    };
 
     const urls = [
       'data/master_universe_eod.json',
@@ -175,14 +181,19 @@
     let data = null;
     for (const url of urls) {
       try {
-        const resp = await fetch(url + '?_t=' + Date.now());
+        const resp = await fetch(url + '?_t=' + timestamp, fetchOpts);
         if (resp.ok) {
           data = await resp.json();
-          break;
+          if (data && data.stocks) break;
         }
       } catch (err) {
         // try next
       }
+    }
+
+    // Fallback to pre-baked global if offline / network failed
+    if ((!data || !data.stocks) && window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks) {
+      data = window.MITS_MASTER_UNIVERSE_DATA;
     }
 
     if (!data || !data.stocks) {
