@@ -2475,9 +2475,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 (function() {
   'use strict';
 
-  // Live GitHub Pages absolute data endpoint for Native WordPress Direct Embedding (No iFrame)
-  // When running locally on localhost, loads local data/ directory for instant verification
-  const MITS_PRO_REMOTE_BASE = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:' || !window.location.hostname)) ? 'data/' : 'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/'; 
+  // Live GitHub Raw absolute data endpoint (Always fetches fresh live data even on file:// protocol or WordPress)
+  const MITS_PRO_REMOTE_BASE = 'https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/'; 
 
   const DEFAULT_WP_TAB1_SIGNALS = [
     {

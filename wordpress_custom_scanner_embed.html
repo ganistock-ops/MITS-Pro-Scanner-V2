@@ -1312,10 +1312,8 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 (function () {
   'use strict';
 
-  // Dynamic Production / CDN Raw GitHub URL Alignment (Matches wordpress_live_embed.html)
-  const MITS_PRO_REMOTE_BASE = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:' || !window.location.hostname))
-    ? 'data/'
-    : 'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/';
+  // Live GitHub Raw absolute data endpoint (Always fetches fresh live data even on file:// protocol or WordPress)
+  const MITS_PRO_REMOTE_BASE = 'https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/';
 
   // State Management
   const state = {
@@ -1466,12 +1464,6 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
   // Data Ingestion with Multi-URL Fallback & Dynamic Cache-Busting
   async function loadUniverseData() {
-    // 1. Check window global first ONLY if running on file:// protocol (CORS-free instant)
-    if (window.location.protocol === 'file:' && window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks && window.MITS_MASTER_UNIVERSE_DATA.stocks.length > 0) {
-      applyLoadedUniverse(window.MITS_MASTER_UNIVERSE_DATA);
-      return;
-    }
-
     const timestamp = Date.now();
     const fetchOpts = {
       cache: 'no-store',
@@ -1479,7 +1471,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     };
     const urls = [
       MITS_PRO_REMOTE_BASE + 'master_universe_eod.json?_t=' + timestamp,
-      'https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/master_universe_eod.json?_t=' + timestamp,
+      'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/master_universe_eod.json?_t=' + timestamp,
       'data/master_universe_eod.json?_t=' + timestamp
     ];
 

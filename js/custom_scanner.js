@@ -159,12 +159,6 @@
 
   // Data Ingestion with dynamic cache-busting
   async function loadUniverseData() {
-    // 1. First check window global ONLY if running on file:// protocol (Guarantees 100% CORS-free file:// execution)
-    if (window.location.protocol === 'file:' && window.MITS_MASTER_UNIVERSE_DATA && window.MITS_MASTER_UNIVERSE_DATA.stocks && window.MITS_MASTER_UNIVERSE_DATA.stocks.length > 0) {
-      applyLoadedUniverse(window.MITS_MASTER_UNIVERSE_DATA);
-      return;
-    }
-
     const timestamp = Date.now();
     const fetchOpts = {
       cache: 'no-store',
@@ -172,10 +166,10 @@
     };
 
     const urls = [
-      'data/master_universe_eod.json',
-      '../data/master_universe_eod.json',
+      'https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/master_universe_eod.json',
       'https://ganistock-ops.github.io/MITS-Pro-Scanner-V2/data/master_universe_eod.json',
-      'https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/master_universe_eod.json'
+      'data/master_universe_eod.json',
+      '../data/master_universe_eod.json'
     ];
 
     let data = null;
