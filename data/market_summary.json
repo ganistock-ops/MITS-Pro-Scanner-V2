@@ -1,6 +1,6 @@
 {
-  "scan_timestamp": "2026-10-02T21:51:36.350337+05:30",
-  "market_status": "CLOSED",
+  "scan_timestamp": "2026-10-03T07:24:22.503752+05:30",
+  "market_status": "OPEN",
   "last_session_date": "2026-10-02",
   "session_date_display": "02-Oct-2026",
   "indices": {
@@ -64,7 +64,7 @@
     }
   ],
   "sector_rotation": {
-    "updated_at": "2026-10-02T16:22:13.497180",
+    "updated_at": "2026-10-03T01:54:56.325784",
     "session_date": "2026-09-30",
     "session_date_display": "30-Sep-2026",
     "sectors_analyzed": 20,
