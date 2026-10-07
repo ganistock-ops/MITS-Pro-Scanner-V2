@@ -2,9 +2,55 @@
   "setup_id": "tab1_bottom_reversal",
   "title": "\u26a1 Setup 1: Bottom Reversal Pro",
   "subtitle": "Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.",
-  "last_updated": "2026-10-06T22:25:39.564271+05:30",
-  "last_session_date": "2026-10-06",
-  "session_date_display": "06-Oct-2026",
-  "qualifying_count": 0,
-  "signals": []
+  "last_updated": "2026-10-07T23:02:16.221687+05:30",
+  "last_session_date": "2026-10-07",
+  "session_date_display": "07-Oct-2026",
+  "qualifying_count": 1,
+  "signals": [
+    {
+      "symbol": "SBIN",
+      "name": "State Bank of India",
+      "sector": "Financial Services",
+      "cmp": 954.0,
+      "change_pct": -0.5,
+      "score": 72,
+      "grade": "B",
+      "score_display": "72 (B)",
+      "institutional_score": 72,
+      "invalidation": 938.47,
+      "entry_zone": "\u20b9954.0 - \u20b91001.92",
+      "target_1": 1062.3,
+      "target_2": 1124.5,
+      "target_zone": "1062.3 - 1124.5",
+      "risk_reward_ratio": "1:6.97",
+      "rvol": 1.63,
+      "setup_tags": [
+        "Established Decline",
+        "Deceleration",
+        "Tight Base (<8%)",
+        "Demand Absorption",
+        "Liquidity Sweep",
+        "Prominent Lower Wick",
+        "Volume Absorption",
+        "R:R 6.97:1"
+      ],
+      "status": "MSS COILING",
+      "timestamp": "2026-10-07",
+      "score_breakdown": {
+        "exhaustion": 12.0,
+        "base": 20.0,
+        "sweep": 20.0,
+        "structure": 0.0,
+        "volume": 15.0,
+        "regime_and_rr": 5.0
+      },
+      "delivery_pct": 51.9,
+      "delivery_qty": 6500609.0,
+      "avg_deliv_10d": 57.1,
+      "avg_deliv_vol_10d": 6414582.0,
+      "delivery_spike_pct": -9.1,
+      "whale_absorption_flag": true,
+      "smart_money_status": "Active Accumulation"
+    }
+  ]
 }
