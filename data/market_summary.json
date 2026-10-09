@@ -1,6 +1,6 @@
 {
-  "scan_timestamp": "2026-10-08T23:05:22.910306+05:30",
-  "market_status": "CLOSED",
+  "scan_timestamp": "2026-10-09T08:56:31.374084+05:30",
+  "market_status": "OPEN",
   "last_session_date": "2026-10-08",
   "session_date_display": "08-Oct-2026",
   "indices": {
@@ -20,9 +20,9 @@
     },
     "INDIA_VIX": {
       "name": "INDIA VIX",
-      "price": 15.27,
-      "change": 1.38,
-      "change_pct": 9.94,
+      "price": 15.28,
+      "change": 1.39,
+      "change_pct": 10.01,
       "trend": "MODERATE_VOLATILITY"
     }
   },
@@ -33,7 +33,7 @@
     "institutional_bias": "DEFENSIVE / SELECTIVE ACCUMULATION",
     "bias_color": "amber",
     "total_scanned": 500,
-    "high_momentum_count": 326,
+    "high_momentum_count": 322,
     "pro_alerts_count": 28
   },
   "sector_matrix": [
@@ -64,7 +64,7 @@
     }
   ],
   "sector_rotation": {
-    "updated_at": "2026-10-08T17:36:22.943229",
+    "updated_at": "2026-10-09T03:27:14.210679",
     "session_date": "2026-09-30",
     "session_date_display": "30-Sep-2026",
     "sectors_analyzed": 20,
