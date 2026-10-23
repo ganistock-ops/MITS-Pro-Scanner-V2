@@ -1,479 +1,479 @@
 {
-  "updated_at": "2026-10-22T15:38:29.068255",
-  "session_date": "2026-10-22",
-  "session_date_display": "22-Oct-2026",
+  "updated_at": "2026-10-23T15:27:44.103644",
+  "session_date": "2026-10-23",
+  "session_date_display": "23-Oct-2026",
   "sectors_analyzed": 20,
   "top_inflows": [
     {
-      "sector": "Telecommunication",
-      "display_name": "Telecom",
-      "avg_change_pct": 1.53,
-      "flow_score": 2.06,
-      "delivery_turnover_cr": 1914.3,
-      "delivery_spike_pct": 35.0,
-      "avg_delivery_pct": 38.8,
-      "bias": "ACCUMULATION",
-      "bias_display": "Whale Accumulation",
-      "stocks_count": 9,
-      "advances": 4,
-      "declines": 5,
-      "leaders": [
-        "TTML",
-        "INDUSTOWER"
-      ]
-    },
-    {
-      "sector": "Services",
-      "display_name": "Services",
-      "avg_change_pct": 0.42,
-      "flow_score": 0.27,
-      "delivery_turnover_cr": 724.6,
-      "delivery_spike_pct": -35.1,
-      "avg_delivery_pct": 45.2,
-      "bias": "MILD_INFLOW",
-      "bias_display": "Selective Inflow",
-      "stocks_count": 14,
-      "advances": 8,
-      "declines": 6,
-      "leaders": [
-        "IGIL",
-        "FSL"
-      ]
-    },
-    {
       "sector": "Construction Materials",
       "display_name": "Cement & Materials",
-      "avg_change_pct": 0.23,
-      "flow_score": 0.16,
-      "delivery_turnover_cr": 247.5,
-      "delivery_spike_pct": -27.5,
+      "avg_change_pct": -0.98,
+      "flow_score": -1.03,
+      "delivery_turnover_cr": 360.9,
+      "delivery_spike_pct": 5.1,
       "avg_delivery_pct": 38.2,
-      "bias": "MILD_INFLOW",
-      "bias_display": "Selective Inflow",
-      "stocks_count": 11,
-      "advances": 7,
-      "declines": 4,
-      "leaders": [
-        "ACC",
-        "NUVOCO"
-      ]
-    }
-  ],
-  "top_outflows": [
-    {
-      "sector": "Consumer Durables",
-      "display_name": "Consumer Durables",
-      "avg_change_pct": -6.61,
-      "flow_score": -5.3,
-      "delivery_turnover_cr": 536.8,
-      "delivery_spike_pct": -19.9,
-      "avg_delivery_pct": 40.5,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 16,
-      "advances": 4,
-      "declines": 12,
-      "leaders": [
-        "BATAINDIA",
-        "BLUESTARCO"
-      ]
-    },
-    {
-      "sector": "Media Entertainment & Publication",
-      "display_name": "Media",
-      "avg_change_pct": -2.27,
-      "flow_score": -2.83,
-      "delivery_turnover_cr": 126.8,
-      "delivery_spike_pct": 24.5,
-      "avg_delivery_pct": 35.8,
-      "bias": "DISTRIBUTION",
-      "bias_display": "Whale Distribution",
-      "stocks_count": 5,
-      "advances": 1,
-      "declines": 4,
-      "leaders": [
-        "PVRINOX",
-        "SAREGAMA"
-      ]
-    },
-    {
-      "sector": "Capital Goods",
-      "display_name": "Capital Goods",
-      "avg_change_pct": -1.57,
-      "flow_score": -1.71,
-      "delivery_turnover_cr": 3435.1,
-      "delivery_spike_pct": 8.9,
-      "avg_delivery_pct": 39.3,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 63,
-      "advances": 13,
-      "declines": 50,
-      "leaders": [
-        "KAYNES",
-        "SYRMA"
-      ]
-    }
-  ],
-  "all_sectors": [
-    {
-      "sector": "Telecommunication",
-      "display_name": "Telecom",
-      "avg_change_pct": 1.53,
-      "flow_score": 2.06,
-      "delivery_turnover_cr": 1914.3,
-      "delivery_spike_pct": 35.0,
-      "avg_delivery_pct": 38.8,
-      "bias": "ACCUMULATION",
-      "bias_display": "Whale Accumulation",
-      "stocks_count": 9,
-      "advances": 4,
-      "declines": 5,
-      "leaders": [
-        "TTML",
-        "INDUSTOWER"
-      ]
-    },
-    {
-      "sector": "Services",
-      "display_name": "Services",
-      "avg_change_pct": 0.42,
-      "flow_score": 0.27,
-      "delivery_turnover_cr": 724.6,
-      "delivery_spike_pct": -35.1,
-      "avg_delivery_pct": 45.2,
-      "bias": "MILD_INFLOW",
-      "bias_display": "Selective Inflow",
-      "stocks_count": 14,
-      "advances": 8,
-      "declines": 6,
-      "leaders": [
-        "IGIL",
-        "FSL"
-      ]
-    },
-    {
-      "sector": "Construction Materials",
-      "display_name": "Cement & Materials",
-      "avg_change_pct": 0.23,
-      "flow_score": 0.16,
-      "delivery_turnover_cr": 247.5,
-      "delivery_spike_pct": -27.5,
-      "avg_delivery_pct": 38.2,
-      "bias": "MILD_INFLOW",
-      "bias_display": "Selective Inflow",
-      "stocks_count": 11,
-      "advances": 7,
-      "declines": 4,
-      "leaders": [
-        "ACC",
-        "NUVOCO"
-      ]
-    },
-    {
-      "sector": "Healthcare",
-      "display_name": "Healthcare & Pharma",
-      "avg_change_pct": -0.13,
-      "flow_score": -0.15,
-      "delivery_turnover_cr": 2721.7,
-      "delivery_spike_pct": 17.1,
-      "avg_delivery_pct": 52.1,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 48,
-      "advances": 22,
-      "declines": 26,
-      "leaders": [
-        "VIJAYA",
-        "AUROPHARMA"
-      ]
-    },
-    {
-      "sector": "Realty",
-      "display_name": "Realty",
-      "avg_change_pct": -0.64,
-      "flow_score": -0.53,
-      "delivery_turnover_cr": 283.0,
-      "delivery_spike_pct": -17.8,
-      "avg_delivery_pct": 41.7,
       "bias": "MILD_OUTFLOW",
       "bias_display": "Selective Outflow",
       "stocks_count": 11,
       "advances": 3,
       "declines": 8,
       "leaders": [
-        "PHOENIXLTD",
-        "ABREL"
+        "JSWCEMENT",
+        "SHREECEM"
       ]
     },
     {
       "sector": "Textiles",
       "display_name": "Textiles",
-      "avg_change_pct": -0.88,
-      "flow_score": -0.64,
-      "delivery_turnover_cr": 42.7,
-      "delivery_spike_pct": -27.8,
-      "avg_delivery_pct": 40.3,
+      "avg_change_pct": -1.24,
+      "flow_score": -1.11,
+      "delivery_turnover_cr": 50.9,
+      "delivery_spike_pct": -10.6,
+      "avg_delivery_pct": 44.2,
       "bias": "MILD_OUTFLOW",
       "bias_display": "Selective Outflow",
       "stocks_count": 5,
       "advances": 1,
       "declines": 4,
       "leaders": [
-        "WELSPUNLIV",
-        "KPRMILL"
+        "KPRMILL",
+        "VTL"
       ]
     },
     {
-      "sector": "Oil Gas & Consumable Fuels",
-      "display_name": "Oil & Gas",
-      "avg_change_pct": -0.76,
-      "flow_score": -0.67,
-      "delivery_turnover_cr": 1506.1,
-      "delivery_spike_pct": -11.3,
-      "avg_delivery_pct": 43.2,
+      "sector": "Healthcare",
+      "display_name": "Healthcare & Pharma",
+      "avg_change_pct": -1.14,
+      "flow_score": -1.2,
+      "delivery_turnover_cr": 2490.6,
+      "delivery_spike_pct": 6.0,
+      "avg_delivery_pct": 54.0,
       "bias": "MILD_OUTFLOW",
       "bias_display": "Selective Outflow",
+      "stocks_count": 48,
+      "advances": 8,
+      "declines": 40,
+      "leaders": [
+        "IPCALAB",
+        "APOLLOHOSP"
+      ]
+    }
+  ],
+  "top_outflows": [
+    {
+      "sector": "Power",
+      "display_name": "Power & Energy",
+      "avg_change_pct": -3.37,
+      "flow_score": -4.69,
+      "delivery_turnover_cr": 1167.9,
+      "delivery_spike_pct": 39.2,
+      "avg_delivery_pct": 45.5,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
       "stocks_count": 17,
-      "advances": 5,
-      "declines": 12,
-      "leaders": [
-        "CHENNPETRO",
-        "IOC"
-      ]
-    },
-    {
-      "sector": "Diversified",
-      "display_name": "Diversified",
-      "avg_change_pct": -1.56,
-      "flow_score": -0.86,
-      "delivery_turnover_cr": 6.5,
-      "delivery_spike_pct": -44.4,
-      "avg_delivery_pct": 43.7,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 3,
       "advances": 0,
-      "declines": 3,
+      "declines": 17,
       "leaders": [
-        "DCMSHRIRAM",
-        "3MINDIA"
-      ]
-    },
-    {
-      "sector": "Financial Services",
-      "display_name": "Banking & Fin",
-      "avg_change_pct": -0.84,
-      "flow_score": -0.89,
-      "delivery_turnover_cr": 10797.4,
-      "delivery_spike_pct": 5.0,
-      "avg_delivery_pct": 46.7,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 101,
-      "advances": 25,
-      "declines": 75,
-      "leaders": [
-        "CRISIL",
-        "POLICYBZR"
-      ]
-    },
-    {
-      "sector": "Automobile and Auto Components",
-      "display_name": "Auto & Mobility",
-      "avg_change_pct": -0.9,
-      "flow_score": -0.89,
-      "delivery_turnover_cr": 2061.1,
-      "delivery_spike_pct": -1.1,
-      "avg_delivery_pct": 45.9,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 38,
-      "advances": 9,
-      "declines": 29,
-      "leaders": [
-        "BALKRISIND",
-        "ZFCVINDIA"
-      ]
-    },
-    {
-      "sector": "Information Technology",
-      "display_name": "IT & Tech",
-      "avg_change_pct": -1.03,
-      "flow_score": -0.91,
-      "delivery_turnover_cr": 4020.4,
-      "delivery_spike_pct": -11.2,
-      "avg_delivery_pct": 41.0,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 27,
-      "advances": 4,
-      "declines": 23,
-      "leaders": [
-        "SAGILITY",
-        "IKS"
+        "POWERGRID",
+        "NTPC"
       ]
     },
     {
       "sector": "Metals & Mining",
       "display_name": "Metals & Mining",
-      "avg_change_pct": -0.98,
-      "flow_score": -0.95,
-      "delivery_turnover_cr": 1154.3,
-      "delivery_spike_pct": -3.3,
-      "avg_delivery_pct": 42.2,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 18,
-      "advances": 4,
-      "declines": 14,
-      "leaders": [
-        "JINDALSTEL",
-        "LLOYDSME"
-      ]
-    },
-    {
-      "sector": "Consumer Services",
-      "display_name": "Consumer Services",
-      "avg_change_pct": -0.47,
-      "flow_score": -0.97,
-      "delivery_turnover_cr": 3251.8,
-      "delivery_spike_pct": 106.9,
+      "avg_change_pct": -2.67,
+      "flow_score": -3.85,
+      "delivery_turnover_cr": 1669.8,
+      "delivery_spike_pct": 44.3,
       "avg_delivery_pct": 43.4,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 29,
-      "advances": 13,
-      "declines": 16,
-      "leaders": [
-        "INDHOTEL",
-        "ITCHOTELS"
-      ]
-    },
-    {
-      "sector": "Power",
-      "display_name": "Power & Energy",
-      "avg_change_pct": -1.31,
-      "flow_score": -0.99,
-      "delivery_turnover_cr": 663.6,
-      "delivery_spike_pct": -24.8,
-      "avg_delivery_pct": 42.0,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 17,
-      "advances": 3,
-      "declines": 14,
-      "leaders": [
-        "TORNTPOWER",
-        "TATAPOWER"
-      ]
-    },
-    {
-      "sector": "Chemicals",
-      "display_name": "Chemicals",
-      "avg_change_pct": -0.91,
-      "flow_score": -1.01,
-      "delivery_turnover_cr": 594.5,
-      "delivery_spike_pct": 10.3,
-      "avg_delivery_pct": 43.5,
       "bias": "DISTRIBUTION",
       "bias_display": "Whale Distribution",
-      "stocks_count": 26,
-      "advances": 6,
-      "declines": 20,
+      "stocks_count": 18,
+      "advances": 0,
+      "declines": 18,
       "leaders": [
-        "JUBLINGREA",
-        "SRF"
-      ]
-    },
-    {
-      "sector": "Fast Moving Consumer Goods",
-      "display_name": "FMCG",
-      "avg_change_pct": -1.46,
-      "flow_score": -1.16,
-      "delivery_turnover_cr": 1068.9,
-      "delivery_spike_pct": -20.7,
-      "avg_delivery_pct": 51.3,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 28,
-      "advances": 6,
-      "declines": 22,
-      "leaders": [
-        "ABDL",
-        "HONASA"
-      ]
-    },
-    {
-      "sector": "Construction",
-      "display_name": "Construction",
-      "avg_change_pct": -1.27,
-      "flow_score": -1.35,
-      "delivery_turnover_cr": 563.2,
-      "delivery_spike_pct": 6.9,
-      "avg_delivery_pct": 38.7,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
-      "stocks_count": 13,
-      "advances": 2,
-      "declines": 11,
-      "leaders": [
-        "KPIL",
-        "LT"
+        "JAINREC",
+        "LLOYDSME"
       ]
     },
     {
       "sector": "Capital Goods",
       "display_name": "Capital Goods",
-      "avg_change_pct": -1.57,
-      "flow_score": -1.71,
-      "delivery_turnover_cr": 3435.1,
-      "delivery_spike_pct": 8.9,
-      "avg_delivery_pct": 39.3,
+      "avg_change_pct": -2.98,
+      "flow_score": -3.82,
+      "delivery_turnover_cr": 4008.6,
+      "delivery_spike_pct": 28.4,
+      "avg_delivery_pct": 42.6,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 63,
+      "advances": 1,
+      "declines": 62,
+      "leaders": [
+        "HONAUT",
+        "ESCORTS"
+      ]
+    }
+  ],
+  "all_sectors": [
+    {
+      "sector": "Construction Materials",
+      "display_name": "Cement & Materials",
+      "avg_change_pct": -0.98,
+      "flow_score": -1.03,
+      "delivery_turnover_cr": 360.9,
+      "delivery_spike_pct": 5.1,
+      "avg_delivery_pct": 38.2,
       "bias": "MILD_OUTFLOW",
       "bias_display": "Selective Outflow",
-      "stocks_count": 63,
-      "advances": 13,
-      "declines": 50,
+      "stocks_count": 11,
+      "advances": 3,
+      "declines": 8,
       "leaders": [
-        "KAYNES",
-        "SYRMA"
+        "JSWCEMENT",
+        "SHREECEM"
+      ]
+    },
+    {
+      "sector": "Textiles",
+      "display_name": "Textiles",
+      "avg_change_pct": -1.24,
+      "flow_score": -1.11,
+      "delivery_turnover_cr": 50.9,
+      "delivery_spike_pct": -10.6,
+      "avg_delivery_pct": 44.2,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 5,
+      "advances": 1,
+      "declines": 4,
+      "leaders": [
+        "KPRMILL",
+        "VTL"
+      ]
+    },
+    {
+      "sector": "Healthcare",
+      "display_name": "Healthcare & Pharma",
+      "avg_change_pct": -1.14,
+      "flow_score": -1.2,
+      "delivery_turnover_cr": 2490.6,
+      "delivery_spike_pct": 6.0,
+      "avg_delivery_pct": 54.0,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 48,
+      "advances": 8,
+      "declines": 40,
+      "leaders": [
+        "IPCALAB",
+        "APOLLOHOSP"
+      ]
+    },
+    {
+      "sector": "Services",
+      "display_name": "Services",
+      "avg_change_pct": -1.67,
+      "flow_score": -1.49,
+      "delivery_turnover_cr": 794.7,
+      "delivery_spike_pct": -10.8,
+      "avg_delivery_pct": 45.9,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 14,
+      "advances": 2,
+      "declines": 12,
+      "leaders": [
+        "IGIL",
+        "FSL"
+      ]
+    },
+    {
+      "sector": "Oil Gas & Consumable Fuels",
+      "display_name": "Oil & Gas",
+      "avg_change_pct": -1.44,
+      "flow_score": -1.52,
+      "delivery_turnover_cr": 1788.5,
+      "delivery_spike_pct": 5.4,
+      "avg_delivery_pct": 45.4,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 17,
+      "advances": 4,
+      "declines": 13,
+      "leaders": [
+        "CHENNPETRO",
+        "IGL"
+      ]
+    },
+    {
+      "sector": "Fast Moving Consumer Goods",
+      "display_name": "FMCG",
+      "avg_change_pct": -1.9,
+      "flow_score": -1.9,
+      "delivery_turnover_cr": 1307.1,
+      "delivery_spike_pct": 0.1,
+      "avg_delivery_pct": 49.6,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 28,
+      "advances": 2,
+      "declines": 26,
+      "leaders": [
+        "TATACONSUM",
+        "GILLETTE"
+      ]
+    },
+    {
+      "sector": "Telecommunication",
+      "display_name": "Telecom",
+      "avg_change_pct": -1.88,
+      "flow_score": -1.98,
+      "delivery_turnover_cr": 1641.2,
+      "delivery_spike_pct": 5.2,
+      "avg_delivery_pct": 41.7,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 9,
+      "advances": 1,
+      "declines": 8,
+      "leaders": [
+        "BHARTIHEXA",
+        "BHARTIARTL"
+      ]
+    },
+    {
+      "sector": "Information Technology",
+      "display_name": "IT & Tech",
+      "avg_change_pct": -1.87,
+      "flow_score": -2.14,
+      "delivery_turnover_cr": 5245.7,
+      "delivery_spike_pct": 14.6,
+      "avg_delivery_pct": 36.8,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 27,
+      "advances": 4,
+      "declines": 23,
+      "leaders": [
+        "CYIENT",
+        "TCS"
+      ]
+    },
+    {
+      "sector": "Realty",
+      "display_name": "Realty",
+      "avg_change_pct": -2.3,
+      "flow_score": -2.16,
+      "delivery_turnover_cr": 312.0,
+      "delivery_spike_pct": -6.4,
+      "avg_delivery_pct": 40.7,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 11,
+      "advances": 0,
+      "declines": 11,
+      "leaders": [
+        "SIGNATURE",
+        "OBEROIRLTY"
       ]
     },
     {
       "sector": "Media Entertainment & Publication",
       "display_name": "Media",
-      "avg_change_pct": -2.27,
-      "flow_score": -2.83,
-      "delivery_turnover_cr": 126.8,
-      "delivery_spike_pct": 24.5,
-      "avg_delivery_pct": 35.8,
-      "bias": "DISTRIBUTION",
-      "bias_display": "Whale Distribution",
+      "avg_change_pct": -2.68,
+      "flow_score": -2.38,
+      "delivery_turnover_cr": 89.0,
+      "delivery_spike_pct": -11.2,
+      "avg_delivery_pct": 37.5,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
       "stocks_count": 5,
       "advances": 1,
       "declines": 4,
       "leaders": [
-        "PVRINOX",
-        "SAREGAMA"
+        "PFOCUS",
+        "PVRINOX"
+      ]
+    },
+    {
+      "sector": "Financial Services",
+      "display_name": "Banking & Fin",
+      "avg_change_pct": -2.84,
+      "flow_score": -2.52,
+      "delivery_turnover_cr": 9190.7,
+      "delivery_spike_pct": -11.2,
+      "avg_delivery_pct": 46.5,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 100,
+      "advances": 4,
+      "declines": 96,
+      "leaders": [
+        "GICRE",
+        "ANANDRATHI"
+      ]
+    },
+    {
+      "sector": "Automobile and Auto Components",
+      "display_name": "Auto & Mobility",
+      "avg_change_pct": -2.13,
+      "flow_score": -2.57,
+      "delivery_turnover_cr": 2520.2,
+      "delivery_spike_pct": 20.9,
+      "avg_delivery_pct": 50.1,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 38,
+      "advances": 4,
+      "declines": 34,
+      "leaders": [
+        "GABRIEL",
+        "MARUTI"
+      ]
+    },
+    {
+      "sector": "Chemicals",
+      "display_name": "Chemicals",
+      "avg_change_pct": -2.87,
+      "flow_score": -2.86,
+      "delivery_turnover_cr": 540.5,
+      "delivery_spike_pct": -0.3,
+      "avg_delivery_pct": 44.5,
+      "bias": "MILD_OUTFLOW",
+      "bias_display": "Selective Outflow",
+      "stocks_count": 26,
+      "advances": 1,
+      "declines": 25,
+      "leaders": [
+        "PIDILITIND",
+        "ANURAS"
+      ]
+    },
+    {
+      "sector": "Construction",
+      "display_name": "Construction",
+      "avg_change_pct": -2.79,
+      "flow_score": -3.29,
+      "delivery_turnover_cr": 631.6,
+      "delivery_spike_pct": 18.1,
+      "avg_delivery_pct": 43.0,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 13,
+      "advances": 2,
+      "declines": 11,
+      "leaders": [
+        "CEMPRO",
+        "LT"
+      ]
+    },
+    {
+      "sector": "Consumer Services",
+      "display_name": "Consumer Services",
+      "avg_change_pct": -2.26,
+      "flow_score": -3.48,
+      "delivery_turnover_cr": 2789.6,
+      "delivery_spike_pct": 54.0,
+      "avg_delivery_pct": 46.4,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 29,
+      "advances": 1,
+      "declines": 28,
+      "leaders": [
+        "ETERNAL",
+        "TRAVELFOOD"
       ]
     },
     {
       "sector": "Consumer Durables",
       "display_name": "Consumer Durables",
-      "avg_change_pct": -6.61,
-      "flow_score": -5.3,
-      "delivery_turnover_cr": 536.8,
-      "delivery_spike_pct": -19.9,
-      "avg_delivery_pct": 40.5,
-      "bias": "MILD_OUTFLOW",
-      "bias_display": "Selective Outflow",
+      "avg_change_pct": -2.65,
+      "flow_score": -3.53,
+      "delivery_turnover_cr": 882.6,
+      "delivery_spike_pct": 33.4,
+      "avg_delivery_pct": 44.7,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
       "stocks_count": 16,
-      "advances": 4,
-      "declines": 12,
+      "advances": 1,
+      "declines": 15,
       "leaders": [
-        "BATAINDIA",
-        "BLUESTARCO"
+        "ASIANPAINT",
+        "BATAINDIA"
+      ]
+    },
+    {
+      "sector": "Diversified",
+      "display_name": "Diversified",
+      "avg_change_pct": -2.87,
+      "flow_score": -3.72,
+      "delivery_turnover_cr": 14.9,
+      "delivery_spike_pct": 29.5,
+      "avg_delivery_pct": 46.0,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 3,
+      "advances": 0,
+      "declines": 3,
+      "leaders": [
+        "DCMSHRIRAM",
+        "GODREJIND"
+      ]
+    },
+    {
+      "sector": "Capital Goods",
+      "display_name": "Capital Goods",
+      "avg_change_pct": -2.98,
+      "flow_score": -3.82,
+      "delivery_turnover_cr": 4008.6,
+      "delivery_spike_pct": 28.4,
+      "avg_delivery_pct": 42.6,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 63,
+      "advances": 1,
+      "declines": 62,
+      "leaders": [
+        "HONAUT",
+        "ESCORTS"
+      ]
+    },
+    {
+      "sector": "Metals & Mining",
+      "display_name": "Metals & Mining",
+      "avg_change_pct": -2.67,
+      "flow_score": -3.85,
+      "delivery_turnover_cr": 1669.8,
+      "delivery_spike_pct": 44.3,
+      "avg_delivery_pct": 43.4,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 18,
+      "advances": 0,
+      "declines": 18,
+      "leaders": [
+        "JAINREC",
+        "LLOYDSME"
+      ]
+    },
+    {
+      "sector": "Power",
+      "display_name": "Power & Energy",
+      "avg_change_pct": -3.37,
+      "flow_score": -4.69,
+      "delivery_turnover_cr": 1167.9,
+      "delivery_spike_pct": 39.2,
+      "avg_delivery_pct": 45.5,
+      "bias": "DISTRIBUTION",
+      "bias_display": "Whale Distribution",
+      "stocks_count": 17,
+      "advances": 0,
+      "declines": 17,
+      "leaders": [
+        "POWERGRID",
+        "NTPC"
       ]
     }
   ]
