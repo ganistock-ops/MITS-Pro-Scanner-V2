@@ -2,9 +2,56 @@
   "setup_id": "tab1_bottom_reversal",
   "title": "\u26a1 Setup 1: Bottom Reversal Pro",
   "subtitle": "Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.",
-  "last_updated": "2026-10-28T10:26:52.261656+05:30",
-  "last_session_date": "2026-10-27",
-  "session_date_display": "27-Oct-2026",
-  "qualifying_count": 0,
-  "signals": []
+  "last_updated": "2026-10-28T18:35:11.405383+05:30",
+  "last_session_date": "2026-10-28",
+  "session_date_display": "28-Oct-2026",
+  "qualifying_count": 1,
+  "signals": [
+    {
+      "symbol": "MARUTI",
+      "name": "Maruti Suzuki India Ltd.",
+      "sector": "Automobile and Auto Components",
+      "cmp": 11579.0,
+      "change_pct": 1.13,
+      "score": 79,
+      "grade": "B",
+      "score_display": "79 (B)",
+      "institutional_score": 79,
+      "rvol": 1.96,
+      "setup_tags": [
+        "Established Decline",
+        "Deceleration",
+        "Accumulation Base",
+        "Demand Absorption",
+        "Liquidity Sweep",
+        "Prominent Lower Wick",
+        "MSS Coiling",
+        "Volume Absorption",
+        "R:R 2.0:1"
+      ],
+      "status": "MSS COILING",
+      "timestamp": "2026-10-28",
+      "score_breakdown": {
+        "exhaustion": 12.0,
+        "base": 15.0,
+        "sweep": 20.0,
+        "structure": 12.0,
+        "volume": 15.0,
+        "regime_and_rr": 5.0
+      },
+      "delivery_pct": 45.0,
+      "delivery_qty": 422358.0,
+      "avg_deliv_10d": 50.3,
+      "avg_deliv_vol_10d": 239356.0,
+      "delivery_spike_pct": -10.5,
+      "whale_absorption_flag": false,
+      "smart_money_status": "Active Accumulation",
+      "s1": 10985.0,
+      "s2": 10820.23,
+      "s3": 10279.22,
+      "r1": 12065.0,
+      "r2": 14296.42,
+      "r3": 17197.29
+    }
+  ]
 }
