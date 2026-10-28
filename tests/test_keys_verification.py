@@ -49,8 +49,7 @@ assert isinstance(t6.get("signals"), list), "Expected signals list in tab6_dbr.j
 
 required_keys = [
     "symbol", "name", "sector", "cmp", "change_pct", "score", "grade",
-    "score_display", "institutional_score", "invalidation", "entry_zone",
-    "target_1", "target_2", "target_zone", "risk_reward_ratio", "rvol",
+    "score_display", "institutional_score", "s1", "s2", "s3", "r1", "r2", "r3", "rvol",
     "setup_tags", "status",
     "delivery_pct", "avg_deliv_10d", "delivery_spike_pct", "whale_absorption_flag", "smart_money_status"
 ]
@@ -81,7 +80,7 @@ for sig in t1["signals"]:
     sym = sig.get("symbol")
     for k in required_keys:
         assert k in sig, f"Missing key {k} in t1 signal {sym}"
-    print(f"  [Tab 1] {sym}: CMP=Rs.{sig['cmp']}, Score={sig['score_display']}, SL={sig['invalidation']}, Entry={sig['entry_zone']}, T1={sig['target_1']}, T2={sig['target_2']}")
+    print(f"  [Tab 1] {sym}: CMP=Rs.{sig['cmp']}, Score={sig['score_display']}, S1={sig['s1']}, S2={sig['s2']}, S3={sig['s3']}, R1={sig['r1']}, R2={sig['r2']}, R3={sig['r3']}")
 
 print("\n--- Validating Tab 2 Signals ---")
 for sig in t2["signals"]:
@@ -90,7 +89,7 @@ for sig in t2["signals"]:
         assert k in sig, f"Missing common key {k} in t2 signal {sym}"
     for k in tab2_specific_keys:
         assert k in sig, f"Missing Tab 2 specific key {k} in t2 signal {sym}"
-    print(f"  [Tab 2] {sym}: CMP=Rs.{sig['cmp']}, Score={sig['score_display']}, 1Y RS=+{sig['rs_1y']}%, SL={sig['invalidation']}, Entry={sig['entry_zone']}, T1={sig['target_1']}, T2={sig['target_2']}")
+    print(f"  [Tab 2] {sym}: CMP=Rs.{sig['cmp']}, Score={sig['score_display']}, 1Y RS=+{sig['rs_1y']}%, S1={sig['s1']}, S2={sig['s2']}, S3={sig['s3']}, R1={sig['r1']}, R2={sig['r2']}, R3={sig['r3']}")
 
 print("\n--- Validating Tab 3 Signals (High Tight Flag) ---")
 for sig in t3["signals"]:
@@ -100,7 +99,7 @@ for sig in t3["signals"]:
     for k in tab3_specific_keys:
         assert k in sig, f"Missing Tab 3 specific key {k} in t3 signal {sym}"
     assert sig["stage"] in ("IN_FLAG", "BREAKOUT"), f"Invalid stage {sig['stage']} in t3 signal {sym}"
-    print(f"  [Tab 3 HTF] {sym}: Stage={sig['stage']}, Status={sig['status']}, CMP=Rs.{sig['cmp']:.2f}, Score={sig['score_display']}, Pole=+{sig['pole_gain_pct']}%, Flag={sig['flag_days']}D (-{sig['correction_pct']}%), SL={sig['invalidation']}, Entry={sig['entry_zone']}, T1={sig['target_1']}, T2={sig['target_2']}")
+    print(f"  [Tab 3 HTF] {sym}: Stage={sig['stage']}, Status={sig['status']}, CMP=Rs.{sig['cmp']:.2f}, Score={sig['score_display']}, Pole=+{sig['pole_gain_pct']}%, Flag={sig['flag_days']}D (-{sig['correction_pct']}%), S1={sig['s1']}, S2={sig['s2']}, S3={sig['s3']}, R1={sig['r1']}, R2={sig['r2']}, R3={sig['r3']}")
 
 print("\n--- Validating Tab 4 Signals (Weekly Swing Watchlist) ---")
 for sig in t4["signals"]:
@@ -109,7 +108,7 @@ for sig in t4["signals"]:
         assert k in sig, f"Missing common key {k} in t4 signal {sym}"
     for k in tab4_specific_keys:
         assert k in sig, f"Missing Tab 4 specific key {k} in t4 signal {sym}"
-    print(f"  [Tab 4 Swing] {sym}: CMP=Rs.{sig['cmp']:.2f}, Score={sig['score_display']}, 1W Ret=+{sig['ret_1w']}%, 1W RS=+{sig['rs_1w']}%, 1M RS=+{sig['rs_1m']}%, Base={sig['nearest_support_base']}, SL={sig['invalidation']}, Entry={sig['entry_zone']}, T1={sig['target_1']}, T2={sig['target_2']}")
+    print(f"  [Tab 4 Swing] {sym}: CMP=Rs.{sig['cmp']:.2f}, Score={sig['score_display']}, 1W Ret=+{sig['ret_1w']}%, 1W RS=+{sig['rs_1w']}%, 1M RS=+{sig['rs_1m']}%, Base={sig['nearest_support_base']}, S1={sig['s1']}, S2={sig['s2']}, S3={sig['s3']}, R1={sig['r1']}, R2={sig['r2']}, R3={sig['r3']}")
 
 print("\n--- Validating Tab 5 Signals (Stage-2 Pullback) ---")
 for sig in t5["signals"]:
@@ -123,7 +122,7 @@ for sig in t5["signals"]:
 print(f"  Validated all {len(t5['signals'])} Tab 5 signals successfully!")
 top_t5 = t5["signals"][:5]
 for s in top_t5:
-    print(f"  [Tab 5 Pullback] {s['symbol']}: Status={s['status']}, CMP=Rs.{s['cmp']:.2f}, Score={s['score_display']}, Support={s['support_level']} (Rs.{s['support_ema']:.2f}), SL={s['invalidation']}, Entry={s['entry_zone']}, T1={s['target_1']}, T2={s['target_2']}")
+    print(f"  [Tab 5 Pullback] {s['symbol']}: Status={s['status']}, CMP=Rs.{s['cmp']:.2f}, Score={s['score_display']}, Support={s['support_level']} (Rs.{s['support_ema']:.2f}), S1={s['s1']}, S2={s['s2']}, S3={s['s3']}, R1={s['r1']}, R2={s['r2']}, R3={s['r3']}")
 
 print("\n--- Validating Tab 6 Signals (DBR Demand Zone) ---")
 for sig in t6["signals"]:
@@ -137,7 +136,7 @@ for sig in t6["signals"]:
 print(f"  Validated all {len(t6['signals'])} Tab 6 signals successfully!")
 top_t6 = t6["signals"][:5]
 for s in top_t6:
-    print(f"  [Tab 6 DBR] {s['symbol']}: Stage={s['stage']}, CMP=Rs.{s['cmp']:.2f}, Score={s['score_display']}, Proximal=Rs.{s['p_prox']:.2f}, Distal=Rs.{s['p_dist']:.2f}, Base={s['base_bars']}D, SL={s['invalidation']}, Entry={s['entry_zone']}, T1={s['target_1']}, T2={s['target_2']}")
+    print(f"  [Tab 6 DBR] {s['symbol']}: Stage={s['stage']}, CMP=Rs.{s['cmp']:.2f}, Score={s['score_display']}, Proximal=Rs.{s['p_prox']:.2f}, Distal=Rs.{s['p_dist']:.2f}, Base={s['base_bars']}D, S1={s['s1']}, S2={s['s2']}, S3={s['s3']}, R1={s['r1']}, R2={s['r2']}, R3={s['r3']}")
 
 setup_1_sr = sr["setups"]["setup_1"]
 setup_2_sr = sr["setups"]["setup_2"]
@@ -183,8 +182,8 @@ for s in t6["signals"]:
         <td>{s['rvol']}x</td>
         <td>{score_disp}</td>
         <td>{s['status']}</td>
-        <td>Rs.{s['invalidation']}</td>
-        <td>Entry: {s['entry_zone']} | T1: Rs.{s['target_1']} | T2: Rs.{s['target_2']}</td>
+        <td>S1: Rs.{s['s1']} | R1: Rs.{s['r1']}</td>
+        <td>S2: Rs.{s['s2']} | R2: Rs.{s['r2']}</td>
         <td>{tags_html}</td>
     </tr>"""
     rows_t6.append(row)
@@ -193,7 +192,7 @@ assert len(rows_t6) == len(t6["signals"]), f"Expected {len(t6['signals'])} rows,
 
 print(f"\nGenerated {len(rows_t6)} verified HTML rows for Tab 6 table:")
 for s in t6["signals"][:5]:
-    print(f"  -> [{s['symbol']}] Sector: {s['sector']}, CMP: Rs.{s['cmp']:.2f}, Score: {s['score_display']}, Stage: {s['stage']}, Base: {s['base_bars']}D, SL: {s['invalidation']}, Targets: T1={s['target_1']}/T2={s['target_2']}")
+    print(f"  -> [{s['symbol']}] Sector: {s['sector']}, CMP: Rs.{s['cmp']:.2f}, Score: {s['score_display']}, Stage: {s['stage']}, Base: {s['base_bars']}D, S1: {s['s1']}, S2: {s['s2']}, R1: {s['r1']}, R2: {s['r2']}")
 
 print("\n--- ALL TAB 1, TAB 2, TAB 3, TAB 4, TAB 5 & TAB 6 KEY NAMES, SCHEMAS, AND RENDERING PIPELINES VERIFIED SUCCESSFULLY! ---")
 

@@ -55,6 +55,115 @@ from smart_money_radar import (
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("PipelineRunner")
 
+def compute_structural_reference_levels(df: pd.DataFrame, cmp: Optional[float] = None) -> Dict[str, float]:
+    """
+    Computes structural price reference levels derived from daily OHLC / 20 EMA:
+      - Support 1 (s1): Immediate Pullback Support / Recent Pivot Low
+      - Support 2 (s2): Base Confluence Support / 20 EMA
+      - Support 3 (s3): Major Structural Floor / Swing Low
+      - Resistance 1 (r1): Immediate Swing Resistance / Pivot High
+      - Resistance 2 (r2): Expansion Level / Secondary Supply
+      - Resistance 3 (r3): Major Structural Supply / 52W Ceiling
+    """
+    close_col = "Close" if "Close" in df.columns else "close"
+    high_col = "High" if "High" in df.columns else "high"
+    low_col = "Low" if "Low" in df.columns else "low"
+
+    if cmp is None or cmp <= 0:
+        cmp = float(df[close_col].iloc[-1])
+
+    n_bars = len(df)
+
+    # 20 EMA
+    ema_20 = float(df[close_col].ewm(span=20, adjust=False).mean().iloc[-1])
+
+    # S1: Immediate Pullback Support / Recent Pivot Low (last 5-10 bars)
+    lookback_s1 = min(n_bars, 10)
+    recent_low = float(df[low_col].iloc[-lookback_s1:].min())
+    if recent_low < cmp:
+        s1 = round(recent_low, 2)
+    else:
+        s1 = round(cmp * 0.98, 2)
+
+    # S2: Base Confluence Support / 20 EMA
+    s2 = round(ema_20, 2)
+    if s2 >= s1:
+        s2 = round(min(ema_20, s1 * 0.985), 2)
+    if s2 >= cmp:
+        s2 = round(cmp * 0.96, 2)
+
+    # S3: Major Structural Floor / Swing Low (last 50-60 bars)
+    lookback_s3 = min(n_bars, 60)
+    major_floor = float(df[low_col].iloc[-lookback_s3:].min())
+    if major_floor < s2:
+        s3 = round(major_floor, 2)
+    else:
+        s3 = round(s2 * 0.95, 2)
+
+    # R1: Immediate Swing Resistance / Pivot High (last 15-20 bars)
+    lookback_r1 = min(n_bars, 20)
+    recent_high = float(df[high_col].iloc[-lookback_r1:].max())
+    if recent_high > cmp * 1.005:
+        r1 = round(recent_high, 2)
+    else:
+        r1 = round(cmp * 1.035, 2)
+
+    # R2: Expansion Level / Secondary Supply (last 60 bars or expansion)
+    lookback_r2 = min(n_bars, 60)
+    secondary_high = float(df[high_col].iloc[-lookback_r2:].max())
+    if secondary_high > r1 * 1.01:
+        r2 = round(secondary_high, 2)
+    else:
+        r2 = round(r1 * 1.05, 2)
+
+    # R3: Major Structural Supply / 52W Ceiling (last 250 bars)
+    lookback_r3 = min(n_bars, 250)
+    high_52w = float(df[high_col].iloc[-lookback_r3:].max())
+    if high_52w > r2 * 1.01:
+        r3 = round(high_52w, 2)
+    else:
+        r3 = round(max(high_52w * 1.05, r2 * 1.06), 2)
+
+    return {
+        "s1": s1,
+        "s2": s2,
+        "s3": s3,
+        "r1": r1,
+        "r2": r2,
+        "r3": r3
+    }
+
+def enrich_signal_with_reference_levels(sig: Dict[str, Any], df: Optional[pd.DataFrame] = None) -> None:
+    """
+    Enriches signal with structural reference levels S1-S3 and R1-R3,
+    replacing the legacy execution (entry, invalidation, target) fields.
+    """
+    cmp_val = float(sig.get("cmp", 0))
+    if df is not None and not df.empty:
+        levels = compute_structural_reference_levels(df, cmp=cmp_val)
+    else:
+        s1 = float(sig.get("s1", 0)) or round(cmp_val * 0.97, 2)
+        s2 = float(sig.get("s2", 0)) or round(cmp_val * 0.94, 2)
+        s3 = float(sig.get("s3", 0)) or round(cmp_val * 0.88, 2)
+        r1 = float(sig.get("r1", 0)) or round(cmp_val * 1.04, 2)
+        r2 = float(sig.get("r2", 0)) or round(cmp_val * 1.10, 2)
+        r3 = float(sig.get("r3", 0)) or round(cmp_val * 1.18, 2)
+        levels = {"s1": s1, "s2": s2, "s3": s3, "r1": r1, "r2": r2, "r3": r3}
+
+    sig["s1"] = levels["s1"]
+    sig["s2"] = levels["s2"]
+    sig["s3"] = levels["s3"]
+    sig["r1"] = levels["r1"]
+    sig["r2"] = levels["r2"]
+    sig["r3"] = levels["r3"]
+
+    # Cleanly remove legacy execution boxes/fields
+    for legacy_key in [
+        "entry_zone", "invalidation", "structure_invalidation",
+        "target_1", "target_2", "target_zone", "risk_reward_ratio"
+    ]:
+        sig.pop(legacy_key, None)
+
 def get_ist_now() -> datetime:
     tz = pytz.timezone(TIMEZONE)
     return datetime.now(tz)
@@ -315,6 +424,7 @@ def run_pipeline():
         b_sig = bottom_engine.evaluate(item, df, nifty_above_ema20=nifty_above_ema20)
         if b_sig:
             enrich_signal_with_smart_money(b_sig, deliv_meta)
+            enrich_signal_with_reference_levels(b_sig, df)
             results_by_setup["setup_1"].append(b_sig)
 
         # Tab 2: Alpha Momentum evaluation (Multi-Timeframe RS vs NIFTY 50)
@@ -322,12 +432,14 @@ def run_pipeline():
             alpha_sig = alpha_engine.evaluate(item, df, n_df)
             if alpha_sig:
                 enrich_signal_with_smart_money(alpha_sig, deliv_meta)
+                enrich_signal_with_reference_levels(alpha_sig, df)
                 results_by_setup["setup_2"].append(alpha_sig)
 
         # Tab 3: High Tight Flag (HTF) evaluation
         htf_sig = htf_engine.evaluate(item, df)
         if htf_sig:
             enrich_signal_with_smart_money(htf_sig, deliv_meta)
+            enrich_signal_with_reference_levels(htf_sig, df)
             results_by_setup["setup_3"].append(htf_sig)
 
         # Tab 4: Weekly Swing Watchlist evaluation
@@ -335,18 +447,21 @@ def run_pipeline():
             swing_sig = weekly_swing_engine.evaluate(item, df, n_df)
             if swing_sig:
                 enrich_signal_with_smart_money(swing_sig, deliv_meta)
+                enrich_signal_with_reference_levels(swing_sig, df)
                 results_by_setup["setup_4"].append(swing_sig)
 
         # Tab 5: Stage-2 Pullback evaluation
         pb_sig = stage2_pullback_engine.evaluate(item, df)
         if pb_sig:
             enrich_signal_with_smart_money(pb_sig, deliv_meta)
+            enrich_signal_with_reference_levels(pb_sig, df)
             results_by_setup["setup_5"].append(pb_sig)
 
         # Tab 6: Drop-Base-Rally (DBR) Demand Zone evaluation
         dbr_sig = dbr_engine.evaluate(item, df)
         if dbr_sig:
             enrich_signal_with_smart_money(dbr_sig, deliv_meta)
+            enrich_signal_with_reference_levels(dbr_sig, df)
             results_by_setup["setup_6"].append(dbr_sig)
 
     duration = time.time() - t0

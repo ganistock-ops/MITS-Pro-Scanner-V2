@@ -18,13 +18,6 @@
       "score_display": "87 (A)",
       "institutional_score": 87,
       "status": "WEEKLY SWING ACCUMULATION",
-      "invalidation": 1325.1,
-      "structure_invalidation": "\u20b9 1,325.10 (Base Swing Low)",
-      "entry_zone": "\u20b91,495.85 - \u20b91,510.88",
-      "target_1": 1812.1,
-      "target_2": 2006.9,
-      "target_zone": "\u20b91,812.10 / \u20b92,006.90",
-      "risk_reward_ratio": "1:2.5",
       "rvol": 0.07,
       "setup_tags": [
         "Weekly Bullish Stack",
@@ -56,7 +49,13 @@
       "avg_deliv_vol_10d": 552586.0,
       "delivery_spike_pct": 8.7,
       "whale_absorption_flag": false,
-      "smart_money_status": "Standard Flow"
+      "smart_money_status": "Standard Flow",
+      "s1": 1325.1,
+      "s2": 1291.97,
+      "s3": 1227.37,
+      "r1": 1812.1,
+      "r2": 2006.9,
+      "r3": 2147.38
     },
     {
       "symbol": "BSE",
@@ -69,13 +68,6 @@
       "score_display": "86 (A)",
       "institutional_score": 86,
       "status": "WEEKLY SWING ACCUMULATION",
-      "invalidation": 3000.0,
-      "structure_invalidation": "\u20b9 3,000.00 (Base Swing Low)",
-      "entry_zone": "\u20b93,422.83 - \u20b93,440.20",
-      "target_1": 4100.5,
-      "target_2": 4435.12,
-      "target_zone": "\u20b94,100.50 / \u20b94,435.12",
-      "risk_reward_ratio": "1:2.5",
       "rvol": 0.03,
       "setup_tags": [
         "1W Ret +5.9%",
@@ -107,7 +99,13 @@
       "avg_deliv_vol_10d": 1132242.0,
       "delivery_spike_pct": 43.9,
       "whale_absorption_flag": true,
-      "smart_money_status": "Active Accumulation"
+      "smart_money_status": "Active Accumulation",
+      "s1": 3000.0,
+      "s2": 2925.0,
+      "s3": 2778.75,
+      "r1": 4100.5,
+      "r2": 4435.12,
+      "r3": 4745.58
     }
   ]
 }
