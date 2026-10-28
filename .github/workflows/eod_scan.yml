@@ -50,12 +50,6 @@ jobs:
             python scripts/master_universe_exporter.py
           fi
 
-      - name: Pre-generate AI Copilot Institutional Insights
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          python scripts/generate_ai_summary.py
-
       - name: Verify Feeds Integrity
         run: |
           test -f data/scanner_results.json || (echo "ERROR: Missing data/scanner_results.json" && exit 1)

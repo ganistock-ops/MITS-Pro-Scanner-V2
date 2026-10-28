@@ -4182,7 +4182,6 @@
     currentPage: 1,
     pageSize: 10,
     fundamentalsData: null,
-    aiAnalysisData: null,
     backtestData: {
       setup_1: { win_rate: 51.1, avg_peak_return: 10.7, avg_days_to_peak: 22.8, total_samples: 374, unit: 'Reversal Setups' },
       setup_2: { win_rate: 70.5, avg_peak_return: 18.6, avg_days_to_peak: 30.2, total_samples: 996, unit: 'Momentum Setups' },
@@ -4595,7 +4594,7 @@
         return fetch('https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/' + file + '?_t=' + timestamp, fetchOpts);
       };
 
-      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes, aiRes, bt1Res, bt2Res, bt3Res, bt4Res, bt5Res, bt6Res] = await Promise.allSettled([
+      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes, bt1Res, bt2Res, bt3Res, bt4Res, bt5Res, bt6Res] = await Promise.allSettled([
         fetchLive('scanner_results.json'),
         fetchLive('market_summary.json'),
         fetchLive('tab1_bottom_reversal.json'),
@@ -4605,7 +4604,6 @@
         fetchLive('tab5_stage2_pullback.json'),
         fetchLive('tab6_dbr.json'),
         fetchLive('fundamentals.json'),
-        fetchLive('ai_analysis.json'),
         fetchLive('setup1_backtest.json'),
         fetchLive('setup2_backtest.json'),
         fetchLive('setup3_backtest.json'),
@@ -4658,15 +4656,6 @@
           const bt = await bt6Res.value.json();
           if (bt) state.backtestData.setup_6 = { ...state.backtestData.setup_6, ...bt };
         } catch (e) {}
-      }
-
-      if (aiRes && aiRes.status === 'fulfilled' && aiRes.value.ok) {
-        try {
-          const aiJson = await aiRes.value.json();
-          state.aiAnalysisData = aiJson.data || {};
-        } catch (e) {
-          console.warn('AI Analysis JSON parse error:', e);
-        }
       }
 
       if (fundRes && fundRes.status === 'fulfilled' && fundRes.value.ok) {
@@ -5605,28 +5594,6 @@
       `
         )
         .join('');
-    }
-
-    // Populate MITS AI Institutional Copilot Insights
-    const aiMap = state.aiAnalysisData || {};
-    const aiInsight = aiMap[sig.symbol] || null;
-    const aiContainer = document.getElementById('dossier-ai-copilot');
-
-    if (aiContainer) {
-      if (aiInsight && (aiInsight.technical_verdict || aiInsight.fundamental_quality)) {
-        aiContainer.style.display = 'block';
-        const scoreEl = document.getElementById('dossier-ai-score');
-        const techEl = document.getElementById('dossier-ai-technical');
-        const fundEl = document.getElementById('dossier-ai-fundamental');
-        const execEl = document.getElementById('dossier-ai-execution');
-
-        if (scoreEl) scoreEl.textContent = `AI Confidence: ${aiInsight.confidence_score || 90}/100`;
-        if (techEl) techEl.textContent = aiInsight.technical_verdict || '--';
-        if (fundEl) fundEl.textContent = aiInsight.fundamental_quality || '--';
-        if (execEl) execEl.textContent = aiInsight.execution_note || '--';
-      } else {
-        aiContainer.style.display = 'none';
-      }
     }
 
     // Populate Institutional Fundamentals & Quarters
