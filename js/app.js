@@ -4194,6 +4194,7 @@
   const DOM = {
     refreshBtn: document.getElementById('refresh-btn'),
     lastUpdatedText: document.getElementById('last-updated-text'),
+    kpiNetBreadth: document.getElementById('kpi-net-breadth'),
     kpiAdvances: document.getElementById('kpi-advances'),
     kpiDeclines: document.getElementById('kpi-declines'),
     kpiRatio: document.getElementById('kpi-ratio'),
@@ -4370,6 +4371,17 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' || e.key === 'Esc') {
         closeSetupDossier();
+      }
+      // Shortcut 1-6 to switch quantitative setups
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA')) {
+        return;
+      }
+      const k = e.key;
+      if (k >= '1' && k <= '6') {
+        const tabId = 'setup_' + k;
+        if (tabId !== state.activeTab) {
+          setActiveTab(tabId);
+        }
       }
     });
   }
@@ -4824,6 +4836,13 @@
     }
 
     const breadth = summary.market_breadth || {};
+    if (DOM.kpiNetBreadth) {
+      const adv = Number(breadth.advances) || 0;
+      const dec = Number(breadth.declines) || 0;
+      const net = adv - dec;
+      DOM.kpiNetBreadth.textContent = net >= 0 ? `Net +${net}` : `Net ${net}`;
+      DOM.kpiNetBreadth.className = 'net-breadth-pill ' + (net >= 0 ? 'positive' : 'negative');
+    }
     if (DOM.kpiAdvances) DOM.kpiAdvances.textContent = breadth.advances ?? '--';
     if (DOM.kpiDeclines) DOM.kpiDeclines.textContent = breadth.declines ?? '--';
     if (DOM.kpiRatio) DOM.kpiRatio.textContent = breadth.ratio ?? '--';
@@ -5377,11 +5396,17 @@
               <span class="change-pill ${changeClass}">${changeSign}${sig.change_pct}%</span>
             </td>
             <td>
-              <span class="score-badge-grade grade-${gradeClass}">${scoreDisplay}</span>
+              <div class="score-quick-rails">
+                <span class="score-badge-grade grade-${gradeClass}">${scoreDisplay}</span>
+                <div class="quick-rails">
+                  <span class="qr-pill qr-s">S1: ₹${formatCurrency(sig.s1)}</span>
+                  <span class="qr-pill qr-r">R1: ₹${formatCurrency(sig.r1)}</span>
+                </div>
+              </div>
             </td>
             <td>
               <button type="button" class="btn-view-setup" data-symbol="${sig.symbol}">
-                View Setup ⚡
+                Inspect ⚡
               </button>
             </td>
           </tr>
@@ -5464,6 +5489,30 @@
     if (r1El) r1El.textContent = sig.r1 ? `₹${formatCurrency(sig.r1)}` : '--';
     if (r2El) r2El.textContent = sig.r2 ? `₹${formatCurrency(sig.r2)}` : '--';
     if (r3El) r3El.textContent = sig.r3 ? `₹${formatCurrency(sig.r3)}` : '--';
+
+    // Populate Vertical Price Ladder CMP and Distance Tags
+    const ladderCmpEl = document.getElementById('dossier-ladder-cmp');
+    if (ladderCmpEl) ladderCmpEl.textContent = `₹${formatCurrency(sig.cmp)}`;
+
+    const cmpVal = Number(sig.cmp) || 0;
+    function setLadderDist(distId, levelVal) {
+      const el = document.getElementById(distId);
+      if (!el) return;
+      const lvl = Number(levelVal) || 0;
+      if (!lvl || !cmpVal || cmpVal <= 0) {
+        el.textContent = '--';
+        return;
+      }
+      const pct = ((lvl - cmpVal) / cmpVal) * 100;
+      el.textContent = pct >= 0 ? `+${pct.toFixed(1)}%` : `${pct.toFixed(1)}%`;
+    }
+
+    setLadderDist('dossier-r3-dist', sig.r3);
+    setLadderDist('dossier-r2-dist', sig.r2);
+    setLadderDist('dossier-r1-dist', sig.r1);
+    setLadderDist('dossier-s1-dist', sig.s1);
+    setLadderDist('dossier-s2-dist', sig.s2);
+    setLadderDist('dossier-s3-dist', sig.s3);
 
     // Populate Institutional Smart Money Radar
     const radarDelivPctEl = document.getElementById('dossier-radar-delivery-pct');

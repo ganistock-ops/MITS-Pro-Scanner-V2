@@ -92,159 +92,161 @@
       </div>
     </header>
 
-    <!-- 2. Market Summary KPIs & Trend Matrix -->
-    <section class="kpi-matrix" aria-label="Market Summary and Institutional Breadth">
+    <!-- 2. Unified 4-Module Flex Strip (Institutional HUD) -->
+    <section class="kpi-matrix hud-strip" aria-label="Market Summary and Institutional Breadth">
       
-      <!-- Market Breadth Card -->
-      <div class="kpi-card highlight">
-        <div class="kpi-title">
-          <span>Market Breadth</span>
-          <span id="kpi-bias" style="color: var(--gold-400); font-size: 0.72rem; font-weight: 700;">STRONG ACCUMULATION</span>
+      <!-- Module 1: Market Breadth -->
+      <div class="hud-module kpi-card highlight">
+        <div class="hud-module-header kpi-title">
+          <span class="hud-module-label">Market Breadth</span>
+          <span id="kpi-net-breadth" class="net-breadth-pill positive">Net +249</span>
         </div>
-        <div class="kpi-value gold">
+        <div class="hud-breadth-val kpi-value gold">
           <span id="kpi-advances">374</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">ADV</span>
-          <span style="font-size: 1rem; color: var(--border-medium); font-weight: 300;">/</span>
-          <span id="kpi-declines" style="color: var(--text-secondary);">125</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">DEC</span>
+          <span class="hud-unit">ADV</span>
+          <span class="hud-slash">/</span>
+          <span id="kpi-declines">125</span>
+          <span class="hud-unit">DEC</span>
         </div>
         <div class="breadth-meter">
           <div id="breadth-fill" class="breadth-fill" style="width: 75%;"></div>
         </div>
-        <div class="kpi-subtitle">
-          <span>Ratio: <strong id="kpi-ratio" style="color: var(--text-primary);">2.99:1</strong></span>
-          <span style="opacity: 0.4;">•</span>
-          <span>Volume Bias Positive</span>
+        <div class="hud-module-sub kpi-subtitle">
+          <span>Ratio: <strong id="kpi-ratio">2.99:1</strong></span>
+          <span class="hud-dot">•</span>
+          <span id="kpi-bias">STRONG ACCUMULATION</span>
         </div>
       </div>
 
-      <!-- Benchmark NIFTY 50 -->
-      <div class="kpi-card">
-        <div class="kpi-title">
-          <span>NIFTY 50 Index</span>
-          <span id="kpi-nifty-change" class="change-pill negative">-0.53%</span>
+      <!-- Module 2: Benchmark Radar (Stacked Nifty 50 & Bank Nifty) -->
+      <div class="hud-module kpi-card hud-benchmarks">
+        <div class="hud-module-header kpi-title">
+          <span class="hud-module-label">Benchmark Radar</span>
+          <span class="hud-pulse-tag">Live Daily Trend</span>
         </div>
-        <div class="kpi-value" id="kpi-nifty">₹23,346.40</div>
-        <div class="kpi-subtitle" id="kpi-nifty-subtitle">
-          <span style="color: var(--gold-400);">◈ Defensive</span>
-          <span style="opacity: 0.4;">•</span>
-          <span>Below 20 EMA</span>
-        </div>
-      </div>
-
-      <!-- Benchmark BANK NIFTY -->
-      <div class="kpi-card">
-        <div class="kpi-title">
-          <span>BANK NIFTY Index</span>
-          <span id="kpi-banknifty-change" class="change-pill negative">-0.42%</span>
-        </div>
-        <div class="kpi-value" id="kpi-banknifty">₹50,125.80</div>
-        <div class="kpi-subtitle" id="kpi-banknifty-subtitle">
-          <span style="color: var(--gold-400);">◈ Defensive</span>
-          <span style="opacity: 0.4;">•</span>
-          <span>Support Consolidation</span>
-        </div>
-      </div>
-
-      <!-- High Momentum Radar -->
-      <div class="kpi-card">
-        <div class="kpi-title">
-          <span>Momentum Leaders</span>
-          <span style="color: var(--gold-400);">RVOL > 2.0x</span>
-        </div>
-        <div class="kpi-value gold" id="kpi-momentum">278</div>
-        <div class="kpi-subtitle">
-          <span>Universe: <strong>501 NIFTY 500 Stocks</strong></span>
+        <div class="hud-benchmark-stacked">
+          <!-- Nifty 50 Stack -->
+          <div class="benchmark-row">
+            <div class="benchmark-meta">
+              <span class="benchmark-name">NIFTY 50</span>
+              <span id="kpi-nifty-subtitle" class="benchmark-status"><span style="color: var(--gold-400);">◈ Defensive</span> <span style="opacity: 0.4;">•</span> <span>Below 20 EMA</span></span>
+            </div>
+            <div class="benchmark-pricing">
+              <span class="benchmark-val" id="kpi-nifty">₹23,346.40</span>
+              <span id="kpi-nifty-change" class="change-pill negative">-0.53%</span>
+            </div>
+          </div>
+          <!-- Bank Nifty Stack -->
+          <div class="benchmark-row">
+            <div class="benchmark-meta">
+              <span class="benchmark-name">BANK NIFTY</span>
+              <span id="kpi-banknifty-subtitle" class="benchmark-status"><span style="color: var(--bullish);">◈ Bullish</span> <span style="opacity: 0.4;">•</span> <span>Above 20 EMA</span></span>
+            </div>
+            <div class="benchmark-pricing">
+              <span class="benchmark-val" id="kpi-banknifty">₹50,125.80</span>
+              <span id="kpi-banknifty-change" class="change-pill positive">+0.42%</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Active Pro Alerts -->
-      <div class="kpi-card">
-        <div class="kpi-title">
-          <span>Active Pro Signals</span>
-          <span style="color: var(--gold-300);">6 Setups</span>
-        </div>
-        <div class="kpi-value" id="kpi-alerts" style="color: #ffffff;">108</div>
-        <div class="kpi-subtitle">
-          <span style="color: var(--gold-400);">Verified EOD Triggers</span>
-        </div>
-      </div>
-
-    </section>
- 
-    <!-- 2.5 Daily Sector Rotation Radar (Whale Accumulation vs Distribution) -->
-    <section id="sector-rotation-container" class="sector-rotation-bar" aria-label="Daily Sector Rotation Radar">
-      <div class="rotation-header">
-        <div class="rotation-title">
-          <span class="rotation-icon">⚡</span>
-          <span>SECTOR ROTATION RADAR</span>
+      <!-- Module 3: Institutional Sector Flow (Sector Rotation Radar) -->
+      <div id="sector-rotation-container" class="hud-module kpi-card hud-sector-rotation sector-rotation-bar" aria-label="Daily Sector Rotation Radar">
+        <div class="hud-module-header rotation-header">
+          <div class="rotation-title">
+            <span class="rotation-icon">⚡</span>
+            <span>INSTITUTIONAL SECTOR FLOW</span>
+          </div>
           <span class="rotation-date-tag" id="rotation-date-badge">30-Sep-2026</span>
         </div>
-        <div class="rotation-legend">
-          <span class="legend-item"><span class="dot-inflow"></span> Accumulation</span>
-          <span class="legend-item"><span class="dot-outflow"></span> Distribution</span>
+        <div class="rotation-pills" id="sector-rotation-pills">
+          <div class="sector-rot-pill inflow" title="Media (Selective Inflow)&#10;Avg Perf: +3.28%&#10;+106.4% Deliv&#10;Leaders: SUNTV, PVRINOX&#10;Click to filter table" onclick="window.filterBySector('Media Entertainment &amp; Publication')">
+            <span>🟢 Media</span>
+            <span class="rot-perf">+3.28%</span>
+            <span class="rot-spike">+106.4% Deliv</span>
+          </div>
+          <div class="sector-rot-pill inflow" title="Construction (Selective Inflow)&#10;Avg Perf: +2.18%&#10;+60.9% Deliv&#10;Leaders: IRCON, RITES&#10;Click to filter table" onclick="window.filterBySector('Construction')">
+            <span>🟢 Construction</span>
+            <span class="rot-perf">+2.18%</span>
+            <span class="rot-spike">+60.9% Deliv</span>
+          </div>
+          <div class="sector-rot-pill inflow" title="Textiles (Selective Inflow)&#10;Avg Perf: +0.63%&#10;+162.3% Deliv&#10;Leaders: KPRMILL, VTL&#10;Click to filter table" onclick="window.filterBySector('Textiles')">
+            <span>🟢 Textiles</span>
+            <span class="rot-perf">+0.63%</span>
+            <span class="rot-spike">+162.3% Deliv</span>
+          </div>
+          <span class="rot-vs-divider">VS</span>
+          <div class="sector-rot-pill outflow" title="Healthcare &amp; Pharma (Selective Outflow)&#10;Avg Perf: -1.97%&#10;+76.5% Deliv&#10;Leaders: LALPATHLAB, AJANTPHARM&#10;Click to filter table" onclick="window.filterBySector('Healthcare')">
+            <span>🔴 Healthcare &amp; Pharma</span>
+            <span class="rot-perf">-1.97%</span>
+            <span class="rot-spike">+76.5% Deliv</span>
+          </div>
+          <div class="sector-rot-pill outflow" title="Metals &amp; Mining (Selective Outflow)&#10;Avg Perf: -0.57%&#10;+19.4% Deliv&#10;Leaders: JAINREC, JSL&#10;Click to filter table" onclick="window.filterBySector('Metals &amp; Mining')">
+            <span>🔴 Metals &amp; Mining</span>
+            <span class="rot-perf">-0.57%</span>
+            <span class="rot-spike">+19.4% Deliv</span>
+          </div>
+          <div class="sector-rot-pill outflow" title="FMCG (Selective Outflow)&#10;Avg Perf: -0.51%&#10;+20.0% Deliv&#10;Leaders: DOMS, GODFRYPHLP&#10;Click to filter table" onclick="window.filterBySector('Fast Moving Consumer Goods')">
+            <span>🔴 FMCG</span>
+            <span class="rot-perf">-0.51%</span>
+            <span class="rot-spike">+20.0% Deliv</span>
+          </div>
         </div>
       </div>
-      <div class="rotation-pills" id="sector-rotation-pills">
-        <div class="sector-rot-pill inflow" title="Media (Selective Inflow)&#10;Avg Perf: +3.28%&#10;+106.4% Deliv&#10;Leaders: SUNTV, PVRINOX&#10;Click to filter table" onclick="window.filterBySector('Media Entertainment &amp; Publication')">
-          <span>🟢 Media</span>
-          <span class="rot-perf">+3.28%</span>
-          <span class="rot-spike">+106.4% Deliv</span>
+
+      <!-- Module 4: Velocity & Liquidity -->
+      <div class="hud-module kpi-card hud-velocity">
+        <div class="hud-module-header kpi-title">
+          <span class="hud-module-label">Velocity &amp; Liquidity</span>
+          <span class="hud-universe-tag">NIFTY 500</span>
         </div>
-        <div class="sector-rot-pill inflow" title="Construction (Selective Inflow)&#10;Avg Perf: +2.18%&#10;+60.9% Deliv&#10;Leaders: IRCON, RITES&#10;Click to filter table" onclick="window.filterBySector('Construction')">
-          <span>🟢 Construction</span>
-          <span class="rot-perf">+2.18%</span>
-          <span class="rot-spike">+60.9% Deliv</span>
-        </div>
-        <div class="sector-rot-pill inflow" title="Textiles (Selective Inflow)&#10;Avg Perf: +0.63%&#10;+162.3% Deliv&#10;Leaders: KPRMILL, VTL&#10;Click to filter table" onclick="window.filterBySector('Textiles')">
-          <span>🟢 Textiles</span>
-          <span class="rot-perf">+0.63%</span>
-          <span class="rot-spike">+162.3% Deliv</span>
-        </div>
-        <span class="rot-vs-divider">VS</span>
-        <div class="sector-rot-pill outflow" title="Healthcare &amp; Pharma (Selective Outflow)&#10;Avg Perf: -1.97%&#10;+76.5% Deliv&#10;Leaders: LALPATHLAB, AJANTPHARM&#10;Click to filter table" onclick="window.filterBySector('Healthcare')">
-          <span>🔴 Healthcare &amp; Pharma</span>
-          <span class="rot-perf">-1.97%</span>
-          <span class="rot-spike">+76.5% Deliv</span>
-        </div>
-        <div class="sector-rot-pill outflow" title="Metals &amp; Mining (Selective Outflow)&#10;Avg Perf: -0.57%&#10;+19.4% Deliv&#10;Leaders: JAINREC, JSL&#10;Click to filter table" onclick="window.filterBySector('Metals &amp; Mining')">
-          <span>🔴 Metals &amp; Mining</span>
-          <span class="rot-perf">-0.57%</span>
-          <span class="rot-spike">+19.4% Deliv</span>
-        </div>
-        <div class="sector-rot-pill outflow" title="FMCG (Selective Outflow)&#10;Avg Perf: -0.51%&#10;+20.0% Deliv&#10;Leaders: DOMS, GODFRYPHLP&#10;Click to filter table" onclick="window.filterBySector('Fast Moving Consumer Goods')">
-          <span>🔴 FMCG</span>
-          <span class="rot-perf">-0.51%</span>
-          <span class="rot-spike">+20.0% Deliv</span>
+        <div class="hud-velocity-grid">
+          <div class="velocity-box">
+            <span class="velocity-label">Active Signals</span>
+            <div class="kpi-value" id="kpi-alerts" style="color: #ffffff;">108</div>
+            <span class="velocity-sub">6 Pro Setups</span>
+          </div>
+          <div class="velocity-box">
+            <span class="velocity-label">High RVOL (&gt; 2x)</span>
+            <div class="kpi-value gold" id="kpi-momentum">278</div>
+            <span class="velocity-sub">Volume Leaders</span>
+          </div>
         </div>
       </div>
+
     </section>
 
-    <!-- 3. Navigation Tabs (6 Designated Pro Setups) -->
-    <nav class="tabs-wrapper" aria-label="Quantitative Setup Selectors">
-      <div class="tabs-nav" role="tablist">
-        <button class="tab-btn active" role="tab" data-tab="setup_1" aria-selected="true">
-          <span>⚡ Setup 1: Bottom Reversal Pro</span>
+    <!-- 3. Segmented Live Setup Dock (6 Designated Pro Setups) -->
+    <nav class="setup-dock-wrapper tabs-wrapper" aria-label="Quantitative Setup Selectors">
+      <div class="setup-dock tabs-nav" role="tablist">
+        <button class="tab-btn active" role="tab" data-tab="setup_1" aria-selected="true" title="Shortcut: Press '1'">
+          <span class="tab-key-hint">1</span>
+          <span class="tab-label">⚡ Bottom Reversal</span>
           <span class="tab-count" id="count-setup_1">2</span>
         </button>
-        <button class="tab-btn" role="tab" data-tab="setup_2" aria-selected="false">
-          <span>⚡ Setup 2: Alpha Momentum</span>
+        <button class="tab-btn" role="tab" data-tab="setup_2" aria-selected="false" title="Shortcut: Press '2'">
+          <span class="tab-key-hint">2</span>
+          <span class="tab-label">⚡ Alpha Momentum</span>
           <span class="tab-count" id="count-setup_2">9</span>
         </button>
-        <button class="tab-btn" role="tab" data-tab="setup_3" aria-selected="false">
-          <span>🚩 Setup 3: High Tight Flag (HTF)</span>
+        <button class="tab-btn" role="tab" data-tab="setup_3" aria-selected="false" title="Shortcut: Press '3'">
+          <span class="tab-key-hint">3</span>
+          <span class="tab-label">🚩 High Tight Flag</span>
           <span class="tab-count" id="count-setup_3">14</span>
         </button>
-        <button class="tab-btn" role="tab" data-tab="setup_4" aria-selected="false">
-          <span>📈 Setup 4: Weekly Swing</span>
+        <button class="tab-btn" role="tab" data-tab="setup_4" aria-selected="false" title="Shortcut: Press '4'">
+          <span class="tab-key-hint">4</span>
+          <span class="tab-label">📈 Weekly Swing</span>
           <span class="tab-count" id="count-setup_4">4</span>
         </button>
-        <button class="tab-btn" role="tab" data-tab="setup_5" aria-selected="false">
-          <span>🎯 Setup 5: Stage-2 Pullback</span>
+        <button class="tab-btn" role="tab" data-tab="setup_5" aria-selected="false" title="Shortcut: Press '5'">
+          <span class="tab-key-hint">5</span>
+          <span class="tab-label">🎯 Stage-2 Pullback</span>
           <span class="tab-count" id="count-setup_5">42</span>
         </button>
-        <button class="tab-btn" role="tab" data-tab="setup_6" aria-selected="false">
-          <span>📦 Setup 6: DBR Demand Zone</span>
+        <button class="tab-btn" role="tab" data-tab="setup_6" aria-selected="false" title="Shortcut: Press '6'">
+          <span class="tab-key-hint">6</span>
+          <span class="tab-label">📦 DBR Demand Zone</span>
           <span class="tab-count" id="count-setup_6">37</span>
         </button>
       </div>
@@ -396,74 +398,97 @@
             <div id="dossier-status" class="dossier-status-val">CONFIRMED SETUP</div>
           </div>
 
-          <!-- Key Technical Reference Levels -->
+          <!-- Key Technical Reference Levels: Vertical Price Action Ladder -->
           <div class="dossier-levels-header-row">
-            <div class="dossier-section-title">KEY TECHNICAL REFERENCE LEVELS</div>
-            <span class="dossier-levels-sub-badge">Structural Price Action Pivots</span>
+            <div class="dossier-section-title">PRICE ACTION STRUCTURAL LADDER</div>
+            <span class="dossier-levels-sub-badge">Pivots &amp; Distance from CMP</span>
           </div>
 
-          <div class="dossier-levels-container">
-            <!-- Left Column: Supports (Emerald/Teal tone) -->
-            <div class="dossier-levels-col col-supports">
-              <div class="dossier-levels-col-header">
-                <span class="levels-col-icon">🛡️</span>
-                <span class="levels-col-title">KEY SUPPORTS</span>
+          <div class="dossier-price-ladder">
+            <!-- R3 -->
+            <div class="ladder-step step-resistance">
+              <div class="ladder-meta">
+                <span class="ladder-code code-r3">R3</span>
+                <span class="ladder-desc">Major Structural Supply / 52W Ceiling</span>
               </div>
-              <div class="dossier-level-row level-support">
-                <div class="level-meta">
-                  <span class="level-code code-support">S1</span>
-                  <span class="level-desc">Immediate Support</span>
-                </div>
-                <div class="level-val val-support" id="dossier-s1">₹0.00</div>
-              </div>
-              <div class="dossier-level-row level-support">
-                <div class="level-meta">
-                  <span class="level-code code-support">S2</span>
-                  <span class="level-desc">Dynamic Base 20 EMA</span>
-                </div>
-                <div class="level-val val-support" id="dossier-s2">₹0.00</div>
-              </div>
-              <div class="dossier-level-row level-support">
-                <div class="level-meta">
-                  <span class="level-code code-support">S3</span>
-                  <span class="level-desc">Major Structural Floor</span>
-                </div>
-                <div class="level-val val-support" id="dossier-s3">₹0.00</div>
+              <div class="ladder-right">
+                <span class="ladder-val val-resistance" id="dossier-r3">₹0.00</span>
+                <span class="ladder-dist-badge dist-r" id="dossier-r3-dist">+0.0%</span>
               </div>
             </div>
 
-            <!-- Right Column: Resistances (Rose/Amber tone) -->
-            <div class="dossier-levels-col col-resistances">
-              <div class="dossier-levels-col-header">
-                <span class="levels-col-icon">🎯</span>
-                <span class="levels-col-title">KEY RESISTANCES</span>
+            <!-- R2 -->
+            <div class="ladder-step step-resistance">
+              <div class="ladder-meta">
+                <span class="ladder-code code-r2">R2</span>
+                <span class="ladder-desc">Expansion Level / Secondary Supply</span>
               </div>
-              <div class="dossier-level-row level-resistance">
-                <div class="level-meta">
-                  <span class="level-code code-resistance">R1</span>
-                  <span class="level-desc">Immediate Resistance</span>
-                </div>
-                <div class="level-val val-resistance" id="dossier-r1">₹0.00</div>
+              <div class="ladder-right">
+                <span class="ladder-val val-resistance" id="dossier-r2">₹0.00</span>
+                <span class="ladder-dist-badge dist-r" id="dossier-r2-dist">+0.0%</span>
               </div>
-              <div class="dossier-level-row level-resistance">
-                <div class="level-meta">
-                  <span class="level-code code-resistance">R2</span>
-                  <span class="level-desc">Structural Supply</span>
-                </div>
-                <div class="level-val val-resistance" id="dossier-r2">₹0.00</div>
+            </div>
+
+            <!-- R1 -->
+            <div class="ladder-step step-resistance">
+              <div class="ladder-meta">
+                <span class="ladder-code code-r1">R1</span>
+                <span class="ladder-desc">Immediate Swing Resistance</span>
               </div>
-              <div class="dossier-level-row level-resistance">
-                <div class="level-meta">
-                  <span class="level-code code-resistance">R3</span>
-                  <span class="level-desc">Major Overhead Supply</span>
-                </div>
-                <div class="level-val val-resistance" id="dossier-r3">₹0.00</div>
+              <div class="ladder-right">
+                <span class="ladder-val val-resistance" id="dossier-r1">₹0.00</span>
+                <span class="ladder-dist-badge dist-r" id="dossier-r1-dist">+0.0%</span>
+              </div>
+            </div>
+
+            <!-- CMP Anchor -->
+            <div class="ladder-cmp-anchor">
+              <div class="ladder-cmp-meta">
+                <span class="ladder-cmp-pulse">●</span>
+                <span class="ladder-cmp-title">CURRENT MARKET PRICE (CMP)</span>
+              </div>
+              <div class="ladder-cmp-val" id="dossier-ladder-cmp">₹0.00</div>
+            </div>
+
+            <!-- S1 -->
+            <div class="ladder-step step-support">
+              <div class="ladder-meta">
+                <span class="ladder-code code-s1">S1</span>
+                <span class="ladder-desc">Immediate Pullback Support</span>
+              </div>
+              <div class="ladder-right">
+                <span class="ladder-val val-support" id="dossier-s1">₹0.00</span>
+                <span class="ladder-dist-badge dist-s" id="dossier-s1-dist">-0.0%</span>
+              </div>
+            </div>
+
+            <!-- S2 -->
+            <div class="ladder-step step-support">
+              <div class="ladder-meta">
+                <span class="ladder-code code-s2">S2</span>
+                <span class="ladder-desc">Dynamic Base 20 EMA</span>
+              </div>
+              <div class="ladder-right">
+                <span class="ladder-val val-support" id="dossier-s2">₹0.00</span>
+                <span class="ladder-dist-badge dist-s" id="dossier-s2-dist">-0.0%</span>
+              </div>
+            </div>
+
+            <!-- S3 -->
+            <div class="ladder-step step-support">
+              <div class="ladder-meta">
+                <span class="ladder-code code-s3">S3</span>
+                <span class="ladder-desc">Major Structural Floor</span>
+              </div>
+              <div class="ladder-right">
+                <span class="ladder-val val-support" id="dossier-s3">₹0.00</span>
+                <span class="ladder-dist-badge dist-s" id="dossier-s3-dist">-0.0%</span>
               </div>
             </div>
           </div>
 
           <div class="dossier-levels-footnote">
-            Levels are purely mathematical reference points derived from daily chart price action. Not investment advice or buy/sell recommendations.
+            Structural reference levels derived dynamically from daily chart price action &amp; EMA bases. Not financial advice.
           </div>
 
           <!-- Institutional Smart Money & Delivery Footprint Radar -->

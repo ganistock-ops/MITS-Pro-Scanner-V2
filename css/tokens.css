@@ -4,6 +4,11 @@
    ========================================================================== */
 
 :root {
+  /* Obsidian Dark Institutional Palette */
+  --bg-base: #0b0e14;
+  --bg-card-obsidian: #121824;
+  --border-card-obsidian: #1e2638;
+
   /* Color Palette - Obsidian & Midnight Bases */
   --bg-main: #06090e;
   --bg-surface-1: #0b1019;

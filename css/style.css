@@ -2270,3 +2270,425 @@ body.resizing-active {
   }
 }
 
+
+
+/* ==========================================================================
+   INSTITUTIONAL UI/UX TERMINAL v2.0 - HUD STRIP & PRICE LADDER STYLES
+   ========================================================================== */
+
+/* 4-Module Flex Strip Layout */
+.hud-strip {
+  display: grid;
+  grid-template-columns: 1.15fr 1.25fr 1.4fr 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.hud-module {
+  position: relative;
+  overflow: hidden;
+}
+
+.hud-module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.hud-module-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.net-breadth-pill {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.3px;
+}
+
+.net-breadth-pill.positive {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.net-breadth-pill.negative {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+}
+
+.hud-unit {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.hud-slash {
+  font-size: 1rem;
+  color: var(--border-medium);
+  font-weight: 300;
+  margin: 0 4px;
+}
+
+.hud-dot {
+  opacity: 0.4;
+  margin: 0 2px;
+}
+
+.hud-pulse-tag, .hud-universe-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* Benchmark Radar Stacked Layout (Module 2) */
+.hud-benchmark-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 4px;
+}
+
+.benchmark-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0.65rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.benchmark-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.benchmark-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.benchmark-status {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.benchmark-pricing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.benchmark-val {
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+/* Institutional Sector Flow embedded in HUD (Module 3) */
+.hud-sector-rotation {
+  padding: 0.9rem 1.15rem;
+}
+
+.hud-sector-rotation .rotation-header {
+  margin-bottom: 0.4rem;
+}
+
+.hud-sector-rotation .rotation-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.hud-sector-rotation .sector-rot-pill {
+  padding: 3px 8px;
+  font-size: 0.72rem;
+}
+
+/* Velocity & Liquidity Layout (Module 4) */
+.hud-velocity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  margin-top: 4px;
+}
+
+.velocity-box {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 0.45rem 0.65rem;
+}
+
+.velocity-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.velocity-sub {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Segmented Live Setup Dock */
+.setup-dock-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.setup-dock {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-bottom: 1px solid var(--border-medium);
+  padding-bottom: 0.75rem;
+  min-width: max-content;
+}
+
+.tab-key-hint {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.tab-btn.active .tab-key-hint {
+  color: #070a11;
+  background: #fbbf24;
+  border-color: #fbbf24;
+}
+
+/* 2-Tier Table Rows & Micro-Cues */
+.score-quick-rails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quick-rails {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+}
+
+.qr-pill {
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.qr-s {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.qr-r {
+  background: rgba(244, 63, 94, 0.12);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.25);
+}
+
+/* Vertical Price Action Ladder in Slide-Over Drawer */
+.dossier-price-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+}
+
+.ladder-step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0.55rem;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  transition: background 0.15s ease;
+}
+
+.ladder-step:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.step-resistance {
+  border-color: rgba(244, 63, 94, 0.15);
+}
+
+.step-support {
+  border-color: rgba(16, 185, 129, 0.15);
+}
+
+.ladder-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ladder-code {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
+.code-r3, .code-r2, .code-r1 {
+  background: rgba(244, 63, 94, 0.18);
+  color: #fda4af;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+}
+
+.code-s1, .code-s2, .code-s3 {
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.ladder-desc {
+  font-size: 0.74rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.ladder-right {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.ladder-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.ladder-dist-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  min-width: 52px;
+  text-align: right;
+}
+
+.dist-r {
+  color: #fb7185;
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+}
+
+.dist-s {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.ladder-cmp-anchor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.75rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(251, 191, 36, 0.1) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 6px;
+  margin: 0.2rem 0;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.15);
+}
+
+.ladder-cmp-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ladder-cmp-pulse {
+  color: #fbbf24;
+  font-size: 0.75rem;
+}
+
+.ladder-cmp-title {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #fbbf24;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.ladder-cmp-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Mobile Responsiveness for HUD and Setup Dock */
+@media (max-width: 768px) {
+  .hud-strip, .kpi-matrix {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+  .setup-dock.tabs-nav {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    min-width: auto !important;
+    border-bottom: none !important;
+  }
+  .tab-btn {
+    justify-content: space-between !important;
+    padding: 0.55rem 0.75rem !important;
+    font-size: 0.78rem !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .hud-strip, .kpi-matrix {
+    grid-template-columns: 1fr !important;
+  }
+  .setup-dock.tabs-nav {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -63,7 +63,7 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       <div class="wp-kpi-box highlight">
         <div class="wp-kpi-label">
           <span>Market Breadth</span>
-          <span id="wp-kpi-bias" style="color: #fbbf24; font-weight: 700;">DEFENSIVE</span>
+          <span id="wp-kpi-net-breadth" class="wp-net-breadth-pill positive" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.35);">Net +249</span>
         </div>
         <div class="wp-kpi-value wp-gold">
           <span id="wp-kpi-adv">186</span> <small style="color: #64748b; font-size: 0.8rem;">ADV</small> /
@@ -148,28 +148,34 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     <!-- 6 Pro Navigation Tabs -->
     <div class="wp-tabs-scroll">
       <div class="wp-tabs-bar" role="tablist">
-        <button class="wp-tab-item active" data-tab="setup_1" type="button">
-          <span>⚡ Setup 1: Bottom Reversal Pro</span>
+        <button class="wp-tab-item active" data-tab="setup_1" type="button" title="Shortcut: Press '1'">
+          <span class="wp-key-hint" style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px; margin-right: 4px;">1</span>
+          <span>⚡ Bottom Reversal</span>
           <span class="wp-tab-badge" id="wp-count-setup_1">2</span>
         </button>
-        <button class="wp-tab-item" data-tab="setup_2" type="button">
-          <span>⚡ Setup 2: Alpha Momentum</span>
+        <button class="wp-tab-item" data-tab="setup_2" type="button" title="Shortcut: Press '2'">
+          <span class="wp-key-hint" style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px; margin-right: 4px;">2</span>
+          <span>⚡ Alpha Momentum</span>
           <span class="wp-tab-badge" id="wp-count-setup_2">9</span>
         </button>
-        <button class="wp-tab-item" data-tab="setup_3" type="button">
-          <span>🚩 Setup 3: High Tight Flag (HTF)</span>
+        <button class="wp-tab-item" data-tab="setup_3" type="button" title="Shortcut: Press '3'">
+          <span class="wp-key-hint" style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px; margin-right: 4px;">3</span>
+          <span>🚩 High Tight Flag</span>
           <span class="wp-tab-badge" id="wp-count-setup_3">14</span>
         </button>
-        <button class="wp-tab-item" data-tab="setup_4" type="button">
-          <span>📈 Setup 4: Weekly Swing</span>
+        <button class="wp-tab-item" data-tab="setup_4" type="button" title="Shortcut: Press '4'">
+          <span class="wp-key-hint" style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px; margin-right: 4px;">4</span>
+          <span>📈 Weekly Swing</span>
           <span class="wp-tab-badge" id="wp-count-setup_4">4</span>
         </button>
-        <button class="wp-tab-item" data-tab="setup_5" type="button">
-          <span>🎯 Setup 5: Stage-2 Pullback</span>
+        <button class="wp-tab-item" data-tab="setup_5" type="button" title="Shortcut: Press '5'">
+          <span class="wp-key-hint" style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px; margin-right: 4px;">5</span>
+          <span>🎯 Stage-2 Pullback</span>
           <span class="wp-tab-badge" id="wp-count-setup_5">42</span>
         </button>
-        <button class="wp-tab-item" data-tab="setup_6" type="button">
-          <span>📦 Setup 6: DBR Demand Zone</span>
+        <button class="wp-tab-item" data-tab="setup_6" type="button" title="Shortcut: Press '6'">
+          <span class="wp-key-hint" style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px; margin-right: 4px;">6</span>
+          <span>📦 DBR Demand Zone</span>
           <span class="wp-tab-badge" id="wp-count-setup_6">37</span>
         </button>
       </div>
@@ -410,68 +416,91 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             <div id="wp-dossier-status" class="wp-dossier-status-val">READY TO BREAKOUT</div>
           </div>
 
-          <!-- Key Technical Reference Levels in WP Embed -->
+          <!-- Key Technical Reference Levels: Vertical Price Action Ladder in WP Embed -->
           <div class="wp-dossier-levels-header-row">
-            <div class="wp-dossier-section-title">KEY TECHNICAL REFERENCE LEVELS</div>
-            <span class="wp-dossier-levels-sub-badge">Structural Price Action Pivots</span>
+            <div class="wp-dossier-section-title">PRICE ACTION STRUCTURAL LADDER</div>
+            <span class="wp-dossier-levels-sub-badge">Pivots &amp; Distance from CMP</span>
           </div>
 
-          <div class="wp-dossier-levels-container">
-            <!-- Left Column: Supports (Emerald/Teal tone) -->
-            <div class="wp-dossier-levels-col wp-col-supports">
-              <div class="wp-dossier-levels-col-header">
-                <span class="wp-levels-col-icon">🛡️</span>
-                <span class="wp-levels-col-title">KEY SUPPORTS</span>
+          <div class="wp-dossier-price-ladder" style="display: flex; flex-direction: column; gap: 0.35rem; background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.65rem 0.75rem;">
+            <!-- R3 -->
+            <div class="wp-ladder-step" style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.55rem; border-radius: 5px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(244, 63, 94, 0.15);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(244, 63, 94, 0.18); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.35);">R3</span>
+                <span style="font-size: 0.74rem; color: #cbd5e1;">Major Structural Supply / 52W Ceiling</span>
               </div>
-              <div class="wp-dossier-level-row wp-level-support">
-                <div class="wp-level-meta">
-                  <span class="wp-level-code wp-code-support">S1</span>
-                  <span class="wp-level-desc">Immediate Support</span>
-                </div>
-                <div class="wp-level-val wp-val-support" id="wp-dossier-s1">₹0.00</div>
-              </div>
-              <div class="wp-dossier-level-row wp-level-support">
-                <div class="wp-level-meta">
-                  <span class="wp-level-code wp-code-support">S2</span>
-                  <span class="wp-level-desc">Dynamic Base 20 EMA</span>
-                </div>
-                <div class="wp-level-val wp-val-support" id="wp-dossier-s2">₹0.00</div>
-              </div>
-              <div class="wp-dossier-level-row wp-level-support">
-                <div class="wp-level-meta">
-                  <span class="wp-level-code wp-code-support">S3</span>
-                  <span class="wp-level-desc">Major Structural Floor</span>
-                </div>
-                <div class="wp-level-val wp-val-support" id="wp-dossier-s3">₹0.00</div>
+              <div style="display: flex; align-items: center; gap: 0.55rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; font-weight: 700; color: #fb7185;" id="wp-dossier-r3">₹0.00</span>
+                <span id="wp-dossier-r3-dist" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; color: #fb7185; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.25); min-width: 52px; text-align: right;">+0.0%</span>
               </div>
             </div>
 
-            <!-- Right Column: Resistances (Rose/Amber tone) -->
-            <div class="wp-dossier-levels-col wp-col-resistances">
-              <div class="wp-dossier-levels-col-header">
-                <span class="wp-levels-col-icon">🎯</span>
-                <span class="wp-levels-col-title">KEY RESISTANCES</span>
+            <!-- R2 -->
+            <div class="wp-ladder-step" style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.55rem; border-radius: 5px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(244, 63, 94, 0.15);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(244, 63, 94, 0.18); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.35);">R2</span>
+                <span style="font-size: 0.74rem; color: #cbd5e1;">Expansion Level / Secondary Supply</span>
               </div>
-              <div class="wp-dossier-level-row wp-level-resistance">
-                <div class="wp-level-meta">
-                  <span class="wp-level-code wp-code-resistance">R1</span>
-                  <span class="wp-level-desc">Immediate Resistance</span>
-                </div>
-                <div class="wp-level-val wp-val-resistance" id="wp-dossier-r1">₹0.00</div>
+              <div style="display: flex; align-items: center; gap: 0.55rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; font-weight: 700; color: #fb7185;" id="wp-dossier-r2">₹0.00</span>
+                <span id="wp-dossier-r2-dist" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; color: #fb7185; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.25); min-width: 52px; text-align: right;">+0.0%</span>
               </div>
-              <div class="wp-dossier-level-row wp-level-resistance">
-                <div class="wp-level-meta">
-                  <span class="wp-level-code wp-code-resistance">R2</span>
-                  <span class="wp-level-desc">Structural Supply</span>
-                </div>
-                <div class="wp-level-val wp-val-resistance" id="wp-dossier-r2">₹0.00</div>
+            </div>
+
+            <!-- R1 -->
+            <div class="wp-ladder-step" style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.55rem; border-radius: 5px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(244, 63, 94, 0.15);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(244, 63, 94, 0.18); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.35);">R1</span>
+                <span style="font-size: 0.74rem; color: #cbd5e1;">Immediate Swing Resistance</span>
               </div>
-              <div class="wp-dossier-level-row wp-level-resistance">
-                <div class="wp-level-meta">
-                  <span class="wp-level-code wp-code-resistance">R3</span>
-                  <span class="wp-level-desc">Major Overhead Supply</span>
-                </div>
-                <div class="wp-level-val wp-val-resistance" id="wp-dossier-r3">₹0.00</div>
+              <div style="display: flex; align-items: center; gap: 0.55rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; font-weight: 700; color: #fb7185;" id="wp-dossier-r1">₹0.00</span>
+                <span id="wp-dossier-r1-dist" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; color: #fb7185; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.25); min-width: 52px; text-align: right;">+0.0%</span>
+              </div>
+            </div>
+
+            <!-- CMP Anchor -->
+            <div class="wp-ladder-cmp-anchor" style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.75rem; background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(251, 191, 36, 0.1) 100%); border: 1px solid rgba(245, 158, 11, 0.45); border-radius: 6px; margin: 0.2rem 0; box-shadow: 0 0 14px rgba(245, 158, 11, 0.15);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="color: #fbbf24; font-size: 0.75rem;">●</span>
+                <span style="font-size: 0.76rem; font-weight: 800; color: #fbbf24; letter-spacing: 0.6px; text-transform: uppercase;">CURRENT MARKET PRICE (CMP)</span>
+              </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 800; color: #ffffff;" id="wp-dossier-ladder-cmp">₹0.00</div>
+            </div>
+
+            <!-- S1 -->
+            <div class="wp-ladder-step" style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.55rem; border-radius: 5px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(16, 185, 129, 0.15);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35);">S1</span>
+                <span style="font-size: 0.74rem; color: #cbd5e1;">Immediate Pullback Support</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.55rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; font-weight: 700; color: #10b981;" id="wp-dossier-s1">₹0.00</span>
+                <span id="wp-dossier-s1-dist" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; color: #34d399; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); min-width: 52px; text-align: right;">-0.0%</span>
+              </div>
+            </div>
+
+            <!-- S2 -->
+            <div class="wp-ladder-step" style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.55rem; border-radius: 5px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(16, 185, 129, 0.15);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35);">S2</span>
+                <span style="font-size: 0.74rem; color: #cbd5e1;">Dynamic Base 20 EMA</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.55rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; font-weight: 700; color: #10b981;" id="wp-dossier-s2">₹0.00</span>
+                <span id="wp-dossier-s2-dist" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; color: #34d399; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); min-width: 52px; text-align: right;">-0.0%</span>
+              </div>
+            </div>
+
+            <!-- S3 -->
+            <div class="wp-ladder-step" style="display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.55rem; border-radius: 5px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(16, 185, 129, 0.15);">
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35);">S3</span>
+                <span style="font-size: 0.74rem; color: #cbd5e1;">Major Structural Floor</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.55rem;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; font-weight: 700; color: #10b981;" id="wp-dossier-s3">₹0.00</span>
+                <span id="wp-dossier-s3-dist" style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; color: #34d399; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); min-width: 52px; text-align: right;">-0.0%</span>
               </div>
             </div>
           </div>
@@ -479,67 +508,6 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
           <div class="wp-dossier-levels-footnote">
             Levels are purely mathematical reference points derived from daily chart price action. Not investment advice or buy/sell recommendations.
           </div>
-
-          <!-- Setup 5: Verified 3-Month Forward Performance Modal Badge -->
-          <div id="wp-modal-setup5-perf" class="wp-setup5-perf-modal-card" style="display: none;">
-            <div class="wp-perf-modal-header">
-              <span class="wp-perf-icon">📊</span>
-              <span class="wp-perf-modal-title">3-MONTH FORWARD PERFORMANCE (SETUP 5 VERIFIED)</span>
-            </div>
-            <div class="wp-perf-modal-grid">
-              <div class="wp-perf-modal-item">
-                <span class="wp-perf-modal-label">Win Rate</span>
-                <span class="wp-perf-modal-val val-green" id="wp-perf-modal-win">63.1%</span>
-                <span class="wp-perf-modal-sub">Target 1 / ≥+8%</span>
-              </div>
-              <div class="wp-perf-modal-item">
-                <span class="wp-perf-modal-label">Avg 3M Peak Gain</span>
-                <span class="wp-perf-modal-val val-cyan" id="wp-perf-modal-gain">+14.5%</span>
-                <span class="wp-perf-modal-sub">Forward window peak</span>
-              </div>
-              <div class="wp-perf-modal-item">
-                <span class="wp-perf-modal-label">Avg Days to Peak</span>
-                <span class="wp-perf-modal-val val-amber" id="wp-perf-modal-days">23.8 Days</span>
-                <span class="wp-perf-modal-sub">Days to peak high</span>
-              </div>
-              <div class="wp-perf-modal-item">
-                <span class="wp-perf-modal-label">Signals Tested</span>
-                <span class="wp-perf-modal-val val-purple" id="wp-perf-modal-samples">1,567 Pullbacks</span>
-                <span class="wp-perf-modal-sub">Verified Parquet cache</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Setup 2: Verified 3-Month Forward Performance Modal Badge -->
-          <div id="wp-modal-setup2-perf" class="wp-setup2-perf-modal-card" style="display: none;">
-            <div class="wp-perf-modal-header">
-              <span class="wp-perf-icon">📊</span>
-              <span class="wp-perf-modal-title wp-perf-title-cyan">3-MONTH FORWARD PERFORMANCE (SETUP 2 VERIFIED)</span>
-            </div>
-            <div class="wp-perf-modal-grid">
-              <div class="wp-perf-modal-item">
-                <span class="wp-perf-modal-label">Win Rate</span>
-                <span class="wp-perf-modal-val val-green" id="wp-perf2-modal-win">70.5%</span>
-                <span class="wp-perf-modal-sub">Target 1 / ≥+8%</span>
-              </div>
-              <div class="wp-perf-modal-item">
-                <span class="wp-perf-modal-label">Avg 3M Peak Gain</span>
-                <span class="wp-perf-modal-val val-cyan" id="wp-perf2-modal-gain">+18.6%</span>
-                <span class="wp-perf-modal-sub">Forward window peak</span>
-              </div>
-              <div class="wp-perf-modal-item">
-                <span class="wp-perf-modal-label">Avg Days to Peak</span>
-                <span class="wp-perf-modal-val val-amber" id="wp-perf2-modal-days">30.2 Days</span>
-                <span class="wp-perf-modal-sub">Days to peak high</span>
-              </div>
-              <div class="wp-perf-modal-item">
-                <span class="wp-perf-modal-label">Signals Tested</span>
-                <span class="wp-perf-modal-val val-purple" id="wp-perf2-modal-samples">996 Momentum Setups</span>
-                <span class="wp-perf-modal-sub">Verified Parquet cache</span>
-              </div>
-            </div>
-          </div>
-
           <!-- Institutional Smart Money & Delivery Footprint Radar -->
           <div class="wp-smart-money-radar" id="wp-smart-money-radar">
             <div class="wp-radar-header">
@@ -2745,6 +2713,15 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
       if (e.key === 'Escape' || e.key === 'Esc') {
         closeWpSetupDossier();
       }
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA')) {
+        return;
+      }
+      const k = e.key;
+      if (k >= '1' && k <= '6') {
+        const tabId = 'setup_' + k;
+        const btn = document.querySelector(`#mits-pro-embed-root .wp-tab-item[data-tab="${tabId}"]`);
+        if (btn) btn.click();
+      }
     });
   }
 
@@ -3155,6 +3132,17 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     const alertEl = document.getElementById('wp-kpi-alerts');
     const barEl = document.getElementById('wp-meter-bar');
 
+    const wpNetEl = document.getElementById('wp-kpi-net-breadth');
+    if (wpNetEl) {
+      const adv = Number(b.advances) || 0;
+      const dec = Number(b.declines) || 0;
+      const net = adv - dec;
+      wpNetEl.textContent = net >= 0 ? `Net +${net}` : `Net ${net}`;
+      wpNetEl.className = 'wp-net-breadth-pill ' + (net >= 0 ? 'positive' : 'negative');
+      wpNetEl.style.color = net >= 0 ? '#10b981' : '#f43f5e';
+      wpNetEl.style.background = net >= 0 ? 'rgba(16,185,129,0.15)' : 'rgba(244,63,94,0.15)';
+      wpNetEl.style.borderColor = net >= 0 ? 'rgba(16,185,129,0.35)' : 'rgba(244,63,94,0.35)';
+    }
     if (advEl) advEl.textContent = b.advances || '--';
     if (decEl) decEl.textContent = b.declines || '--';
     if (biasEl) biasEl.textContent = b.institutional_bias || 'ACCUMULATION';
@@ -3687,13 +3675,19 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
             </span>
           </td>
           <td>
-            <span style="font-family: 'JetBrains Mono', monospace; color: #fbbf24; font-weight: 800; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); padding: 3px 8px; border-radius: 4px; font-size: 0.82rem;">
-              ${scoreDisplay}
-            </span>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-family: 'JetBrains Mono', monospace; color: #fbbf24; font-weight: 800; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); padding: 3px 8px; border-radius: 4px; font-size: 0.82rem;">
+                ${scoreDisplay}
+              </span>
+              <div style="display: flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;">
+                <span style="background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.25); padding: 1px 4px; border-radius: 3px; white-space: nowrap;">S1: ₹${Number(sig.s1 || 0).toLocaleString('en-IN', {minimumFractionDigits: 0, maximumFractionDigits: 2})}</span>
+                <span style="background: rgba(244, 63, 94, 0.12); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.25); padding: 1px 4px; border-radius: 3px; white-space: nowrap;">R1: ₹${Number(sig.r1 || 0).toLocaleString('en-IN', {minimumFractionDigits: 0, maximumFractionDigits: 2})}</span>
+              </div>
+            </div>
           </td>
           <td>
             <button type="button" class="wp-btn-view-setup" data-symbol="${sig.symbol}">
-              View Setup ⚡
+              Inspect ⚡
             </button>
           </td>
         </tr>
@@ -3903,6 +3897,30 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
     if (r1El) r1El.textContent = sig.r1 ? `₹${fmtWpLevel(sig.r1)}` : '--';
     if (r2El) r2El.textContent = sig.r2 ? `₹${fmtWpLevel(sig.r2)}` : '--';
     if (r3El) r3El.textContent = sig.r3 ? `₹${fmtWpLevel(sig.r3)}` : '--';
+
+    // Populate Vertical Price Ladder CMP & Distance Badges
+    const wpLadderCmpEl = document.getElementById('wp-dossier-ladder-cmp');
+    if (wpLadderCmpEl) wpLadderCmpEl.textContent = `₹${Number(sig.cmp).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+
+    const wpCmpNum = Number(sig.cmp) || 0;
+    function setWpLadderDist(distId, levelVal) {
+      const el = document.getElementById(distId);
+      if (!el) return;
+      const lvl = Number(levelVal) || 0;
+      if (!lvl || !wpCmpNum || wpCmpNum <= 0) {
+        el.textContent = '--';
+        return;
+      }
+      const pct = ((lvl - wpCmpNum) / wpCmpNum) * 100;
+      el.textContent = pct >= 0 ? `+${pct.toFixed(1)}%` : `${pct.toFixed(1)}%`;
+    }
+
+    setWpLadderDist('wp-dossier-r3-dist', sig.r3);
+    setWpLadderDist('wp-dossier-r2-dist', sig.r2);
+    setWpLadderDist('wp-dossier-r1-dist', sig.r1);
+    setWpLadderDist('wp-dossier-s1-dist', sig.s1);
+    setWpLadderDist('wp-dossier-s2-dist', sig.s2);
+    setWpLadderDist('wp-dossier-s3-dist', sig.s3);
 
     // Populate Institutional Smart Money Radar
     const radarDelivPctEl = document.getElementById('wp-radar-delivery-pct');
