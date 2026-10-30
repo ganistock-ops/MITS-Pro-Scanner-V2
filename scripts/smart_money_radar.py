@@ -42,8 +42,9 @@ def fetch_nse_bhavcopy_series(
       (latest_date, latest_bhav_map, delivery_analytics_map)
     """
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Referer": "https://www.nseindia.com/"
     }
     ist_now = get_ist_now()
     d = ist_now.date()
@@ -92,6 +93,11 @@ def fetch_nse_bhavcopy_series(
     # Sort descending by date (latest first)
     valid_csv_files.sort(key=lambda x: x[0], reverse=True)
     latest_date = valid_csv_files[0][0]
+    if (ist_now.date() - latest_date).days > 5:
+        logger.warning(
+            f"Note: Latest cached Bhavcopy is from {latest_date} (older than 5 days). "
+            f"Will be used for historical rolling delivery analytics only, not for live session price sync."
+        )
     logger.info(f"Loaded {len(valid_csv_files)} trading days of NSE Bhavcopy (Latest: {latest_date.strftime('%Y-%m-%d')}).")
 
     # 2. Parse CSVs and aggregate delivery metrics per EQ symbol

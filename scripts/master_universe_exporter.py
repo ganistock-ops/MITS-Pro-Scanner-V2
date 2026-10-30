@@ -537,8 +537,13 @@ def generate_master_universe_eod(
         # Default sort by turnover descending
         results.sort(key=lambda x: x["turnover_cr"], reverse=True)
 
-    trade_session_date = bhav_date.strftime("%Y-%m-%d") if bhav_date else ist_now.strftime("%Y-%m-%d")
-    session_date_display = bhav_date.strftime("%d-%b-%Y") if bhav_date else ist_now.strftime("%d-%b-%Y")
+    latest_session_dt = max(
+        (df.index[-1].date() for df in synchronized_dfs.values() if df is not None and not df.empty and hasattr(df.index[-1], "date")),
+        default=(bhav_date or ist_now.date())
+    )
+    active_date = bhav_date if (bhav_date and bhav_date >= latest_session_dt) else latest_session_dt
+    trade_session_date = active_date.strftime("%Y-%m-%d")
+    session_date_display = active_date.strftime("%d-%b-%Y")
 
     payload = {
         "updated_at": iso_timestamp,

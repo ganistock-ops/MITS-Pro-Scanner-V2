@@ -4200,8 +4200,10 @@
     kpiBias: document.getElementById('kpi-bias'),
     kpiNifty: document.getElementById('kpi-nifty'),
     kpiNiftyChange: document.getElementById('kpi-nifty-change'),
+    kpiNiftySubtitle: document.getElementById('kpi-nifty-subtitle'),
     kpiBankNifty: document.getElementById('kpi-banknifty'),
     kpiBankNiftyChange: document.getElementById('kpi-banknifty-change'),
+    kpiBankNiftySubtitle: document.getElementById('kpi-banknifty-subtitle'),
     kpiMomentum: document.getElementById('kpi-momentum'),
     kpiAlerts: document.getElementById('kpi-alerts'),
     breadthFill: document.getElementById('breadth-fill'),
@@ -4839,16 +4841,36 @@
     if (indices.NIFTY_50 && DOM.kpiNifty) {
       DOM.kpiNifty.textContent = formatCurrency(indices.NIFTY_50.price);
       if (DOM.kpiNiftyChange) {
-        const chg = indices.NIFTY_50.change_pct;
+        const chg = indices.NIFTY_50.change_pct ?? 0;
+        DOM.kpiNiftyChange.className = 'change-pill ' + (chg >= 0 ? 'positive' : 'negative');
         DOM.kpiNiftyChange.innerHTML = `<span class="${chg >= 0 ? 'text-bullish' : 'text-bearish'}">${chg >= 0 ? '+' : ''}${chg}%</span>`;
+      }
+      if (DOM.kpiNiftySubtitle) {
+        const isAboveEma = indices.NIFTY_50.above_ema20 !== undefined
+          ? indices.NIFTY_50.above_ema20
+          : (indices.NIFTY_50.trend === 'BULLISH ACCUMULATION' || (indices.NIFTY_50.ema_20 && indices.NIFTY_50.price > indices.NIFTY_50.ema_20));
+        if (isAboveEma) {
+          DOM.kpiNiftySubtitle.innerHTML = `<span style="color: var(--bullish);">◈ Bullish</span> <span style="opacity: 0.4;">•</span> <span style="color: var(--bullish);">Above 20 EMA</span>`;
+        } else {
+          DOM.kpiNiftySubtitle.innerHTML = `<span style="color: var(--gold-400);">◈ Defensive</span> <span style="opacity: 0.4;">•</span> <span>Below 20 EMA</span>`;
+        }
       }
     }
 
     if (indices.BANKNIFTY && DOM.kpiBankNifty) {
       DOM.kpiBankNifty.textContent = formatCurrency(indices.BANKNIFTY.price);
       if (DOM.kpiBankNiftyChange) {
-        const chg = indices.BANKNIFTY.change_pct;
+        const chg = indices.BANKNIFTY.change_pct ?? 0;
+        DOM.kpiBankNiftyChange.className = 'change-pill ' + (chg >= 0 ? 'positive' : 'negative');
         DOM.kpiBankNiftyChange.innerHTML = `<span class="${chg >= 0 ? 'text-bullish' : 'text-bearish'}">${chg >= 0 ? '+' : ''}${chg}%</span>`;
+      }
+      if (DOM.kpiBankNiftySubtitle) {
+        const isBankBullish = (indices.BANKNIFTY.change_pct ?? 0) >= 0;
+        if (isBankBullish) {
+          DOM.kpiBankNiftySubtitle.innerHTML = `<span style="color: var(--bullish);">◈ Bullish</span> <span style="opacity: 0.4;">•</span> <span>Support Consolidation</span>`;
+        } else {
+          DOM.kpiBankNiftySubtitle.innerHTML = `<span style="color: var(--gold-400);">◈ Defensive</span> <span style="opacity: 0.4;">•</span> <span>Support Consolidation</span>`;
+        }
       }
     }
 

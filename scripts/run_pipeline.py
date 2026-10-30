@@ -184,7 +184,7 @@ def fetch_latest_nse_bhavcopy(days: int = 5) -> Tuple[Optional[datetime.date], D
     latest_date, latest_bhav_map, _ = fetch_nse_bhavcopy_series(target_days=1, max_lookback_days=days)
     return latest_date, latest_bhav_map
 
-def fetch_benchmark_data(bhav_date: Optional[datetime.date]) -> Tuple[Optional[pd.DataFrame], float, float, float, bool]:
+def fetch_benchmark_data(bhav_date: Optional[datetime.date]) -> Tuple[Optional[pd.DataFrame], float, float, float, bool, float]:
     """
     Fetches NIFTY 50 benchmark series using yf.download with fallback to NIFTYBEES.NS / ^CRSLDX.
     Synchronizes the series to ensure the latest candle reflects the finalized trade date.
@@ -208,6 +208,7 @@ def fetch_benchmark_data(bhav_date: Optional[datetime.date]) -> Tuple[Optional[p
     chg_n = 32.50
     chg_pct_n = 0.14
     nifty_above_ema20 = True
+    ema20_n = 23200.00
 
     if n_df is not None and not n_df.empty:
         cmp_n = float(n_df["Close"].iloc[-1])
@@ -219,7 +220,7 @@ def fetch_benchmark_data(bhav_date: Optional[datetime.date]) -> Tuple[Optional[p
         nifty_above_ema20 = bool(cmp_n > ema20_n)
         logger.info(f"NIFTY 50 CMP: {cmp_n:.2f}, 20 EMA: {ema20_n:.2f} (Above EMA20: {nifty_above_ema20})")
 
-    return n_df, cmp_n, chg_n, chg_pct_n, nifty_above_ema20
+    return n_df, cmp_n, chg_n, chg_pct_n, nifty_above_ema20, round(ema20_n, 2)
 
 def run_pipeline():
     logger.info("Initializing MITS Pro Pipeline execution...")
@@ -234,7 +235,7 @@ def run_pipeline():
     bhav_date, bhav_map, delivery_analytics_map = fetch_nse_bhavcopy_series(target_days=10, max_lookback_days=25)
 
     # Step 2: Market Benchmark Check (NIFTY 50 above 20 EMA & 1Y series)
-    n_df, cmp_n, chg_n, chg_pct_n, nifty_above_ema20 = fetch_benchmark_data(bhav_date)
+    n_df, cmp_n, chg_n, chg_pct_n, nifty_above_ema20, ema20_n = fetch_benchmark_data(bhav_date)
     nifty_trend = "BULLISH ACCUMULATION" if nifty_above_ema20 else "DEFENSIVE"
 
     # Step 3: Bank Nifty and India VIX indices
@@ -285,6 +286,7 @@ def run_pipeline():
     sector_changes = {}
     advances = 0
     declines = 0
+    unchanged = 0
     momentum_count = 0
     success_count = 0
 
@@ -399,17 +401,22 @@ def run_pipeline():
         features = yf_feed.calculate_technical_features(df)
         features["timestamp"] = timestamp_str
 
-        # Strictly use official single-day change formula:
-        if bhav_info and bhav_info.get("prev_close", 0) > 0:
+        # Strictly use official single-day change formula ONLY if Bhavcopy date matches current candle date:
+        last_candle_date = df.index[-1].date() if hasattr(df.index[-1], "date") else None
+        if (bhav_info and bhav_date is not None and last_candle_date is not None 
+                and bhav_date == last_candle_date and bhav_info.get("prev_close", 0) > 0):
             chg = round(((bhav_info["close"] - bhav_info["prev_close"]) / bhav_info["prev_close"]) * 100.0, 2)
             features["change_pct"] = chg
             features["cmp"] = round(float(bhav_info["close"]), 2)
         else:
             chg = features.get("change_pct", 0.0)
+
         if chg > 0:
             advances += 1
         elif chg < 0:
             declines += 1
+        else:
+            unchanged += 1
 
         sec = item.get("sector")
         if sec:
@@ -471,8 +478,13 @@ def run_pipeline():
     for s_id in PRO_SETUPS.keys():
         results_by_setup[s_id].sort(key=lambda x: x.get("score", 0), reverse=True)
 
-    trade_session_date = bhav_date.strftime("%Y-%m-%d") if bhav_date else ist_now.strftime("%Y-%m-%d")
-    session_date_display = bhav_date.strftime("%d-%b-%Y") if bhav_date else ist_now.strftime("%d-%b-%Y")
+    latest_session_dt = max(
+        (df.index[-1].date() for df in stock_dfs.values() if df is not None and not df.empty and hasattr(df.index[-1], "date")),
+        default=(bhav_date or ist_now.date())
+    )
+    active_date = bhav_date if (bhav_date and bhav_date >= latest_session_dt) else latest_session_dt
+    trade_session_date = active_date.strftime("%Y-%m-%d")
+    session_date_display = active_date.strftime("%d-%b-%Y")
 
     # Dedicated Tab 1 Output
     tab1_payload = {
@@ -626,13 +638,22 @@ def run_pipeline():
         "last_session_date": trade_session_date,
         "session_date_display": session_date_display,
         "indices": {
-            "NIFTY_50": { "name": "NIFTY 50", "price": round(cmp_n, 2), "change": round(chg_n, 2), "change_pct": round(chg_pct_n, 2), "trend": nifty_trend },
+            "NIFTY_50": {
+                "name": "NIFTY 50",
+                "price": round(cmp_n, 2),
+                "change": round(chg_n, 2),
+                "change_pct": round(chg_pct_n, 2),
+                "trend": nifty_trend,
+                "above_ema20": nifty_above_ema20,
+                "ema_20": round(ema20_n, 2)
+            },
             "BANKNIFTY": { "name": "BANK NIFTY", "price": round(bn_cmp, 2), "change": round(bn_chg, 2), "change_pct": round(bn_pct, 2), "trend": bn_trend },
             "INDIA_VIX": { "name": "INDIA VIX", "price": round(vix_cmp, 2), "change": round(vix_chg, 2), "change_pct": round(vix_pct, 2), "trend": vix_trend }
         },
         "market_breadth": {
             "advances": advances,
             "declines": declines,
+            "unchanged": unchanged,
             "ratio": f"{round(advances / max(declines, 1), 2)}:1",
             "institutional_bias": "STRONG ACCUMULATION" if advances > declines else "DEFENSIVE / SELECTIVE ACCUMULATION",
             "bias_color": "gold" if advances > declines else "amber",

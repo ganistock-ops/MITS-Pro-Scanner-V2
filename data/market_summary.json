@@ -9,7 +9,9 @@
       "price": 23053.1,
       "change": 116.35,
       "change_pct": 0.51,
-      "trend": "BULLISH ACCUMULATION"
+      "trend": "BULLISH ACCUMULATION",
+      "above_ema20": true,
+      "ema_20": 22915.2
     },
     "BANKNIFTY": {
       "name": "BANK NIFTY",
@@ -34,7 +36,8 @@
     "bias_color": "gold",
     "total_scanned": 500,
     "high_momentum_count": 172,
-    "pro_alerts_count": 27
+    "pro_alerts_count": 27,
+    "unchanged": 2
   },
   "sector_matrix": [
     {
