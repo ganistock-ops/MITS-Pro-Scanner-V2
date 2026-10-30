@@ -1,40 +1,40 @@
 {
-  "scan_timestamp": "2026-10-29T22:33:54.780818+05:30",
+  "scan_timestamp": "2026-10-30T16:40:43.168563+05:30",
   "market_status": "CLOSED",
   "last_session_date": "2026-10-29",
   "session_date_display": "29-Oct-2026",
   "indices": {
     "NIFTY_50": {
       "name": "NIFTY 50",
-      "price": 22936.75,
-      "change": 237.9,
-      "change_pct": 1.05,
+      "price": 23053.1,
+      "change": 116.35,
+      "change_pct": 0.51,
       "trend": "BULLISH ACCUMULATION"
     },
     "BANKNIFTY": {
       "name": "BANK NIFTY",
-      "price": 54909.65,
-      "change": 642.25,
-      "change_pct": 1.18,
-      "trend": "BULLISH"
+      "price": 54686.95,
+      "change": -222.7,
+      "change_pct": -0.41,
+      "trend": "DEFENSIVE"
     },
     "INDIA_VIX": {
       "name": "INDIA VIX",
-      "price": 15.12,
-      "change": -1.13,
-      "change_pct": -6.95,
+      "price": 15.3,
+      "change": 0.18,
+      "change_pct": 1.19,
       "trend": "MODERATE_VOLATILITY"
     }
   },
   "market_breadth": {
-    "advances": 332,
-    "declines": 166,
-    "ratio": "2.0:1",
+    "advances": 330,
+    "declines": 168,
+    "ratio": "1.96:1",
     "institutional_bias": "STRONG ACCUMULATION",
     "bias_color": "gold",
     "total_scanned": 500,
-    "high_momentum_count": 156,
-    "pro_alerts_count": 50
+    "high_momentum_count": 172,
+    "pro_alerts_count": 27
   },
   "sector_matrix": [
     {
@@ -64,7 +64,7 @@
     }
   ],
   "sector_rotation": {
-    "updated_at": "2026-10-29T17:04:54.922628",
+    "updated_at": "2026-10-30T11:11:27.494109",
     "session_date": "2026-10-29",
     "session_date_display": "29-Oct-2026",
     "sectors_analyzed": 20,
