@@ -69,7 +69,7 @@
           <span class="sidebar-icon">⊞</span>
           <span class="sidebar-label">Dashboard</span>
         </a>
-        <a href="#stock-scanner" class="sidebar-item" id="nav-adv-scanner">
+        <a href="#advanced-scanner" class="sidebar-item" id="nav-adv-scanner">
           <span class="sidebar-icon">🔬</span>
           <span class="sidebar-label">Advanced Stock Scanner</span>
         </a>
@@ -190,7 +190,7 @@
         </div>
       </header>
 
-      <div id="dashboard-view">
+      <div id="view-dashboard" class="terminal-view">
         <!-- TOP TICKER STRIP -->
       <section class="ticker-ribbon" aria-label="Real-time Indices Ribbon">
         <!-- NIFTY 50 Item -->
@@ -636,10 +636,10 @@
 
         </section>
 
-      </div><!-- #dashboard-view -->
+      </div><!-- #view-dashboard -->
 
         <!-- ADVANCED STOCK SCANNER VIEWPORT (VIEW 2) -->
-        <section class="adv-scanner-viewport" id="adv-scanner-view" style="display: none;" aria-label="Advanced Stock Scanner Workspace">
+        <div id="view-advanced-scanner" class="terminal-view hidden adv-scanner-viewport" aria-label="Advanced Stock Scanner Workspace">
           
           <!-- Advanced Scanner Header -->
           <div class="adv-scanner-header">
@@ -667,6 +667,10 @@
                 <span class="kpi-lbl">Benchmark</span>
                 <span class="kpi-val">NIFTY 50</span>
               </div>
+              <div class="adv-kpi-pill">
+                <span class="kpi-lbl">EOD Feed</span>
+                <span class="kpi-val eod-timestamp" id="adv-eod-time">Verified EOD</span>
+              </div>
             </div>
           </div>
 
@@ -679,7 +683,7 @@
                 <span class="sub-card-status status-active">ACTIVE ENGINE</span>
               </div>
               <div class="sub-card-body">
-                <h4 class="sub-card-title">Relative Strength (RS)</h4>
+                <h4 class="sub-card-title">⚡ Relative Strength Outperformer</h4>
                 <p class="sub-card-desc">20D, 60D, 120D, 252D excess returns vs NIFTY with percentile scoring</p>
               </div>
               <div class="sub-card-footer">
@@ -841,7 +845,7 @@
               </div>
             </div>
           </div>
-        </section>
+        </div><!-- #view-advanced-scanner -->
 
       </div><!-- /.terminal-content-body -->
 

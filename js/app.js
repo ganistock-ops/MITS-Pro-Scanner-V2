@@ -4259,45 +4259,82 @@
   function initAdvScannerNavigation() {
     const navAdvBtn = document.getElementById('nav-adv-scanner');
     const navDashBtn = document.getElementById('nav-dashboard');
-    const dashView = document.getElementById('dashboard-view');
-    const advView = document.getElementById('adv-scanner-view');
-
-    if (!navAdvBtn || !navDashBtn || !dashView || !advView) return;
 
     function switchView(target) {
+      const dView = document.getElementById('view-dashboard') || document.getElementById('dashboard-view');
+      const aView = document.getElementById('view-advanced-scanner') || document.getElementById('adv-scanner-view');
+      const dBtn = document.getElementById('nav-dashboard');
+      const aBtn = document.getElementById('nav-adv-scanner');
+
       if (target === 'adv') {
-        dashView.style.display = 'none';
-        advView.style.display = 'block';
-        navDashBtn.classList.remove('active');
-        navAdvBtn.classList.add('active');
+        if (dView) {
+          dView.classList.add('hidden');
+          dView.style.display = 'none';
+        }
+        if (aView) {
+          aView.classList.remove('hidden');
+          aView.style.display = 'block';
+        }
+        if (dBtn) dBtn.classList.remove('active');
+        if (aBtn) aBtn.classList.add('active');
+        if (window.location.hash !== '#advanced-scanner') {
+          window.location.hash = '#advanced-scanner';
+        }
         loadAdvRsData();
       } else {
-        advView.style.display = 'none';
-        dashView.style.display = 'block';
-        navAdvBtn.classList.remove('active');
-        navDashBtn.classList.add('active');
+        if (aView) {
+          aView.classList.add('hidden');
+          aView.style.display = 'none';
+        }
+        if (dView) {
+          dView.classList.remove('hidden');
+          dView.style.display = 'block';
+        }
+        if (aBtn) aBtn.classList.remove('active');
+        if (dBtn) dBtn.classList.add('active');
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner') {
+          window.location.hash = '#dashboard';
+        }
       }
     }
 
-    navAdvBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      switchView('adv');
-    });
+    if (navAdvBtn) {
+      navAdvBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchView('adv');
+      });
+    }
 
-    navDashBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      switchView('dash');
+    if (navDashBtn) {
+      navDashBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchView('dash');
+      });
+    }
+
+    // Bind other sidebar links so workspace returns to dashboard safely
+    document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(item => {
+      if (item.id !== 'nav-adv-scanner' && item.id !== 'nav-dashboard') {
+        item.addEventListener('click', () => {
+          switchView('dash');
+          document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+          item.classList.add('active');
+        });
+      }
     });
 
     // Hash navigation routing
-    window.addEventListener('hashchange', () => {
+    function handleHashRouting() {
       const hash = window.location.hash;
       if (hash === '#stock-scanner' || hash === '#advanced-scanner') {
         switchView('adv');
-      } else if (hash === '#dashboard' || hash === '') {
+      } else if (hash === '#dashboard' || hash === '' || hash === '#market-intelligence') {
         switchView('dash');
       }
-    });
+    }
+
+    window.addEventListener('hashchange', handleHashRouting);
+    handleHashRouting();
 
     // Toolbar event listeners
     const searchInput = document.getElementById('adv-rs-search');
@@ -4364,16 +4401,27 @@
 
   async function loadAdvRsData() {
     if (advState.rsData) {
+      populateAdvSectorFilter();
+      updateAdvHeaderKpis();
       renderAdvRsTable();
       return;
     }
     try {
-      const res = await fetch('data/adv_scanner_1_rs.json');
+      const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
+      const res = await fetch(`${basePath}adv_scanner_1_rs.json?t=${Date.now()}`);
       if (res.ok) {
         advState.rsData = await res.json();
         populateAdvSectorFilter();
         updateAdvHeaderKpis();
         renderAdvRsTable();
+      } else {
+        const resFallback = await fetch('data/adv_scanner_1_rs.json');
+        if (resFallback.ok) {
+          advState.rsData = await resFallback.json();
+          populateAdvSectorFilter();
+          updateAdvHeaderKpis();
+          renderAdvRsTable();
+        }
       }
     } catch (err) {
       console.error('[MITS Pro] Error loading adv_scanner_1_rs.json:', err);
@@ -4387,11 +4435,13 @@
     const rEl = document.getElementById('adv-kpi-rs80');
     const gEl = document.getElementById('adv-kpi-grade-a');
     const bEl = document.getElementById('adv-rs-badge');
+    const tEl = document.getElementById('adv-eod-time');
 
     if (uEl) uEl.textContent = d.total_stocks || 499;
     if (rEl) rEl.textContent = d.strong_rs_count || 76;
     if (gEl) gEl.textContent = d.grade_a_count || 75;
     if (bEl) bEl.textContent = `${d.strong_rs_count || 76} Strong RS`;
+    if (tEl) tEl.textContent = d.scan_date || d.generated_at || 'Verified EOD';
   }
 
   function populateAdvSectorFilter() {
@@ -4747,6 +4797,7 @@
     ensureBaselineSignals();
     renderAll();
     fetchRemoteData();
+    loadAdvRsData();
   }
 
   function ensureBaselineSignals() {

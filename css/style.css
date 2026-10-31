@@ -4222,3 +4222,22 @@ body.resizing-active {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===================================================================================
+   TERMINAL MULTI-VIEW & ADVANCED SCANNER RESPONSIVE RULES
+   =================================================================================== */
+.terminal-view.hidden {
+  display: none !important;
+}
+
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.adv-rs-table {
+  min-width: 1050px !important;
+  width: 100%;
+  table-layout: auto !important;
+}
