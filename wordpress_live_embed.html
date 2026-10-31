@@ -1114,10 +1114,15 @@ HOW TO USE IN WORDPRESS / ELEMENTOR:
 
 #mits-pro-embed-root .wp-pro-table {
   width: 100% !important;
-  table-layout: fixed !important;
+  table-layout: auto !important;
+  min-width: 950px !important;
   border-collapse: collapse !important;
   font-size: 0.85rem !important;
   text-align: left !important;
+}
+.wp-pro-table th,
+.wp-pro-table td {
+  white-space: nowrap !important;
 }
 
 #mits-pro-embed-root .wp-pro-table thead {

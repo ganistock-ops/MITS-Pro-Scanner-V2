@@ -4204,7 +4204,9 @@
     kpiNseAdv: document.getElementById('kpi-nse-adv'),
     kpiNseDec: document.getElementById('kpi-nse-dec'),
     kpiNseRatio: document.getElementById('kpi-nse-ratio'),
-    quickCards: document.querySelectorAll('.quick-card'),
+    quickCards: document.querySelectorAll('.quick-card, .qs-card'),
+    runScannerBtn: document.getElementById('run-scanner-btn'),
+    setupSelect: document.getElementById('setup-select'),
     activeFilterTitle: document.getElementById('active-filter-title'),
     refreshBtn: document.getElementById('refresh-btn'),
     lastUpdatedText: document.getElementById('last-updated-text'),
@@ -4308,6 +4310,35 @@
 
   // Event Listeners
   function bindEvents() {
+    // Unified Run Scanner controller function
+    function handleRunScanner() {
+      const selectedTab = DOM.setupSelect ? DOM.setupSelect.value : state.activeTab;
+      if (DOM.sectorSelect) {
+        state.selectedSector = DOM.sectorSelect.value;
+      }
+      if (selectedTab && selectedTab !== state.activeTab) {
+        setActiveTab(selectedTab);
+      } else {
+        state.currentPage = 1;
+        renderTable();
+      }
+    }
+
+    // Run Scanner Button Click Handler
+    if (DOM.runScannerBtn) {
+      DOM.runScannerBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleRunScanner();
+      });
+    }
+
+    // Setup Select Dropdown Change Handler
+    if (DOM.setupSelect) {
+      DOM.setupSelect.addEventListener('change', () => {
+        handleRunScanner();
+      });
+    }
+
     // Quick Scanner Module Cards Click
     const quickCards = document.querySelectorAll('.quick-card');
     quickCards.forEach(card => {
@@ -4814,25 +4845,28 @@
     state.activeTab = tabId;
     state.currentPage = 1;
 
+    // Sync Setup Select Dropdown
+    if (DOM.setupSelect && DOM.setupSelect.value !== tabId) {
+      DOM.setupSelect.value = tabId;
+    }
+
     // Update Quick Cards Active State
-    document.querySelectorAll('.quick-card').forEach(c => {
-      if (c.getAttribute('data-tab') === tabId) {
-        c.classList.add('active');
-      } else {
-        c.classList.remove('active');
-      }
+    document.querySelectorAll('.quick-card, .qs-card').forEach(c => {
+      const matches = c.getAttribute('data-tab') === tabId;
+      c.classList.toggle('active', matches);
+      c.setAttribute('aria-selected', matches ? 'true' : 'false');
     });
 
     // Update Active Filter Title
     const titleEl = document.getElementById('active-filter-title');
     if (titleEl) {
       const titles = {
-        setup_1: 'RELATIVE STRENGTH / ALPHA MOMENTUM',
+        setup_1: 'BOTTOM REVERSAL PRO',
         setup_2: 'ALPHA MOMENTUM (TODAY)',
         setup_3: 'HIGH TIGHT FLAG (HTF)',
-        setup_4: 'WEEKLY SWING BREAKOUT',
+        setup_4: 'WEEKLY SWING',
         setup_5: 'STAGE-2 PULLBACK',
-        setup_6: 'DAILY BOTTOM REVERSAL (DBR)'
+        setup_6: 'DBR DEMAND ZONE'
       };
       titleEl.textContent = titles[tabId] || tabId.toUpperCase();
     }
@@ -5208,7 +5242,8 @@
       const countEl = document.getElementById(`count-${tabId}`);
       if (countEl) {
         const setup = setups[tabId];
-        countEl.textContent = setup ? (setup.signals ? setup.signals.length : 0) : 0;
+        const count = setup ? (setup.signals ? setup.signals.length : (setup.count || 0)) : 0;
+        countEl.textContent = `${count} ${count === 1 ? 'Stock' : 'Stocks'}`;
       }
     });
   }

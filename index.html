@@ -346,13 +346,13 @@
           </div>
 
           <div class="quick-scanner-grid tabs-nav" role="tablist">
-            <!-- 1. Relative Strength (Setup 2) -->
-            <div class="qs-card tab-btn" data-tab="setup_2" role="tab" aria-selected="false">
+            <!-- 1. Alpha Momentum (Setup 2) -->
+            <div class="qs-card tab-btn quick-card active" data-tab="setup_2" role="tab" aria-selected="true">
               <div class="qs-card-header">
-                <span class="qs-card-icon">📈</span>
+                <span class="qs-card-icon">⚡</span>
                 <div class="qs-card-text">
-                  <span class="qs-name">Relative Strength</span>
-                  <span class="qs-desc">Nifty Outperformers</span>
+                  <span class="qs-name">Alpha Momentum</span>
+                  <span class="qs-desc">Nifty 500 RS Outperformance</span>
                 </div>
               </div>
               <div class="qs-card-footer">
@@ -361,13 +361,13 @@
               </div>
             </div>
 
-            <!-- 2. Breakout Scanner (Setup 3) -->
-            <div class="qs-card tab-btn" data-tab="setup_3" role="tab" aria-selected="false">
+            <!-- 2. High Tight Flag (HTF) (Setup 3) -->
+            <div class="qs-card tab-btn quick-card" data-tab="setup_3" role="tab" aria-selected="false">
               <div class="qs-card-header">
                 <span class="qs-card-icon">🚩</span>
                 <div class="qs-card-text">
-                  <span class="qs-name">Breakout Scanner</span>
-                  <span class="qs-desc">Near &amp; Confirmed</span>
+                  <span class="qs-name">High Tight Flag (HTF)</span>
+                  <span class="qs-desc">Explosive Rally &amp; Base Squeeze</span>
                 </div>
               </div>
               <div class="qs-card-footer">
@@ -376,13 +376,13 @@
               </div>
             </div>
 
-            <!-- 3. Alpha Momentum (Setup 5) -->
-            <div class="qs-card tab-btn active" data-tab="setup_5" role="tab" aria-selected="true">
+            <!-- 3. Stage-2 Pullback (Setup 5) -->
+            <div class="qs-card tab-btn quick-card" data-tab="setup_5" role="tab" aria-selected="false">
               <div class="qs-card-header">
-                <span class="qs-card-icon">🚀</span>
+                <span class="qs-card-icon">🎯</span>
                 <div class="qs-card-text">
-                  <span class="qs-name">Alpha Momentum</span>
-                  <span class="qs-desc">Strong Trend Stocks</span>
+                  <span class="qs-name">Stage-2 Pullback</span>
+                  <span class="qs-desc">20/50 EMA Institutional Support</span>
                 </div>
               </div>
               <div class="qs-card-footer">
@@ -391,28 +391,13 @@
               </div>
             </div>
 
-            <!-- 4. Bottom Reversal (Setup 1) -->
-            <div class="qs-card tab-btn" data-tab="setup_1" role="tab" aria-selected="false">
-              <div class="qs-card-header">
-                <span class="qs-card-icon">🔄</span>
-                <div class="qs-card-text">
-                  <span class="qs-name">Bottom Reversal</span>
-                  <span class="qs-desc">Reversal Candidates</span>
-                </div>
-              </div>
-              <div class="qs-card-footer">
-                <span class="qs-count tab-count" id="count-setup_1">1 Stock</span>
-                <span class="qs-chevron">›</span>
-              </div>
-            </div>
-
-            <!-- 5. Volatility Contraction (Setup 6) -->
-            <div class="qs-card tab-btn" data-tab="setup_6" role="tab" aria-selected="false">
+            <!-- 4. DBR Demand Zone (Setup 6) -->
+            <div class="qs-card tab-btn quick-card" data-tab="setup_6" role="tab" aria-selected="false">
               <div class="qs-card-header">
                 <span class="qs-card-icon">📦</span>
                 <div class="qs-card-text">
-                  <span class="qs-name">Volatility Contraction</span>
-                  <span class="qs-desc">Squeeze / NR7</span>
+                  <span class="qs-name">DBR Demand Zone</span>
+                  <span class="qs-desc">Institutional Order Block Retest</span>
                 </div>
               </div>
               <div class="qs-card-footer">
@@ -421,13 +406,28 @@
               </div>
             </div>
 
-            <!-- 6. 52 Week High/Low (Setup 4) -->
-            <div class="qs-card tab-btn" data-tab="setup_4" role="tab" aria-selected="false">
+            <!-- 5. Bottom Reversal Pro (Setup 1) -->
+            <div class="qs-card tab-btn quick-card" data-tab="setup_1" role="tab" aria-selected="false">
               <div class="qs-card-header">
-                <span class="qs-card-icon">📊</span>
+                <span class="qs-card-icon">🔄</span>
                 <div class="qs-card-text">
-                  <span class="qs-name">52 Week High/Low</span>
-                  <span class="qs-desc">New High / Near High</span>
+                  <span class="qs-name">Bottom Reversal Pro</span>
+                  <span class="qs-desc">Liquidity Sweeps &amp; CHoCH</span>
+                </div>
+              </div>
+              <div class="qs-card-footer">
+                <span class="qs-count tab-count" id="count-setup_1">1 Stock</span>
+                <span class="qs-chevron">›</span>
+              </div>
+            </div>
+
+            <!-- 6. Weekly Swing (Setup 4) -->
+            <div class="qs-card tab-btn quick-card" data-tab="setup_4" role="tab" aria-selected="false">
+              <div class="qs-card-header">
+                <span class="qs-card-icon">📈</span>
+                <div class="qs-card-text">
+                  <span class="qs-name">Weekly Swing</span>
+                  <span class="qs-desc">Multi-Week Trend Alignment</span>
                 </div>
               </div>
               <div class="qs-card-footer">
@@ -450,12 +450,12 @@
             <div class="toolbar-controls-wrap">
               <div class="toolbar-select-group">
                 <select id="setup-select" class="terminal-select" aria-label="Select Quantitative Setup">
-                  <option value="setup_5">Alpha Momentum (Stage-2)</option>
-                  <option value="setup_2">Relative Strength (Outperformers)</option>
-                  <option value="setup_3">Breakout Scanner (HTF)</option>
+                  <option value="setup_2">Alpha Momentum</option>
+                  <option value="setup_3">High Tight Flag (HTF)</option>
+                  <option value="setup_5">Stage-2 Pullback</option>
+                  <option value="setup_6">DBR Demand Zone</option>
                   <option value="setup_1">Bottom Reversal Pro</option>
-                  <option value="setup_6">Volatility Contraction (DBR)</option>
-                  <option value="setup_4">52W High / Weekly Swing</option>
+                  <option value="setup_4">Weekly Swing</option>
                 </select>
 
                 <select id="sector-select" class="terminal-select" aria-label="Filter Sector">
@@ -498,8 +498,8 @@
 
           <!-- Main Visible Results Table -->
           <div class="table-card">
-            <div class="table-responsive">
-              <table class="pro-table" id="pro-table">
+            <div class="table-responsive table-responsive-wrapper">
+              <table class="pro-table scanner-results-table" id="pro-table">
                 <thead>
                   <tr>
                     <th>#</th>
