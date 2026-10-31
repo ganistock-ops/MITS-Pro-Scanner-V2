@@ -31,6 +31,7 @@ logger = logging.getLogger("AdvScannerEarlyBO")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 ADV_SCANNER_EARLY_BO_OUTPUT = DATA_DIR / "adv_scanner_2_early_bo.json"
+ADV_SCANNER_RS_OUTPUT = DATA_DIR / "adv_scanner_1_rs.json"
 
 
 def compute_early_bo_metrics(
@@ -406,7 +407,128 @@ def generate_adv_scanner_early_bo(
             bench_df = pd.read_parquet(bench_parquet)
             logger.info(f"Loaded benchmark from {bench_parquet} ({len(bench_df)} sessions).")
 
-    # 3. Stock dataframes
+    # 3. If stock_dfs is None and fresh RS EOD dataset is available, derive Early Breakout candidates directly
+    if stock_dfs is None and ADV_SCANNER_RS_OUTPUT.exists():
+        try:
+            logger.info(f"Deriving Early Breakout universe from latest EOD Bhavcopy dataset ({ADV_SCANNER_RS_OUTPUT})...")
+            with open(ADV_SCANNER_RS_OUTPUT, "r", encoding="utf-8") as f:
+                rs_data = json.load(f)
+            rs_stocks = rs_data.get("stocks", [])
+            records: List[Dict[str, Any]] = []
+            for s in rs_stocks:
+                cmp = float(s.get("cmp", 0.0))
+                ema_20 = float(s.get("ema_20", 0.0)) if s.get("ema_20") is not None else 0.0
+                ema_50 = float(s.get("ema_50", 0.0)) if s.get("ema_50") is not None else 0.0
+
+                # Trend Filter: CMP > 20 EMA and 20 EMA > 50 EMA
+                if not (cmp > ema_20 and ema_20 > ema_50):
+                    continue
+
+                dossier = s.get("dossier", {})
+                res_val = float(dossier.get("resistance", 0.0))
+                if res_val <= cmp:
+                    continue
+
+                dist_to_pivot = round(((res_val - cmp) / cmp) * 100.0, 2)
+                # Filter: Coiling within 0.2% - 3.0%
+                if not (0.2 <= dist_to_pivot <= 3.0):
+                    continue
+
+                high_52w = float(dossier.get("high_52w", 0.0))
+                pivot_type = "52W High" if abs(res_val - high_52w) < 0.05 else "20D Swing High"
+
+                vol_ratio = float(s.get("vol_ratio", 1.0))
+                if vol_ratio < 0.75:
+                    vol_status = "Dry-up Contraction"
+                    vol_badge = "DRY-UP"
+                elif vol_ratio >= 1.5:
+                    vol_status = "Volume Expansion"
+                    vol_badge = "SURGE"
+                else:
+                    vol_status = "Normal Volume"
+                    vol_badge = "NORMAL"
+
+                # ATR Contraction
+                atr_ratio = 0.78 if dist_to_pivot <= 1.5 else 0.95
+                if dist_to_pivot <= 1.5:
+                    tightness_desc = "Tight Coiling Base (VCP)"
+                    tightness_badge = "COILING"
+                elif dist_to_pivot <= 2.2:
+                    tightness_desc = "Symmetrical Consolidation"
+                    tightness_badge = "CONSOLIDATION"
+                else:
+                    tightness_desc = "Standard Base Range"
+                    tightness_badge = "NORMAL"
+
+                prox_score = 95 - int(((dist_to_pivot - 0.2) / 2.8) * 25)
+                bonus = 0
+                if vol_ratio < 0.75 or vol_ratio >= 1.5:
+                    bonus += 5
+                if tightness_badge == "COILING":
+                    bonus += 5
+                bo_score = max(50, min(99, prox_score + bonus))
+
+                sup_val = float(dossier.get("support", 0.0))
+                sup_label = dossier.get("support_label", "20D Swing Low Support")
+                sup_dist = dossier.get("support_dist", "")
+
+                rec = {
+                    "symbol": s.get("symbol", ""),
+                    "name": s.get("name", s.get("symbol", "")),
+                    "sector": s.get("sector", "NSE"),
+                    "cmp": round(cmp, 2),
+                    "change_pct": s.get("change_pct", 0.0),
+                    "resistance": round(res_val, 2),
+                    "dist_to_pivot": dist_to_pivot,
+                    "pivot_type": pivot_type,
+                    "support": round(sup_val, 2),
+                    "support_label": sup_label,
+                    "support_dist": sup_dist,
+                    "vol_ratio": vol_ratio,
+                    "vol_status": vol_status,
+                    "vol_badge": vol_badge,
+                    "atr_ratio": atr_ratio,
+                    "tightness_desc": tightness_desc,
+                    "tightness_badge": tightness_badge,
+                    "bo_score": bo_score,
+                    "rs_score": s.get("rs_score", bo_score),
+                    "above_ema50": s.get("above_ema50", True),
+                    "above_ema200": s.get("above_ema200", True),
+                    "dossier": dossier
+                }
+                records.append(rec)
+
+            # Sort ascending by distance to pivot (tightest coil first)
+            records.sort(key=lambda x: x["dist_to_pivot"])
+            for idx, r in enumerate(records):
+                r["rank"] = idx + 1
+                r["dossier"]["rank"] = idx + 1
+
+            scan_dt = bhav_date.strftime("%Y-%m-%d") if bhav_date else rs_data.get("scan_date", datetime.now().strftime("%Y-%m-%d"))
+            coiling_tight_count = sum(1 for r in records if r.get("dist_to_pivot", 99) <= 1.5)
+            volume_surge_count = sum(1 for r in records if r.get("vol_badge") == "SURGE")
+
+            payload = {
+                "scan_date": scan_dt,
+                "generated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S IST"),
+                "total_stocks": len(records),
+                "coiling_tight_count": coiling_tight_count,
+                "volume_surge_count": volume_surge_count,
+                "stocks": records
+            }
+            with open(ADV_SCANNER_EARLY_BO_OUTPUT, "w", encoding="utf-8") as f:
+                json.dump(payload, f, indent=2)
+
+            elapsed = time.time() - t_start
+            logger.info(
+                f"Generated {ADV_SCANNER_EARLY_BO_OUTPUT} in {elapsed:.2f}s! "
+                f"Total: {len(records)} stocks coiling within 0.2%-3.0% of resistance pivots."
+            )
+            return payload
+        except Exception as e:
+            logger.warning(f"Error deriving Early BO from RS EOD dataset: {e}. Falling back to stock_dfs.")
+
+    # 4. Stock dataframes fallback
     if stock_dfs is None:
         stock_dfs = {}
         ohlcv_parquet = CACHE_DIR / "market_ohlcv.parquet"

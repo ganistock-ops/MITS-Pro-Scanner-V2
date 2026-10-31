@@ -45,6 +45,7 @@ jobs:
       - name: Execute MITS Pro Scanner Pipeline
         run: |
           python scripts/run_pipeline.py
+          python scripts/adv_scanner_2_early_bo.py
           if [ ! -f data/master_universe_eod.json ]; then
             echo "master_universe_eod.json not found, running standalone exporter..."
             python scripts/master_universe_exporter.py
@@ -54,7 +55,9 @@ jobs:
         run: |
           test -f data/scanner_results.json || (echo "ERROR: Missing data/scanner_results.json" && exit 1)
           test -f data/master_universe_eod.json || (echo "ERROR: Missing data/master_universe_eod.json" && exit 1)
-          echo "Feed integrity verified: Both scanner_results.json and master_universe_eod.json exist."
+          test -f data/adv_scanner_1_rs.json || (echo "ERROR: Missing data/adv_scanner_1_rs.json" && exit 1)
+          test -f data/adv_scanner_2_early_bo.json || (echo "ERROR: Missing data/adv_scanner_2_early_bo.json" && exit 1)
+          echo "Feed integrity verified: scanner_results.json, master_universe_eod.json, adv_scanner_1_rs.json, and adv_scanner_2_early_bo.json exist."
 
       - name: Commit and Push Updated Data Feeds
         run: |

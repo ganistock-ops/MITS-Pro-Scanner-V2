@@ -710,6 +710,21 @@ def run_pipeline():
     except Exception as e:
         logger.warning(f"Advanced RS scanner export bypassed or error: {e}")
 
+    # Isolated Advanced Scanner 2: Early Breakout Engine
+    try:
+        from adv_scanner_2_early_bo import generate_adv_scanner_early_bo
+        generate_adv_scanner_early_bo(
+            symbols=symbols,
+            stock_dfs=stock_dfs,
+            bhav_date=bhav_date,
+            bhav_map=bhav_map,
+            delivery_analytics_map=delivery_analytics_map,
+            n_df=n_df
+        )
+        logger.info("Enriched data/adv_scanner_2_early_bo.json with standalone Early Breakout metrics.")
+    except Exception as e:
+        logger.warning(f"Advanced Early Breakout scanner export bypassed or error: {e}")
+
     print("\n" + "=" * 75)
     print("MITS PRO SCANNER - NIFTY 500 REAL MARKET PIPELINE COMPLETE")
     print(f"Time Taken: {duration:.2f}s | Scanned: {success_count}/{len(symbols)} Equities")
