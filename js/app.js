@@ -6655,45 +6655,41 @@
       return `<th class="sortable${sticky}${extra}${activeClass}" data-col="${colKey}">${label} ${arrow}</th>`;
     }
 
-    // Streamlined 6-Column Header
-    const thead = document.querySelector('.pro-table thead');
+    // Standardized 12-Column Core Scanners Header
+    const thead = document.querySelector('#pro-table thead') || document.querySelector('.pro-table thead');
     if (thead) {
       if (state.activeTab === 'setup_1') {
         thead.innerHTML = `
           <tr>
             <th style="width: 44px; text-align: center;">#</th>
-            ${renderSortHeader('symbol', 'Symbol', 'sticky-col sticky-col-1')}
-            ${renderSortHeader('cmp', 'LTP (₹)', 'sticky-col sticky-col-2')}
-            ${renderSortHeader('sector', 'Sector')}
-            ${renderSortHeader('change_pct', 'Day %')}
-            ${renderSortHeader('score', 'Score')}
-            ${renderSortHeader('grade', 'Grade')}
-            ${renderSortHeader('status', 'Setup Tag')}
-            ${renderSortHeader('s1', 'S1 (Support)')}
-            ${renderSortHeader('r1', 'R1 (Resistance)')}
-            ${renderSortHeader('rvol', 'Volume')}
-            ${renderSortHeader('delivery_pct', 'Delivery %')}
-            ${renderSortHeader('rs_1y', 'RS vs NIFTY')}
-            <th style="text-align: center;">Action</th>
+            ${renderSortHeader('symbol', 'Symbol', '', 'text-left')}
+            ${renderSortHeader('cmp', 'LTP (₹)', '', 'text-right')}
+            ${renderSortHeader('sector', 'Sector', '', 'text-left')}
+            ${renderSortHeader('change_pct', 'Day %', '', 'text-right')}
+            ${renderSortHeader('score', 'Score', '', 'text-center')}
+            ${renderSortHeader('grade', 'Grade', '', 'text-center')}
+            ${renderSortHeader('status', 'Setup Tag', '', 'text-left')}
+            ${renderSortHeader('s1', 'S1 (Support)', '', 'text-right')}
+            ${renderSortHeader('r1', 'R1 (Resistance)', '', 'text-right')}
+            ${renderSortHeader('rvol', 'Volume / Deliv %', '', 'text-right')}
+            <th style="width: 100px; text-align: center;">Action</th>
           </tr>
         `;
       } else {
         thead.innerHTML = `
           <tr>
             <th style="width: 44px; text-align: center;">#</th>
-            ${renderSortHeader('symbol', 'Symbol', 'sticky-col sticky-col-1')}
-            ${renderSortHeader('cmp', 'LTP (₹)', 'sticky-col sticky-col-2')}
-            ${renderSortHeader('sector', 'Sector')}
-            ${renderSortHeader('change_pct', 'Day %')}
-            ${renderSortHeader('score', 'Score')}
-            ${renderSortHeader('grade', 'Grade')}
-            ${renderSortHeader('status', 'Setup Tag')}
-            ${renderSortHeader('s1', 'S1 (Support)')}
-            ${renderSortHeader('r1', 'R1 (Resistance)')}
-            ${renderSortHeader('rvol', 'Volume')}
-            ${renderSortHeader('delivery_pct', 'Delivery %')}
-            ${renderSortHeader('rs_1y', 'RS vs NIFTY')}
-            <th style="text-align: center;">Action</th>
+            ${renderSortHeader('symbol', 'Symbol', '', 'text-left')}
+            ${renderSortHeader('cmp', 'LTP (₹)', '', 'text-right')}
+            ${renderSortHeader('sector', 'Sector', '', 'text-left')}
+            ${renderSortHeader('change_pct', 'Day %', '', 'text-right')}
+            ${renderSortHeader('score', 'Score', '', 'text-center')}
+            ${renderSortHeader('grade', 'Grade', '', 'text-center')}
+            ${renderSortHeader('status', 'Setup Tag', '', 'text-left')}
+            ${renderSortHeader('s1', 'S1 (Support)', '', 'text-right')}
+            ${renderSortHeader('r1', 'R1 (Resistance)', '', 'text-right')}
+            ${renderSortHeader('rvol', 'Volume / Deliv %', '', 'text-right')}
+            <th style="width: 100px; text-align: center;">Action</th>
           </tr>
         `;
       }
@@ -6797,23 +6793,26 @@
         return `
           <tr class="signal-row clickable-row" data-symbol="${sig.symbol}">
             <td style="width: 44px; text-align: center; color: var(--text-tertiary); font-size: 0.78rem;">${startIdx + index + 1}</td>
-            <td class="sticky-col sticky-col-1">
-              <div class="symbol-col-wrap">
-                <span class="table-sym">${sig.symbol}</span>
-                <span class="table-sub-name">${sig.name || sig.sector || ''}</span>
+            <td class="text-left" style="text-align: left;">
+              <div class="symbol-col-wrap" style="text-align: left; align-items: flex-start;">
+                <span class="table-sym font-bold">${sig.symbol}</span>
+                <span class="table-sub-name" style="font-size: 0.75rem; color: var(--text-tertiary);">${sig.name || ''}</span>
               </div>
             </td>
-            <td class="sticky-col sticky-col-2 font-mono font-bold">₹${formatCurrency(sig.cmp)}</td>
-            <td><span class="badge-tag-secondary">${sig.sector || '--'}</span></td>
-            <td class="font-mono ${chg >= 0 ? 'text-bullish' : 'text-bearish'} font-bold">${chg >= 0 ? '+' : ''}${chg.toFixed(2)}%</td>
-            <td><span class="score-badge ${scoreClass} font-mono font-bold">${scoreVal}</span></td>
-            <td><span class="grade-pill font-mono">${gradeVal}</span></td>
-            <td><span class="badge-pill badge-neutral">${cleanStatus}</span></td>
-            <td class="font-mono text-cyan">${sig.s1 ? '₹' + formatCurrency(sig.s1) : '--'}</td>
-            <td class="font-mono text-gold">${sig.r1 ? '₹' + formatCurrency(sig.r1) : '--'}</td>
-            <td class="font-mono">${rvolText}</td>
-            <td class="font-mono">${delivText}</td>
-            <td class="font-mono ${rsVal >= 0 ? 'text-bullish' : 'text-bearish'}">${rsVal >= 0 ? '+' : ''}${rsVal.toFixed(1)}</td>
+            <td class="font-mono font-bold text-right" style="text-align: right;">₹${formatCurrency(sig.cmp)}</td>
+            <td class="text-left" style="text-align: left;"><span class="badge-tag-secondary">${sig.sector || '--'}</span></td>
+            <td class="font-mono ${chg >= 0 ? 'text-bullish' : 'text-bearish'} font-bold text-right" style="text-align: right;">${chg >= 0 ? '+' : ''}${chg.toFixed(2)}%</td>
+            <td class="text-center" style="text-align: center;"><span class="score-badge ${scoreClass} font-mono font-bold">${scoreVal}</span></td>
+            <td class="text-center" style="text-align: center;"><span class="grade-pill font-mono">${gradeVal}</span></td>
+            <td class="text-left" style="text-align: left;"><span class="badge-pill badge-neutral">${cleanStatus}</span></td>
+            <td class="font-mono text-cyan text-right" style="text-align: right;">${sig.s1 ? '₹' + formatCurrency(sig.s1) : '--'}</td>
+            <td class="font-mono text-gold text-right" style="text-align: right;">${sig.r1 ? '₹' + formatCurrency(sig.r1) : '--'}</td>
+            <td class="font-mono text-right" style="text-align: right;">
+              <div style="display: flex; flex-direction: column; align-items: flex-end; line-height: 1.2;">
+                <span>${rvolText}</span>
+                <span style="font-size: 0.72rem; color: #94a3b8;">${delivText}</span>
+              </div>
+            </td>
             <td style="text-align: center;">
               <button class="action-btn action-inspect inspect-stock-btn" data-symbol="${sig.symbol}" title="Inspect Technical & Fundamental Dossier">Inspect ⚡</button>
             </td>

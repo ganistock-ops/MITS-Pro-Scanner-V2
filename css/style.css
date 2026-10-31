@@ -623,7 +623,7 @@ body.resizing-active {
   background: rgba(255, 255, 255, 0.04);
 }
 
-/* Column Width Proportions & Uncrushable Minimum Widths (13 Columns) */
+/* Column Width Proportions & Uncrushable Minimum Widths (12 Standardized Columns) */
 .pro-table th,
 .pro-table td {
   white-space: nowrap !important;
@@ -631,20 +631,34 @@ body.resizing-active {
   text-overflow: clip !important;
 }
 
-.pro-table th:nth-child(1), .pro-table td:nth-child(1) { width: 44px; min-width: 44px; text-align: center; }
-.pro-table th:nth-child(2), .pro-table td:nth-child(2) { min-width: 140px; text-align: left; }
-.pro-table th:nth-child(3), .pro-table td:nth-child(3) { min-width: 105px; text-align: right; }
-.pro-table th:nth-child(4), .pro-table td:nth-child(4) { min-width: 125px; text-align: left; }
-.pro-table th:nth-child(5), .pro-table td:nth-child(5) { min-width: 85px; text-align: right; }
-.pro-table th:nth-child(6), .pro-table td:nth-child(6) { min-width: 75px; text-align: center; }
-.pro-table th:nth-child(7), .pro-table td:nth-child(7) { min-width: 65px; text-align: center; }
-.pro-table th:nth-child(8), .pro-table td:nth-child(8) { min-width: 130px; text-align: left; }
-.pro-table th:nth-child(9), .pro-table td:nth-child(9) { min-width: 95px; text-align: right; }
-.pro-table th:nth-child(10), .pro-table td:nth-child(10) { min-width: 95px; text-align: right; }
-.pro-table th:nth-child(11), .pro-table td:nth-child(11) { min-width: 80px; text-align: right; }
-.pro-table th:nth-child(12), .pro-table td:nth-child(12) { min-width: 85px; text-align: right; }
-.pro-table th:nth-child(13), .pro-table td:nth-child(13) { min-width: 90px; text-align: right; }
-.pro-table th:nth-child(14), .pro-table td:nth-child(14) { min-width: 100px; text-align: center; }
+#pro-table {
+  min-width: 1100px !important;
+  table-layout: auto !important;
+}
+
+#pro-table th:nth-child(1), #pro-table td:nth-child(1) { width: 44px; min-width: 44px; text-align: center; }
+#pro-table th:nth-child(2), #pro-table td:nth-child(2) { min-width: 140px; text-align: left; }
+#pro-table th:nth-child(3), #pro-table td:nth-child(3) { min-width: 105px; text-align: right; }
+#pro-table th:nth-child(4), #pro-table td:nth-child(4) { min-width: 125px; text-align: left; }
+#pro-table th:nth-child(5), #pro-table td:nth-child(5) { min-width: 85px; text-align: right; }
+#pro-table th:nth-child(6), #pro-table td:nth-child(6) { min-width: 75px; text-align: center; }
+#pro-table th:nth-child(7), #pro-table td:nth-child(7) { min-width: 65px; text-align: center; }
+#pro-table th:nth-child(8), #pro-table td:nth-child(8) { min-width: 130px; text-align: left; }
+#pro-table th:nth-child(9), #pro-table td:nth-child(9) { min-width: 95px; text-align: right; }
+#pro-table th:nth-child(10), #pro-table td:nth-child(10) { min-width: 95px; text-align: right; }
+#pro-table th:nth-child(11), #pro-table td:nth-child(11) { min-width: 95px; text-align: right; }
+#pro-table th:nth-child(12), #pro-table td:nth-child(12) { min-width: 100px; text-align: center; }
+
+/* Ensure desktop core scanner table columns flow naturally without artificial sticky displacement */
+#pro-table .sticky-col-1,
+#pro-table .sticky-col-2,
+#pro-table th.sticky-col-1,
+#pro-table th.sticky-col-2,
+#pro-table td.sticky-col-1,
+#pro-table td.sticky-col-2 {
+  position: static !important;
+  left: auto !important;
+}
 
 .btn-view-setup {
   display: inline-flex;
