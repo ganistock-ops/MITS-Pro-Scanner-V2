@@ -1,6 +1,6 @@
 {
   "scan_date": "2026-10-30",
-  "generated_at": "2026-10-31T15:22:36 IST",
+  "generated_at": "2026-10-31T15:47:01 IST",
   "total_stocks": 500,
   "strong_rs_count": 77,
   "grade_a_count": 52,
@@ -16310,7 +16310,7 @@
       "ema_50": 3438.46,
       "dist_ema50_pct": 2.05,
       "above_ema50": true,
-      "ema_200": 3182.71,
+      "ema_200": 3182.72,
       "dist_ema200_pct": 10.25,
       "above_ema200": true,
       "vol_20d_avg": 128815.0,
@@ -16405,7 +16405,7 @@
         "trend_stack_badge": "CONSTRUCTIVE",
         "ema_20": 3412.72,
         "ema_50": 3438.46,
-        "ema_200": 3182.71,
+        "ema_200": 3182.72,
         "key_levels": {
           "support": 3199.9,
           "support_label": "20D Swing Low Support",
