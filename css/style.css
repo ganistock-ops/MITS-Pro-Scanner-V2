@@ -4230,6 +4230,17 @@ body.resizing-active {
   display: none !important;
 }
 
+#view-advanced-scanner {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  box-sizing: border-box;
+}
+
+#view-advanced-scanner:not(.hidden) {
+  display: block !important;
+  min-height: 500px;
+}
+
 .table-responsive-wrapper {
   width: 100%;
   overflow-x: auto;

@@ -4269,13 +4269,14 @@
       if (target === 'adv') {
         if (dView) {
           dView.classList.add('hidden');
-          dView.style.display = 'none';
+          dView.style.setProperty('display', 'none', 'important');
         }
         if (aView) {
           aView.classList.remove('hidden');
-          aView.style.display = 'block';
+          aView.style.setProperty('display', 'block', 'important');
+          aView.style.minHeight = '500px';
         }
-        if (dBtn) dBtn.classList.remove('active');
+        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (aBtn) aBtn.classList.add('active');
         if (window.location.hash !== '#advanced-scanner') {
           window.location.hash = '#advanced-scanner';
@@ -4284,13 +4285,13 @@
       } else {
         if (aView) {
           aView.classList.add('hidden');
-          aView.style.display = 'none';
+          aView.style.setProperty('display', 'none', 'important');
         }
         if (dView) {
           dView.classList.remove('hidden');
-          dView.style.display = 'block';
+          dView.style.setProperty('display', 'block', 'important');
         }
-        if (aBtn) aBtn.classList.remove('active');
+        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (dBtn) dBtn.classList.add('active');
         if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner') {
           window.location.hash = '#dashboard';
@@ -4298,23 +4299,19 @@
       }
     }
 
-    if (navAdvBtn) {
-      navAdvBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        switchView('adv');
-      });
-    }
-
-    if (navDashBtn) {
-      navDashBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        switchView('dash');
-      });
-    }
-
-    // Bind other sidebar links so workspace returns to dashboard safely
+    // Bind sidebar clicks
     document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(item => {
-      if (item.id !== 'nav-adv-scanner' && item.id !== 'nav-dashboard') {
+      if (item.id === 'nav-adv-scanner') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('adv');
+        });
+      } else if (item.id === 'nav-dashboard') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('dash');
+        });
+      } else {
         item.addEventListener('click', () => {
           switchView('dash');
           document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
@@ -4328,7 +4325,7 @@
       const hash = window.location.hash;
       if (hash === '#stock-scanner' || hash === '#advanced-scanner') {
         switchView('adv');
-      } else if (hash === '#dashboard' || hash === '' || hash === '#market-intelligence') {
+      } else {
         switchView('dash');
       }
     }
@@ -4400,7 +4397,7 @@
   }
 
   async function loadAdvRsData() {
-    if (advState.rsData) {
+    if (advState.rsData && advState.rsData.stocks && advState.rsData.stocks.length) {
       populateAdvSectorFilter();
       updateAdvHeaderKpis();
       renderAdvRsTable();
@@ -4408,20 +4405,21 @@
     }
     try {
       const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
-      const res = await fetch(`${basePath}adv_scanner_1_rs.json?t=${Date.now()}`);
+      let res = await fetch(`${basePath}adv_scanner_1_rs.json?t=${Date.now()}`);
+      if (!res.ok) {
+        res = await fetch('data/adv_scanner_1_rs.json');
+      }
+      if (!res.ok) {
+        res = await fetch('./data/adv_scanner_1_rs.json');
+      }
       if (res.ok) {
         advState.rsData = await res.json();
+        console.log(`[MITS Pro] Successfully loaded adv_scanner_1_rs.json (${advState.rsData.stocks ? advState.rsData.stocks.length : 0} stocks)`);
         populateAdvSectorFilter();
         updateAdvHeaderKpis();
         renderAdvRsTable();
       } else {
-        const resFallback = await fetch('data/adv_scanner_1_rs.json');
-        if (resFallback.ok) {
-          advState.rsData = await resFallback.json();
-          populateAdvSectorFilter();
-          updateAdvHeaderKpis();
-          renderAdvRsTable();
-        }
+        console.error(`[MITS Pro] Failed to load adv_scanner_1_rs.json: HTTP ${res.status}`);
       }
     } catch (err) {
       console.error('[MITS Pro] Error loading adv_scanner_1_rs.json:', err);
@@ -4462,8 +4460,16 @@
   }
 
   function renderAdvRsTable() {
-    const tbody = document.getElementById('adv-rs-tbody');
-    if (!tbody || !advState.rsData || !advState.rsData.stocks) return;
+    try {
+      const tbody = document.getElementById('adv-rs-tbody') || document.getElementById('rsScannerTableBody') || document.querySelector('.rsScannerTableBody');
+      if (!tbody) {
+        console.warn('[MITS Pro] RS table tbody element (#adv-rs-tbody or #rsScannerTableBody) not found in DOM.');
+        return;
+      }
+      if (!advState.rsData || !advState.rsData.stocks || !advState.rsData.stocks.length) {
+        tbody.innerHTML = `<tr><td colspan="16" style="text-align: center; padding: 2.5rem; color: #94a3b8;">Loading Relative Strength dataset...</td></tr>`;
+        return;
+      }
 
     let stocks = [...advState.rsData.stocks];
 
@@ -4634,6 +4640,9 @@
         if (sym) openAdvRsDossier(sym);
       });
     });
+    } catch (renderErr) {
+      console.error('[MITS Pro] Error rendering RS table:', renderErr);
+    }
   }
 
   function renderAdvPagination(totalSignals, totalPages, startIdx, endIdx) {
