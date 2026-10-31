@@ -5040,11 +5040,70 @@ body.dossier-modal-open {
 
 
 /* ==========================================================================
-   INTERACTIVE DRAGGABLE COLUMN RESIZING (SLOT 2 TABLE)
+   INTERACTIVE DRAGGABLE COLUMN RESIZING (SLOT 1 & SLOT 2 TABLE)
    ========================================================================== */
-#adv-rs-table.slot-2 th {
+#adv-rs-table th {
   position: relative !important;
   overflow: visible !important;
+}
+
+#adv-rs-table.slot-1 {
+  min-width: 1300px !important;
+  table-layout: auto !important;
+}
+
+.deliv-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.deliv-badge.deliv-high {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  font-weight: 700;
+}
+
+/* Mobile Pinned Symbol Column */
+@media (max-width: 768px) {
+  #adv-rs-table .sticky-symbol-col {
+    position: sticky !important;
+    left: 80px !important;
+    z-index: 5 !important;
+    background: #0f172a !important;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.45) !important;
+  }
+  #adv-rs-table thead th.sticky-symbol-col {
+    z-index: 8 !important;
+    background: #111827 !important;
+  }
+  #adv-rs-table th:nth-child(1),
+  #adv-rs-table td:nth-child(1) {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 6 !important;
+    background: #0f172a !important;
+  }
+  #adv-rs-table thead th:nth-child(1) {
+    z-index: 9 !important;
+    background: #111827 !important;
+  }
+  #adv-rs-table th:nth-child(2),
+  #adv-rs-table td:nth-child(2) {
+    position: sticky !important;
+    left: 40px !important;
+    z-index: 6 !important;
+    background: #0f172a !important;
+  }
+  #adv-rs-table thead th:nth-child(2) {
+    z-index: 9 !important;
+    background: #111827 !important;
+  }
 }
 
 .col-resizer {

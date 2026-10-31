@@ -299,7 +299,14 @@ def compute_rs_metrics(
         dist_52w = f"{round(((high_52w - cmp) / high_52w) * -100.0, 2)}% from 52W High" if high_52w > 0 else "0.0% from 52W High"
 
         # 4. Smart Money / Volume Footprint
-        deliv_pct = float(bhav_info.get("delivery_pct", 0.0)) if bhav_info else 0.0
+        deliv_pct = 0.0
+        if bhav_info:
+            if "deliv_per" in bhav_info and bhav_info["deliv_per"] is not None:
+                deliv_pct = float(bhav_info["deliv_per"])
+            elif "delivery_pct" in bhav_info and bhav_info["delivery_pct"] is not None:
+                deliv_pct = float(bhav_info["delivery_pct"])
+            elif "DELIV_PER" in bhav_info and bhav_info["DELIV_PER"] is not None:
+                deliv_pct = float(bhav_info["DELIV_PER"])
         deliv_spike = float(bhav_info.get("delivery_spike_pct", 0.0)) if bhav_info else 0.0
         if deliv_pct >= 60.0 or vol_ratio >= 1.5:
             delivery_status = "High Institutional Accumulation"
@@ -423,6 +430,12 @@ def compute_rs_metrics(
             "rs_line_status": rs_line_status,
             "rs_line_sparkline": sparkline_normalized,
             "confirmation_tags": tags,
+            "delivery_pct": round(deliv_pct, 1) if deliv_pct > 0 else 0.0,
+            "delivery_status": delivery_status,
+            "delivery_badge": delivery_badge,
+            "ema_stack": trend_stack_badge,
+            "ema_stack_status": trend_stack_status,
+            "vol_status": "Institutional Whale" if vol_ratio >= 2.0 else ("High Accumulation" if vol_ratio >= 1.5 else ("Volume Dry-Up" if vol_ratio < 0.75 else "Normal Flow")),
             "dossier": dossier
         }
     except Exception as e:
@@ -580,6 +593,44 @@ def generate_adv_scanner_rs(
             for sym, group in full_ohlcv.groupby(sym_col):
                 stock_dfs[str(sym)] = group.sort_values("Date")
             logger.info(f"Loaded {len(stock_dfs)} stock DataFrames from cache.")
+
+    # 3b. Standalone Bhavcopy delivery loading if bhav_map is None
+    if bhav_map is None:
+        bhav_map = {}
+        bhav_cache_dir = DATA_DIR / "bhavcopy_cache"
+        all_cached = sorted(list(bhav_cache_dir.glob("sec_bhavdata_full_*.csv")), reverse=True)
+        if all_cached:
+            try:
+                bhav_df = pd.read_csv(all_cached[0])
+                bhav_df.columns = [c.strip() for c in bhav_df.columns]
+                if "SERIES" in bhav_df.columns:
+                    bhav_df = bhav_df[bhav_df["SERIES"].astype(str).str.strip() == "EQ"]
+                if "SYMBOL" in bhav_df.columns:
+                    bhav_df["SYMBOL"] = bhav_df["SYMBOL"].astype(str).str.strip()
+                    deliv_pers = pd.to_numeric(bhav_df.get("DELIV_PER", 0.0), errors="coerce").fillna(0.0).values
+                    deliv_qtys = pd.to_numeric(bhav_df.get("DELIV_QTY", 0.0), errors="coerce").fillna(0.0).values
+                    symbols_arr = bhav_df["SYMBOL"].values
+                    opens = pd.to_numeric(bhav_df.get("OPEN_PRICE", 0.0), errors="coerce").fillna(0.0).values
+                    highs = pd.to_numeric(bhav_df.get("HIGH_PRICE", 0.0), errors="coerce").fillna(0.0).values
+                    lows = pd.to_numeric(bhav_df.get("LOW_PRICE", 0.0), errors="coerce").fillna(0.0).values
+                    closes = pd.to_numeric(bhav_df.get("CLOSE_PRICE", 0.0), errors="coerce").fillna(0.0).values
+                    prevs = pd.to_numeric(bhav_df.get("PREV_CLOSE", 0.0), errors="coerce").fillna(0.0).values
+                    vols = pd.to_numeric(bhav_df.get("TTL_TRD_QNTY", 0.0), errors="coerce").fillna(0.0).values
+                    for i, s in enumerate(symbols_arr):
+                        bhav_map[s] = {
+                            "open": float(opens[i]),
+                            "high": float(highs[i]),
+                            "low": float(lows[i]),
+                            "close": float(closes[i]),
+                            "prev_close": float(prevs[i]),
+                            "volume": float(vols[i]),
+                            "deliv_qty": float(deliv_qtys[i]),
+                            "deliv_per": float(deliv_pers[i]),
+                            "delivery_pct": float(deliv_pers[i])
+                        }
+                logger.info(f"Loaded standalone Bhavcopy delivery data from {all_cached[0].name} ({len(bhav_map)} symbols).")
+            except Exception as e:
+                logger.warning(f"Error loading cached Bhavcopy: {e}")
 
     # 4. Evaluate all stocks
     records: List[Dict[str, Any]] = []

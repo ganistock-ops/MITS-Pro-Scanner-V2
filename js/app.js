@@ -4526,23 +4526,22 @@
     if (slotNum === 1) {
       thead.innerHTML = `
         <tr>
-          <th style="width: 44px; text-align: center;">#</th>
-          <th style="width: 38px; text-align: center;" title="Quick Watchlist">★</th>
-          <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol <span class="sort-icon">↕</span></th>
-          <th class="sticky-col sticky-col-2 sortable" data-col="cmp">LTP (₹) <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="change_pct">Day % <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="ret_20d_stock">20D Ret % <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="rs_20d">20D RS <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="rs_60d">60D RS <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="rs_120d">120D RS <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="rs_252d">252D RS <span class="sort-icon">↕</span></th>
-          <th class="sortable active-sort" data-col="rs_score">RS Score <span class="sort-icon active">▼</span></th>
-          <th class="sortable" data-col="grade">Grade <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="above_ema50">50 EMA <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="above_ema200">200 EMA <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="vol_ratio">Vol Conf <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="rs_line_trend">RS Line Status <span class="sort-icon">↕</span></th>
-          <th style="text-align: center;">Action</th>
+          <th style="width: 40px; text-align: center;">#<div class="col-resizer" data-min="36"></div></th>
+          <th style="width: 40px; text-align: center;" title="Quick Watchlist">★<div class="col-resizer" data-min="36"></div></th>
+          <th class="sortable text-left sticky-symbol-col" data-col="symbol" style="min-width: 140px; text-align: left;">Symbol <span class="sort-icon">↕</span><div class="col-resizer" data-min="90"></div></th>
+          <th class="sortable text-right" data-col="cmp" style="width: 90px; text-align: right;">LTP (₹) <span class="sort-icon">↕</span><div class="col-resizer" data-min="70"></div></th>
+          <th class="sortable text-right" data-col="change_pct" style="width: 75px; text-align: right;">CHG % <span class="sort-icon">↕</span><div class="col-resizer" data-min="65"></div></th>
+          <th class="sortable text-right" data-col="delivery_pct" style="width: 85px; text-align: right;">Delivery % <span class="sort-icon">↕</span><div class="col-resizer" data-min="70"></div></th>
+          <th class="sortable text-center" data-col="grade" style="width: 65px; text-align: center;">Grade <span class="sort-icon">↕</span><div class="col-resizer" data-min="55"></div></th>
+          <th class="sortable active-sort text-center" data-col="rs_score" style="width: 80px; text-align: center;">RS Score <span class="sort-icon active">▼</span><div class="col-resizer" data-min="65"></div></th>
+          <th class="sortable text-center" data-col="rs_line_status" style="width: 110px; text-align: center;">RS Line Status <span class="sort-icon">↕</span><div class="col-resizer" data-min="85"></div></th>
+          <th class="sortable text-right" data-col="rs_20d" style="width: 75px; text-align: right;">20D RS <span class="sort-icon">↕</span><div class="col-resizer" data-min="65"></div></th>
+          <th class="sortable text-right" data-col="rs_60d" style="width: 75px; text-align: right;">60D RS <span class="sort-icon">↕</span><div class="col-resizer" data-min="65"></div></th>
+          <th class="sortable text-right" data-col="rs_120d" style="width: 75px; text-align: right;">120D RS <span class="sort-icon">↕</span><div class="col-resizer" data-min="65"></div></th>
+          <th class="sortable text-right" data-col="rs_252d" style="width: 75px; text-align: right;">252D RS <span class="sort-icon">↕</span><div class="col-resizer" data-min="65"></div></th>
+          <th class="sortable text-center" data-col="ema_stack" style="width: 100px; text-align: center;">EMA Stack <span class="sort-icon">↕</span><div class="col-resizer" data-min="80"></div></th>
+          <th class="sortable text-center" data-col="vol_ratio" style="width: 95px; text-align: center;">Vol Status <span class="sort-icon">↕</span><div class="col-resizer" data-min="75"></div></th>
+          <th style="width: 75px; text-align: center;">Action</th>
         </tr>
       `;
     } else {
@@ -4577,9 +4576,7 @@
       });
     });
 
-    if (slotNum === 2) {
-      initTableColumnResizers(thead);
-    }
+    initTableColumnResizers(thead);
   }
 
   let isResizingCol = false;
@@ -4761,7 +4758,10 @@
       const activeData = isSlot1 ? advState.rsData : advState.boData;
 
       const tableEl = document.getElementById('adv-rs-table');
-      if (tableEl) tableEl.classList.toggle('slot-2', !isSlot1);
+      if (tableEl) {
+        tableEl.classList.toggle('slot-1', isSlot1);
+        tableEl.classList.toggle('slot-2', !isSlot1);
+      }
 
       if (!activeData || !activeData.stocks || !activeData.stocks.length) {
         const scannerName = isSlot1 ? 'Relative Strength' : 'Early Breakout';
@@ -4808,6 +4808,10 @@
       stocks.sort((a, b) => {
         let va = a[col];
         let vb = b[col];
+        if (col === 'delivery_pct') {
+          va = a.delivery_pct !== undefined && a.delivery_pct !== null ? a.delivery_pct : (a.dossier?.delivery_pct || 0);
+          vb = b.delivery_pct !== undefined && b.delivery_pct !== null ? b.delivery_pct : (b.dossier?.delivery_pct || 0);
+        }
         if (va === null || va === undefined) va = isDesc ? -999999 : 999999;
         if (vb === null || vb === undefined) vb = isDesc ? -999999 : 999999;
         if (typeof va === 'string') {
@@ -4857,13 +4861,13 @@
 
       let html = '';
       if (isSlot1) {
-        // Slot 1: Relative Strength table rows
+        // Slot 1: Relative Strength table rows (16-column layout)
         pageSignals.forEach((s, idx) => {
           const globalIdx = startIdx + idx + 1;
           const dayChg = Number(s.change_pct) || 0;
-          const dayChgClass = dayChg >= 0 ? 'text-bullish' : 'text-bearish';
-          const r20 = Number(s.ret_20d_stock) || 0;
-          const r20Class = r20 >= 0 ? 'text-bullish' : 'text-bearish';
+          const dayChgClass = dayChg >= 0 ? 'text-green text-bullish' : 'text-red text-bearish';
+          const delivVal = s.delivery_pct !== undefined && s.delivery_pct !== null ? Number(s.delivery_pct) : (s.dossier?.delivery_pct !== undefined ? Number(s.dossier.delivery_pct) : null);
+          const delivHighClass = delivVal !== null && delivVal >= 55 ? 'deliv-high' : '';
 
           let gradeBadge = 'grade-weak';
           if (s.grade === 'Grade A') gradeBadge = 'grade-a';
@@ -4877,33 +4881,70 @@
 
           const isWl = isWatchlisted(s.symbol);
 
+          // EMA Stack badge logic
+          const isBullStack = s.ema_stack === 'PERFECT STACK' || (s.cmp > s.ema_20 && s.ema_20 > s.ema_50 && (!s.ema_200 || s.ema_50 > s.ema_200));
+          const emaStackBadge = isBullStack
+            ? '<span class="tag-pill tag-bull" title="Bullish Stack: Price > 20 > 50 > 200 EMA">20 > 50 > 200</span>'
+            : (s.above_ema50
+                ? '<span class="tag-pill tag-gold" title="Above 50 EMA">Above 50 EMA</span>'
+                : '<span class="tag-pill tag-bear" title="Below 50 EMA">Below 50 EMA</span>');
+
+          // Vol Status badge logic
+          const volRatio = Number(s.vol_ratio) || 0;
+          const volStatusBadge = volRatio >= 2.0
+            ? '<span class="tag-pill tag-bull" title="Institutional Whale Volume Surge">Whale ' + volRatio.toFixed(1) + 'x</span>'
+            : (volRatio >= 1.4
+                ? '<span class="tag-pill tag-bull" title="Volume Surge">' + volRatio.toFixed(1) + 'x Surge</span>'
+                : (volRatio < 0.75
+                    ? '<span class="tag-pill tag-neutral" title="Volume Contraction / Dry-up">' + volRatio.toFixed(1) + 'x Dry-up</span>'
+                    : '<span class="tag-pill tag-gold">' + volRatio.toFixed(1) + 'x Normal</span>'));
+
+          // RS Line Status badge
+          const rsLineText = s.rs_line_status || (s.rs_line_trend === 'Rising' ? 'Rising' : 'Consolidating');
+          const rsLineBadgeClass = rsLineText.includes('52W') || rsLineText.includes('Uptrend') || rsLineText === 'Rising' ? 'tag-bull' : 'tag-neutral';
+
           html += `
             <tr class="adv-rs-row" data-symbol="${s.symbol}">
-              <td class="row-index" style="text-align: center;">${globalIdx}</td>
-              <td style="text-align: center;">
-                <button type="button" class="tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
+              <td class="row-index text-center" style="width: 40px; text-align: center;">${globalIdx}</td>
+              <td class="text-center" style="width: 40px; text-align: center;">
+                <button type="button" class="watchlist-star-btn tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" onclick="toggleWatchlist('${s.symbol}')" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
               </td>
-              <td class="sticky-col sticky-col-1 symbol-cell">
-                <span class="stock-sym">${s.symbol}</span>
-                <span class="stock-sec">${s.sector || 'NSE'}</span>
+              <td class="col-symbol text-left sticky-symbol-col" style="min-width: 140px; text-align: left !important;">
+                <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
+                  <strong>${s.symbol}</strong>
+                  <span class="muted-sector">${s.name || s.sector || 'NSE'}</span>
+                </div>
               </td>
-              <td class="sticky-col sticky-col-2 cmp-cell font-mono">
-                <strong>₹${formatCurrency(s.cmp)}</strong>
+              <td class="text-right font-mono" style="width: 90px; text-align: right;">₹${formatCurrency(s.cmp)}</td>
+              <td class="text-right font-mono ${dayChgClass}" style="width: 75px; text-align: right;">${dayChg >= 0 ? '+' : ''}${dayChg.toFixed(2)}%</td>
+              <td class="text-right font-mono" style="width: 85px; text-align: right;">
+                <span class="deliv-badge ${delivHighClass}">${delivVal !== null ? delivVal.toFixed(1) + '%' : '--'}</span>
               </td>
-              <td class="${dayChgClass} font-mono">${dayChg >= 0 ? '+' : ''}${dayChg.toFixed(2)}%</td>
-              <td class="${r20Class} font-mono">${r20 >= 0 ? '+' : ''}${r20.toFixed(2)}%</td>
-              <td class="font-mono ${Number(s.rs_20d) >= 0 ? 'text-bullish' : 'text-bearish'}">${s.rs_20d !== null ? (Number(s.rs_20d) >= 0 ? '+' : '') + Number(s.rs_20d).toFixed(1) + '%' : '--'}</td>
-              <td class="font-mono ${Number(s.rs_60d) >= 0 ? 'text-bullish' : 'text-bearish'}">${s.rs_60d !== null ? (Number(s.rs_60d) >= 0 ? '+' : '') + Number(s.rs_60d).toFixed(1) + '%' : '--'}</td>
-              <td class="font-mono ${Number(s.rs_120d) >= 0 ? 'text-bullish' : 'text-bearish'}">${s.rs_120d !== null ? (Number(s.rs_120d) >= 0 ? '+' : '') + Number(s.rs_120d).toFixed(1) + '%' : '--'}</td>
-              <td class="font-mono ${Number(s.rs_252d) >= 0 ? 'text-bullish' : 'text-bearish'}">${s.rs_252d !== null ? (Number(s.rs_252d) >= 0 ? '+' : '') + Number(s.rs_252d).toFixed(1) + '%' : '--'}</td>
-              <td><span class="rs-score-pill ${scoreBadge}">${s.rs_score}</span></td>
-              <td><span class="rs-grade-pill ${gradeBadge}">${s.grade}</span></td>
-              <td><span class="tag-pill ${s.above_ema50 ? 'tag-bull' : 'tag-bear'}">${s.above_ema50 ? 'Above' : 'Below'}</span></td>
-              <td><span class="tag-pill ${s.above_ema200 ? 'tag-bull' : 'tag-neutral'}">${s.above_ema200 ? 'Above' : 'Below'}</span></td>
-              <td class="font-mono">${s.vol_ratio ? s.vol_ratio + 'x' : '--'}</td>
-              <td><span class="tag-pill ${s.rs_line_status === 'RISING' ? 'tag-bull' : 'tag-neutral'}">${s.rs_line_status || 'NEUTRAL'}</span></td>
-              <td style="text-align: center;">
-                <button type="button" class="adv-inspect-btn" data-symbol="${s.symbol}">Inspect</button>
+              <td class="text-center" style="width: 65px; text-align: center;">
+                <span class="rs-grade-pill ${gradeBadge}">${s.grade || '--'}</span>
+              </td>
+              <td class="text-center" style="width: 80px; text-align: center;">
+                <span class="rs-score-pill ${scoreBadge}"><strong>${s.rs_score !== undefined ? s.rs_score : '--'}</strong></span>
+              </td>
+              <td class="text-center" style="width: 110px; text-align: center;">
+                <span class="tag-pill ${rsLineBadgeClass}">${rsLineText}</span>
+              </td>
+              <td class="text-right font-mono ${Number(s.rs_20d) >= 0 ? 'text-bullish' : 'text-bearish'}" style="width: 75px; text-align: right;">
+                ${s.rs_20d !== null && s.rs_20d !== undefined ? (Number(s.rs_20d) >= 0 ? '+' : '') + Number(s.rs_20d).toFixed(1) + '%' : '--'}
+              </td>
+              <td class="text-right font-mono ${Number(s.rs_60d) >= 0 ? 'text-bullish' : 'text-bearish'}" style="width: 75px; text-align: right;">
+                ${s.rs_60d !== null && s.rs_60d !== undefined ? (Number(s.rs_60d) >= 0 ? '+' : '') + Number(s.rs_60d).toFixed(1) + '%' : '--'}
+              </td>
+              <td class="text-right font-mono ${Number(s.rs_120d) >= 0 ? 'text-bullish' : 'text-bearish'}" style="width: 75px; text-align: right;">
+                ${s.rs_120d !== null && s.rs_120d !== undefined ? (Number(s.rs_120d) >= 0 ? '+' : '') + Number(s.rs_120d).toFixed(1) + '%' : '--'}
+              </td>
+              <td class="text-right font-mono ${Number(s.rs_252d) >= 0 ? 'text-bullish' : 'text-bearish'}" style="width: 75px; text-align: right;">
+                ${s.rs_252d !== null && s.rs_252d !== undefined ? (Number(s.rs_252d) >= 0 ? '+' : '') + Number(s.rs_252d).toFixed(1) + '%' : '--'}
+              </td>
+              <td class="text-center" style="width: 100px; text-align: center;">${emaStackBadge}</td>
+              <td class="text-center" style="width: 95px; text-align: center;">${volStatusBadge}</td>
+              <td class="text-center" style="width: 75px; text-align: center;">
+                <button type="button" class="btn-inspect adv-inspect-btn" data-symbol="${s.symbol}" onclick="openDossier('${s.symbol}')">Inspect</button>
               </td>
             </tr>
           `;
@@ -5208,26 +5249,25 @@
 
     const rows = [];
     if (isSlot1) {
-      rows.push(['Rank', 'Symbol', 'Name', 'Sector', 'CMP', 'Day Change %', '20D Ret %', '20D RS', '60D RS', '120D RS', '252D RS', 'RS Score', 'Grade', '50 EMA Status', '200 EMA Status', 'Vol Ratio', 'RS Line Status'].join(','));
+      rows.push(['Rank', 'Symbol', 'Name', 'Sector', 'CMP', 'Day Change %', 'Delivery %', 'Grade', 'RS Score', 'RS Line Status', '20D RS', '60D RS', '120D RS', '252D RS', 'EMA Stack', 'Vol Status'].join(','));
       activeData.stocks.forEach(s => {
         rows.push([
-          s.rank,
+          s.rank || '--',
           `"${s.symbol}"`,
           `"${s.name}"`,
           `"${s.sector}"`,
           s.cmp,
           s.change_pct,
-          s.ret_20d_stock,
-          s.rs_20d,
-          s.rs_60d,
-          s.rs_120d,
-          s.rs_252d,
-          s.rs_score,
+          s.delivery_pct !== undefined && s.delivery_pct !== null ? s.delivery_pct : '--',
           `"${s.grade}"`,
-          s.above_ema50 ? 'Above' : 'Below',
-          s.above_ema200 ? 'Above' : 'Below',
-          s.vol_ratio,
-          `"${s.rs_line_status}"`
+          s.rs_score,
+          `"${s.rs_line_status || '--'}"`,
+          s.rs_20d !== null && s.rs_20d !== undefined ? s.rs_20d : '--',
+          s.rs_60d !== null && s.rs_60d !== undefined ? s.rs_60d : '--',
+          s.rs_120d !== null && s.rs_120d !== undefined ? s.rs_120d : '--',
+          s.rs_252d !== null && s.rs_252d !== undefined ? s.rs_252d : '--',
+          `"${s.ema_stack || (s.above_ema50 ? 'Above 50 EMA' : 'Below 50 EMA')}"`,
+          `"${s.vol_status || (s.vol_ratio ? s.vol_ratio + 'x' : '--')}"`
         ].join(','));
       });
     } else {
