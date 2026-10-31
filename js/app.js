@@ -4548,19 +4548,15 @@
     } else {
       thead.innerHTML = `
         <tr>
-          <th style="width: 44px; text-align: center;">#</th>
-          <th style="width: 38px; text-align: center;" title="Quick Watchlist">★</th>
-          <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol <span class="sort-icon">↕</span></th>
-          <th class="sticky-col sticky-col-2 sortable" data-col="cmp">LTP (₹) <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="change_pct">Day % <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="resistance">Resistance Pivot (₹) <span class="sort-icon">↕</span></th>
-          <th class="sortable active-sort" data-col="dist_to_pivot">Distance to Pivot (%) <span class="sort-icon active">▲</span></th>
-          <th class="sortable" data-col="pivot_type">Pivot Type <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="support">Dynamic Support (₹) <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="vol_ratio">Vol Footprint <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="tightness_desc">Consolidation <span class="sort-icon">↕</span></th>
-          <th class="sortable" data-col="bo_score">Readiness Score <span class="sort-icon">↕</span></th>
-          <th style="text-align: center;">Action</th>
+          <th style="width: 40px; text-align: center;">#</th>
+          <th style="width: 40px; text-align: center;" title="Quick Watchlist">★</th>
+          <th class="sortable text-left" data-col="symbol" style="text-align: left;">Symbol <span class="sort-icon">↕</span></th>
+          <th class="sortable text-right" data-col="cmp" style="width: 90px; text-align: right;">LTP (₹) <span class="sort-icon">↕</span></th>
+          <th class="sortable text-right" data-col="change_pct" style="width: 80px; text-align: right;">CHG % <span class="sort-icon">↕</span></th>
+          <th class="sortable text-right" data-col="resistance" style="width: 130px; text-align: right;">Resistance Pivot (₹) <span class="sort-icon">↕</span></th>
+          <th class="sortable active-sort text-center" data-col="dist_to_pivot" style="width: 110px; text-align: center;">Distance to Pivot <span class="sort-icon active">▲</span></th>
+          <th class="sortable text-center" data-col="pivot_type" style="width: 110px; text-align: center;">Pivot Type <span class="sort-icon">↕</span></th>
+          <th style="width: 80px; text-align: center;">Action</th>
         </tr>
       `;
     }
@@ -4701,6 +4697,9 @@
 
       const isSlot1 = advState.activeSlot === 1;
       const activeData = isSlot1 ? advState.rsData : advState.boData;
+
+      const tableEl = document.getElementById('adv-rs-table');
+      if (tableEl) tableEl.classList.toggle('slot-2', !isSlot1);
 
       if (!activeData || !activeData.stocks || !activeData.stocks.length) {
         const scannerName = isSlot1 ? 'Relative Strength' : 'Early Breakout';
@@ -4848,49 +4847,41 @@
           `;
         });
       } else {
-        // Slot 2: Early Breakout table rows
+        // Slot 2: Early Breakout table rows (Exact 9-column specification)
         pageSignals.forEach((s, idx) => {
           const globalIdx = startIdx + idx + 1;
-          const dayChg = Number(s.change_pct) || 0;
-          const dayChgClass = dayChg >= 0 ? 'text-bullish' : 'text-bearish';
-          const distVal = Number(s.dist_to_pivot) || 0;
+          const dayChg = s.change_pct !== undefined ? Number(s.change_pct) : (Number(s.day_change_pct) || 0);
+          const dayChgClass = dayChg >= 0 ? 'text-green text-bullish' : 'text-red text-bearish';
+          const distVal = s.dist_to_pivot !== undefined ? Number(s.dist_to_pivot) : (Number(s.dist_to_pivot_pct) || 0);
           const distBadge = distVal <= 1.5 ? 'badge-coiling' : 'badge-dryup';
           const pivBadge = s.pivot_type === '52-Week High' ? 'tag-bull' : 'tag-gold';
           const isWl = isWatchlisted(s.symbol);
+          const cmpVal = Number(s.cmp) || 0;
+          const resVal = Number(s.resistance !== undefined ? s.resistance : s.resistance_pivot) || 0;
 
           html += `
             <tr class="adv-rs-row" data-symbol="${s.symbol}">
-              <td class="row-index" style="text-align: center;">${globalIdx}</td>
-              <td style="text-align: center;">
-                <button type="button" class="tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
+              <td class="row-index text-center" style="width: 40px; text-align: center;">${globalIdx}</td>
+              <td class="text-center" style="width: 40px; text-align: center;">
+                <button type="button" class="watchlist-star-btn tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" onclick="toggleWatchlist('${s.symbol}')" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
               </td>
-              <td class="sticky-col sticky-col-1 symbol-cell">
-                <span class="stock-sym">${s.symbol}</span>
-                <span class="stock-sec">${s.sector || 'NSE'}</span>
+              <td class="col-symbol text-left" style="text-align: left !important;">
+                <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
+                  <strong>${s.symbol}</strong>
+                  <span class="muted-sector">${s.name || s.company_name || s.sector || 'NSE'}</span>
+                </div>
               </td>
-              <td class="sticky-col sticky-col-2 cmp-cell font-mono">
-                <strong>₹${formatCurrency(s.cmp)}</strong>
+              <td class="text-right font-mono" style="width: 90px; text-align: right;">₹${cmpVal.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+              <td class="text-right font-mono ${dayChgClass}" style="width: 80px; text-align: right;">${dayChg >= 0 ? '+' : ''}${dayChg.toFixed(2)}%</td>
+              <td class="text-right font-mono" style="width: 130px; text-align: right;">₹${resVal.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+              <td class="text-center" style="width: 110px; text-align: center;">
+                <span class="pivot-badge rs-grade-pill ${distBadge}">+${distVal.toFixed(2)}%</span>
               </td>
-              <td class="${dayChgClass} font-mono">${dayChg >= 0 ? '+' : ''}${dayChg.toFixed(2)}%</td>
-              <td class="font-mono"><strong>₹${formatCurrency(s.resistance)}</strong></td>
-              <td class="font-mono">
-                <span class="rs-grade-pill ${distBadge}">+${distVal.toFixed(2)}%</span>
+              <td class="text-center" style="width: 110px; text-align: center;">
+                <span class="badge-type tag-pill ${pivBadge}">${s.pivot_type || '20D Swing High'}</span>
               </td>
-              <td><span class="tag-pill ${pivBadge}">${s.pivot_type || '20D Swing High'}</span></td>
-              <td class="font-mono">
-                <span style="color: #cbd5e1;">₹${formatCurrency(s.support)}</span>
-                <div style="font-size: 0.68rem; color: #94a3b8;">${s.support_dist || ''}</div>
-              </td>
-              <td class="font-mono">
-                <strong>${Number(s.vol_ratio || 1.0).toFixed(2)}x</strong>
-                <span class="tag-pill ${s.vol_badge === 'SURGE' ? 'tag-bull' : 'tag-neutral'}" style="font-size: 0.68rem; margin-left: 4px;">${s.vol_badge || 'FLOW'}</span>
-              </td>
-              <td style="font-size: 0.8rem; color: #cbd5e1;">${s.tightness_desc || 'Consolidation'}</td>
-              <td class="font-mono" style="text-align: center;">
-                <span class="rs-score-pill score-gold">${s.bo_score || s.rs_score || 85}</span>
-              </td>
-              <td style="text-align: center;">
-                <button type="button" class="adv-inspect-btn" data-symbol="${s.symbol}">Inspect</button>
+              <td class="text-center" style="width: 80px; text-align: center;">
+                <button type="button" class="btn-inspect adv-inspect-btn" data-symbol="${s.symbol}" onclick="openDossier('${s.symbol}')">Inspect</button>
               </td>
             </tr>
           `;
@@ -5213,6 +5204,11 @@
   function exportAdvRsCsv() {
     exportAdvCsv();
   }
+
+  // Expose global controller helpers
+  window.toggleWatchlist = toggleWatchlist;
+  window.openDossier = openAdvRsDossierModal;
+  window.openAdvDossier = openAdvRsDossierModal;
 
   // Initialize App
   function init() {

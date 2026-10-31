@@ -4881,3 +4881,159 @@ body.dossier-modal-open {
   font-weight: 800;
   font-family: var(--font-mono, monospace);
 }
+
+
+/* ==========================================================================
+   SLOT 2 EARLY BREAKOUT 9-COLUMN SPECIFICATION & SYMBOL ALIGNMENT
+   ========================================================================== */
+#adv-rs-table th,
+#adv-rs-table td {
+  box-sizing: border-box;
+}
+
+#adv-rs-table th:nth-child(1), #adv-rs-table td:nth-child(1) {
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 48px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table th:nth-child(2), #adv-rs-table td:nth-child(2) {
+  width: 40px !important;
+  min-width: 40px !important;
+  max-width: 48px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table th:nth-child(3), #adv-rs-table td:nth-child(3) {
+  text-align: left !important;
+  min-width: 140px !important;
+}
+
+/* Slot 2 9-Column Exact Mapping */
+#adv-rs-table.slot-2 {
+  min-width: 780px !important;
+}
+
+#adv-rs-table.slot-2 th:nth-child(4), #adv-rs-table.slot-2 td:nth-child(4) {
+  width: 90px !important;
+  min-width: 90px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-2 th:nth-child(5), #adv-rs-table.slot-2 td:nth-child(5) {
+  width: 80px !important;
+  min-width: 80px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-2 th:nth-child(6), #adv-rs-table.slot-2 td:nth-child(6) {
+  width: 130px !important;
+  min-width: 130px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-2 th:nth-child(7), #adv-rs-table.slot-2 td:nth-child(7) {
+  width: 110px !important;
+  min-width: 110px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-2 th:nth-child(8), #adv-rs-table.slot-2 td:nth-child(8) {
+  width: 110px !important;
+  min-width: 110px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-2 th:nth-child(9), #adv-rs-table.slot-2 td:nth-child(9) {
+  width: 80px !important;
+  min-width: 80px !important;
+  text-align: center !important;
+}
+
+/* Left-aligned Symbol Block */
+.col-symbol {
+  text-align: left !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 2px !important;
+}
+
+.col-symbol strong {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 0.02em;
+  text-align: left !important;
+}
+
+.col-symbol .muted-sector {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  text-align: left !important;
+}
+
+/* Helper Utilities */
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-green {
+  color: #10b981 !important;
+}
+
+.text-red {
+  color: #f43f5e !important;
+}
+
+.pivot-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+}
+
+.badge-type {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.btn-inspect,
+.adv-inspect-btn {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-inspect:hover,
+.adv-inspect-btn:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #fbbf24;
+  color: #fff;
+  transform: translateY(-1px);
+}
