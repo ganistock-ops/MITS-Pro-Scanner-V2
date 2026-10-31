@@ -4239,9 +4239,510 @@
     paginationControls: document.getElementById('pagination-controls'),
   };
 
+
+  // =========================================================================
+  // ADVANCED STOCK SCANNER & RELATIVE STRENGTH (RS) CONTROLLER
+  // =========================================================================
+  const advState = {
+    rsData: null,
+    activeSubScanner: 'rs_scanner',
+    searchQuery: '',
+    gradeFilter: 'ALL',
+    classFilter: 'ALL',
+    sectorFilter: 'ALL',
+    sortColumn: 'rs_score',
+    sortDirection: 'desc',
+    currentPage: 1,
+    pageSize: 15
+  };
+
+  function initAdvScannerNavigation() {
+    const navAdvBtn = document.getElementById('nav-adv-scanner');
+    const navDashBtn = document.getElementById('nav-dashboard');
+    const dashView = document.getElementById('dashboard-view');
+    const advView = document.getElementById('adv-scanner-view');
+
+    if (!navAdvBtn || !navDashBtn || !dashView || !advView) return;
+
+    function switchView(target) {
+      if (target === 'adv') {
+        dashView.style.display = 'none';
+        advView.style.display = 'block';
+        navDashBtn.classList.remove('active');
+        navAdvBtn.classList.add('active');
+        loadAdvRsData();
+      } else {
+        advView.style.display = 'none';
+        dashView.style.display = 'block';
+        navAdvBtn.classList.remove('active');
+        navDashBtn.classList.add('active');
+      }
+    }
+
+    navAdvBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchView('adv');
+    });
+
+    navDashBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchView('dash');
+    });
+
+    // Hash navigation routing
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash;
+      if (hash === '#stock-scanner' || hash === '#advanced-scanner') {
+        switchView('adv');
+      } else if (hash === '#dashboard' || hash === '') {
+        switchView('dash');
+      }
+    });
+
+    // Toolbar event listeners
+    const searchInput = document.getElementById('adv-rs-search');
+    const gradeSelect = document.getElementById('adv-grade-filter');
+    const classSelect = document.getElementById('adv-class-filter');
+    const sectorSelect = document.getElementById('adv-rs-sector');
+    const exportBtn = document.getElementById('adv-export-csv-btn');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        advState.searchQuery = e.target.value.trim().toLowerCase();
+        advState.currentPage = 1;
+        renderAdvRsTable();
+      });
+    }
+
+    if (gradeSelect) {
+      gradeSelect.addEventListener('change', (e) => {
+        advState.gradeFilter = e.target.value;
+        advState.currentPage = 1;
+        renderAdvRsTable();
+      });
+    }
+
+    if (classSelect) {
+      classSelect.addEventListener('change', (e) => {
+        advState.classFilter = e.target.value;
+        advState.currentPage = 1;
+        renderAdvRsTable();
+      });
+    }
+
+    if (sectorSelect) {
+      sectorSelect.addEventListener('change', (e) => {
+        advState.sectorFilter = e.target.value;
+        advState.currentPage = 1;
+        renderAdvRsTable();
+      });
+    }
+
+    if (exportBtn) {
+      exportBtn.addEventListener('click', exportAdvRsCsv);
+    }
+
+    // Sort headers
+    const thead = document.querySelector('#adv-rs-table thead');
+    if (thead) {
+      thead.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+          const col = th.getAttribute('data-col');
+          if (!col) return;
+          if (advState.sortColumn === col) {
+            advState.sortDirection = advState.sortDirection === 'asc' ? 'desc' : 'asc';
+          } else {
+            advState.sortColumn = col;
+            advState.sortDirection = 'desc';
+          }
+          advState.currentPage = 1;
+          renderAdvRsTable();
+        });
+      });
+    }
+  }
+
+  async function loadAdvRsData() {
+    if (advState.rsData) {
+      renderAdvRsTable();
+      return;
+    }
+    try {
+      const res = await fetch('data/adv_scanner_1_rs.json');
+      if (res.ok) {
+        advState.rsData = await res.json();
+        populateAdvSectorFilter();
+        updateAdvHeaderKpis();
+        renderAdvRsTable();
+      }
+    } catch (err) {
+      console.error('[MITS Pro] Error loading adv_scanner_1_rs.json:', err);
+    }
+  }
+
+  function updateAdvHeaderKpis() {
+    if (!advState.rsData) return;
+    const d = advState.rsData;
+    const uEl = document.getElementById('adv-kpi-universe');
+    const rEl = document.getElementById('adv-kpi-rs80');
+    const gEl = document.getElementById('adv-kpi-grade-a');
+    const bEl = document.getElementById('adv-rs-badge');
+
+    if (uEl) uEl.textContent = d.total_stocks || 499;
+    if (rEl) rEl.textContent = d.strong_rs_count || 76;
+    if (gEl) gEl.textContent = d.grade_a_count || 75;
+    if (bEl) bEl.textContent = `${d.strong_rs_count || 76} Strong RS`;
+  }
+
+  function populateAdvSectorFilter() {
+    if (!advState.rsData || !advState.rsData.stocks) return;
+    const sectorSel = document.getElementById('adv-rs-sector');
+    if (!sectorSel) return;
+    const secSet = new Set();
+    advState.rsData.stocks.forEach(s => {
+      if (s.sector) secSet.add(s.sector);
+    });
+    sectorSel.innerHTML = '<option value="ALL">All Sectors</option>';
+    Array.from(secSet).sort().forEach(sec => {
+      const opt = document.createElement('option');
+      opt.value = sec;
+      opt.textContent = sec;
+      sectorSel.appendChild(opt);
+    });
+  }
+
+  function renderAdvRsTable() {
+    const tbody = document.getElementById('adv-rs-tbody');
+    if (!tbody || !advState.rsData || !advState.rsData.stocks) return;
+
+    let stocks = [...advState.rsData.stocks];
+
+    // Filter Search
+    if (advState.searchQuery) {
+      stocks = stocks.filter(s => {
+        const sym = (s.symbol || '').toLowerCase();
+        const nm = (s.name || '').toLowerCase();
+        const sec = (s.sector || '').toLowerCase();
+        return sym.includes(advState.searchQuery) || nm.includes(advState.searchQuery) || sec.includes(advState.searchQuery);
+      });
+    }
+
+    // Filter Grade
+    if (advState.gradeFilter !== 'ALL') {
+      stocks = stocks.filter(s => s.grade === advState.gradeFilter);
+    }
+
+    // Filter Classification (RS Score)
+    if (advState.classFilter !== 'ALL') {
+      const minScore = parseInt(advState.classFilter, 10);
+      if (minScore === 90) stocks = stocks.filter(s => s.rs_score >= 90);
+      else if (minScore === 80) stocks = stocks.filter(s => s.rs_score >= 80 && s.rs_score < 90);
+      else if (minScore === 70) stocks = stocks.filter(s => s.rs_score >= 70 && s.rs_score < 80);
+      else if (minScore === 50) stocks = stocks.filter(s => s.rs_score < 70);
+    }
+
+    // Filter Sector
+    if (advState.sectorFilter !== 'ALL') {
+      stocks = stocks.filter(s => s.sector === advState.sectorFilter);
+    }
+
+    // Sorting
+    const col = advState.sortColumn;
+    const isDesc = advState.sortDirection === 'desc';
+    stocks.sort((a, b) => {
+      let va = a[col];
+      let vb = b[col];
+      if (va === null || va === undefined) va = isDesc ? -999999 : 999999;
+      if (vb === null || vb === undefined) vb = isDesc ? -999999 : 999999;
+      if (typeof va === 'string') {
+        return isDesc ? vb.localeCompare(va) : va.localeCompare(vb);
+      }
+      return isDesc ? (vb - va) : (va - vb);
+    });
+
+    // Update active sort class in thead
+    const thead = document.querySelector('#adv-rs-table thead');
+    if (thead) {
+      thead.querySelectorAll('th.sortable').forEach(th => {
+        const thCol = th.getAttribute('data-col');
+        if (thCol === col) {
+          th.className = 'sortable active-sort';
+          th.querySelector('.sort-icon').textContent = isDesc ? '▼' : '▲';
+          th.querySelector('.sort-icon').className = 'sort-icon active';
+        } else {
+          th.className = 'sortable';
+          th.querySelector('.sort-icon').textContent = '↕';
+          th.querySelector('.sort-icon').className = 'sort-icon';
+        }
+      });
+    }
+
+    // Pagination
+    const totalSignals = stocks.length;
+    const totalPages = Math.ceil(totalSignals / advState.pageSize) || 1;
+    if (advState.currentPage > totalPages) advState.currentPage = totalPages;
+    const startIdx = (advState.currentPage - 1) * advState.pageSize;
+    const endIdx = Math.min(startIdx + advState.pageSize, totalSignals);
+    const pageSignals = stocks.slice(startIdx, endIdx);
+
+    renderAdvPagination(totalSignals, totalPages, startIdx, endIdx);
+
+    if (pageSignals.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="16" style="text-align: center; padding: 2.5rem; color: #94a3b8;">No matching equities found with current RS criteria.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = pageSignals.map((s, idx) => {
+      const chg = s.change_pct !== undefined ? Number(s.change_pct) : 0;
+      const score = s.rs_score || 50;
+      let scoreClass = 'rs-score-low';
+      if (score >= 90) scoreClass = 'rs-score-90';
+      else if (score >= 80) scoreClass = 'rs-score-80';
+      else if (score >= 70) scoreClass = 'rs-score-70';
+      else if (score >= 50) scoreClass = 'rs-score-50';
+
+      let gradeBadgeClass = 'grade-weak-badge';
+      if (s.grade === 'Grade A') gradeBadgeClass = 'grade-a-badge';
+      else if (s.grade === 'Grade B') gradeBadgeClass = 'grade-b-badge';
+      else if (s.grade === 'Neutral') gradeBadgeClass = 'grade-c-badge';
+
+      const rs20 = s.rs_20d !== null && s.rs_20d !== undefined ? `${s.rs_20d >= 0 ? '+' : ''}${s.rs_20d}%` : '--';
+      const rs60 = s.rs_60d !== null && s.rs_60d !== undefined ? `${s.rs_60d >= 0 ? '+' : ''}${s.rs_60d}%` : '--';
+      const rs120 = s.rs_120d !== null && s.rs_120d !== undefined ? `${s.rs_120d >= 0 ? '+' : ''}${s.rs_120d}%` : '--';
+      const rs252 = s.rs_252d !== null && s.rs_252d !== undefined ? `${s.rs_252d >= 0 ? '+' : ''}${s.rs_252d}%` : '--';
+
+      const ret20Stock = s.ret_20d_stock !== null && s.ret_20d_stock !== undefined ? `${s.ret_20d_stock >= 0 ? '+' : ''}${s.ret_20d_stock}%` : '--';
+
+      const ema50Text = s.above_ema50
+        ? `<span class="text-bullish" style="font-weight: 700;">Above (+${s.dist_ema50_pct}%)</span>`
+        : `<span class="text-bearish">Below (${s.dist_ema50_pct}%)</span>`;
+
+      const ema200Text = s.above_ema200 === true
+        ? `<span class="text-bullish" style="font-weight: 700;">Above (+${s.dist_ema200_pct}%)</span>`
+        : (s.above_ema200 === false ? `<span class="text-bearish">Below (${s.dist_ema200_pct}%)</span>` : '--');
+
+      const volBadge = s.vol_confirmed
+        ? `<span class="badge-pill badge-whale">${s.vol_ratio}x Vol</span>`
+        : `<span style="opacity: 0.7;">${s.vol_ratio}x</span>`;
+
+      // Mini SVG sparkline (60x20)
+      let svgHtml = '';
+      if (s.rs_line_sparkline && s.rs_line_sparkline.length > 1) {
+        const pts = s.rs_line_sparkline;
+        const w = 60;
+        const h = 20;
+        const step = w / (pts.length - 1);
+        const polyPoints = pts.map((val, i) => `${(i * step).toFixed(1)},${(h - (val / 100 * (h - 4)) - 2).toFixed(1)}`).join(' ');
+        const strokeColor = score >= 80 ? '#10b981' : (score >= 70 ? '#38bdf8' : '#f43f5e');
+        svgHtml = `<svg class="sparkline-svg" viewBox="0 0 60 20"><polyline fill="none" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" points="${polyPoints}" /></svg>`;
+      }
+
+      return `
+        <tr class="adv-rs-row" data-symbol="${s.symbol}">
+          <td style="width: 44px; text-align: center; color: #64748b; font-size: 0.78rem;">${startIdx + idx + 1}</td>
+          <td class="sticky-col sticky-col-1">
+            <div class="symbol-col-wrap">
+              <span class="table-sym">${s.symbol}</span>
+              <span class="table-sub-name">${s.name || s.sector || ''}</span>
+            </div>
+          </td>
+          <td class="sticky-col sticky-col-2 font-mono font-bold">₹${formatCurrency(s.cmp)}</td>
+          <td class="font-mono ${chg >= 0 ? 'text-bullish' : 'text-bearish'} font-bold">${chg >= 0 ? '+' : ''}${chg.toFixed(2)}%</td>
+          <td class="font-mono ${s.ret_20d_stock >= 0 ? 'text-bullish' : 'text-bearish'}">${ret20Stock}</td>
+          <td class="font-mono ${s.rs_20d >= 0 ? 'text-bullish font-bold' : 'text-bearish'}">${rs20}</td>
+          <td class="font-mono ${s.rs_60d >= 0 ? 'text-bullish font-bold' : 'text-bearish'}">${rs60}</td>
+          <td class="font-mono ${s.rs_120d >= 0 ? 'text-bullish font-bold' : 'text-bearish'}">${rs120}</td>
+          <td class="font-mono ${s.rs_252d >= 0 ? 'text-bullish font-bold' : 'text-bearish'}">${rs252}</td>
+          <td class="rs-score-cell"><span class="rs-score-pill ${scoreClass}">${score}</span></td>
+          <td><span class="rs-grade-badge ${gradeBadgeClass}">${s.grade}</span></td>
+          <td class="font-mono" style="font-size: 0.78rem;">${ema50Text}</td>
+          <td class="font-mono" style="font-size: 0.78rem;">${ema200Text}</td>
+          <td class="font-mono">${volBadge}</td>
+          <td style="font-size: 0.78rem;">
+            <span>${s.rs_line_status}</span>
+            ${svgHtml}
+          </td>
+          <td style="text-align: center;">
+            <button class="action-btn action-inspect adv-inspect-btn" data-symbol="${s.symbol}" title="Inspect Relative Strength Profile">Inspect ⚡</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    // Re-bind inspect buttons
+    tbody.querySelectorAll('.adv-inspect-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sym = btn.getAttribute('data-symbol');
+        if (sym) openAdvRsDossier(sym);
+      });
+    });
+
+    tbody.querySelectorAll('tr.adv-rs-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const sym = row.getAttribute('data-symbol');
+        if (sym) openAdvRsDossier(sym);
+      });
+    });
+  }
+
+  function renderAdvPagination(totalSignals, totalPages, startIdx, endIdx) {
+    const pInfo = document.getElementById('adv-pagination-info');
+    const pControls = document.getElementById('adv-pagination-controls');
+    const pBar = document.getElementById('adv-pagination-bar');
+    if (!pInfo || !pControls) return;
+
+    if (totalSignals === 0) {
+      pInfo.innerHTML = 'Showing <span>0</span> to <span>0</span> of Total <span>0</span> stocks';
+      pControls.innerHTML = '';
+      if (pBar) pBar.style.display = 'none';
+      return;
+    }
+
+    if (pBar) pBar.style.display = 'flex';
+    pInfo.innerHTML = `Showing <span>${startIdx + 1}</span> to <span>${endIdx}</span> of Total <span>${totalSignals}</span> stocks`;
+
+    if (totalPages <= 1) {
+      pControls.innerHTML = '';
+      return;
+    }
+
+    let buttonsHtml = '';
+    const prevDisabled = advState.currentPage === 1 ? ' disabled' : '';
+    buttonsHtml += `<button class="page-btn page-prev" data-page="${advState.currentPage - 1}"${prevDisabled}>◀ Prev</button>`;
+
+    for (let i = 1; i <= Math.min(totalPages, 7); i++) {
+      const isActive = i === advState.currentPage ? ' active' : '';
+      buttonsHtml += `<button class="page-btn${isActive}" data-page="${i}">${i}</button>`;
+    }
+
+    const nextDisabled = advState.currentPage === totalPages ? ' disabled' : '';
+    buttonsHtml += `<button class="page-btn page-next" data-page="${advState.currentPage + 1}"${nextDisabled}>Next ▶</button>`;
+
+    pControls.innerHTML = buttonsHtml;
+    pControls.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetPage = parseInt(btn.getAttribute('data-page'), 10);
+        if (targetPage && targetPage !== advState.currentPage && targetPage >= 1 && targetPage <= totalPages) {
+          advState.currentPage = targetPage;
+          renderAdvRsTable();
+        }
+      });
+    });
+  }
+
+  function openAdvRsDossier(symbol) {
+    if (!advState.rsData || !advState.rsData.stocks) return;
+    const s = advState.rsData.stocks.find(it => it.symbol === symbol);
+    if (!s) return;
+
+    // Open existing drawer
+    openSetupDossier(symbol);
+
+    // Also populate RS card in drawer
+    const rsCard = document.getElementById('dossier-rs-card');
+    if (!rsCard) return;
+
+    rsCard.style.display = 'block';
+
+    const classEl = document.getElementById('dossier-rs-classification');
+    const rs20El = document.getElementById('dossier-rs-20d');
+    const ret20El = document.getElementById('dossier-ret-20d');
+    const rs60El = document.getElementById('dossier-rs-60d');
+    const ret60El = document.getElementById('dossier-ret-60d');
+    const rs120El = document.getElementById('dossier-rs-120d');
+    const ret120El = document.getElementById('dossier-ret-120d');
+    const rs252El = document.getElementById('dossier-rs-252d');
+    const ret252El = document.getElementById('dossier-ret-252d');
+    const linePillEl = document.getElementById('dossier-rs-line-pill');
+    const sparkWrap = document.getElementById('dossier-rs-sparkline');
+
+    if (classEl) classEl.textContent = `${s.rs_score} RS Score • ${s.classification}`;
+    if (rs20El) {
+      rs20El.textContent = s.rs_20d !== null ? `${s.rs_20d >= 0 ? '+' : ''}${s.rs_20d}%` : '--';
+      rs20El.style.color = (s.rs_20d || 0) >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    }
+    if (ret20El) ret20El.textContent = `Stock ${s.ret_20d_stock}% | Nifty ${s.ret_20d_nifty}%`;
+
+    if (rs60El) {
+      rs60El.textContent = s.rs_60d !== null ? `${s.rs_60d >= 0 ? '+' : ''}${s.rs_60d}%` : '--';
+      rs60El.style.color = (s.rs_60d || 0) >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    }
+    if (ret60El) ret60El.textContent = `Stock ${s.ret_60d_stock}% | Nifty ${s.ret_60d_nifty}%`;
+
+    if (rs120El) {
+      rs120El.textContent = s.rs_120d !== null ? `${s.rs_120d >= 0 ? '+' : ''}${s.rs_120d}%` : '--';
+      rs120El.style.color = (s.rs_120d || 0) >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    }
+    if (ret120El) ret120El.textContent = `Stock ${s.ret_120d_stock}% | Nifty ${s.ret_120d_nifty}%`;
+
+    if (rs252El) {
+      rs252El.textContent = s.rs_252d !== null ? `${s.rs_252d >= 0 ? '+' : ''}${s.rs_252d}%` : '--';
+      rs252El.style.color = (s.rs_252d || 0) >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    }
+    if (ret252El) ret252El.textContent = `Stock ${s.ret_252d_stock}% | Nifty ${s.ret_252d_nifty}%`;
+
+    if (linePillEl) linePillEl.textContent = `${s.rs_line_status} (${s.rs_line_trend})`;
+
+    if (sparkWrap && s.rs_line_sparkline && s.rs_line_sparkline.length > 1) {
+      const pts = s.rs_line_sparkline;
+      const w = 400;
+      const h = 50;
+      const step = w / (pts.length - 1);
+      const polyPoints = pts.map((val, i) => `${(i * step).toFixed(1)},${(h - (val / 100 * (h - 8)) - 4).toFixed(1)}`).join(' ');
+      const strokeColor = s.rs_score >= 80 ? '#10b981' : (s.rs_score >= 70 ? '#38bdf8' : '#f43f5e');
+      sparkWrap.innerHTML = `
+        <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+          <defs>
+            <linearGradient id="rsGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="${strokeColor}" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="${strokeColor}" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon fill="url(#rsGrad)" points="0,${h} ${polyPoints} ${w},${h}" />
+          <polyline fill="none" stroke="${strokeColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${polyPoints}" />
+        </svg>
+      `;
+    }
+  }
+
+  function exportAdvRsCsv() {
+    if (!advState.rsData || !advState.rsData.stocks || advState.rsData.stocks.length === 0) return;
+    const headers = ['Rank', 'Symbol', 'Name', 'Sector', 'CMP', 'Day Change %', '20D Ret %', '20D RS', '60D RS', '120D RS', '252D RS', 'RS Score', 'Grade', '50 EMA Status', '200 EMA Status', 'Vol Ratio', 'RS Line Status'];
+    const rows = advState.rsData.stocks.map(s => [
+      s.rank,
+      `"${s.symbol}"`,
+      `"${s.name}"`,
+      `"${s.sector}"`,
+      s.cmp,
+      s.change_pct,
+      s.ret_20d_stock,
+      s.rs_20d,
+      s.rs_60d,
+      s.rs_120d,
+      s.rs_252d,
+      s.rs_score,
+      `"${s.grade}"`,
+      s.above_ema50 ? 'Above' : 'Below',
+      s.above_ema200 ? 'Above' : 'Below',
+      s.vol_ratio,
+      `"${s.rs_line_status}"`
+    ]);
+
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `MITS_Adv_Relative_Strength_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   // Initialize App
   function init() {
     bindEvents();
+    initAdvScannerNavigation();
     loadFromLocalStorageCache();
     ensureBaselineSignals();
     renderAll();

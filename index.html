@@ -65,13 +65,13 @@
       </div>
 
       <nav class="sidebar-nav" aria-label="Terminal Navigation">
-        <a href="#dashboard" class="sidebar-item active">
+        <a href="#dashboard" class="sidebar-item active" id="nav-dashboard">
           <span class="sidebar-icon">⊞</span>
           <span class="sidebar-label">Dashboard</span>
         </a>
-        <a href="#stock-scanner" class="sidebar-item">
-          <span class="sidebar-icon">🔍</span>
-          <span class="sidebar-label">Stock Scanner</span>
+        <a href="#stock-scanner" class="sidebar-item" id="nav-adv-scanner">
+          <span class="sidebar-icon">🔬</span>
+          <span class="sidebar-label">Advanced Stock Scanner</span>
         </a>
         <a href="#market-intelligence" class="sidebar-item">
           <span class="sidebar-icon">📊</span>
@@ -190,7 +190,8 @@
         </div>
       </header>
 
-      <!-- TOP TICKER STRIP -->
+      <div id="dashboard-view">
+        <!-- TOP TICKER STRIP -->
       <section class="ticker-ribbon" aria-label="Real-time Indices Ribbon">
         <!-- NIFTY 50 Item -->
         <div class="ticker-box">
@@ -633,6 +634,213 @@
             </div>
           </div>
 
+        </section>
+
+      </div><!-- #dashboard-view -->
+
+        <!-- ADVANCED STOCK SCANNER VIEWPORT (VIEW 2) -->
+        <section class="adv-scanner-viewport" id="adv-scanner-view" style="display: none;" aria-label="Advanced Stock Scanner Workspace">
+          
+          <!-- Advanced Scanner Header -->
+          <div class="adv-scanner-header">
+            <div class="adv-header-left">
+              <div class="adv-title-row">
+                <span class="adv-badge-chip">INSTITUTIONAL QUANTITATIVE SUITE</span>
+                <h2 class="adv-main-title">Advanced Stock Scanner</h2>
+              </div>
+              <p class="adv-sub-title">Cross-Sectional Multi-Timeframe Alpha Outperformance &amp; Relative Strength Screener (NSE 500)</p>
+            </div>
+            <div class="adv-header-right">
+              <div class="adv-kpi-pill">
+                <span class="kpi-lbl">Universe</span>
+                <span class="kpi-val" id="adv-kpi-universe">499</span>
+              </div>
+              <div class="adv-kpi-pill kpi-bull">
+                <span class="kpi-lbl">RS Score ≥ 80</span>
+                <span class="kpi-val" id="adv-kpi-rs80">76</span>
+              </div>
+              <div class="adv-kpi-pill kpi-gold">
+                <span class="kpi-lbl">Grade A</span>
+                <span class="kpi-val" id="adv-kpi-grade-a">75</span>
+              </div>
+              <div class="adv-kpi-pill">
+                <span class="kpi-lbl">Benchmark</span>
+                <span class="kpi-val">NIFTY 50</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6-Slot Sub-Scanner Tab Grid -->
+          <div class="adv-subscanner-grid" role="tablist">
+            <!-- Slot 1: Relative Strength Scanner (ACTIVE) -->
+            <div class="adv-sub-card active" data-sub="rs_scanner" role="tab" aria-selected="true">
+              <div class="sub-card-top">
+                <span class="sub-card-icon">⚡</span>
+                <span class="sub-card-status status-active">ACTIVE ENGINE</span>
+              </div>
+              <div class="sub-card-body">
+                <h4 class="sub-card-title">Relative Strength (RS)</h4>
+                <p class="sub-card-desc">20D, 60D, 120D, 252D excess returns vs NIFTY with percentile scoring</p>
+              </div>
+              <div class="sub-card-footer">
+                <span class="sub-card-badge" id="adv-rs-badge">76 Strong RS</span>
+                <span class="sub-card-arrow">→</span>
+              </div>
+            </div>
+
+            <!-- Slot 2: Momentum Velocity Scanner (Coming Soon) -->
+            <div class="adv-sub-card disabled" role="tab" aria-selected="false">
+              <div class="sub-card-top">
+                <span class="sub-card-icon">🚀</span>
+                <span class="sub-card-status status-soon">COMING SOON</span>
+              </div>
+              <div class="sub-card-body">
+                <h4 class="sub-card-title">Momentum Velocity</h4>
+                <p class="sub-card-desc">Multi-day rate of change acceleration and institutional volume expansion</p>
+              </div>
+              <div class="sub-card-footer">
+                <span class="sub-card-badge">Slot 2</span>
+                <span class="sub-card-lock">🔒</span>
+              </div>
+            </div>
+
+            <!-- Slot 3: Institutional Accumulation (Coming Soon) -->
+            <div class="adv-sub-card disabled" role="tab" aria-selected="false">
+              <div class="sub-card-top">
+                <span class="sub-card-icon">🐋</span>
+                <span class="sub-card-status status-soon">COMING SOON</span>
+              </div>
+              <div class="sub-card-body">
+                <h4 class="sub-card-title">Institutional Accumulation</h4>
+                <p class="sub-card-desc">Delivery absorption percentage and high-conviction whale block footprint</p>
+              </div>
+              <div class="sub-card-footer">
+                <span class="sub-card-badge">Slot 3</span>
+                <span class="sub-card-lock">🔒</span>
+              </div>
+            </div>
+
+            <!-- Slot 4: Stage Analysis & Squeeze (Coming Soon) -->
+            <div class="adv-sub-card disabled" role="tab" aria-selected="false">
+              <div class="sub-card-top">
+                <span class="sub-card-icon">📈</span>
+                <span class="sub-card-status status-soon">COMING SOON</span>
+              </div>
+              <div class="sub-card-body">
+                <h4 class="sub-card-title">Stage-2 Squeeze</h4>
+                <p class="sub-card-desc">Stan Weinstein Stage-2 uptrend alignment and volatility contraction base</p>
+              </div>
+              <div class="sub-card-footer">
+                <span class="sub-card-badge">Slot 4</span>
+                <span class="sub-card-lock">🔒</span>
+              </div>
+            </div>
+
+            <!-- Slot 5: Supply-Demand Zone Retest (Coming Soon) -->
+            <div class="adv-sub-card disabled" role="tab" aria-selected="false">
+              <div class="sub-card-top">
+                <span class="sub-card-icon">🎯</span>
+                <span class="sub-card-status status-soon">COMING SOON</span>
+              </div>
+              <div class="sub-card-body">
+                <h4 class="sub-card-title">DBR Order Blocks</h4>
+                <p class="sub-card-desc">Institutional demand zone retests, fresh leg-outs, and liquidity sweeps</p>
+              </div>
+              <div class="sub-card-footer">
+                <span class="sub-card-badge">Slot 5</span>
+                <span class="sub-card-lock">🔒</span>
+              </div>
+            </div>
+
+            <!-- Slot 6: Volume Price Confluence (Coming Soon) -->
+            <div class="adv-sub-card disabled" role="tab" aria-selected="false">
+              <div class="sub-card-top">
+                <span class="sub-card-icon">📦</span>
+                <span class="sub-card-status status-soon">COMING SOON</span>
+              </div>
+              <div class="sub-card-body">
+                <h4 class="sub-card-title">Wyckoff Absorption</h4>
+                <p class="sub-card-desc">Volume-price confluence, spring tests, and structural absorption pivots</p>
+              </div>
+              <div class="sub-card-footer">
+                <span class="sub-card-badge">Slot 6</span>
+                <span class="sub-card-lock">🔒</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Relative Strength Scanner Workspace Section -->
+          <div class="adv-scanner-results-section" id="adv-rs-results-panel">
+            
+            <!-- Controls Toolbar -->
+            <div class="adv-toolbar">
+              <div class="adv-toolbar-left">
+                <div class="adv-search-box">
+                  <span class="adv-search-icon">🔍</span>
+                  <input type="text" id="adv-rs-search" placeholder="Filter by symbol, company, or sector..." aria-label="Search RS Stocks">
+                </div>
+                <select id="adv-grade-filter" class="terminal-select" aria-label="Filter Grade">
+                  <option value="ALL">All Grades (A, B, C, Weak)</option>
+                  <option value="Grade A">Grade A (RS ≥ 80, 20D/60D > 0, > 50 EMA)</option>
+                  <option value="Grade B">Grade B (RS ≥ 70, 20D > 0)</option>
+                  <option value="Weak">Weak / Deteriorating</option>
+                </select>
+                <select id="adv-class-filter" class="terminal-select" aria-label="Filter RS Strength">
+                  <option value="ALL">All RS Scores</option>
+                  <option value="90">Exceptional Strength (90 - 100)</option>
+                  <option value="80">Strong Outperformer (80 - 89)</option>
+                  <option value="70">Moderate Strength (70 - 79)</option>
+                  <option value="50">Average &amp; Below (&lt; 70)</option>
+                </select>
+                <select id="adv-rs-sector" class="terminal-select" aria-label="Filter Sector">
+                  <option value="ALL">All Sectors</option>
+                </select>
+              </div>
+
+              <div class="adv-toolbar-right">
+                <button id="adv-export-csv-btn" class="btn-export-csv" type="button" title="Export RS Scanner Dataset to CSV">
+                  <span>⬇ Export RS Data</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- RS Data Table Card -->
+            <div class="table-card">
+              <div class="table-responsive table-responsive-wrapper">
+                <table class="pro-table adv-rs-table" id="adv-rs-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 44px; text-align: center;">#</th>
+                      <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol <span class="sort-icon">↕</span></th>
+                      <th class="sticky-col sticky-col-2 sortable" data-col="cmp">LTP (₹) <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="change_pct">Day % <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="ret_20d_stock">20D Ret % <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_20d">20D RS <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_60d">60D RS <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_120d">120D RS <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_252d">252D RS <span class="sort-icon">↕</span></th>
+                      <th class="sortable active-sort" data-col="rs_score">RS Score <span class="sort-icon active">▼</span></th>
+                      <th class="sortable" data-col="grade">Grade <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="above_ema50">50 EMA <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="above_ema200">200 EMA <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="vol_ratio">Vol Conf <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_line_trend">RS Line Status <span class="sort-icon">↕</span></th>
+                      <th style="text-align: center;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adv-rs-tbody">
+                    <!-- Rendered dynamically by js/app.js -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- RS Pagination Bar -->
+              <div class="pagination-bar" id="adv-pagination-bar">
+                <div class="pagination-info" id="adv-pagination-info">Showing 0 to 0 of Total 0 stocks</div>
+                <div class="pagination-controls" id="adv-pagination-controls"></div>
+              </div>
+            </div>
+          </div>
         </section>
 
       </div><!-- /.terminal-content-body -->

@@ -695,6 +695,21 @@ def run_pipeline():
     except Exception as e:
         logger.warning(f"Master universe export bypassed or error: {e}")
 
+    # Isolated Advanced Scanner 1: Relative Strength (RS) Engine
+    try:
+        from adv_scanner_1_rs import generate_adv_scanner_rs
+        generate_adv_scanner_rs(
+            symbols=symbols,
+            stock_dfs=stock_dfs,
+            bhav_date=bhav_date,
+            bhav_map=bhav_map,
+            delivery_analytics_map=delivery_analytics_map,
+            n_df=n_df
+        )
+        logger.info("Enriched data/adv_scanner_1_rs.json with standalone Relative Strength metrics.")
+    except Exception as e:
+        logger.warning(f"Advanced RS scanner export bypassed or error: {e}")
+
     print("\n" + "=" * 75)
     print("MITS PRO SCANNER - NIFTY 500 REAL MARKET PIPELINE COMPLETE")
     print(f"Time Taken: {duration:.2f}s | Scanned: {success_count}/{len(symbols)} Equities")
