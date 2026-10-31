@@ -1,6 +1,6 @@
 {
-  "scan_timestamp": "2026-10-31T14:03:25.447509+05:30",
-  "market_status": "OPEN",
+  "scan_timestamp": "2026-10-31T20:51:33.167792+05:30",
+  "market_status": "CLOSED",
   "last_session_date": "2026-10-30",
   "session_date_display": "30-Oct-2026",
   "indices": {
@@ -47,7 +47,7 @@
     },
     {
       "sector": "Banking & Fin",
-      "performance": "-1.91%",
+      "performance": "-1.92%",
       "bias": "DEFENSIVE"
     },
     {
@@ -67,7 +67,7 @@
     }
   ],
   "sector_rotation": {
-    "updated_at": "2026-10-31T08:34:13.838439",
+    "updated_at": "2026-10-31T15:22:33.057968",
     "session_date": "2026-10-30",
     "session_date_display": "30-Oct-2026",
     "sectors_analyzed": 20,
