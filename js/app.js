@@ -4548,21 +4548,22 @@
     } else {
       thead.innerHTML = `
         <tr>
-          <th style="width: 40px; text-align: center;">#</th>
-          <th style="width: 40px; text-align: center;" title="Quick Watchlist">★</th>
-          <th class="sortable text-left" data-col="symbol" style="text-align: left;">Symbol <span class="sort-icon">↕</span></th>
-          <th class="sortable text-right" data-col="cmp" style="width: 90px; text-align: right;">LTP (₹) <span class="sort-icon">↕</span></th>
-          <th class="sortable text-right" data-col="change_pct" style="width: 80px; text-align: right;">CHG % <span class="sort-icon">↕</span></th>
-          <th class="sortable text-right" data-col="resistance" style="width: 130px; text-align: right;">Resistance Pivot (₹) <span class="sort-icon">↕</span></th>
-          <th class="sortable active-sort text-center" data-col="dist_to_pivot" style="width: 110px; text-align: center;">Distance to Pivot <span class="sort-icon active">▲</span></th>
-          <th class="sortable text-center" data-col="pivot_type" style="width: 110px; text-align: center;">Pivot Type <span class="sort-icon">↕</span></th>
+          <th style="width: 40px; text-align: center;">#<div class="col-resizer" data-min="36"></div></th>
+          <th style="width: 40px; text-align: center;" title="Quick Watchlist">★<div class="col-resizer" data-min="36"></div></th>
+          <th class="sortable text-left" data-col="symbol" style="text-align: left;">Symbol <span class="sort-icon">↕</span><div class="col-resizer" data-min="90"></div></th>
+          <th class="sortable text-right" data-col="cmp" style="width: 90px; text-align: right;">LTP (₹) <span class="sort-icon">↕</span><div class="col-resizer" data-min="70"></div></th>
+          <th class="sortable text-right" data-col="change_pct" style="width: 80px; text-align: right;">CHG % <span class="sort-icon">↕</span><div class="col-resizer" data-min="65"></div></th>
+          <th class="sortable text-right" data-col="resistance" style="width: 130px; text-align: right;">Resistance Pivot (₹) <span class="sort-icon">↕</span><div class="col-resizer" data-min="95"></div></th>
+          <th class="sortable active-sort text-center" data-col="dist_to_pivot" style="width: 110px; text-align: center;">Distance to Pivot <span class="sort-icon active">▲</span><div class="col-resizer" data-min="85"></div></th>
+          <th class="sortable text-center" data-col="pivot_type" style="width: 110px; text-align: center;">Pivot Type <span class="sort-icon">↕</span><div class="col-resizer" data-min="85"></div></th>
           <th style="width: 80px; text-align: center;">Action</th>
         </tr>
       `;
     }
 
     thead.querySelectorAll('th.sortable').forEach(th => {
-      th.addEventListener('click', () => {
+      th.addEventListener('click', (e) => {
+        if (justResizedCol || isResizingCol || e.target.closest('.col-resizer')) return;
         const col = th.getAttribute('data-col');
         if (!col) return;
         if (advState.sortColumn === col) {
@@ -4573,6 +4574,67 @@
         }
         advState.currentPage = 1;
         renderAdvActiveTable();
+      });
+    });
+
+    if (slotNum === 2) {
+      initTableColumnResizers(thead);
+    }
+  }
+
+  let isResizingCol = false;
+  let justResizedCol = false;
+
+  function initTableColumnResizers(thead) {
+    if (!thead) return;
+    const resizers = thead.querySelectorAll('.col-resizer');
+
+    resizers.forEach(resizer => {
+      resizer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+
+      resizer.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        const th = resizer.parentElement;
+        if (!th) return;
+
+        isResizingCol = true;
+        resizer.classList.add('resizing');
+        document.body.classList.add('table-col-resizing');
+
+        const startX = e.pageX;
+        const startWidth = th.offsetWidth;
+        const minWidth = parseInt(resizer.getAttribute('data-min') || '60', 10);
+
+        function onMouseMove(moveEvent) {
+          if (!isResizingCol) return;
+          moveEvent.preventDefault();
+          const deltaX = moveEvent.pageX - startX;
+          const newWidth = Math.max(minWidth, startWidth + deltaX);
+          th.style.width = `${newWidth}px`;
+          th.style.minWidth = `${newWidth}px`;
+        }
+
+        function onMouseUp() {
+          isResizingCol = false;
+          justResizedCol = true;
+          resizer.classList.remove('resizing');
+          document.body.classList.remove('table-col-resizing');
+
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+
+          setTimeout(() => {
+            justResizedCol = false;
+          }, 120);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
       });
     });
   }

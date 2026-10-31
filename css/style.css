@@ -5037,3 +5037,61 @@ body.dossier-modal-open {
   color: #fff;
   transform: translateY(-1px);
 }
+
+
+/* ==========================================================================
+   INTERACTIVE DRAGGABLE COLUMN RESIZING (SLOT 2 TABLE)
+   ========================================================================== */
+#adv-rs-table.slot-2 th {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.col-resizer {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 6px !important;
+  cursor: col-resize !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  z-index: 10 !important;
+  touch-action: none !important;
+}
+
+.col-resizer::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  right: 1px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  pointer-events: none;
+}
+
+.col-resizer:hover::after,
+.col-resizer.resizing::after {
+  background: #fbbf24;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.8);
+}
+
+body.table-col-resizing {
+  cursor: col-resize !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+body.table-col-resizing * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  cursor: col-resize !important;
+}
+
+@media (max-width: 768px) {
+  .col-resizer {
+    display: none !important;
+  }
+}
