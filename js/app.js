@@ -4630,14 +4630,15 @@
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const sym = btn.getAttribute('data-symbol');
-        if (sym) openAdvRsDossier(sym);
+        if (sym) openAdvRsDossierModal(sym);
       });
     });
 
     tbody.querySelectorAll('tr.adv-rs-row').forEach(row => {
-      row.addEventListener('click', () => {
+      row.addEventListener('click', (e) => {
+        if (e.target.closest('.adv-inspect-btn')) return;
         const sym = row.getAttribute('data-symbol');
-        if (sym) openAdvRsDossier(sym);
+        if (sym) openAdvRsDossierModal(sym);
       });
     });
     } catch (renderErr) {
@@ -4690,78 +4691,150 @@
     });
   }
 
-  function openAdvRsDossier(symbol) {
+  function openAdvRsDossierModal(symbol) {
     if (!advState.rsData || !advState.rsData.stocks) return;
     const s = advState.rsData.stocks.find(it => it.symbol === symbol);
     if (!s) return;
 
-    // Open existing drawer
-    openSetupDossier(symbol);
+    const d = s.dossier || {};
+    const kl = d.key_levels || {};
+    const vf = d.volume_footprint || {};
+    const rp = d.rs_profile || {};
 
-    // Also populate RS card in drawer
-    const rsCard = document.getElementById('dossier-rs-card');
-    if (!rsCard) return;
+    const el = id => document.getElementById(id);
 
-    rsCard.style.display = 'block';
+    if (el('rs-modal-symbol')) el('rs-modal-symbol').textContent = s.symbol;
+    if (el('rs-modal-name')) el('rs-modal-name').textContent = s.name || symbol;
+    if (el('rs-modal-sector')) el('rs-modal-sector').textContent = s.sector || 'NSE';
+    if (el('rs-modal-rank')) el('rs-modal-rank').textContent = `Rank #${s.rank || 1}`;
+    if (el('rs-modal-cmp')) el('rs-modal-cmp').textContent = `₹${formatCurrency(s.cmp)}`;
 
-    const classEl = document.getElementById('dossier-rs-classification');
-    const rs20El = document.getElementById('dossier-rs-20d');
-    const ret20El = document.getElementById('dossier-ret-20d');
-    const rs60El = document.getElementById('dossier-rs-60d');
-    const ret60El = document.getElementById('dossier-ret-60d');
-    const rs120El = document.getElementById('dossier-rs-120d');
-    const ret120El = document.getElementById('dossier-ret-120d');
-    const rs252El = document.getElementById('dossier-rs-252d');
-    const ret252El = document.getElementById('dossier-ret-252d');
-    const linePillEl = document.getElementById('dossier-rs-line-pill');
-    const sparkWrap = document.getElementById('dossier-rs-sparkline');
-
-    if (classEl) classEl.textContent = `${s.rs_score} RS Score • ${s.classification}`;
-    if (rs20El) {
-      rs20El.textContent = s.rs_20d !== null ? `${s.rs_20d >= 0 ? '+' : ''}${s.rs_20d}%` : '--';
-      rs20El.style.color = (s.rs_20d || 0) >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    const chg = s.change_pct !== undefined ? Number(s.change_pct) : 0;
+    if (el('rs-modal-chg')) {
+      el('rs-modal-chg').textContent = `${chg >= 0 ? '+' : ''}${chg.toFixed(2)}%`;
+      el('rs-modal-chg').className = `rs-modal-chg ${chg >= 0 ? 'text-bullish' : 'text-bearish'}`;
     }
-    if (ret20El) ret20El.textContent = `Stock ${s.ret_20d_stock}% | Nifty ${s.ret_20d_nifty}%`;
 
-    if (rs60El) {
-      rs60El.textContent = s.rs_60d !== null ? `${s.rs_60d >= 0 ? '+' : ''}${s.rs_60d}%` : '--';
-      rs60El.style.color = (s.rs_60d || 0) >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    // RS Score badge
+    const score = s.rs_score || 50;
+    const scoreEl = el('rs-modal-score');
+    if (scoreEl) {
+      scoreEl.textContent = score;
+      let badgeClass = 'score-neutral';
+      if (score >= 90) badgeClass = 'score-gold';
+      else if (score >= 80) badgeClass = 'score-green';
+      else if (score >= 70) badgeClass = 'score-cyan';
+      scoreEl.className = `rs-score-val ${badgeClass}`;
     }
-    if (ret60El) ret60El.textContent = `Stock ${s.ret_60d_stock}% | Nifty ${s.ret_60d_nifty}%`;
 
-    if (rs120El) {
-      rs120El.textContent = s.rs_120d !== null ? `${s.rs_120d >= 0 ? '+' : ''}${s.rs_120d}%` : '--';
-      rs120El.style.color = (s.rs_120d || 0) >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    // Stage
+    if (el('rs-modal-stage')) {
+      el('rs-modal-stage').textContent = d.stage_badge || 'Stage-2 Markup';
+      el('rs-modal-stage').className = `rs-stage-badge ${d.stage_color || 'bullish'}`;
     }
-    if (ret120El) ret120El.textContent = `Stock ${s.ret_120d_stock}% | Nifty ${s.ret_120d_nifty}%`;
+    if (el('rs-modal-stage-desc')) el('rs-modal-stage-desc').textContent = d.stage_desc || 'Institutional Accumulation & Sustained Expansion';
 
-    if (rs252El) {
-      rs252El.textContent = s.rs_252d !== null ? `${s.rs_252d >= 0 ? '+' : ''}${s.rs_252d}%` : '--';
-      rs252El.style.color = (s.rs_252d || 0) >= 0 ? 'var(--bullish)' : 'var(--bearish)';
+    // Trend Stack
+    if (el('rs-modal-trend-badge')) {
+      el('rs-modal-trend-badge').textContent = d.trend_stack_badge || (d.trend_stack ? 'PERFECT STACK' : 'CONSTRUCTIVE');
+      el('rs-modal-trend-badge').className = `rs-trend-badge ${d.trend_stack ? 'bullish' : 'neutral'}`;
     }
-    if (ret252El) ret252El.textContent = `Stock ${s.ret_252d_stock}% | Nifty ${s.ret_252d_nifty}%`;
+    if (el('rs-modal-trend-desc')) el('rs-modal-trend-desc').textContent = d.trend_stack_status || 'Price > 20 > 50 > 200 EMA';
 
-    if (linePillEl) linePillEl.textContent = `${s.rs_line_status} (${s.rs_line_trend})`;
+    // Moving Averages
+    const ema20 = d.ema_20 || s.ema_20;
+    const ema50 = d.ema_50 || s.ema_50;
+    const ema200 = d.ema_200 || s.ema_200;
+    if (el('rs-modal-ema20')) el('rs-modal-ema20').textContent = ema20 ? `₹${formatCurrency(ema20)}` : '--';
+    if (el('rs-modal-ema50')) el('rs-modal-ema50').textContent = ema50 ? `₹${formatCurrency(ema50)}` : '--';
+    if (el('rs-modal-ema200')) el('rs-modal-ema200').textContent = ema200 ? `₹${formatCurrency(ema200)}` : '--';
 
-    if (sparkWrap && s.rs_line_sparkline && s.rs_line_sparkline.length > 1) {
-      const pts = s.rs_line_sparkline;
-      const w = 400;
-      const h = 50;
-      const step = w / (pts.length - 1);
-      const polyPoints = pts.map((val, i) => `${(i * step).toFixed(1)},${(h - (val / 100 * (h - 8)) - 4).toFixed(1)}`).join(' ');
-      const strokeColor = s.rs_score >= 80 ? '#10b981' : (s.rs_score >= 70 ? '#38bdf8' : '#f43f5e');
-      sparkWrap.innerHTML = `
-        <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width: 100%; height: 100%;">
-          <defs>
-            <linearGradient id="rsGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="${strokeColor}" stop-opacity="0.3"/>
-              <stop offset="100%" stop-color="${strokeColor}" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <polygon fill="url(#rsGrad)" points="0,${h} ${polyPoints} ${w},${h}" />
-          <polyline fill="none" stroke="${strokeColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${polyPoints}" />
-        </svg>
-      `;
+    // Key Levels
+    const s1Val = kl.support_1 || d.support_1 || ema20;
+    const s1Dist = kl.support_1_dist_pct !== undefined ? kl.support_1_dist_pct : d.support_1_dist_pct;
+    if (el('rs-modal-s1')) el('rs-modal-s1').textContent = s1Val ? `₹${formatCurrency(s1Val)}` : '--';
+    if (el('rs-modal-s1-dist')) el('rs-modal-s1-dist').textContent = s1Dist !== undefined ? `+${s1Dist}% above` : '--';
+
+    const r1Val = kl.pivot_resistance || d.resistance_pivot;
+    const r1Dist = kl.pivot_dist_pct !== undefined ? kl.pivot_dist_pct : d.resistance_dist_pct;
+    if (el('rs-modal-r1')) el('rs-modal-r1').textContent = r1Val ? `₹${formatCurrency(r1Val)}` : '--';
+    if (el('rs-modal-r1-dist')) el('rs-modal-r1-dist').textContent = r1Dist !== undefined ? `+${r1Dist}% to pivot` : '--';
+
+    const h52w = kl.high_52w || d.high_52w;
+    const h52wDist = kl.dist_52w_high_pct !== undefined ? kl.dist_52w_high_pct : d.dist_52w_high_pct;
+    if (el('rs-modal-52w')) el('rs-modal-52w').textContent = h52w ? `₹${formatCurrency(h52w)}` : '--';
+    if (el('rs-modal-52w-dist')) el('rs-modal-52w-dist').textContent = h52wDist !== undefined ? `${h52wDist}% from 52W High` : '--';
+
+    // Volume & Smart Money
+    const volRatio = vf.volume_multiple || d.volume_multiple || s.vol_ratio || 1.0;
+    if (el('rs-modal-vol-ratio')) el('rs-modal-vol-ratio').textContent = `${volRatio}x`;
+    if (el('rs-modal-vol-desc')) el('rs-modal-vol-desc').textContent = `${volRatio}x 20-Day Average Volume`;
+    if (el('rs-modal-delivery-status')) {
+      el('rs-modal-delivery-status').textContent = vf.delivery_status || d.delivery_status || (s.vol_confirmed ? 'Active Absorption' : 'Standard Flow');
+    }
+    if (el('rs-modal-delivery-pct')) {
+      const delPct = vf.delivery_pct || d.delivery_pct;
+      el('rs-modal-delivery-pct').textContent = delPct ? `Delivery: ${delPct}%` : 'Standard Delivery Flow';
+    }
+
+    // RS Spectrum Multi-Timeframe Progress Bars
+    function setSpectrum(period, rsVal, sRet, bRet) {
+      const valEl = el(`rs-modal-rs${period}-val`);
+      const barEl = el(`rs-modal-rs${period}-bar`);
+      const subEl = el(`rs-modal-rs${period}-sub`);
+      if (valEl) {
+        valEl.textContent = rsVal !== null && rsVal !== undefined ? `${rsVal >= 0 ? '+' : ''}${rsVal}%` : '--';
+        valEl.style.color = (rsVal || 0) >= 0 ? '#10b981' : '#f43f5e';
+      }
+      if (barEl) {
+        const clamped = Math.max(-50, Math.min(50, rsVal || 0));
+        const widthPct = Math.round(50 + (clamped / 50) * 45);
+        barEl.style.width = `${widthPct}%`;
+        barEl.style.background = (rsVal || 0) >= 0 ? 'linear-gradient(90deg, #059669, #10b981)' : 'linear-gradient(90deg, #e11d48, #f43f5e)';
+      }
+      if (subEl) {
+        if (sRet !== null && sRet !== undefined && bRet !== null && bRet !== undefined) {
+          subEl.textContent = `Stock ${sRet >= 0 ? '+' : ''}${sRet}% vs Nifty ${bRet >= 0 ? '+' : ''}${bRet}%`;
+        } else {
+          subEl.textContent = 'Calculated vs NIFTY 50';
+        }
+      }
+    }
+
+    setSpectrum('20', rp.rs_20d !== undefined ? rp.rs_20d : s.rs_20d, rp.stock_ret_20d !== undefined ? rp.stock_ret_20d : s.ret_20d_stock, rp.bench_ret_20d !== undefined ? rp.bench_ret_20d : s.ret_20d_nifty);
+    setSpectrum('60', rp.rs_60d !== undefined ? rp.rs_60d : s.rs_60d, rp.stock_ret_60d !== undefined ? rp.stock_ret_60d : s.ret_60d_stock, rp.bench_ret_60d !== undefined ? rp.bench_ret_60d : s.ret_60d_nifty);
+    setSpectrum('120', rp.rs_120d !== undefined ? rp.rs_120d : s.rs_120d, rp.stock_ret_120d !== undefined ? rp.stock_ret_120d : s.ret_120d_stock, rp.bench_ret_120d !== undefined ? rp.bench_ret_120d : s.ret_120d_nifty);
+    setSpectrum('252', rp.rs_252d !== undefined ? rp.rs_252d : s.rs_252d, rp.stock_ret_252d !== undefined ? rp.stock_ret_252d : s.ret_252d_stock, rp.bench_ret_252d !== undefined ? rp.bench_ret_252d : s.ret_252d_nifty);
+
+    // TradingView Link
+    const tvBtn = el('rs-modal-tv-btn');
+    if (tvBtn) {
+      tvBtn.href = `https://in.tradingview.com/chart/?symbol=NSE:${s.symbol}`;
+    }
+
+    // Launch Modal Animation
+    const backdrop = el('rs-dossier-backdrop');
+    const modal = el('rs-dossier-modal');
+    if (backdrop && modal) {
+      backdrop.style.display = 'block';
+      requestAnimationFrame(() => {
+        backdrop.classList.add('open');
+        modal.classList.add('open');
+        document.body.classList.add('dossier-modal-open');
+      });
+    }
+  }
+
+  function closeAdvRsDossierModal() {
+    const backdrop = document.getElementById('rs-dossier-backdrop');
+    const modal = document.getElementById('rs-dossier-modal');
+    if (backdrop && modal) {
+      backdrop.classList.remove('open');
+      modal.classList.remove('open');
+      document.body.classList.remove('dossier-modal-open');
+      setTimeout(() => {
+        backdrop.style.display = 'none';
+      }, 280);
     }
   }
 
@@ -4921,20 +4994,69 @@
       });
     }
 
-    // Mobile Hamburger Toggle
-    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    // Mobile Hamburger Toggle & Backdrop Integration (Priority 1)
+    const toggleBtn = document.getElementById('sidebar-toggle-btn') || document.getElementById('mobile-menu-toggle');
     const sidebar = document.getElementById('terminal-sidebar');
     const overlay = document.getElementById('sidebar-overlay');
-    if (toggleBtn && sidebar && overlay) {
-      toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('open');
-      });
-      overlay.addEventListener('click', () => {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('open');
+
+    function closeMobileSidebar() {
+      if (sidebar) sidebar.classList.remove('open');
+      if (overlay) overlay.classList.remove('open');
+      document.body.classList.remove('sidebar-open');
+    }
+
+    function toggleMobileSidebar() {
+      if (!sidebar) return;
+      const isOpen = sidebar.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('open', isOpen);
+      document.body.classList.toggle('sidebar-open', isOpen);
+    }
+
+    if (toggleBtn && sidebar) {
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMobileSidebar();
       });
     }
+
+    if (overlay) {
+      overlay.addEventListener('click', closeMobileSidebar);
+    }
+
+    // Auto-close mobile drawer when any sidebar navigation item is clicked
+    document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(item => {
+      item.addEventListener('click', () => {
+        closeMobileSidebar();
+      });
+    });
+
+    // Close mobile drawer on window resize if enlarged beyond 768px
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        closeMobileSidebar();
+      }
+    });
+
+    // RS Institutional Dossier Modal Close Bindings
+    const rsCloseBtn = document.getElementById('rs-modal-close-btn');
+    const rsBackdrop = document.getElementById('rs-dossier-backdrop');
+    if (rsCloseBtn) {
+      rsCloseBtn.addEventListener('click', closeAdvRsDossierModal);
+    }
+    if (rsBackdrop) {
+      rsBackdrop.addEventListener('click', (e) => {
+        if (e.target === rsBackdrop) {
+          closeAdvRsDossierModal();
+        }
+      });
+    }
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAdvRsDossierModal();
+        closeSetupDossier();
+        closeMobileSidebar();
+      }
+    });
 
     // Slide-over Drawer Close
     const drawerClose = document.getElementById('drawer-close');

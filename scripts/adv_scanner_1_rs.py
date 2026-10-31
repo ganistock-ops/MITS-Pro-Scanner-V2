@@ -141,6 +141,10 @@ def compute_rs_metrics(
         vol_ratio = round(cur_vol / vol_20d_avg, 2) if vol_20d_avg > 0 else 1.0
         vol_confirmed = bool(vol_ratio >= 1.25)
 
+        # 20 EMA calculation
+        ema_20 = float(combined["stock_close"].ewm(span=20, adjust=False).mean().iloc[-1])
+        above_ema20 = bool(cur_close >= ema_20)
+
         # RS Line Calculation: (Stock Close / Nifty Close) * 100
         rs_line = (combined["stock_close"] / combined["bench_close"]) * 100.0
         cur_rs_line = float(rs_line.iloc[-1])
@@ -193,6 +197,129 @@ def compute_rs_metrics(
         if is_rs_52w_high:
             tags.append("52W RS High")
 
+        # =========================================================================
+        # PRE-COMPUTED INSTITUTIONAL DOSSIER (ZERO RUNTIME SERVER LOAD)
+        # =========================================================================
+        # 1. Weinstein Stage Analysis
+        if above_ema50 and (above_ema200 is None or (above_ema200 and (ema_200 is None or ema_50 >= ema_200))):
+            stage = "Stage-2 Markup"
+            stage_badge = "Stage-2 Markup"
+            stage_color = "bullish"
+            stage_desc = "Institutional Accumulation & Sustained Expansion"
+        elif not above_ema50 and (above_ema200 is False and (ema_200 is not None and ema_50 <= ema_200)):
+            stage = "Stage-4 Decline"
+            stage_badge = "Stage-4 Decline"
+            stage_color = "bearish"
+            stage_desc = "Structural Downtrend / Capitulation Pressure"
+        elif not above_ema50 and above_ema200 is True:
+            stage = "Stage-3 Distribution"
+            stage_badge = "Stage-3 Distribution"
+            stage_color = "warning"
+            stage_desc = "Topping / Overhead Supply Pressure"
+        else:
+            stage = "Stage-1 Base"
+            stage_badge = "Stage-1 Base"
+            stage_color = "cyan"
+            stage_desc = "Consolidation / Accumulation Base"
+
+        # 2. Moving Average Trend Stack
+        is_trend_stack = bool(cur_close > ema_20 and ema_20 > ema_50 and (ema_200 is None or ema_50 > ema_200))
+        if is_trend_stack:
+            trend_stack_status = "Bullish Stack (Price > 20 > 50 > 200 EMA)"
+            trend_stack_badge = "PERFECT STACK"
+        elif cur_close > ema_50:
+            trend_stack_status = "Constructive Trend Alignment (Above 50 EMA)"
+            trend_stack_badge = "CONSTRUCTIVE"
+        else:
+            trend_stack_status = "Divergent / Below Key Moving Averages"
+            trend_stack_badge = "DIVERGENT"
+
+        # 3. Key Tactical Reference Levels
+        s1_level = round(float(ema_20), 2)
+        s1_dist_pct = round(((cur_close - s1_level) / cur_close) * 100.0, 2) if cur_close > 0 else 0.0
+
+        lookback_20 = min(len(combined), 20)
+        recent_high_20d = float(combined["stock_close"].iloc[-lookback_20:].max())
+        r1_level = round(recent_high_20d, 2)
+        r1_dist_pct = round(((r1_level - cur_close) / cur_close) * 100.0, 2) if cur_close > 0 else 0.0
+
+        lookback_52w = min(len(combined), 252)
+        high_52w = float(combined["stock_close"].iloc[-lookback_52w:].max())
+        dist_52w_high_pct = round(((cur_close - high_52w) / high_52w) * 100.0, 2) if high_52w > 0 else 0.0
+
+        # 4. Smart Money / Volume Footprint
+        deliv_pct = float(bhav_info.get("delivery_pct", 0.0)) if bhav_info else 0.0
+        deliv_spike = float(bhav_info.get("delivery_spike_pct", 0.0)) if bhav_info else 0.0
+        if deliv_pct >= 60.0 or vol_ratio >= 1.5:
+            delivery_status = "High Institutional Accumulation"
+            delivery_badge = "ACCUMULATION"
+        elif deliv_pct >= 45.0 or vol_ratio >= 1.2:
+            delivery_status = "Active Demand Absorption"
+            delivery_badge = "ABSORPTION"
+        elif vol_ratio < 0.75:
+            delivery_status = "Low Volume Pullback"
+            delivery_badge = "LOW VOL"
+        else:
+            delivery_status = "Standard Market Flow"
+            delivery_badge = "STANDARD"
+
+        sym_str = symbol_meta.get("symbol", "")
+        dossier = {
+            "symbol": sym_str,
+            "name": symbol_meta.get("name", sym_str),
+            "sector": symbol_meta.get("sector", "NSE"),
+            "stage": stage,
+            "stage_badge": stage_badge,
+            "stage_color": stage_color,
+            "stage_desc": stage_desc,
+            "trend_stack": is_trend_stack,
+            "trend_stack_status": trend_stack_status,
+            "trend_stack_badge": trend_stack_badge,
+            "ema_20": round(ema_20, 2),
+            "ema_50": round(ema_50, 2),
+            "ema_200": round(ema_200, 2) if ema_200 is not None else None,
+            "key_levels": {
+                "support_1": s1_level,
+                "support_1_dist_pct": s1_dist_pct,
+                "pivot_resistance": r1_level,
+                "pivot_dist_pct": r1_dist_pct,
+                "high_52w": round(high_52w, 2),
+                "dist_52w_high_pct": dist_52w_high_pct
+            },
+            "volume_footprint": {
+                "volume_multiple": vol_ratio,
+                "volume_desc": f"{vol_ratio}x Vol",
+                "delivery_status": delivery_status,
+                "delivery_badge": delivery_badge,
+                "delivery_pct": round(deliv_pct, 1) if deliv_pct > 0 else None,
+                "delivery_spike": round(deliv_spike, 1) if deliv_spike != 0 else None
+            },
+            "rs_profile": {
+                "rs_20d": ret_data["rs_20d"],
+                "rs_60d": ret_data["rs_60d"],
+                "rs_120d": ret_data["rs_120d"],
+                "rs_252d": ret_data["rs_252d"],
+                "stock_ret_20d": ret_data["stock_ret_20d"],
+                "stock_ret_60d": ret_data["stock_ret_60d"],
+                "stock_ret_120d": ret_data["stock_ret_120d"],
+                "stock_ret_252d": ret_data["stock_ret_252d"],
+                "bench_ret_20d": ret_data["bench_ret_20d"],
+                "bench_ret_60d": ret_data["bench_ret_60d"],
+                "bench_ret_120d": ret_data["bench_ret_120d"],
+                "bench_ret_252d": ret_data["bench_ret_252d"]
+            },
+            "support_1": s1_level,
+            "support_1_dist_pct": s1_dist_pct,
+            "resistance_pivot": r1_level,
+            "resistance_dist_pct": r1_dist_pct,
+            "high_52w": round(high_52w, 2),
+            "dist_52w_high_pct": dist_52w_high_pct,
+            "volume_multiple": vol_ratio,
+            "delivery_status": delivery_status,
+            "delivery_pct": round(deliv_pct, 1) if deliv_pct > 0 else None,
+            "tradingview_url": f"https://in.tradingview.com/chart/?symbol=NSE:{sym_str}"
+        }
+
         return {
             "symbol": symbol_meta.get("symbol", ""),
             "name": symbol_meta.get("name", symbol_meta.get("symbol", "")),
@@ -214,6 +341,7 @@ def compute_rs_metrics(
             "ret_252d_nifty": ret_data["bench_ret_252d"],
             "rs_252d": ret_data["rs_252d"],
             # EMA & Technicals
+            "ema_20": round(ema_20, 2),
             "ema_50": round(ema_50, 2),
             "dist_ema50_pct": dist_ema50_pct,
             "above_ema50": above_ema50,
@@ -226,7 +354,8 @@ def compute_rs_metrics(
             "rs_line_trend": rs_line_trend,
             "rs_line_status": rs_line_status,
             "rs_line_sparkline": sparkline_normalized,
-            "confirmation_tags": tags
+            "confirmation_tags": tags,
+            "dossier": dossier
         }
     except Exception as e:
         logger.debug(f"Error computing RS for {symbol_meta.get('symbol')}: {e}")

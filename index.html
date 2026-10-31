@@ -136,6 +136,9 @@
       </div>
     </aside>
 
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
     <!-- MAIN TERMINAL VIEWPORT -->
     <div class="terminal-main">
 
@@ -1072,6 +1075,215 @@
       <div class="dossier-footer">
         <a id="dossier-tv-btn" href="#" target="_blank" rel="noopener noreferrer" class="dossier-tv-btn">
           Open Interactive TradingView Chart ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================================
+       ZERO-SERVER-LOAD INSTITUTIONAL STOCK DOSSIER MODAL / BOTTOM SHEET (SWINGEDGE/MARKETSMITH)
+       =================================================================================== -->
+  <div id="rs-dossier-backdrop" class="rs-dossier-backdrop" style="display: none;" aria-hidden="true">
+    <div id="rs-dossier-modal" class="rs-dossier-modal" role="dialog" aria-modal="true" aria-labelledby="rs-modal-symbol">
+      <!-- Mobile Draggable Handle -->
+      <div class="rs-modal-handle-bar">
+        <div class="rs-modal-drag-handle"></div>
+      </div>
+
+      <!-- Close Button -->
+      <button type="button" class="rs-modal-close" id="rs-modal-close-btn" aria-label="Close Dossier">✕</button>
+
+      <!-- Modal Header (Card Header) -->
+      <div class="rs-modal-header">
+        <div class="rs-header-top">
+          <div class="rs-header-badges">
+            <span class="rs-tag-pill" id="rs-modal-sector">Sector</span>
+            <span class="rs-tag-rank" id="rs-modal-rank">Rank #1</span>
+          </div>
+          <div class="rs-score-badge-wrap">
+            <span class="rs-score-val" id="rs-modal-score">95</span>
+            <span class="rs-score-label">RS SCORE</span>
+          </div>
+        </div>
+        <div class="rs-header-main">
+          <div class="rs-header-titles">
+            <h2 class="rs-modal-symbol" id="rs-modal-symbol">SYMBOL</h2>
+            <p class="rs-modal-name" id="rs-modal-name">Full Company Name</p>
+          </div>
+          <div class="rs-header-pricing">
+            <span class="rs-modal-cmp" id="rs-modal-cmp">₹0.00</span>
+            <span class="rs-modal-chg" id="rs-modal-chg">+0.00%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Scrollable Content Body -->
+      <div class="rs-modal-body">
+        <!-- Section 1: Trend & Structure -->
+        <div class="rs-modal-section">
+          <div class="rs-section-title">
+            <span class="rs-sec-icon">📈</span>
+            <span>Trend &amp; Structure Analysis</span>
+          </div>
+          <div class="rs-grid-2col">
+            <div class="rs-data-box">
+              <span class="rs-box-label">Weinstein Stage</span>
+              <div class="rs-stage-row">
+                <span class="rs-stage-badge" id="rs-modal-stage">Stage-2 Markup</span>
+              </div>
+              <span class="rs-box-sub" id="rs-modal-stage-desc">Institutional Expansion</span>
+            </div>
+            <div class="rs-data-box">
+              <span class="rs-box-label">Moving Average Alignment</span>
+              <div class="rs-trend-badge-row">
+                <span class="rs-trend-badge" id="rs-modal-trend-badge">BULLISH STACK</span>
+              </div>
+              <span class="rs-box-sub" id="rs-modal-trend-desc">Price > 20 > 50 > 200 EMA</span>
+            </div>
+          </div>
+          <div class="rs-ma-ladder">
+            <div class="rs-ma-pill">
+              <span class="ma-lbl">20 EMA</span>
+              <strong id="rs-modal-ema20">₹0.00</strong>
+            </div>
+            <div class="rs-ma-pill">
+              <span class="ma-lbl">50 EMA</span>
+              <strong id="rs-modal-ema50">₹0.00</strong>
+            </div>
+            <div class="rs-ma-pill">
+              <span class="ma-lbl">200 EMA</span>
+              <strong id="rs-modal-ema200">₹0.00</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Key Tactical Reference Levels -->
+        <div class="rs-modal-section">
+          <div class="rs-section-title">
+            <span class="rs-sec-icon">🎯</span>
+            <span>Key Tactical Reference Levels</span>
+          </div>
+          <div class="rs-levels-grid">
+            <!-- Immediate Support (S1) -->
+            <div class="rs-level-card level-support">
+              <div class="rs-level-meta">
+                <span class="rs-level-tag tag-support">Support 1</span>
+                <span class="rs-level-desc">20 EMA Pullback Confluence</span>
+              </div>
+              <div class="rs-level-data">
+                <span class="rs-level-price text-support" id="rs-modal-s1">₹0.00</span>
+                <span class="rs-level-dist dist-support" id="rs-modal-s1-dist">-0.0%</span>
+              </div>
+            </div>
+
+            <!-- Overhead Resistance (R1) -->
+            <div class="rs-level-card level-resistance">
+              <div class="rs-level-meta">
+                <span class="rs-level-tag tag-resistance">Resistance</span>
+                <span class="rs-level-desc">20D Swing Pivot Ceiling</span>
+              </div>
+              <div class="rs-level-data">
+                <span class="rs-level-price text-resistance" id="rs-modal-r1">₹0.00</span>
+                <span class="rs-level-dist dist-resistance" id="rs-modal-r1-dist">+0.0%</span>
+              </div>
+            </div>
+
+            <!-- 52-Week High Proximity -->
+            <div class="rs-level-card level-ceiling">
+              <div class="rs-level-meta">
+                <span class="rs-level-tag tag-gold">52W Range</span>
+                <span class="rs-level-desc">Distance to 52-Week High</span>
+              </div>
+              <div class="rs-level-data">
+                <span class="rs-level-price text-gold" id="rs-modal-52w">₹0.00</span>
+                <span class="rs-level-dist dist-gold" id="rs-modal-52w-dist">-0.0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Smart Money & Volume Footprint -->
+        <div class="rs-modal-section">
+          <div class="rs-section-title">
+            <span class="rs-sec-icon">🐋</span>
+            <span>Smart Money &amp; Volume Footprint</span>
+          </div>
+          <div class="rs-grid-2col">
+            <div class="rs-data-box">
+              <span class="rs-box-label">Volume Multiple</span>
+              <strong class="rs-box-val-lg" id="rs-modal-vol-ratio">1.5x</strong>
+              <span class="rs-box-sub" id="rs-modal-vol-desc">vs 20-Day Average Volume</span>
+            </div>
+            <div class="rs-data-box">
+              <span class="rs-box-label">Institutional Delivery Flow</span>
+              <span class="rs-delivery-status-pill" id="rs-modal-delivery-status">Active Accumulation</span>
+              <span class="rs-box-sub" id="rs-modal-delivery-pct">Delivery: 65.4%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Relative Strength Spectrum -->
+        <div class="rs-modal-section">
+          <div class="rs-section-title">
+            <span class="rs-sec-icon">⚡</span>
+            <span>Multi-Timeframe Relative Strength vs NIFTY 50</span>
+          </div>
+          <div class="rs-spectrum-wrap">
+            <!-- 20D RS -->
+            <div class="rs-spectrum-item">
+              <div class="rs-spectrum-lbl">
+                <strong>20 Days RS</strong>
+                <span id="rs-modal-rs20-val">+0.0%</span>
+              </div>
+              <div class="rs-spectrum-bar-track">
+                <div class="rs-spectrum-bar" id="rs-modal-rs20-bar" style="width: 50%;"></div>
+              </div>
+              <span class="rs-spectrum-sub" id="rs-modal-rs20-sub">Stock +0.0% vs Nifty +0.0%</span>
+            </div>
+
+            <!-- 60D RS -->
+            <div class="rs-spectrum-item">
+              <div class="rs-spectrum-lbl">
+                <strong>60 Days RS (Primary 3M)</strong>
+                <span id="rs-modal-rs60-val">+0.0%</span>
+              </div>
+              <div class="rs-spectrum-bar-track">
+                <div class="rs-spectrum-bar" id="rs-modal-rs60-bar" style="width: 50%;"></div>
+              </div>
+              <span class="rs-spectrum-sub" id="rs-modal-rs60-sub">Stock +0.0% vs Nifty +0.0%</span>
+            </div>
+
+            <!-- 120D RS -->
+            <div class="rs-spectrum-item">
+              <div class="rs-spectrum-lbl">
+                <strong>120 Days RS (6M Trend)</strong>
+                <span id="rs-modal-rs120-val">+0.0%</span>
+              </div>
+              <div class="rs-spectrum-bar-track">
+                <div class="rs-spectrum-bar" id="rs-modal-rs120-bar" style="width: 50%;"></div>
+              </div>
+              <span class="rs-spectrum-sub" id="rs-modal-rs120-sub">Stock +0.0% vs Nifty +0.0%</span>
+            </div>
+
+            <!-- 252D RS -->
+            <div class="rs-spectrum-item">
+              <div class="rs-spectrum-lbl">
+                <strong>252 Days RS (1 Year)</strong>
+                <span id="rs-modal-rs252-val">+0.0%</span>
+              </div>
+              <div class="rs-spectrum-bar-track">
+                <div class="rs-spectrum-bar" id="rs-modal-rs252-bar" style="width: 50%;"></div>
+              </div>
+              <span class="rs-spectrum-sub" id="rs-modal-rs252-sub">Stock +0.0% vs Nifty +0.0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer (Interactive Direct Chart Button) -->
+      <div class="rs-modal-footer">
+        <a id="rs-modal-tv-btn" href="#" target="_blank" rel="noopener noreferrer" class="rs-tv-btn">
+          <span>View Full Chart on TradingView ↗</span>
         </a>
       </div>
     </div>
