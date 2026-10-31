@@ -4241,11 +4241,77 @@
 
 
   // =========================================================================
-  // ADVANCED STOCK SCANNER & RELATIVE STRENGTH (RS) CONTROLLER
+  // ADVANCED STOCK SCANNER CONTROLLER (SLOT 1: RS | SLOT 2: EARLY BREAKOUT)
+  // CLIENT-SIDE LOCALSTORAGE WATCHLIST SYSTEM
   // =========================================================================
+
+  // --- Watchlist Helper Functions (Zero-Server-Cost LocalStorage) ---
+  function getWatchlist() {
+    try {
+      const saved = localStorage.getItem('mits_pro_watchlist');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.warn('[MITS Pro] Error reading watchlist from localStorage:', e);
+      return [];
+    }
+  }
+
+  function isWatchlisted(symbol) {
+    if (!symbol) return false;
+    const wl = getWatchlist();
+    return wl.includes(symbol);
+  }
+
+  function toggleWatchlist(symbol) {
+    if (!symbol) return false;
+    let wl = getWatchlist();
+    const idx = wl.indexOf(symbol);
+    let added = false;
+    if (idx >= 0) {
+      wl.splice(idx, 1);
+      added = false;
+    } else {
+      wl.push(symbol);
+      added = true;
+    }
+    try {
+      localStorage.setItem('mits_pro_watchlist', JSON.stringify(wl));
+    } catch (e) {
+      console.warn('[MITS Pro] Error saving watchlist to localStorage:', e);
+    }
+    updateAllWatchlistUI(symbol, added);
+    return added;
+  }
+
+  function updateAllWatchlistUI(targetSymbol, isAdded) {
+    // 1. Update modal header button if modal is open and symbol matches
+    const modalBtn = document.getElementById('rs-modal-watchlist-btn');
+    const modalSym = document.getElementById('rs-modal-symbol');
+    if (modalBtn && modalSym && (!targetSymbol || modalSym.textContent === targetSymbol)) {
+      const active = isWatchlisted(modalSym.textContent);
+      modalBtn.className = `rs-watchlist-btn ${active ? 'active' : ''}`;
+      modalBtn.innerHTML = active
+        ? '<span class="star-icon">★</span> <span class="watchlist-text">In Watchlist</span>'
+        : '<span class="star-icon">☆</span> <span class="watchlist-text">Add to Watchlist</span>';
+    }
+
+    // 2. Update table star buttons
+    document.querySelectorAll('.tbl-watchlist-star-btn').forEach(btn => {
+      const s = btn.getAttribute('data-symbol');
+      if (!targetSymbol || s === targetSymbol) {
+        const active = isWatchlisted(s);
+        btn.className = `tbl-watchlist-star-btn ${active ? 'active' : ''}`;
+        btn.textContent = active ? '★' : '☆';
+        btn.title = active ? 'Remove from Watchlist' : 'Add to Watchlist';
+      }
+    });
+  }
+
+  // --- Advanced Scanner State ---
   const advState = {
+    activeSlot: 1, // 1: RS Outperformer, 2: Early Breakout
     rsData: null,
-    activeSubScanner: 'rs_scanner',
+    boData: null,
     searchQuery: '',
     gradeFilter: 'ALL',
     classFilter: 'ALL',
@@ -4257,9 +4323,6 @@
   };
 
   function initAdvScannerNavigation() {
-    const navAdvBtn = document.getElementById('nav-adv-scanner');
-    const navDashBtn = document.getElementById('nav-dashboard');
-
     function switchView(target) {
       const dView = document.getElementById('view-dashboard') || document.getElementById('dashboard-view');
       const aView = document.getElementById('view-advanced-scanner') || document.getElementById('adv-scanner-view');
@@ -4281,7 +4344,12 @@
         if (window.location.hash !== '#advanced-scanner') {
           window.location.hash = '#advanced-scanner';
         }
-        loadAdvRsData();
+        if (advState.activeSlot === 1) {
+          loadAdvRsData();
+        } else {
+          loadAdvBoData();
+        }
+        loadAdvBoData(); // Preload Slot 2 counts
       } else {
         if (aView) {
           aView.classList.add('hidden');
@@ -4299,7 +4367,7 @@
       }
     }
 
-    // Bind sidebar clicks
+    // Bind sidebar navigation clicks
     document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(item => {
       if (item.id === 'nav-adv-scanner') {
         item.addEventListener('click', (e) => {
@@ -4333,6 +4401,18 @@
     window.addEventListener('hashchange', handleHashRouting);
     handleHashRouting();
 
+    // Bind Slot Card Switcher (Slot 1 vs Slot 2)
+    document.querySelectorAll('.adv-subscanner-grid .adv-sub-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const sub = card.getAttribute('data-sub');
+        if (sub === 'rs_scanner') {
+          selectAdvSlot(1);
+        } else if (sub === 'early_breakout') {
+          selectAdvSlot(2);
+        }
+      });
+    });
+
     // Toolbar event listeners
     const searchInput = document.getElementById('adv-rs-search');
     const gradeSelect = document.getElementById('adv-grade-filter');
@@ -4344,7 +4424,7 @@
       searchInput.addEventListener('input', (e) => {
         advState.searchQuery = e.target.value.trim().toLowerCase();
         advState.currentPage = 1;
-        renderAdvRsTable();
+        renderAdvActiveTable();
       });
     }
 
@@ -4352,7 +4432,7 @@
       gradeSelect.addEventListener('change', (e) => {
         advState.gradeFilter = e.target.value;
         advState.currentPage = 1;
-        renderAdvRsTable();
+        renderAdvActiveTable();
       });
     }
 
@@ -4360,7 +4440,7 @@
       classSelect.addEventListener('change', (e) => {
         advState.classFilter = e.target.value;
         advState.currentPage = 1;
-        renderAdvRsTable();
+        renderAdvActiveTable();
       });
     }
 
@@ -4368,86 +4448,238 @@
       sectorSelect.addEventListener('change', (e) => {
         advState.sectorFilter = e.target.value;
         advState.currentPage = 1;
-        renderAdvRsTable();
+        renderAdvActiveTable();
       });
     }
 
     if (exportBtn) {
-      exportBtn.addEventListener('click', exportAdvRsCsv);
+      exportBtn.addEventListener('click', exportAdvCsv);
     }
 
-    // Sort headers
-    const thead = document.querySelector('#adv-rs-table thead');
-    if (thead) {
-      thead.querySelectorAll('th.sortable').forEach(th => {
-        th.addEventListener('click', () => {
-          const col = th.getAttribute('data-col');
-          if (!col) return;
-          if (advState.sortColumn === col) {
-            advState.sortDirection = advState.sortDirection === 'asc' ? 'desc' : 'asc';
-          } else {
-            advState.sortColumn = col;
-            advState.sortDirection = 'desc';
-          }
-          advState.currentPage = 1;
-          renderAdvRsTable();
-        });
-      });
+    // Initial thead setup
+    renderAdvThead(advState.activeSlot);
+  }
+
+  function selectAdvSlot(slotNum) {
+    advState.activeSlot = slotNum;
+    advState.currentPage = 1;
+    advState.searchQuery = '';
+    advState.gradeFilter = 'ALL';
+    advState.classFilter = 'ALL';
+    advState.sectorFilter = 'ALL';
+
+    const sSearch = document.getElementById('adv-rs-search');
+    if (sSearch) sSearch.value = '';
+    const gSelect = document.getElementById('adv-grade-filter');
+    if (gSelect) {
+      gSelect.value = 'ALL';
+      gSelect.style.display = slotNum === 1 ? '' : 'none';
     }
+    const cSelect = document.getElementById('adv-class-filter');
+    if (cSelect) {
+      cSelect.value = 'ALL';
+      cSelect.style.display = slotNum === 1 ? '' : 'none';
+    }
+    const secSelect = document.getElementById('adv-rs-sector');
+    if (secSelect) secSelect.value = 'ALL';
+
+    const card1 = document.getElementById('adv-slot-1-card') || document.querySelector('.adv-sub-card[data-sub="rs_scanner"]');
+    const card2 = document.getElementById('adv-slot-2-card') || document.querySelector('.adv-sub-card[data-sub="early_breakout"]');
+    if (card1) {
+      card1.classList.toggle('active', slotNum === 1);
+      card1.setAttribute('aria-selected', slotNum === 1 ? 'true' : 'false');
+    }
+    if (card2) {
+      card2.classList.toggle('active', slotNum === 2);
+      card2.setAttribute('aria-selected', slotNum === 2 ? 'true' : 'false');
+    }
+
+    if (slotNum === 1) {
+      advState.sortColumn = 'rs_score';
+      advState.sortDirection = 'desc';
+      renderAdvThead(1);
+      updateAdvHeaderKpis();
+      populateAdvSectorFilter();
+      if (!advState.rsData) {
+        loadAdvRsData();
+      } else {
+        renderAdvActiveTable();
+      }
+    } else {
+      advState.sortColumn = 'dist_to_pivot';
+      advState.sortDirection = 'asc';
+      renderAdvThead(2);
+      updateAdvHeaderKpis();
+      populateAdvSectorFilter();
+      if (!advState.boData) {
+        loadAdvBoData();
+      } else {
+        renderAdvActiveTable();
+      }
+    }
+  }
+
+  function renderAdvThead(slotNum) {
+    const thead = document.getElementById('adv-table-thead') || document.querySelector('#adv-rs-table thead');
+    if (!thead) return;
+
+    if (slotNum === 1) {
+      thead.innerHTML = `
+        <tr>
+          <th style="width: 44px; text-align: center;">#</th>
+          <th style="width: 38px; text-align: center;" title="Quick Watchlist">★</th>
+          <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol <span class="sort-icon">↕</span></th>
+          <th class="sticky-col sticky-col-2 sortable" data-col="cmp">LTP (₹) <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="change_pct">Day % <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="ret_20d_stock">20D Ret % <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="rs_20d">20D RS <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="rs_60d">60D RS <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="rs_120d">120D RS <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="rs_252d">252D RS <span class="sort-icon">↕</span></th>
+          <th class="sortable active-sort" data-col="rs_score">RS Score <span class="sort-icon active">▼</span></th>
+          <th class="sortable" data-col="grade">Grade <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="above_ema50">50 EMA <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="above_ema200">200 EMA <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="vol_ratio">Vol Conf <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="rs_line_trend">RS Line Status <span class="sort-icon">↕</span></th>
+          <th style="text-align: center;">Action</th>
+        </tr>
+      `;
+    } else {
+      thead.innerHTML = `
+        <tr>
+          <th style="width: 44px; text-align: center;">#</th>
+          <th style="width: 38px; text-align: center;" title="Quick Watchlist">★</th>
+          <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol <span class="sort-icon">↕</span></th>
+          <th class="sticky-col sticky-col-2 sortable" data-col="cmp">LTP (₹) <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="change_pct">Day % <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="resistance">Resistance Pivot (₹) <span class="sort-icon">↕</span></th>
+          <th class="sortable active-sort" data-col="dist_to_pivot">Distance to Pivot (%) <span class="sort-icon active">▲</span></th>
+          <th class="sortable" data-col="pivot_type">Pivot Type <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="support">Dynamic Support (₹) <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="vol_ratio">Vol Footprint <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="tightness_desc">Consolidation <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="bo_score">Readiness Score <span class="sort-icon">↕</span></th>
+          <th style="text-align: center;">Action</th>
+        </tr>
+      `;
+    }
+
+    thead.querySelectorAll('th.sortable').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.getAttribute('data-col');
+        if (!col) return;
+        if (advState.sortColumn === col) {
+          advState.sortDirection = advState.sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+          advState.sortColumn = col;
+          advState.sortDirection = (slotNum === 2 && col === 'dist_to_pivot') ? 'asc' : 'desc';
+        }
+        advState.currentPage = 1;
+        renderAdvActiveTable();
+      });
+    });
   }
 
   async function loadAdvRsData() {
     if (advState.rsData && advState.rsData.stocks && advState.rsData.stocks.length) {
-      populateAdvSectorFilter();
-      updateAdvHeaderKpis();
-      renderAdvRsTable();
+      if (advState.activeSlot === 1) {
+        populateAdvSectorFilter();
+        updateAdvHeaderKpis();
+        renderAdvActiveTable();
+      }
       return;
     }
     try {
       const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
       let res = await fetch(`${basePath}adv_scanner_1_rs.json?t=${Date.now()}`);
-      if (!res.ok) {
-        res = await fetch('data/adv_scanner_1_rs.json');
-      }
-      if (!res.ok) {
-        res = await fetch('./data/adv_scanner_1_rs.json');
-      }
+      if (!res.ok) res = await fetch('data/adv_scanner_1_rs.json');
+      if (!res.ok) res = await fetch('./data/adv_scanner_1_rs.json');
       if (res.ok) {
         advState.rsData = await res.json();
         console.log(`[MITS Pro] Successfully loaded adv_scanner_1_rs.json (${advState.rsData.stocks ? advState.rsData.stocks.length : 0} stocks)`);
-        populateAdvSectorFilter();
-        updateAdvHeaderKpis();
-        renderAdvRsTable();
+        if (advState.activeSlot === 1) {
+          populateAdvSectorFilter();
+          updateAdvHeaderKpis();
+          renderAdvActiveTable();
+        }
       } else {
-        console.error(`[MITS Pro] Failed to load adv_scanner_1_rs.json: HTTP ${res.status}`);
+        console.warn(`[MITS Pro] Failed to load adv_scanner_1_rs.json: HTTP ${res.status}`);
       }
     } catch (err) {
-      console.error('[MITS Pro] Error loading adv_scanner_1_rs.json:', err);
+      console.warn('[MITS Pro] Error loading adv_scanner_1_rs.json:', err);
+    }
+  }
+
+  async function loadAdvBoData() {
+    if (advState.boData && advState.boData.stocks && advState.boData.stocks.length) {
+      updateAdvBoBadge();
+      if (advState.activeSlot === 2) {
+        populateAdvSectorFilter();
+        updateAdvHeaderKpis();
+        renderAdvActiveTable();
+      }
+      return;
+    }
+    try {
+      const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
+      let res = await fetch(`${basePath}adv_scanner_2_early_bo.json?t=${Date.now()}`);
+      if (!res.ok) res = await fetch('data/adv_scanner_2_early_bo.json');
+      if (!res.ok) res = await fetch('./data/adv_scanner_2_early_bo.json');
+      if (res.ok) {
+        advState.boData = await res.json();
+        console.log(`[MITS Pro] Successfully loaded adv_scanner_2_early_bo.json (${advState.boData.stocks ? advState.boData.stocks.length : 0} stocks)`);
+        updateAdvBoBadge();
+        if (advState.activeSlot === 2) {
+          populateAdvSectorFilter();
+          updateAdvHeaderKpis();
+          renderAdvActiveTable();
+        }
+      } else {
+        console.warn(`[MITS Pro] Failed to load adv_scanner_2_early_bo.json: HTTP ${res.status}`);
+      }
+    } catch (err) {
+      console.warn('[MITS Pro] Error loading adv_scanner_2_early_bo.json:', err);
+    }
+  }
+
+  function updateAdvBoBadge() {
+    const bEl = document.getElementById('adv-bo-badge');
+    if (bEl && advState.boData && advState.boData.total_stocks !== undefined) {
+      bEl.textContent = `${advState.boData.total_stocks} Coiling Stocks`;
     }
   }
 
   function updateAdvHeaderKpis() {
-    if (!advState.rsData) return;
-    const d = advState.rsData;
+    const isSlot1 = advState.activeSlot === 1;
+    const d = isSlot1 ? advState.rsData : advState.boData;
     const uEl = document.getElementById('adv-kpi-universe');
     const rEl = document.getElementById('adv-kpi-rs80');
     const gEl = document.getElementById('adv-kpi-grade-a');
     const bEl = document.getElementById('adv-rs-badge');
     const tEl = document.getElementById('adv-eod-time');
 
-    if (uEl) uEl.textContent = d.total_stocks || 499;
-    if (rEl) rEl.textContent = d.strong_rs_count || 76;
-    if (gEl) gEl.textContent = d.grade_a_count || 75;
-    if (bEl) bEl.textContent = `${d.strong_rs_count || 76} Strong RS`;
-    if (tEl) tEl.textContent = d.scan_date || d.generated_at || 'Verified EOD';
+    if (isSlot1 && d) {
+      if (uEl) uEl.textContent = d.total_stocks || 499;
+      if (rEl) rEl.textContent = d.strong_rs_count || 76;
+      if (gEl) gEl.textContent = d.grade_a_count || 75;
+      if (bEl) bEl.textContent = `${d.strong_rs_count || 76} Strong RS`;
+      if (tEl) tEl.textContent = d.scan_date || d.generated_at || 'Verified EOD';
+    } else if (!isSlot1 && d) {
+      if (uEl) uEl.textContent = d.total_stocks || 21;
+      if (rEl) rEl.textContent = d.coiling_tight_count || 12;
+      if (gEl) gEl.textContent = d.volume_surge_count || 3;
+      if (tEl) tEl.textContent = d.scan_date || d.generated_at || 'Verified EOD';
+    }
   }
 
   function populateAdvSectorFilter() {
-    if (!advState.rsData || !advState.rsData.stocks) return;
+    const d = advState.activeSlot === 1 ? advState.rsData : advState.boData;
+    if (!d || !d.stocks) return;
     const sectorSel = document.getElementById('adv-rs-sector');
     if (!sectorSel) return;
     const secSet = new Set();
-    advState.rsData.stocks.forEach(s => {
+    d.stocks.forEach(s => {
       if (s.sector) secSet.add(s.sector);
     });
     sectorSel.innerHTML = '<option value="ALL">All Sectors</option>';
@@ -4459,191 +4691,247 @@
     });
   }
 
-  function renderAdvRsTable() {
+  function renderAdvActiveTable() {
     try {
       const tbody = document.getElementById('adv-rs-tbody') || document.getElementById('rsScannerTableBody') || document.querySelector('.rsScannerTableBody');
       if (!tbody) {
-        console.warn('[MITS Pro] RS table tbody element (#adv-rs-tbody or #rsScannerTableBody) not found in DOM.');
-        return;
-      }
-      if (!advState.rsData || !advState.rsData.stocks || !advState.rsData.stocks.length) {
-        tbody.innerHTML = `<tr><td colspan="16" style="text-align: center; padding: 2.5rem; color: #94a3b8;">Loading Relative Strength dataset...</td></tr>`;
+        console.warn('[MITS Pro] RS table tbody element not found in DOM.');
         return;
       }
 
-    let stocks = [...advState.rsData.stocks];
+      const isSlot1 = advState.activeSlot === 1;
+      const activeData = isSlot1 ? advState.rsData : advState.boData;
 
-    // Filter Search
-    if (advState.searchQuery) {
-      stocks = stocks.filter(s => {
-        const sym = (s.symbol || '').toLowerCase();
-        const nm = (s.name || '').toLowerCase();
-        const sec = (s.sector || '').toLowerCase();
-        return sym.includes(advState.searchQuery) || nm.includes(advState.searchQuery) || sec.includes(advState.searchQuery);
-      });
-    }
-
-    // Filter Grade
-    if (advState.gradeFilter !== 'ALL') {
-      stocks = stocks.filter(s => s.grade === advState.gradeFilter);
-    }
-
-    // Filter Classification (RS Score)
-    if (advState.classFilter !== 'ALL') {
-      const minScore = parseInt(advState.classFilter, 10);
-      if (minScore === 90) stocks = stocks.filter(s => s.rs_score >= 90);
-      else if (minScore === 80) stocks = stocks.filter(s => s.rs_score >= 80 && s.rs_score < 90);
-      else if (minScore === 70) stocks = stocks.filter(s => s.rs_score >= 70 && s.rs_score < 80);
-      else if (minScore === 50) stocks = stocks.filter(s => s.rs_score < 70);
-    }
-
-    // Filter Sector
-    if (advState.sectorFilter !== 'ALL') {
-      stocks = stocks.filter(s => s.sector === advState.sectorFilter);
-    }
-
-    // Sorting
-    const col = advState.sortColumn;
-    const isDesc = advState.sortDirection === 'desc';
-    stocks.sort((a, b) => {
-      let va = a[col];
-      let vb = b[col];
-      if (va === null || va === undefined) va = isDesc ? -999999 : 999999;
-      if (vb === null || vb === undefined) vb = isDesc ? -999999 : 999999;
-      if (typeof va === 'string') {
-        return isDesc ? vb.localeCompare(va) : va.localeCompare(vb);
+      if (!activeData || !activeData.stocks || !activeData.stocks.length) {
+        const scannerName = isSlot1 ? 'Relative Strength' : 'Early Breakout';
+        tbody.innerHTML = `<tr><td colspan="17" style="text-align: center; padding: 2.5rem; color: #94a3b8;">Loading ${scannerName} dataset...</td></tr>`;
+        return;
       }
-      return isDesc ? (vb - va) : (va - vb);
-    });
 
-    // Update active sort class in thead
-    const thead = document.querySelector('#adv-rs-table thead');
-    if (thead) {
-      thead.querySelectorAll('th.sortable').forEach(th => {
-        const thCol = th.getAttribute('data-col');
-        if (thCol === col) {
-          th.className = 'sortable active-sort';
-          th.querySelector('.sort-icon').textContent = isDesc ? '▼' : '▲';
-          th.querySelector('.sort-icon').className = 'sort-icon active';
-        } else {
-          th.className = 'sortable';
-          th.querySelector('.sort-icon').textContent = '↕';
-          th.querySelector('.sort-icon').className = 'sort-icon';
+      let stocks = [...activeData.stocks];
+
+      // Filter Search
+      if (advState.searchQuery) {
+        const q = advState.searchQuery;
+        stocks = stocks.filter(s => {
+          const sym = (s.symbol || '').toLowerCase();
+          const nm = (s.name || '').toLowerCase();
+          const sec = (s.sector || '').toLowerCase();
+          const piv = (s.pivot_type || '').toLowerCase();
+          return sym.includes(q) || nm.includes(q) || sec.includes(q) || piv.includes(q);
+        });
+      }
+
+      // Filter Sector
+      if (advState.sectorFilter !== 'ALL') {
+        stocks = stocks.filter(s => s.sector === advState.sectorFilter);
+      }
+
+      // Slot 1 specific filters (Grade & Score class)
+      if (isSlot1) {
+        if (advState.gradeFilter !== 'ALL') {
+          stocks = stocks.filter(s => s.grade === advState.gradeFilter);
         }
-      });
-    }
-
-    // Pagination
-    const totalSignals = stocks.length;
-    const totalPages = Math.ceil(totalSignals / advState.pageSize) || 1;
-    if (advState.currentPage > totalPages) advState.currentPage = totalPages;
-    const startIdx = (advState.currentPage - 1) * advState.pageSize;
-    const endIdx = Math.min(startIdx + advState.pageSize, totalSignals);
-    const pageSignals = stocks.slice(startIdx, endIdx);
-
-    renderAdvPagination(totalSignals, totalPages, startIdx, endIdx);
-
-    if (pageSignals.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="16" style="text-align: center; padding: 2.5rem; color: #94a3b8;">No matching equities found with current RS criteria.</td></tr>`;
-      return;
-    }
-
-    tbody.innerHTML = pageSignals.map((s, idx) => {
-      const chg = s.change_pct !== undefined ? Number(s.change_pct) : 0;
-      const score = s.rs_score || 50;
-      let scoreClass = 'rs-score-low';
-      if (score >= 90) scoreClass = 'rs-score-90';
-      else if (score >= 80) scoreClass = 'rs-score-80';
-      else if (score >= 70) scoreClass = 'rs-score-70';
-      else if (score >= 50) scoreClass = 'rs-score-50';
-
-      let gradeBadgeClass = 'grade-weak-badge';
-      if (s.grade === 'Grade A') gradeBadgeClass = 'grade-a-badge';
-      else if (s.grade === 'Grade B') gradeBadgeClass = 'grade-b-badge';
-      else if (s.grade === 'Neutral') gradeBadgeClass = 'grade-c-badge';
-
-      const rs20 = s.rs_20d !== null && s.rs_20d !== undefined ? `${s.rs_20d >= 0 ? '+' : ''}${s.rs_20d}%` : '--';
-      const rs60 = s.rs_60d !== null && s.rs_60d !== undefined ? `${s.rs_60d >= 0 ? '+' : ''}${s.rs_60d}%` : '--';
-      const rs120 = s.rs_120d !== null && s.rs_120d !== undefined ? `${s.rs_120d >= 0 ? '+' : ''}${s.rs_120d}%` : '--';
-      const rs252 = s.rs_252d !== null && s.rs_252d !== undefined ? `${s.rs_252d >= 0 ? '+' : ''}${s.rs_252d}%` : '--';
-
-      const ret20Stock = s.ret_20d_stock !== null && s.ret_20d_stock !== undefined ? `${s.ret_20d_stock >= 0 ? '+' : ''}${s.ret_20d_stock}%` : '--';
-
-      const ema50Text = s.above_ema50
-        ? `<span class="text-bullish" style="font-weight: 700;">Above (+${s.dist_ema50_pct}%)</span>`
-        : `<span class="text-bearish">Below (${s.dist_ema50_pct}%)</span>`;
-
-      const ema200Text = s.above_ema200 === true
-        ? `<span class="text-bullish" style="font-weight: 700;">Above (+${s.dist_ema200_pct}%)</span>`
-        : (s.above_ema200 === false ? `<span class="text-bearish">Below (${s.dist_ema200_pct}%)</span>` : '--');
-
-      const volBadge = s.vol_confirmed
-        ? `<span class="badge-pill badge-whale">${s.vol_ratio}x Vol</span>`
-        : `<span style="opacity: 0.7;">${s.vol_ratio}x</span>`;
-
-      // Mini SVG sparkline (60x20)
-      let svgHtml = '';
-      if (s.rs_line_sparkline && s.rs_line_sparkline.length > 1) {
-        const pts = s.rs_line_sparkline;
-        const w = 60;
-        const h = 20;
-        const step = w / (pts.length - 1);
-        const polyPoints = pts.map((val, i) => `${(i * step).toFixed(1)},${(h - (val / 100 * (h - 4)) - 2).toFixed(1)}`).join(' ');
-        const strokeColor = score >= 80 ? '#10b981' : (score >= 70 ? '#38bdf8' : '#f43f5e');
-        svgHtml = `<svg class="sparkline-svg" viewBox="0 0 60 20"><polyline fill="none" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" points="${polyPoints}" /></svg>`;
+        if (advState.classFilter !== 'ALL') {
+          const minScore = parseInt(advState.classFilter, 10);
+          if (minScore === 90) stocks = stocks.filter(s => s.rs_score >= 90);
+          else if (minScore === 80) stocks = stocks.filter(s => s.rs_score >= 80 && s.rs_score < 90);
+          else if (minScore === 70) stocks = stocks.filter(s => s.rs_score >= 70 && s.rs_score < 80);
+          else if (minScore === 50) stocks = stocks.filter(s => s.rs_score < 70);
+        }
       }
 
-      return `
-        <tr class="adv-rs-row" data-symbol="${s.symbol}">
-          <td style="width: 44px; text-align: center; color: #64748b; font-size: 0.78rem;">${startIdx + idx + 1}</td>
-          <td class="sticky-col sticky-col-1">
-            <div class="symbol-col-wrap">
-              <span class="table-sym">${s.symbol}</span>
-              <span class="table-sub-name">${s.name || s.sector || ''}</span>
-            </div>
-          </td>
-          <td class="sticky-col sticky-col-2 font-mono font-bold">₹${formatCurrency(s.cmp)}</td>
-          <td class="font-mono ${chg >= 0 ? 'text-bullish' : 'text-bearish'} font-bold">${chg >= 0 ? '+' : ''}${chg.toFixed(2)}%</td>
-          <td class="font-mono ${s.ret_20d_stock >= 0 ? 'text-bullish' : 'text-bearish'}">${ret20Stock}</td>
-          <td class="font-mono ${s.rs_20d >= 0 ? 'text-bullish font-bold' : 'text-bearish'}">${rs20}</td>
-          <td class="font-mono ${s.rs_60d >= 0 ? 'text-bullish font-bold' : 'text-bearish'}">${rs60}</td>
-          <td class="font-mono ${s.rs_120d >= 0 ? 'text-bullish font-bold' : 'text-bearish'}">${rs120}</td>
-          <td class="font-mono ${s.rs_252d >= 0 ? 'text-bullish font-bold' : 'text-bearish'}">${rs252}</td>
-          <td class="rs-score-cell"><span class="rs-score-pill ${scoreClass}">${score}</span></td>
-          <td><span class="rs-grade-badge ${gradeBadgeClass}">${s.grade}</span></td>
-          <td class="font-mono" style="font-size: 0.78rem;">${ema50Text}</td>
-          <td class="font-mono" style="font-size: 0.78rem;">${ema200Text}</td>
-          <td class="font-mono">${volBadge}</td>
-          <td style="font-size: 0.78rem;">
-            <span>${s.rs_line_status}</span>
-            ${svgHtml}
-          </td>
-          <td style="text-align: center;">
-            <button class="action-btn action-inspect adv-inspect-btn" data-symbol="${s.symbol}" title="Inspect Relative Strength Profile">Inspect ⚡</button>
-          </td>
-        </tr>
-      `;
-    }).join('');
-
-    // Re-bind inspect buttons
-    tbody.querySelectorAll('.adv-inspect-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const sym = btn.getAttribute('data-symbol');
-        if (sym) openAdvRsDossierModal(sym);
+      // Sorting
+      const col = advState.sortColumn;
+      const isDesc = advState.sortDirection === 'desc';
+      stocks.sort((a, b) => {
+        let va = a[col];
+        let vb = b[col];
+        if (va === null || va === undefined) va = isDesc ? -999999 : 999999;
+        if (vb === null || vb === undefined) vb = isDesc ? -999999 : 999999;
+        if (typeof va === 'string') {
+          return isDesc ? vb.localeCompare(va) : va.localeCompare(vb);
+        }
+        return isDesc ? (vb - va) : (va - vb);
       });
-    });
 
-    tbody.querySelectorAll('tr.adv-rs-row').forEach(row => {
-      row.addEventListener('click', (e) => {
-        if (e.target.closest('.adv-inspect-btn')) return;
-        const sym = row.getAttribute('data-symbol');
-        if (sym) openAdvRsDossierModal(sym);
+      // Update active sort indicator in thead
+      const thead = document.getElementById('adv-table-thead') || document.querySelector('#adv-rs-table thead');
+      if (thead) {
+        thead.querySelectorAll('th.sortable').forEach(th => {
+          const thCol = th.getAttribute('data-col');
+          if (thCol === col) {
+            th.className = 'sticky-col-1 sortable active-sort'.includes(th.className)
+              ? th.className
+              : 'sortable active-sort';
+            const icon = th.querySelector('.sort-icon');
+            if (icon) {
+              icon.textContent = isDesc ? '▼' : '▲';
+              icon.className = 'sort-icon active';
+            }
+          } else {
+            const icon = th.querySelector('.sort-icon');
+            if (icon) {
+              icon.textContent = '↕';
+              icon.className = 'sort-icon';
+            }
+          }
+        });
+      }
+
+      // Pagination
+      const totalSignals = stocks.length;
+      const totalPages = Math.ceil(totalSignals / advState.pageSize) || 1;
+      if (advState.currentPage > totalPages) advState.currentPage = totalPages;
+      const startIdx = (advState.currentPage - 1) * advState.pageSize;
+      const endIdx = Math.min(startIdx + advState.pageSize, totalSignals);
+      const pageSignals = stocks.slice(startIdx, endIdx);
+
+      renderAdvPagination(totalSignals, totalPages, startIdx, endIdx);
+
+      if (pageSignals.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="17" style="text-align: center; padding: 2.5rem; color: #94a3b8;">No matching equities found with current filter criteria.</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      if (isSlot1) {
+        // Slot 1: Relative Strength table rows
+        pageSignals.forEach((s, idx) => {
+          const globalIdx = startIdx + idx + 1;
+          const dayChg = Number(s.change_pct) || 0;
+          const dayChgClass = dayChg >= 0 ? 'text-bullish' : 'text-bearish';
+          const r20 = Number(s.ret_20d_stock) || 0;
+          const r20Class = r20 >= 0 ? 'text-bullish' : 'text-bearish';
+
+          let gradeBadge = 'grade-weak';
+          if (s.grade === 'Grade A') gradeBadge = 'grade-a';
+          else if (s.grade === 'Grade B') gradeBadge = 'grade-b';
+          else if (s.grade === 'Grade C') gradeBadge = 'grade-c';
+
+          let scoreBadge = 'score-neutral';
+          if (s.rs_score >= 90) scoreBadge = 'score-gold';
+          else if (s.rs_score >= 80) scoreBadge = 'score-green';
+          else if (s.rs_score >= 70) scoreBadge = 'score-cyan';
+
+          const isWl = isWatchlisted(s.symbol);
+
+          html += `
+            <tr class="adv-rs-row" data-symbol="${s.symbol}">
+              <td class="row-index" style="text-align: center;">${globalIdx}</td>
+              <td style="text-align: center;">
+                <button type="button" class="tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
+              </td>
+              <td class="sticky-col sticky-col-1 symbol-cell">
+                <span class="stock-sym">${s.symbol}</span>
+                <span class="stock-sec">${s.sector || 'NSE'}</span>
+              </td>
+              <td class="sticky-col sticky-col-2 cmp-cell font-mono">
+                <strong>₹${formatCurrency(s.cmp)}</strong>
+              </td>
+              <td class="${dayChgClass} font-mono">${dayChg >= 0 ? '+' : ''}${dayChg.toFixed(2)}%</td>
+              <td class="${r20Class} font-mono">${r20 >= 0 ? '+' : ''}${r20.toFixed(2)}%</td>
+              <td class="font-mono ${Number(s.rs_20d) >= 0 ? 'text-bullish' : 'text-bearish'}">${s.rs_20d !== null ? (Number(s.rs_20d) >= 0 ? '+' : '') + Number(s.rs_20d).toFixed(1) + '%' : '--'}</td>
+              <td class="font-mono ${Number(s.rs_60d) >= 0 ? 'text-bullish' : 'text-bearish'}">${s.rs_60d !== null ? (Number(s.rs_60d) >= 0 ? '+' : '') + Number(s.rs_60d).toFixed(1) + '%' : '--'}</td>
+              <td class="font-mono ${Number(s.rs_120d) >= 0 ? 'text-bullish' : 'text-bearish'}">${s.rs_120d !== null ? (Number(s.rs_120d) >= 0 ? '+' : '') + Number(s.rs_120d).toFixed(1) + '%' : '--'}</td>
+              <td class="font-mono ${Number(s.rs_252d) >= 0 ? 'text-bullish' : 'text-bearish'}">${s.rs_252d !== null ? (Number(s.rs_252d) >= 0 ? '+' : '') + Number(s.rs_252d).toFixed(1) + '%' : '--'}</td>
+              <td><span class="rs-score-pill ${scoreBadge}">${s.rs_score}</span></td>
+              <td><span class="rs-grade-pill ${gradeBadge}">${s.grade}</span></td>
+              <td><span class="tag-pill ${s.above_ema50 ? 'tag-bull' : 'tag-bear'}">${s.above_ema50 ? 'Above' : 'Below'}</span></td>
+              <td><span class="tag-pill ${s.above_ema200 ? 'tag-bull' : 'tag-neutral'}">${s.above_ema200 ? 'Above' : 'Below'}</span></td>
+              <td class="font-mono">${s.vol_ratio ? s.vol_ratio + 'x' : '--'}</td>
+              <td><span class="tag-pill ${s.rs_line_status === 'RISING' ? 'tag-bull' : 'tag-neutral'}">${s.rs_line_status || 'NEUTRAL'}</span></td>
+              <td style="text-align: center;">
+                <button type="button" class="adv-inspect-btn" data-symbol="${s.symbol}">Inspect</button>
+              </td>
+            </tr>
+          `;
+        });
+      } else {
+        // Slot 2: Early Breakout table rows
+        pageSignals.forEach((s, idx) => {
+          const globalIdx = startIdx + idx + 1;
+          const dayChg = Number(s.change_pct) || 0;
+          const dayChgClass = dayChg >= 0 ? 'text-bullish' : 'text-bearish';
+          const distVal = Number(s.dist_to_pivot) || 0;
+          const distBadge = distVal <= 1.5 ? 'badge-coiling' : 'badge-dryup';
+          const pivBadge = s.pivot_type === '52-Week High' ? 'tag-bull' : 'tag-gold';
+          const isWl = isWatchlisted(s.symbol);
+
+          html += `
+            <tr class="adv-rs-row" data-symbol="${s.symbol}">
+              <td class="row-index" style="text-align: center;">${globalIdx}</td>
+              <td style="text-align: center;">
+                <button type="button" class="tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
+              </td>
+              <td class="sticky-col sticky-col-1 symbol-cell">
+                <span class="stock-sym">${s.symbol}</span>
+                <span class="stock-sec">${s.sector || 'NSE'}</span>
+              </td>
+              <td class="sticky-col sticky-col-2 cmp-cell font-mono">
+                <strong>₹${formatCurrency(s.cmp)}</strong>
+              </td>
+              <td class="${dayChgClass} font-mono">${dayChg >= 0 ? '+' : ''}${dayChg.toFixed(2)}%</td>
+              <td class="font-mono"><strong>₹${formatCurrency(s.resistance)}</strong></td>
+              <td class="font-mono">
+                <span class="rs-grade-pill ${distBadge}">+${distVal.toFixed(2)}%</span>
+              </td>
+              <td><span class="tag-pill ${pivBadge}">${s.pivot_type || '20D Swing High'}</span></td>
+              <td class="font-mono">
+                <span style="color: #cbd5e1;">₹${formatCurrency(s.support)}</span>
+                <div style="font-size: 0.68rem; color: #94a3b8;">${s.support_dist || ''}</div>
+              </td>
+              <td class="font-mono">
+                <strong>${Number(s.vol_ratio || 1.0).toFixed(2)}x</strong>
+                <span class="tag-pill ${s.vol_badge === 'SURGE' ? 'tag-bull' : 'tag-neutral'}" style="font-size: 0.68rem; margin-left: 4px;">${s.vol_badge || 'FLOW'}</span>
+              </td>
+              <td style="font-size: 0.8rem; color: #cbd5e1;">${s.tightness_desc || 'Consolidation'}</td>
+              <td class="font-mono" style="text-align: center;">
+                <span class="rs-score-pill score-gold">${s.bo_score || s.rs_score || 85}</span>
+              </td>
+              <td style="text-align: center;">
+                <button type="button" class="adv-inspect-btn" data-symbol="${s.symbol}">Inspect</button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      tbody.innerHTML = html;
+
+      // Event delegation for table inspect and star buttons
+      tbody.querySelectorAll('.adv-inspect-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const sym = btn.getAttribute('data-symbol');
+          if (sym) openAdvRsDossierModal(sym);
+        });
       });
-    });
+
+      tbody.querySelectorAll('.tbl-watchlist-star-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const sym = btn.getAttribute('data-symbol');
+          if (sym) toggleWatchlist(sym);
+        });
+      });
+
+      tbody.querySelectorAll('tr.adv-rs-row').forEach(row => {
+        row.addEventListener('click', (e) => {
+          if (e.target.closest('.adv-inspect-btn') || e.target.closest('.tbl-watchlist-star-btn')) return;
+          const sym = row.getAttribute('data-symbol');
+          if (sym) openAdvRsDossierModal(sym);
+        });
+      });
+
     } catch (renderErr) {
-      console.error('[MITS Pro] Error rendering RS table:', renderErr);
+      console.error('[MITS Pro] Error rendering active advanced table:', renderErr);
     }
+  }
+
+  // Alias for backward compatibility
+  function renderAdvRsTable() {
+    renderAdvActiveTable();
   }
 
   function renderAdvPagination(totalSignals, totalPages, startIdx, endIdx) {
@@ -4685,15 +4973,23 @@
         const targetPage = parseInt(btn.getAttribute('data-page'), 10);
         if (targetPage && targetPage !== advState.currentPage && targetPage >= 1 && targetPage <= totalPages) {
           advState.currentPage = targetPage;
-          renderAdvRsTable();
+          renderAdvActiveTable();
         }
       });
     });
   }
 
   function openAdvRsDossierModal(symbol) {
-    if (!advState.rsData || !advState.rsData.stocks) return;
-    const s = advState.rsData.stocks.find(it => it.symbol === symbol);
+    let s = null;
+    if (advState.activeSlot === 2 && advState.boData && advState.boData.stocks) {
+      s = advState.boData.stocks.find(it => it.symbol === symbol);
+    }
+    if (!s && advState.rsData && advState.rsData.stocks) {
+      s = advState.rsData.stocks.find(it => it.symbol === symbol);
+    }
+    if (!s && advState.boData && advState.boData.stocks) {
+      s = advState.boData.stocks.find(it => it.symbol === symbol);
+    }
     if (!s) return;
 
     const d = s.dossier || {};
@@ -4709,14 +5005,24 @@
     if (el('rs-modal-rank')) el('rs-modal-rank').textContent = `Rank #${s.rank || 1}`;
     if (el('rs-modal-cmp')) el('rs-modal-cmp').textContent = `₹${formatCurrency(s.cmp)}`;
 
+    // Sync in-modal Watchlist state
+    const wlBtn = el('rs-modal-watchlist-btn');
+    if (wlBtn) {
+      const active = isWatchlisted(s.symbol);
+      wlBtn.className = `rs-watchlist-btn ${active ? 'active' : ''}`;
+      wlBtn.innerHTML = active
+        ? '<span class="star-icon">★</span> <span class="watchlist-text">In Watchlist</span>'
+        : '<span class="star-icon">☆</span> <span class="watchlist-text">Add to Watchlist</span>';
+    }
+
     const chg = s.change_pct !== undefined ? Number(s.change_pct) : 0;
     if (el('rs-modal-chg')) {
       el('rs-modal-chg').textContent = `${chg >= 0 ? '+' : ''}${chg.toFixed(2)}%`;
       el('rs-modal-chg').className = `rs-modal-chg ${chg >= 0 ? 'text-bullish' : 'text-bearish'}`;
     }
 
-    // RS Score badge
-    const score = s.rs_score || 50;
+    // RS Score / Breakout Score badge
+    const score = s.bo_score || s.rs_score || 50;
     const scoreEl = el('rs-modal-score');
     if (scoreEl) {
       scoreEl.textContent = score;
@@ -4758,7 +5064,7 @@
     if (el('rs-modal-s1-dist')) el('rs-modal-s1-dist').textContent = sDist;
 
     const rVal = kl.resistance !== undefined ? kl.resistance : (kl.pivot_resistance || d.resistance || d.resistance_pivot);
-    const rLabel = kl.resistance_label || d.resistance_label || '20D Swing High Pivot';
+    const rLabel = kl.resistance_label || d.resistance_label || (s.pivot_type ? `${s.pivot_type} Pivot` : '20D Swing High Pivot');
     const rDist = kl.resistance_dist || (kl.pivot_dist_pct !== undefined ? `+${kl.pivot_dist_pct}% to pivot` : '--');
     if (el('rs-modal-r1')) el('rs-modal-r1').textContent = rVal ? `₹${formatCurrency(rVal)}` : '--';
     if (el('rs-modal-r1-label')) el('rs-modal-r1-label').textContent = rLabel;
@@ -4813,7 +5119,7 @@
     // TradingView Link
     const tvBtn = el('rs-modal-tv-btn');
     if (tvBtn) {
-      tvBtn.href = `https://in.tradingview.com/chart/?symbol=NSE:${s.symbol}`;
+      tvBtn.href = d.tradingview_url || `https://in.tradingview.com/chart/?symbol=NSE:${s.symbol}`;
     }
 
     // Launch Modal Animation
@@ -4842,37 +5148,70 @@
     }
   }
 
-  function exportAdvRsCsv() {
-    if (!advState.rsData || !advState.rsData.stocks || advState.rsData.stocks.length === 0) return;
-    const headers = ['Rank', 'Symbol', 'Name', 'Sector', 'CMP', 'Day Change %', '20D Ret %', '20D RS', '60D RS', '120D RS', '252D RS', 'RS Score', 'Grade', '50 EMA Status', '200 EMA Status', 'Vol Ratio', 'RS Line Status'];
-    const rows = advState.rsData.stocks.map(s => [
-      s.rank,
-      `"${s.symbol}"`,
-      `"${s.name}"`,
-      `"${s.sector}"`,
-      s.cmp,
-      s.change_pct,
-      s.ret_20d_stock,
-      s.rs_20d,
-      s.rs_60d,
-      s.rs_120d,
-      s.rs_252d,
-      s.rs_score,
-      `"${s.grade}"`,
-      s.above_ema50 ? 'Above' : 'Below',
-      s.above_ema200 ? 'Above' : 'Below',
-      s.vol_ratio,
-      `"${s.rs_line_status}"`
-    ]);
+  function exportAdvCsv() {
+    const isSlot1 = advState.activeSlot === 1;
+    const activeData = isSlot1 ? advState.rsData : advState.boData;
+    if (!activeData || !activeData.stocks || !activeData.stocks.length) return;
 
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
+    const rows = [];
+    if (isSlot1) {
+      rows.push(['Rank', 'Symbol', 'Name', 'Sector', 'CMP', 'Day Change %', '20D Ret %', '20D RS', '60D RS', '120D RS', '252D RS', 'RS Score', 'Grade', '50 EMA Status', '200 EMA Status', 'Vol Ratio', 'RS Line Status'].join(','));
+      activeData.stocks.forEach(s => {
+        rows.push([
+          s.rank,
+          `"${s.symbol}"`,
+          `"${s.name}"`,
+          `"${s.sector}"`,
+          s.cmp,
+          s.change_pct,
+          s.ret_20d_stock,
+          s.rs_20d,
+          s.rs_60d,
+          s.rs_120d,
+          s.rs_252d,
+          s.rs_score,
+          `"${s.grade}"`,
+          s.above_ema50 ? 'Above' : 'Below',
+          s.above_ema200 ? 'Above' : 'Below',
+          s.vol_ratio,
+          `"${s.rs_line_status}"`
+        ].join(','));
+      });
+    } else {
+      rows.push(['Rank', 'Symbol', 'Name', 'Sector', 'CMP', 'Day Change %', 'Resistance Pivot', 'Dist to Pivot %', 'Pivot Type', 'Support', 'Vol Ratio', 'Vol Status', 'Tightness'].join(','));
+      activeData.stocks.forEach(s => {
+        rows.push([
+          s.rank,
+          `"${s.symbol}"`,
+          `"${s.name}"`,
+          `"${s.sector}"`,
+          s.cmp,
+          s.change_pct,
+          s.resistance,
+          s.dist_to_pivot,
+          `"${s.pivot_type}"`,
+          s.support,
+          s.vol_ratio,
+          `"${s.vol_status}"`,
+          `"${s.tightness_desc}"`
+        ].join(','));
+      });
+    }
+
+    const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(rows.join('\n'));
     const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `MITS_Adv_Relative_Strength_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute('href', csvContent);
+    const fname = isSlot1
+      ? `MITS_Adv_Relative_Strength_${new Date().toISOString().slice(0, 10)}.csv`
+      : `MITS_Adv_Early_Breakout_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.setAttribute('download', fname);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  function exportAdvRsCsv() {
+    exportAdvCsv();
   }
 
   // Initialize App
@@ -4884,6 +5223,7 @@
     renderAll();
     fetchRemoteData();
     loadAdvRsData();
+    loadAdvBoData();
   }
 
   function ensureBaselineSignals() {
@@ -5043,6 +5383,16 @@
 
     // RS Institutional Dossier Modal Close Bindings
     const rsCloseBtn = document.getElementById('rs-modal-close-btn');
+    const rsWlBtn = document.getElementById('rs-modal-watchlist-btn');
+    if (rsWlBtn) {
+      rsWlBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const symEl = document.getElementById('rs-modal-symbol');
+        if (symEl && symEl.textContent) {
+          toggleWatchlist(symEl.textContent.trim());
+        }
+      });
+    }
     const rsBackdrop = document.getElementById('rs-dossier-backdrop');
     if (rsCloseBtn) {
       rsCloseBtn.addEventListener('click', closeAdvRsDossierModal);
