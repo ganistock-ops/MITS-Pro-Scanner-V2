@@ -681,7 +681,7 @@
           <!-- 6-Slot Sub-Scanner Tab Grid -->
           <div class="adv-subscanner-grid" role="tablist">
             <!-- Slot 1: Relative Strength Scanner (ACTIVE) -->
-            <div class="adv-sub-card active" id="adv-slot-1-card" data-sub="rs_scanner" role="tab" aria-selected="true">
+            <div class="adv-sub-card active" data-sub="rs_scanner" role="tab" aria-selected="true">
               <div class="sub-card-top">
                 <span class="sub-card-icon">⚡</span>
                 <span class="sub-card-status status-active">ACTIVE ENGINE</span>
@@ -696,19 +696,19 @@
               </div>
             </div>
 
-            <!-- Slot 2: Early Breakout Scanner (ACTIVE) -->
-            <div class="adv-sub-card" id="adv-slot-2-card" data-sub="early_breakout" role="tab" aria-selected="false">
+            <!-- Slot 2: Momentum Velocity Scanner (Coming Soon) -->
+            <div class="adv-sub-card disabled" role="tab" aria-selected="false">
               <div class="sub-card-top">
                 <span class="sub-card-icon">🚀</span>
-                <span class="sub-card-status status-active">ACTIVE ENGINE</span>
+                <span class="sub-card-status status-soon">COMING SOON</span>
               </div>
               <div class="sub-card-body">
-                <h4 class="sub-card-title">🚀 Early Breakout Scanner</h4>
-                <p class="sub-card-desc">Coiling within 0.5% - 3.0% below 20D swing pivots &amp; 52W resistance</p>
+                <h4 class="sub-card-title">Momentum Velocity</h4>
+                <p class="sub-card-desc">Multi-day rate of change acceleration and institutional volume expansion</p>
               </div>
               <div class="sub-card-footer">
-                <span class="sub-card-badge" id="adv-bo-badge">21 Coiling Stocks</span>
-                <span class="sub-card-arrow">→</span>
+                <span class="sub-card-badge">Slot 2</span>
+                <span class="sub-card-lock">🔒</span>
               </div>
             </div>
 
@@ -816,8 +816,25 @@
             <div class="table-card">
               <div class="table-responsive table-responsive-wrapper">
                 <table class="pro-table adv-rs-table" id="adv-rs-table">
-                  <thead id="adv-table-thead">
-                    <!-- Populated dynamically by app.js based on active sub-scanner slot -->
+                  <thead>
+                    <tr>
+                      <th style="width: 44px; text-align: center;">#</th>
+                      <th class="sticky-col sticky-col-1 sortable" data-col="symbol">Symbol <span class="sort-icon">↕</span></th>
+                      <th class="sticky-col sticky-col-2 sortable" data-col="cmp">LTP (₹) <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="change_pct">Day % <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="ret_20d_stock">20D Ret % <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_20d">20D RS <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_60d">60D RS <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_120d">120D RS <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_252d">252D RS <span class="sort-icon">↕</span></th>
+                      <th class="sortable active-sort" data-col="rs_score">RS Score <span class="sort-icon active">▼</span></th>
+                      <th class="sortable" data-col="grade">Grade <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="above_ema50">50 EMA <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="above_ema200">200 EMA <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="vol_ratio">Vol Conf <span class="sort-icon">↕</span></th>
+                      <th class="sortable" data-col="rs_line_trend">RS Line Status <span class="sort-icon">↕</span></th>
+                      <th style="text-align: center;">Action</th>
+                    </tr>
                   </thead>
                   <tbody id="adv-rs-tbody" class="rsScannerTableBody" data-role="rsScannerTableBody">
                     <!-- Rendered dynamically by js/app.js -->
@@ -1090,12 +1107,7 @@
         </div>
         <div class="rs-header-main">
           <div class="rs-header-titles">
-            <div class="rs-symbol-row">
-              <h2 class="rs-modal-symbol" id="rs-modal-symbol">SYMBOL</h2>
-              <button type="button" class="rs-watchlist-btn" id="rs-modal-watchlist-btn" title="Toggle Watchlist">
-                <span class="star-icon">☆</span> <span class="watchlist-text">Add to Watchlist</span>
-              </button>
-            </div>
+            <h2 class="rs-modal-symbol" id="rs-modal-symbol">SYMBOL</h2>
             <p class="rs-modal-name" id="rs-modal-name">Full Company Name</p>
           </div>
           <div class="rs-header-pricing">
