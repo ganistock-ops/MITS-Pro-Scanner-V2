@@ -71,11 +71,15 @@ def compute_rs_metrics(
 
         # Inner join on matching trading session dates
         stock_close = sdf["Close"].astype(float)
+        stock_high = sdf["High"].astype(float) if "High" in sdf.columns else stock_close
+        stock_low = sdf["Low"].astype(float) if "Low" in sdf.columns else stock_close
         stock_vol = sdf["Volume"].astype(float) if "Volume" in sdf.columns else pd.Series(1.0, index=sdf.index)
         bench_close = bdf["Close"].astype(float)
 
         combined = pd.DataFrame({
             "stock_close": stock_close,
+            "stock_high": stock_high,
+            "stock_low": stock_low,
             "stock_vol": stock_vol,
             "bench_close": bench_close
         }).dropna()
@@ -92,6 +96,12 @@ def compute_rs_metrics(
             cur_vol = float(bhav_info.get("volume", cur_vol))
             combined.loc[combined.index[-1], "stock_close"] = cur_close
             combined.loc[combined.index[-1], "stock_vol"] = cur_vol
+            if "high" in bhav_info and float(bhav_info["high"]) > 0:
+                combined.loc[combined.index[-1], "stock_high"] = float(bhav_info["high"])
+            if "low" in bhav_info and float(bhav_info["low"]) > 0:
+                combined.loc[combined.index[-1], "stock_low"] = float(bhav_info["low"])
+            combined.loc[combined.index[-1], "stock_high"] = max(combined.loc[combined.index[-1], "stock_high"], cur_close)
+            combined.loc[combined.index[-1], "stock_low"] = min(combined.loc[combined.index[-1], "stock_low"], cur_close)
 
         # 1-day change %
         if bhav_info and bhav_info.get("prev_close", 0) > 0:
@@ -234,18 +244,59 @@ def compute_rs_metrics(
             trend_stack_status = "Divergent / Below Key Moving Averages"
             trend_stack_badge = "DIVERGENT"
 
-        # 3. Key Tactical Reference Levels
-        s1_level = round(float(ema_20), 2)
-        s1_dist_pct = round(((cur_close - s1_level) / cur_close) * 100.0, 2) if cur_close > 0 else 0.0
-
+        # =========================================================================
+        # 3. Dynamic 20D Swing Support & Resistance Levels (Strictly < CMP & > CMP)
+        # =========================================================================
+        cmp = cur_close
         lookback_20 = min(len(combined), 20)
-        recent_high_20d = float(combined["stock_close"].iloc[-lookback_20:].max())
-        r1_level = round(recent_high_20d, 2)
-        r1_dist_pct = round(((r1_level - cur_close) / cur_close) * 100.0, 2) if cur_close > 0 else 0.0
+        lookback_252 = min(len(combined), 252)
 
-        lookback_52w = min(len(combined), 252)
-        high_52w = float(combined["stock_close"].iloc[-lookback_52w:].max())
-        dist_52w_high_pct = round(((cur_close - high_52w) / high_52w) * 100.0, 2) if high_52w > 0 else 0.0
+        swing_high_20d = float(combined["stock_high"].iloc[-lookback_20:].max())
+        swing_low_20d = float(combined["stock_low"].iloc[-lookback_20:].min())
+        high_52w = float(combined["stock_high"].iloc[-lookback_252:].max())
+        low_52w = float(combined["stock_low"].iloc[-lookback_252:].min())
+
+        # A) Dynamic Support Logic (Strictly < CMP):
+        if cmp > swing_low_20d:
+            support_val = swing_low_20d
+            support_label = "20D Swing Low Support"
+        elif cmp > ema_50:
+            support_val = ema_50
+            support_label = "50 EMA Baseline Support"
+        elif ema_200 is not None and cmp > ema_200:
+            support_val = ema_200
+            support_label = "200 EMA Institutional Floor"
+        else:
+            support_val = low_52w
+            support_label = "52W Low Structural Base"
+
+        # Guarantee support strictly sits BELOW CMP
+        if support_val >= cmp:
+            support_val = round(cmp * 0.95, 2)
+            support_label = "Dynamic Structural Base (-5%)"
+
+        # B) Dynamic Resistance Logic (Strictly > CMP):
+        if cmp < swing_high_20d:
+            resistance_val = swing_high_20d
+            resistance_label = "20D Swing High Pivot"
+        elif cmp < high_52w:
+            resistance_val = high_52w
+            resistance_label = "52-Week High Breakout Level"
+        else:
+            resistance_val = round(cmp * 1.05, 2)
+            resistance_label = "Blue Sky Discovery (+5%)"
+
+        # Guarantee resistance strictly sits ABOVE CMP
+        if resistance_val <= cmp:
+            resistance_val = round(cmp * 1.05, 2)
+            resistance_label = "Blue Sky Discovery (+5%)"
+
+        # C) Distance Calculations:
+        support_dist_pct = round(((cmp - support_val) / cmp) * 100.0, 2) if cmp > 0 else 0.0
+        resistance_dist_pct = round(((resistance_val - cmp) / cmp) * 100.0, 2) if cmp > 0 else 0.0
+        support_dist = f"-{support_dist_pct}% below"
+        resistance_dist = f"+{resistance_dist_pct}% to pivot"
+        dist_52w = f"{round(((high_52w - cmp) / high_52w) * -100.0, 2)}% from 52W High" if high_52w > 0 else "0.0% from 52W High"
 
         # 4. Smart Money / Volume Footprint
         deliv_pct = float(bhav_info.get("delivery_pct", 0.0)) if bhav_info else 0.0
@@ -264,6 +315,23 @@ def compute_rs_metrics(
             delivery_badge = "STANDARD"
 
         sym_str = symbol_meta.get("symbol", "")
+        key_levels = {
+            "support": round(support_val, 2),
+            "support_label": support_label,
+            "support_dist": support_dist,
+            "resistance": round(resistance_val, 2),
+            "resistance_label": resistance_label,
+            "resistance_dist": resistance_dist,
+            "high_52w": round(high_52w, 2),
+            "dist_52w": dist_52w,
+            # Aliases for backwards compatibility:
+            "support_1": round(support_val, 2),
+            "support_1_dist_pct": support_dist_pct,
+            "pivot_resistance": round(resistance_val, 2),
+            "pivot_dist_pct": resistance_dist_pct,
+            "dist_52w_high_pct": round(((cmp - high_52w) / high_52w) * 100.0, 2) if high_52w > 0 else 0.0
+        }
+
         dossier = {
             "symbol": sym_str,
             "name": symbol_meta.get("name", sym_str),
@@ -278,14 +346,7 @@ def compute_rs_metrics(
             "ema_20": round(ema_20, 2),
             "ema_50": round(ema_50, 2),
             "ema_200": round(ema_200, 2) if ema_200 is not None else None,
-            "key_levels": {
-                "support_1": s1_level,
-                "support_1_dist_pct": s1_dist_pct,
-                "pivot_resistance": r1_level,
-                "pivot_dist_pct": r1_dist_pct,
-                "high_52w": round(high_52w, 2),
-                "dist_52w_high_pct": dist_52w_high_pct
-            },
+            "key_levels": key_levels,
             "volume_footprint": {
                 "volume_multiple": vol_ratio,
                 "volume_desc": f"{vol_ratio}x Vol",
@@ -308,12 +369,19 @@ def compute_rs_metrics(
                 "bench_ret_120d": ret_data["bench_ret_120d"],
                 "bench_ret_252d": ret_data["bench_ret_252d"]
             },
-            "support_1": s1_level,
-            "support_1_dist_pct": s1_dist_pct,
-            "resistance_pivot": r1_level,
-            "resistance_dist_pct": r1_dist_pct,
+            "support": round(support_val, 2),
+            "support_label": support_label,
+            "support_dist": support_dist,
+            "resistance": round(resistance_val, 2),
+            "resistance_label": resistance_label,
+            "resistance_dist": resistance_dist,
+            "support_1": round(support_val, 2),
+            "support_1_dist_pct": support_dist_pct,
+            "resistance_pivot": round(resistance_val, 2),
+            "resistance_dist_pct": resistance_dist_pct,
             "high_52w": round(high_52w, 2),
-            "dist_52w_high_pct": dist_52w_high_pct,
+            "dist_52w": dist_52w,
+            "dist_52w_high_pct": round(((cmp - high_52w) / high_52w) * 100.0, 2) if high_52w > 0 else 0.0,
             "volume_multiple": vol_ratio,
             "delivery_status": delivery_status,
             "delivery_pct": round(deliv_pct, 1) if deliv_pct > 0 else None,

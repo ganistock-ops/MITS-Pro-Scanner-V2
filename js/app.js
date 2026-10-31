@@ -4749,21 +4749,25 @@
     if (el('rs-modal-ema50')) el('rs-modal-ema50').textContent = ema50 ? `₹${formatCurrency(ema50)}` : '--';
     if (el('rs-modal-ema200')) el('rs-modal-ema200').textContent = ema200 ? `₹${formatCurrency(ema200)}` : '--';
 
-    // Key Levels
-    const s1Val = kl.support_1 || d.support_1 || ema20;
-    const s1Dist = kl.support_1_dist_pct !== undefined ? kl.support_1_dist_pct : d.support_1_dist_pct;
-    if (el('rs-modal-s1')) el('rs-modal-s1').textContent = s1Val ? `₹${formatCurrency(s1Val)}` : '--';
-    if (el('rs-modal-s1-dist')) el('rs-modal-s1-dist').textContent = s1Dist !== undefined ? `+${s1Dist}% above` : '--';
+    // Key Levels (Dynamic 20D Swing Support < CMP, Resistance > CMP)
+    const sVal = kl.support !== undefined ? kl.support : (kl.support_1 || d.support || d.support_1);
+    const sLabel = kl.support_label || d.support_label || '20D Swing Low Support';
+    const sDist = kl.support_dist || (kl.support_1_dist_pct !== undefined ? `-${kl.support_1_dist_pct}% below` : '--');
+    if (el('rs-modal-s1')) el('rs-modal-s1').textContent = sVal ? `₹${formatCurrency(sVal)}` : '--';
+    if (el('rs-modal-s1-label')) el('rs-modal-s1-label').textContent = sLabel;
+    if (el('rs-modal-s1-dist')) el('rs-modal-s1-dist').textContent = sDist;
 
-    const r1Val = kl.pivot_resistance || d.resistance_pivot;
-    const r1Dist = kl.pivot_dist_pct !== undefined ? kl.pivot_dist_pct : d.resistance_dist_pct;
-    if (el('rs-modal-r1')) el('rs-modal-r1').textContent = r1Val ? `₹${formatCurrency(r1Val)}` : '--';
-    if (el('rs-modal-r1-dist')) el('rs-modal-r1-dist').textContent = r1Dist !== undefined ? `+${r1Dist}% to pivot` : '--';
+    const rVal = kl.resistance !== undefined ? kl.resistance : (kl.pivot_resistance || d.resistance || d.resistance_pivot);
+    const rLabel = kl.resistance_label || d.resistance_label || '20D Swing High Pivot';
+    const rDist = kl.resistance_dist || (kl.pivot_dist_pct !== undefined ? `+${kl.pivot_dist_pct}% to pivot` : '--');
+    if (el('rs-modal-r1')) el('rs-modal-r1').textContent = rVal ? `₹${formatCurrency(rVal)}` : '--';
+    if (el('rs-modal-r1-label')) el('rs-modal-r1-label').textContent = rLabel;
+    if (el('rs-modal-r1-dist')) el('rs-modal-r1-dist').textContent = rDist;
 
     const h52w = kl.high_52w || d.high_52w;
-    const h52wDist = kl.dist_52w_high_pct !== undefined ? kl.dist_52w_high_pct : d.dist_52w_high_pct;
+    const h52wDist = kl.dist_52w || (kl.dist_52w_high_pct !== undefined ? `${kl.dist_52w_high_pct}% from 52W High` : (d.dist_52w || '--'));
     if (el('rs-modal-52w')) el('rs-modal-52w').textContent = h52w ? `₹${formatCurrency(h52w)}` : '--';
-    if (el('rs-modal-52w-dist')) el('rs-modal-52w-dist').textContent = h52wDist !== undefined ? `${h52wDist}% from 52W High` : '--';
+    if (el('rs-modal-52w-dist')) el('rs-modal-52w-dist').textContent = h52wDist;
 
     // Volume & Smart Money
     const volRatio = vf.volume_multiple || d.volume_multiple || s.vol_ratio || 1.0;
