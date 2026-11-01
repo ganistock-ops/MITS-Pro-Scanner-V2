@@ -740,6 +740,21 @@ def run_pipeline():
     except Exception as e:
         logger.warning(f"Advanced Momentum Continuation scanner export bypassed or error: {e}")
 
+    # Isolated Advanced Scanner 4: Rally Base Rally (RBR) Proportional Engine
+    try:
+        from adv_scanner_4_rbr_proportional import generate_adv_scanner_rbr_proportional
+        generate_adv_scanner_rbr_proportional(
+            symbols=symbols,
+            stock_dfs=stock_dfs,
+            bhav_date=bhav_date,
+            bhav_map=bhav_map,
+            delivery_analytics_map=delivery_analytics_map,
+            n_df=n_df
+        )
+        logger.info("Enriched data/adv_scanner_4_rbr_proportional.json with standalone RBR Proportional metrics.")
+    except Exception as e:
+        logger.warning(f"Advanced RBR Proportional scanner export bypassed or error: {e}")
+
     print("\n" + "=" * 75)
     print("MITS PRO SCANNER - NIFTY 500 REAL MARKET PIPELINE COMPLETE")
     print(f"Time Taken: {duration:.2f}s | Scanned: {success_count}/{len(symbols)} Equities")

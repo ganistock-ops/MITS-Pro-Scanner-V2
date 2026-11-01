@@ -4309,10 +4309,11 @@
 
   // --- Advanced Scanner State ---
   const advState = {
-    activeSlot: 1, // 1: RS Outperformer, 2: Early Breakout, 3: Momentum Continuation
+    activeSlot: 1, // 1: RS Outperformer, 2: Early Breakout, 3: Momentum Continuation, 4: Rally-Base-Rally
     rsData: null,
     boData: null,
     mcData: null,
+    rbrData: null,
     searchQuery: '',
     gradeFilter: 'ALL',
     classFilter: 'ALL',
@@ -4349,11 +4350,14 @@
           loadAdvRsData();
         } else if (advState.activeSlot === 2) {
           loadAdvBoData();
-        } else {
+        } else if (advState.activeSlot === 3) {
           loadAdvMcData();
+        } else {
+          loadAdvRbrData();
         }
         loadAdvBoData(); // Preload Slot 2 counts
         loadAdvMcData(); // Preload Slot 3 counts
+        loadAdvRbrData(); // Preload Slot 4 counts
       } else {
         if (aView) {
           aView.classList.add('hidden');
@@ -4405,7 +4409,7 @@
     window.addEventListener('hashchange', handleHashRouting);
     handleHashRouting();
 
-    // Bind Slot Card Switcher (Slot 1 vs Slot 2 vs Slot 3)
+    // Bind Slot Card Switcher (Slot 1 vs Slot 2 vs Slot 3 vs Slot 4)
     document.querySelectorAll('.adv-subscanner-grid .adv-sub-card').forEach(card => {
       card.addEventListener('click', () => {
         const sub = card.getAttribute('data-sub');
@@ -4415,6 +4419,8 @@
           selectAdvSlot(2);
         } else if (sub === 'momentum_continuation') {
           selectAdvSlot(3);
+        } else if (sub === 'rbr_proportional') {
+          selectAdvSlot(4);
         }
       });
     });
@@ -4495,6 +4501,14 @@
           <option value="A">Grade A (Strong Momentum 70–84)</option>
           <option value="B">Grade B (Constructive Momentum &lt; 70)</option>
         `;
+      } else if (slotNum === 4) {
+        gSelect.style.display = '';
+        gSelect.innerHTML = `
+          <option value="ALL">All Grades (A+, A, B)</option>
+          <option value="A+">Grade A+ (Elite RBR ≥ 85)</option>
+          <option value="A">Grade A (Confirmed RBR 70–84)</option>
+          <option value="B">Grade B (Constructive Base &lt; 70)</option>
+        `;
       } else {
         gSelect.style.display = 'none';
       }
@@ -4512,11 +4526,13 @@
       if (slotNum === 1) expBtn.innerHTML = '<span>⬇ Export RS Data</span>';
       else if (slotNum === 2) expBtn.innerHTML = '<span>⬇ Export Breakout Data</span>';
       else if (slotNum === 3) expBtn.innerHTML = '<span>⬇ Export Momentum Data</span>';
+      else if (slotNum === 4) expBtn.innerHTML = '<span>⬇ Export RBR Data</span>';
     }
 
     const card1 = document.getElementById('adv-slot-1-card') || document.querySelector('.adv-sub-card[data-sub="rs_scanner"]');
     const card2 = document.getElementById('adv-slot-2-card') || document.querySelector('.adv-sub-card[data-sub="early_breakout"]');
     const card3 = document.getElementById('adv-slot-3-card') || document.querySelector('.adv-sub-card[data-sub="momentum_continuation"]');
+    const card4 = document.getElementById('adv-slot-4-card') || document.querySelector('.adv-sub-card[data-sub="rbr_proportional"]');
     if (card1) {
       card1.classList.toggle('active', slotNum === 1);
       card1.setAttribute('aria-selected', slotNum === 1 ? 'true' : 'false');
@@ -4528,6 +4544,10 @@
     if (card3) {
       card3.classList.toggle('active', slotNum === 3);
       card3.setAttribute('aria-selected', slotNum === 3 ? 'true' : 'false');
+    }
+    if (card4) {
+      card4.classList.toggle('active', slotNum === 4);
+      card4.setAttribute('aria-selected', slotNum === 4 ? 'true' : 'false');
     }
 
     if (slotNum === 1) {
@@ -4560,6 +4580,17 @@
       populateAdvSectorFilter();
       if (!advState.mcData) {
         loadAdvMcData();
+      } else {
+        renderAdvActiveTable();
+      }
+    } else if (slotNum === 4) {
+      advState.sortColumn = 'rbr_score';
+      advState.sortDirection = 'desc';
+      renderAdvThead(4);
+      updateAdvHeaderKpis();
+      populateAdvSectorFilter();
+      if (!advState.rbrData) {
+        loadAdvRbrData();
       } else {
         renderAdvActiveTable();
       }
@@ -4619,6 +4650,23 @@
           <th class="sortable text-center" data-col="rsi_14" style="width: 80px; text-align: center;">RSI (14) <span class="sort-icon">↕</span><div class="col-resizer" data-min="65"></div></th>
           <th class="sortable text-center" data-col="rs_vs_nifty_status" style="width: 115px; text-align: center;">RS vs Nifty <span class="sort-icon">↕</span><div class="col-resizer" data-min="85"></div></th>
           <th class="sortable text-right" data-col="s1" style="width: 125px; text-align: right;">S1 / R1 (₹) <span class="sort-icon">↕</span><div class="col-resizer" data-min="95"></div></th>
+          <th style="width: 75px; text-align: center;">Action</th>
+        </tr>
+      `;
+    } else if (slotNum === 4) {
+      thead.innerHTML = `
+        <tr>
+          <th style="width: 40px; text-align: center;">#<div class="col-resizer" data-min="36"></div></th>
+          <th style="width: 40px; text-align: center;" title="Quick Watchlist">★<div class="col-resizer" data-min="36"></div></th>
+          <th class="sortable text-left sticky-symbol-col" data-col="symbol" style="min-width: 140px; text-align: left;">Symbol <span class="sort-icon">↕</span><div class="col-resizer" data-min="90"></div></th>
+          <th class="sortable text-right" data-col="ltp" style="width: 90px; text-align: right;">LTP (₹) <span class="sort-icon">↕</span><div class="col-resizer" data-min="70"></div></th>
+          <th class="sortable text-center" data-col="stage_status" style="width: 110px; text-align: center;">Stage <span class="sort-icon">↕</span><div class="col-resizer" data-min="85"></div></th>
+          <th class="sortable active-sort text-center" data-col="rbr_score" style="width: 95px; text-align: center;">RBR Score <span class="sort-icon active">▼</span><div class="col-resizer" data-min="75"></div></th>
+          <th class="sortable text-center" data-col="first_rally_pct" style="width: 105px; text-align: center;">First Rally % <span class="sort-icon">↕</span><div class="col-resizer" data-min="80"></div></th>
+          <th class="sortable text-center" data-col="retracement_pct" style="width: 105px; text-align: center;">Retracement % <span class="sort-icon">↕</span><div class="col-resizer" data-min="80"></div></th>
+          <th class="sortable text-center" data-col="range_ratio" style="width: 100px; text-align: center;">Compression <span class="sort-icon">↕</span><div class="col-resizer" data-min="75"></div></th>
+          <th class="sortable text-center" data-col="volume_ratio" style="width: 105px; text-align: center;">Vol Ratio <span class="sort-icon">↕</span><div class="col-resizer" data-min="80"></div></th>
+          <th class="sortable text-right" data-col="demand_zone_upper" style="width: 125px; text-align: right;">Demand Zone (₹) <span class="sort-icon">↕</span><div class="col-resizer" data-min="95"></div></th>
           <th style="width: 75px; text-align: center;">Action</th>
         </tr>
       `;
@@ -4813,14 +4861,60 @@
     }
   }
 
+  async function loadAdvRbrData() {
+    if (advState.rbrData && advState.rbrData.stocks && advState.rbrData.stocks.length) {
+      updateAdvRbrBadge();
+      if (advState.activeSlot === 4) {
+        populateAdvSectorFilter();
+        updateAdvHeaderKpis();
+        renderAdvActiveTable();
+      }
+      return;
+    }
+    try {
+      const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
+      let res = await fetch(`${basePath}adv_scanner_4_rbr_proportional.json?t=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/adv_scanner_4_rbr_proportional.json').catch(() => null);
+      if (!res || !res.ok) res = await fetch('./data/adv_scanner_4_rbr_proportional.json').catch(() => null);
+      if (res && res.ok) {
+        advState.rbrData = await res.json().catch(err => {
+          console.warn('[MITS Pro] Error parsing adv_scanner_4_rbr_proportional.json:', err);
+          return null;
+        });
+        if (advState.rbrData) {
+          console.log(`[MITS Pro] Successfully loaded adv_scanner_4_rbr_proportional.json (${advState.rbrData.stocks ? advState.rbrData.stocks.length : 0} stocks)`);
+          updateAdvRbrBadge();
+          if (advState.activeSlot === 4) {
+            populateAdvSectorFilter();
+            updateAdvHeaderKpis();
+            renderAdvActiveTable();
+          }
+        }
+      } else {
+        console.warn(`[MITS Pro] Failed to load adv_scanner_4_rbr_proportional.json: HTTP ${res ? res.status : 'Network Offline'}`);
+      }
+    } catch (err) {
+      console.warn('[MITS Pro] Error loading adv_scanner_4_rbr_proportional.json:', err);
+    }
+  }
+
+  function updateAdvRbrBadge() {
+    const bEl = document.getElementById('adv-rbr-badge');
+    if (bEl && advState.rbrData && advState.rbrData.total_stocks !== undefined) {
+      bEl.textContent = `${advState.rbrData.total_stocks} RBR Setups`;
+    }
+  }
+
   function updateAdvHeaderKpis() {
     const isSlot1 = advState.activeSlot === 1;
     const isSlot2 = advState.activeSlot === 2;
     const isSlot3 = advState.activeSlot === 3;
+    const isSlot4 = advState.activeSlot === 4;
     let d = null;
     if (isSlot1) d = advState.rsData;
     else if (isSlot2) d = advState.boData;
     else if (isSlot3) d = advState.mcData;
+    else if (isSlot4) d = advState.rbrData;
 
     const uEl = document.getElementById('adv-kpi-universe');
     const rEl = document.getElementById('adv-kpi-rs80');
@@ -4880,6 +4974,23 @@
         if (lbl) lbl.textContent = 'Grade A (Strong)';
       }
       if (tEl) tEl.textContent = d.scan_date || d.generated_at || 'Verified EOD';
+    } else if (isSlot4 && d) {
+      if (uEl) {
+        uEl.textContent = d.total_stocks || 60;
+        const lbl = uEl.previousElementSibling;
+        if (lbl) lbl.textContent = 'RBR Universe';
+      }
+      if (rEl) {
+        rEl.textContent = (d.grade_counts && d.grade_counts['A+']) || 12;
+        const lbl = rEl.previousElementSibling;
+        if (lbl) lbl.textContent = 'Grade A+ (Elite)';
+      }
+      if (gEl) {
+        gEl.textContent = (d.grade_counts && d.grade_counts['A']) || 19;
+        const lbl = gEl.previousElementSibling;
+        if (lbl) lbl.textContent = 'Grade A (Strong)';
+      }
+      if (tEl) tEl.textContent = d.scan_date || d.generated_at || 'Verified EOD';
     }
   }
 
@@ -4888,6 +4999,7 @@
     if (advState.activeSlot === 1) d = advState.rsData;
     else if (advState.activeSlot === 2) d = advState.boData;
     else if (advState.activeSlot === 3) d = advState.mcData;
+    else if (advState.activeSlot === 4) d = advState.rbrData;
 
     if (!d || !d.stocks) return;
     const sectorSel = document.getElementById('adv-rs-sector');
@@ -4916,22 +5028,26 @@
       const isSlot1 = advState.activeSlot === 1;
       const isSlot2 = advState.activeSlot === 2;
       const isSlot3 = advState.activeSlot === 3;
+      const isSlot4 = advState.activeSlot === 4;
       let activeData = null;
       if (isSlot1) activeData = advState.rsData;
       else if (isSlot2) activeData = advState.boData;
       else if (isSlot3) activeData = advState.mcData;
+      else if (isSlot4) activeData = advState.rbrData;
 
       const tableEl = document.getElementById('adv-rs-table');
       if (tableEl) {
         tableEl.classList.toggle('slot-1', isSlot1);
         tableEl.classList.toggle('slot-2', isSlot2);
         tableEl.classList.toggle('slot-3', isSlot3);
+        tableEl.classList.toggle('slot-4', isSlot4);
       }
 
       if (!activeData || !activeData.stocks || !activeData.stocks.length) {
         let scannerName = 'Relative Strength';
         if (isSlot2) scannerName = 'Early Breakout';
         else if (isSlot3) scannerName = 'Momentum Continuation';
+        else if (isSlot4) scannerName = 'Rally-Base-Rally (RBR)';
         tbody.innerHTML = `<tr><td colspan="17" style="text-align: center; padding: 2.5rem; color: #94a3b8;">Loading ${scannerName} dataset...</td></tr>`;
         return;
       }
@@ -4945,7 +5061,7 @@
           const sym = (s.symbol || '').toLowerCase();
           const nm = (s.name || s.company_name || '').toLowerCase();
           const sec = (s.sector || '').toLowerCase();
-          const piv = (s.pivot_type || s.pullback_class || '').toLowerCase();
+          const piv = (s.pivot_type || s.pullback_class || s.stage_status || '').toLowerCase();
           return sym.includes(q) || nm.includes(q) || sec.includes(q) || piv.includes(q);
         });
       }
@@ -4967,7 +5083,7 @@
           else if (minScore === 70) stocks = stocks.filter(s => s.rs_score >= 70 && s.rs_score < 80);
           else if (minScore === 50) stocks = stocks.filter(s => s.rs_score < 70);
         }
-      } else if (isSlot3) {
+      } else if (isSlot3 || isSlot4) {
         if (advState.gradeFilter !== 'ALL') {
           stocks = stocks.filter(s => s.grade === advState.gradeFilter);
         }
@@ -4985,12 +5101,15 @@
         } else if (col === 'delivery_pct') {
           va = a.delivery_pct !== undefined && a.delivery_pct !== null ? a.delivery_pct : (a.dossier?.delivery_pct || 0);
           vb = b.delivery_pct !== undefined && b.delivery_pct !== null ? b.delivery_pct : (b.dossier?.delivery_pct || 0);
-        } else if (col === 'total_score') {
-          va = a.total_score !== undefined ? a.total_score : (a.score !== undefined ? a.score : 0);
-          vb = b.total_score !== undefined ? b.total_score : (b.score !== undefined ? b.score : 0);
+        } else if (col === 'total_score' || col === 'rbr_score') {
+          va = a.rbr_score !== undefined ? a.rbr_score : (a.total_score !== undefined ? a.total_score : (a.score !== undefined ? a.score : 0));
+          vb = b.rbr_score !== undefined ? b.rbr_score : (b.total_score !== undefined ? b.total_score : (b.score !== undefined ? b.score : 0));
         } else if (col === 's1') {
           va = a.s1 !== undefined ? a.s1 : (a.support !== undefined ? a.support : 0);
           vb = b.s1 !== undefined ? b.s1 : (b.support !== undefined ? b.support : 0);
+        } else if (col === 'demand_zone_upper') {
+          va = a.demand_zone ? a.demand_zone.upper : 0;
+          vb = b.demand_zone ? b.demand_zone.upper : 0;
         }
         if (va === null || va === undefined) va = isDesc ? -999999 : 999999;
         if (vb === null || vb === undefined) vb = isDesc ? -999999 : 999999;
@@ -5267,6 +5386,119 @@
             </tr>
           `;
         });
+      } else if (isSlot4) {
+        // Slot 4: Rally-Base-Rally (RBR) Proportional Scanner table rows (Exact 12-column specification)
+        pageSignals.forEach((s, idx) => {
+          const globalIdx = startIdx + idx + 1;
+          const ltpVal = Number(s.ltp !== undefined ? s.ltp : s.cmp) || 0;
+          const dayChg = Number(s.change_pct) || 0;
+          const dayChgClass = dayChg >= 0 ? 'text-green text-bullish' : 'text-red text-bearish';
+          const scoreVal = s.rbr_score !== undefined ? s.rbr_score : (s.score || 0);
+
+          let scoreBadge = 'score-neutral';
+          if (scoreVal >= 85) scoreBadge = 'score-gold';
+          else if (scoreVal >= 70) scoreBadge = 'score-green';
+          else if (scoreVal >= 60) scoreBadge = 'score-cyan';
+
+          let gradeBadge = 'grade-b';
+          if (s.grade === 'A+') gradeBadge = 'grade-a';
+          else if (s.grade === 'A') gradeBadge = 'grade-a';
+
+          let stageBadgeClass = 'stage-forming';
+          let stageIcon = '';
+          if (s.stage_status === 'READY') {
+            stageBadgeClass = 'stage-ready';
+            stageIcon = '⚡ ';
+          } else if (s.stage_status === 'CONFIRMED') {
+            stageBadgeClass = 'stage-confirmed';
+            stageIcon = '✓ ';
+          } else if (s.stage_status === 'CONTINUATION') {
+            stageBadgeClass = 'stage-continuation';
+            stageIcon = '🚀 ';
+          }
+
+          const rallyPct = Number(s.first_rally_pct) || 0;
+          const rallyDays = s.rally_days || 0;
+
+          const retracePct = Number(s.retracement_pct) || 0;
+          const baseDays = s.base_days || 0;
+          let retraceBadgeClass = 'tag-bull';
+          if (retracePct > 50) retraceBadgeClass = 'tag-neutral';
+          else if (retracePct > 38.2) retraceBadgeClass = 'tag-gold';
+
+          const rangeRatio = Number(s.range_ratio) || 0;
+          let rangeBadgeClass = 'tag-bull';
+          if (rangeRatio > 0.6) rangeBadgeClass = 'tag-neutral';
+          else if (rangeRatio > 0.4) rangeBadgeClass = 'tag-gold';
+
+          const volRatio = Number(s.volume_ratio) || 1.0;
+          let volBadgeClass = 'tag-bull';
+          let volDesc = 'Dry-up';
+          if (volRatio >= 0.85) {
+            volBadgeClass = 'tag-neutral';
+            volDesc = 'Normal';
+          } else if (volRatio >= 0.6) {
+            volBadgeClass = 'tag-gold';
+            volDesc = 'Contracting';
+          }
+
+          const dz = s.demand_zone || {};
+          const dzUpper = Number(dz.upper) || 0;
+          const dzLower = Number(dz.lower) || 0;
+
+          const isWl = isWatchlisted(s.symbol);
+
+          html += `
+            <tr class="adv-rs-row" data-symbol="${s.symbol}">
+              <td class="row-index text-center" style="width: 40px; text-align: center;">${globalIdx}</td>
+              <td class="text-center" style="width: 40px; text-align: center;">
+                <button type="button" class="watchlist-star-btn tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" onclick="toggleWatchlist('${s.symbol}')" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
+              </td>
+              <td class="col-symbol text-left sticky-symbol-col" style="min-width: 140px; text-align: left !important;">
+                <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
+                  <strong>${s.symbol}</strong>
+                  <span class="muted-sector">${s.company_name || s.name || s.sector || 'NSE'}</span>
+                </div>
+              </td>
+              <td class="text-right font-mono" style="width: 90px; text-align: right;">
+                <div style="display: flex; flex-direction: column; align-items: flex-end; line-height: 1.25;">
+                  <span>₹${formatCurrency(ltpVal)}</span>
+                  <span class="${dayChgClass}" style="font-size: 0.74rem;">${dayChg >= 0 ? '+' : ''}${dayChg.toFixed(2)}%</span>
+                </div>
+              </td>
+              <td class="text-center" style="width: 110px; text-align: center;">
+                <span class="rbr-stage-badge ${stageBadgeClass}">${stageIcon}${s.stage_status || 'FORMING'}</span>
+              </td>
+              <td class="text-center" style="width: 95px; text-align: center;">
+                <div style="display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                  <span class="rs-score-pill ${scoreBadge}"><strong>${scoreVal}</strong></span>
+                  <span class="rs-grade-pill ${gradeBadge}">${s.grade || '--'}</span>
+                </div>
+              </td>
+              <td class="text-center font-mono" style="width: 105px; text-align: center;">
+                <span class="tag-pill tag-bull">+${rallyPct.toFixed(1)}% <span style="font-size: 0.74rem; color: #94a3b8;">(${rallyDays}D)</span></span>
+              </td>
+              <td class="text-center font-mono" style="width: 105px; text-align: center;">
+                <span class="tag-pill ${retraceBadgeClass}">${retracePct.toFixed(1)}% <span style="font-size: 0.74rem; color: #94a3b8;">(${baseDays}D)</span></span>
+              </td>
+              <td class="text-center font-mono" style="width: 100px; text-align: center;">
+                <span class="tag-pill ${rangeBadgeClass}">${rangeRatio.toFixed(2)}x Base</span>
+              </td>
+              <td class="text-center font-mono" style="width: 105px; text-align: center;">
+                <span class="tag-pill ${volBadgeClass}">${volRatio.toFixed(2)}x ${volDesc}</span>
+              </td>
+              <td class="text-right font-mono" style="width: 125px; text-align: right;">
+                <div style="display: flex; flex-direction: column; align-items: flex-end; font-size: 0.8rem; line-height: 1.25;">
+                  <span class="text-bullish" title="Demand Zone Upper (Base High)">₹${formatCurrency(dzUpper)}</span>
+                  <span class="text-muted" title="Demand Zone Lower (Base Low)">₹${formatCurrency(dzLower)}</span>
+                </div>
+              </td>
+              <td class="text-center" style="width: 75px; text-align: center;">
+                <button type="button" class="btn-inspect adv-inspect-btn" data-symbol="${s.symbol}" onclick="openDossier('${s.symbol}')">Inspect</button>
+              </td>
+            </tr>
+          `;
+        });
       }
 
       tbody.innerHTML = html;
@@ -5353,7 +5585,10 @@
 
   function openAdvRsDossierModal(symbol) {
     let s = null;
-    if (advState.activeSlot === 3 && advState.mcData && advState.mcData.stocks) {
+    if (advState.activeSlot === 4 && advState.rbrData && advState.rbrData.stocks) {
+      s = advState.rbrData.stocks.find(it => it.symbol === symbol);
+    }
+    if (!s && advState.activeSlot === 3 && advState.mcData && advState.mcData.stocks) {
       s = advState.mcData.stocks.find(it => it.symbol === symbol);
     }
     if (!s && advState.activeSlot === 2 && advState.boData && advState.boData.stocks) {
@@ -5367,6 +5602,9 @@
     }
     if (!s && advState.mcData && advState.mcData.stocks) {
       s = advState.mcData.stocks.find(it => it.symbol === symbol);
+    }
+    if (!s && advState.rbrData && advState.rbrData.stocks) {
+      s = advState.rbrData.stocks.find(it => it.symbol === symbol);
     }
     if (!s) return;
 
@@ -5530,10 +5768,12 @@
     const isSlot1 = advState.activeSlot === 1;
     const isSlot2 = advState.activeSlot === 2;
     const isSlot3 = advState.activeSlot === 3;
+    const isSlot4 = advState.activeSlot === 4;
     let activeData = null;
     if (isSlot1) activeData = advState.rsData;
     else if (isSlot2) activeData = advState.boData;
     else if (isSlot3) activeData = advState.mcData;
+    else if (isSlot4) activeData = advState.rbrData;
 
     if (!activeData || !activeData.stocks || !activeData.stocks.length) return;
 
@@ -5602,6 +5842,29 @@
           s.r1 || s.resistance
         ].join(','));
       });
+    } else if (isSlot4) {
+      rows.push(['Rank', 'Symbol', 'Company', 'Sector', 'LTP', 'Day Change %', 'Stage', 'RBR Score', 'Grade', 'First Rally %', 'Rally Days', 'Retracement %', 'Base Days', 'Range Ratio', 'Volume Ratio', 'Demand Zone Upper', 'Demand Zone Lower'].join(','));
+      activeData.stocks.forEach(s => {
+        rows.push([
+          s.rank || '--',
+          `"${s.symbol}"`,
+          `"${s.company_name || s.name || ''}"`,
+          `"${s.sector}"`,
+          s.ltp || s.cmp,
+          s.change_pct,
+          `"${s.stage_status || ''}"`,
+          s.rbr_score || s.score,
+          `"${s.grade}"`,
+          s.first_rally_pct,
+          s.rally_days,
+          s.retracement_pct,
+          s.base_days,
+          s.range_ratio,
+          s.volume_ratio,
+          s.demand_zone ? s.demand_zone.upper : '--',
+          s.demand_zone ? s.demand_zone.lower : '--'
+        ].join(','));
+      });
     }
 
     const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(rows.join('\n'));
@@ -5610,6 +5873,7 @@
     let fname = `MITS_Adv_Relative_Strength_${new Date().toISOString().slice(0, 10)}.csv`;
     if (isSlot2) fname = `MITS_Adv_Early_Breakout_${new Date().toISOString().slice(0, 10)}.csv`;
     else if (isSlot3) fname = `MITS_Adv_Momentum_Continuation_${new Date().toISOString().slice(0, 10)}.csv`;
+    else if (isSlot4) fname = `MITS_Adv_RBR_Proportional_${new Date().toISOString().slice(0, 10)}.csv`;
     link.setAttribute('download', fname);
     document.body.appendChild(link);
     link.click();

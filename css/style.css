@@ -5041,6 +5041,114 @@ body.dossier-modal-open {
   text-align: center !important;
 }
 
+/* Slot 4 (RBR Proportional Scanner) 12-Column Exact Mapping */
+#adv-rs-table.slot-4 {
+  min-width: 1100px !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(1), #adv-rs-table.slot-4 td:nth-child(1) {
+  width: 40px !important;
+  min-width: 40px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(2), #adv-rs-table.slot-4 td:nth-child(2) {
+  width: 40px !important;
+  min-width: 40px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(3), #adv-rs-table.slot-4 td:nth-child(3) {
+  min-width: 140px !important;
+  text-align: left !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(4), #adv-rs-table.slot-4 td:nth-child(4) {
+  width: 90px !important;
+  min-width: 90px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(5), #adv-rs-table.slot-4 td:nth-child(5) {
+  width: 110px !important;
+  min-width: 110px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(6), #adv-rs-table.slot-4 td:nth-child(6) {
+  width: 95px !important;
+  min-width: 95px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(7), #adv-rs-table.slot-4 td:nth-child(7) {
+  width: 105px !important;
+  min-width: 105px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(8), #adv-rs-table.slot-4 td:nth-child(8) {
+  width: 105px !important;
+  min-width: 105px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(9), #adv-rs-table.slot-4 td:nth-child(9) {
+  width: 100px !important;
+  min-width: 100px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(10), #adv-rs-table.slot-4 td:nth-child(10) {
+  width: 105px !important;
+  min-width: 105px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(11), #adv-rs-table.slot-4 td:nth-child(11) {
+  width: 125px !important;
+  min-width: 125px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-4 th:nth-child(12), #adv-rs-table.slot-4 td:nth-child(12) {
+  width: 75px !important;
+  min-width: 75px !important;
+  text-align: center !important;
+}
+
+/* Slot 4 RBR Stage Badges */
+.rbr-stage-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.rbr-stage-badge.stage-forming {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+.rbr-stage-badge.stage-ready {
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #fbbf24;
+}
+.rbr-stage-badge.stage-confirmed {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #10b981;
+}
+.rbr-stage-badge.stage-continuation {
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.5);
+  color: #c084fc;
+}
+
 /* Left-aligned Symbol Block */
 .col-symbol {
   text-align: left !important;
@@ -5255,6 +5363,12 @@ body.table-col-resizing * {
   #advScannerSlot3Container td,
   .adv-slot-3-table th,
   .adv-slot-3-table td,
+  #advScannerSlot4Container th,
+  #advScannerSlot4Container td,
+  .adv-slot-4-table th,
+  .adv-slot-4-table td,
+  #adv-rs-table.slot-4 th,
+  #adv-rs-table.slot-4 td,
   .adv-slot-table th,
   .adv-slot-table td,
   .sticky-symbol-col,
