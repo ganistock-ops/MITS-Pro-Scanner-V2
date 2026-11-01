@@ -5159,8 +5159,8 @@ body.dossier-modal-open {
   font-weight: 700;
 }
 
-/* Mobile Pinned Symbol Column */
-@media (max-width: 768px) {
+/* Pinned Symbol Column - Desktop Only */
+@media (min-width: 769px) {
   #adv-rs-table .sticky-symbol-col {
     position: sticky !important;
     left: 80px !important;
@@ -5247,20 +5247,28 @@ body.table-col-resizing * {
 
 
 @media (max-width: 768px) {
+  #adv-rs-table th,
+  #adv-rs-table td,
+  #adv-rs-table .sticky-symbol-col,
+  #adv-rs-table thead th.sticky-symbol-col,
   #advScannerSlot3Container th,
   #advScannerSlot3Container td,
   .adv-slot-3-table th,
   .adv-slot-3-table td,
-  .adv-slot-table th:first-child,
-  .adv-slot-table td:first-child,
-  .adv-slot-table th:nth-child(2),
-  .adv-slot-table td:nth-child(2),
-  .adv-slot-table th:nth-child(3),
-  .adv-slot-table td:nth-child(3) {
+  .adv-slot-table th,
+  .adv-slot-table td,
+  .sticky-symbol-col,
+  .sticky-col,
+  .sticky-col-1,
+  .sticky-col-2 {
     position: static !important;
     left: auto !important;
+    box-shadow: none !important;
+    z-index: auto !important;
   }
-  .table-responsive, .scanner-table-wrap {
+  .table-responsive,
+  .table-responsive-wrapper,
+  .scanner-table-wrap {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
   }
