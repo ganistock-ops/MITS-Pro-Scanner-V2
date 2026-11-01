@@ -189,6 +189,33 @@ def load_scanner_feed(cfg: Dict[str, Any]) -> List[Dict[str, Any]]:
     return items
 
 
+# Technical Setup Categories for Confluence Diversity Check
+TECHNICAL_CATEGORIES: Dict[str, List[str]] = {
+    "Relative Strength": [
+        "RS Outperformer",
+        "Alpha Momentum",
+        "Momentum Continuation"
+    ],
+    "Price Structure / Demand Zone": [
+        "RBR Proportional",
+        "DBR Demand Zone",
+        "Stage-2 Pullback",
+        "Weekly Swing"
+    ],
+    "Volume / Breakout": [
+        "Early Breakout",
+        "High Tight Flag",
+        "Bottom Reversal Pro"
+    ]
+}
+
+SETUP_TO_CATEGORY: Dict[str, str] = {
+    setup: category
+    for category, setups in TECHNICAL_CATEGORIES.items()
+    for setup in setups
+}
+
+
 def extract_stock_score(item: Dict[str, Any], score_key: str) -> float:
     """Extracts numeric score cleanly across different field aliases."""
     raw = item.get(score_key)
@@ -204,19 +231,18 @@ def extract_stock_score(item: Dict[str, Any], score_key: str) -> float:
         return 70.0
 
 
-def determine_conviction_tier(confluence_count: int) -> Tuple[str, int, str]:
+def determine_conviction_tier(confluence_count: int, composite_score: float) -> Optional[Tuple[str, int, str]]:
     """
-    Assigns institutional tier classification:
-      - 4+ Matches: "ULTRA HIGH CONVICTION" (Tier 1)
-      - 3 Matches:  "HIGH CONVICTION" (Tier 2)
-      - 2 Matches:  "MODERATE CONFLUENCE" (Tier 3)
+    Assigns institutional tier classification based on tightened criteria:
+      - Tier 1 ("ULTRA HIGH CONVICTION"): confluence_count >= 4 AND composite_score >= 80.0
+      - Tier 2 ("HIGH CONVICTION"):       confluence_count == 3 AND composite_score >= 75.0
+      - Discard all others (returns None)
     """
-    if confluence_count >= 4:
+    if confluence_count >= 4 and composite_score >= 80.0:
         return "ULTRA HIGH CONVICTION", 1, "Tier 1 - ULTRA HIGH CONVICTION"
-    elif confluence_count == 3:
+    elif confluence_count == 3 and composite_score >= 75.0:
         return "HIGH CONVICTION", 2, "Tier 2 - HIGH CONVICTION"
-    else:
-        return "MODERATE CONFLUENCE", 3, "Tier 3 - MODERATE CONFLUENCE"
+    return None
 
 
 def generate_adv_scanner_confluence_engine(
@@ -299,12 +325,13 @@ def generate_adv_scanner_confluence_engine(
             if it.get("dossier") and sym not in stock_dossiers:
                 stock_dossiers[sym] = it.get("dossier")
 
-    # Filter for Confluence >= 2
+    # Filter for Confluence >= 3, Composite Score >= 75, Category Diversity >= 2
     confluent_records: List[Dict[str, Any]] = []
 
     for sym, matches in stock_matches.items():
         confluence_count = len(matches)
-        if confluence_count < 2:
+        # 1. Eliminate all stocks with only 2 scanner matches. Strict condition: confluence_count >= 3
+        if confluence_count < 3:
             continue
 
         meta = stock_details.get(sym, {})
@@ -313,7 +340,24 @@ def generate_adv_scanner_confluence_engine(
         scores = [m[1] for m in matches]
         composite_score = round(sum(scores) / len(scores), 1)
 
-        conviction_tier, tier_num, tier_label = determine_conviction_tier(confluence_count)
+        # 2. Apply composite score cutoff: composite_score >= 75.0
+        if composite_score < 75.0:
+            continue
+
+        # 3. Ensure Category Diversity: matched setups must come from at least 2 distinct technical categories
+        matched_categories = set(SETUP_TO_CATEGORY.get(st, st) for st in setups_matched)
+        if len(matched_categories) < 2:
+            continue
+
+        # 4. Updated Tier classification:
+        #    - Tier 1 ("ULTRA HIGH CONVICTION"): confluence_count >= 4 AND composite_score >= 80.0
+        #    - Tier 2 ("HIGH CONVICTION"):       confluence_count == 3 AND composite_score >= 75.0
+        #    - Discard all others.
+        tier_info = determine_conviction_tier(confluence_count, composite_score)
+        if not tier_info:
+            continue
+
+        conviction_tier, tier_num, tier_label = tier_info
 
         # Build comprehensive stock record
         rec = {
@@ -326,6 +370,8 @@ def generate_adv_scanner_confluence_engine(
             "setups_matched": setups_matched,
             "composite_score": composite_score,
             "conviction_tier": conviction_tier,
+            "category_count": len(matched_categories),
+            "categories_matched": sorted(list(matched_categories)),
             # UI & feature parity aliases
             "cmp": meta.get("ltp", 0.0),
             "name": meta.get("company_name", sym),
@@ -349,7 +395,7 @@ def generate_adv_scanner_confluence_engine(
                 "stage_color": "bullish" if confluence_count >= 4 else "gold",
                 "stage_desc": f"Multi-Engine Institutional Confluence across {', '.join(setups_matched)}",
                 "trend_stack": True,
-                "trend_stack_status": f"Qualified in {confluence_count} Quantitative Engines",
+                "trend_stack_status": f"Qualified in {confluence_count} Quantitative Engines across {len(matched_categories)} Categories",
                 "trend_stack_badge": f"TIER {tier_num}",
                 "key_levels": {
                     "support": round(meta.get("ltp", 0.0) * 0.95, 2),
@@ -375,13 +421,13 @@ def generate_adv_scanner_confluence_engine(
     tier_counts = {
         "ULTRA HIGH CONVICTION": sum(1 for r in confluent_records if r["conviction_tier"] == "ULTRA HIGH CONVICTION"),
         "HIGH CONVICTION": sum(1 for r in confluent_records if r["conviction_tier"] == "HIGH CONVICTION"),
-        "MODERATE CONFLUENCE": sum(1 for r in confluent_records if r["conviction_tier"] == "MODERATE CONFLUENCE")
+        "MODERATE CONFLUENCE": 0
     }
 
     tier_breakdown = {
-        "Tier 1 (4+ Matches)": tier_counts["ULTRA HIGH CONVICTION"],
-        "Tier 2 (3 Matches)": tier_counts["HIGH CONVICTION"],
-        "Tier 3 (2 Matches)": tier_counts["MODERATE CONFLUENCE"]
+        "Tier 1 (4+ Matches, >=80 Score)": tier_counts["ULTRA HIGH CONVICTION"],
+        "Tier 2 (3 Matches, >=75 Score)": tier_counts["HIGH CONVICTION"],
+        "Tier 3 (Discarded)": 0
     }
 
     # Session scan date resolution
@@ -429,8 +475,7 @@ def generate_adv_scanner_confluence_engine(
         f"Confluence Engine complete in {elapsed:.2f}s | "
         f"Total: {len(confluent_records)} stocks | "
         f"Tier 1: {tier_counts['ULTRA HIGH CONVICTION']} | "
-        f"Tier 2: {tier_counts['HIGH CONVICTION']} | "
-        f"Tier 3: {tier_counts['MODERATE CONFLUENCE']}"
+        f"Tier 2: {tier_counts['HIGH CONVICTION']}"
     )
 
     return payload
@@ -444,10 +489,9 @@ if __name__ == "__main__":
     print("\n" + "=" * 80)
     print("MITS PRO INSTITUTIONAL SUITE - MULTI-SCANNER CONFLUENCE ENGINE (SLOT 5)")
     print("=" * 80)
-    print(f"Total Confluent Candidates (>= 2 setups): {len(stocks)}")
-    print(f"  • Tier 1 - ULTRA HIGH CONVICTION (4+ Matches): {tier_counts.get('ULTRA HIGH CONVICTION', 0)}")
-    print(f"  • Tier 2 - HIGH CONVICTION       (3 Matches) : {tier_counts.get('HIGH CONVICTION', 0)}")
-    print(f"  • Tier 3 - MODERATE CONFLUENCE   (2 Matches) : {tier_counts.get('MODERATE CONFLUENCE', 0)}")
+    print(f"Total Filtered Confluent Candidates (>= 3 Setups, Score >= 75): {len(stocks)}")
+    print(f"  • Tier 1 - ULTRA HIGH CONVICTION (4+ Matches, Score >= 80): {tier_counts.get('ULTRA HIGH CONVICTION', 0)}")
+    print(f"  • Tier 2 - HIGH CONVICTION       (3 Matches, Score >= 75) : {tier_counts.get('HIGH CONVICTION', 0)}")
     print("-" * 80)
     print(f"{'RANK':<5} | {'SYMBOL':<12} | {'LTP (Rs.)':<10} | {'MATCH':<5} | {'SCORE':<5} | {'TIER':<22} | {'SETUPS MATCHED'}")
     print("-" * 80)
