@@ -4965,6 +4965,82 @@ body.dossier-modal-open {
   text-align: center !important;
 }
 
+/* Slot 3 12-Column Exact Mapping */
+#adv-rs-table.slot-3 {
+  min-width: 1050px !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(1), #adv-rs-table.slot-3 td:nth-child(1) {
+  width: 40px !important;
+  min-width: 40px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(2), #adv-rs-table.slot-3 td:nth-child(2) {
+  width: 40px !important;
+  min-width: 40px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(3), #adv-rs-table.slot-3 td:nth-child(3) {
+  min-width: 140px !important;
+  text-align: left !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(4), #adv-rs-table.slot-3 td:nth-child(4) {
+  width: 90px !important;
+  min-width: 90px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(5), #adv-rs-table.slot-3 td:nth-child(5) {
+  width: 75px !important;
+  min-width: 75px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(6), #adv-rs-table.slot-3 td:nth-child(6) {
+  width: 95px !important;
+  min-width: 95px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(7), #adv-rs-table.slot-3 td:nth-child(7) {
+  width: 105px !important;
+  min-width: 105px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(8), #adv-rs-table.slot-3 td:nth-child(8) {
+  width: 110px !important;
+  min-width: 110px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(9), #adv-rs-table.slot-3 td:nth-child(9) {
+  width: 80px !important;
+  min-width: 80px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(10), #adv-rs-table.slot-3 td:nth-child(10) {
+  width: 115px !important;
+  min-width: 115px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(11), #adv-rs-table.slot-3 td:nth-child(11) {
+  width: 125px !important;
+  min-width: 125px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-3 th:nth-child(12), #adv-rs-table.slot-3 td:nth-child(12) {
+  width: 75px !important;
+  min-width: 75px !important;
+  text-align: center !important;
+}
+
 /* Left-aligned Symbol Block */
 .col-symbol {
   text-align: left !important;
