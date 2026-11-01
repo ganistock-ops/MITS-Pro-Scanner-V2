@@ -5149,6 +5149,371 @@ body.dossier-modal-open {
   color: #c084fc;
 }
 
+/* ==========================================================================
+   SLOT 5: MULTI-SCANNER CONFLUENCE ENGINE (EXECUTIVE CARD GRID)
+   ========================================================================== */
+.adv-confluence-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0.5rem 0 2rem 0;
+  width: 100%;
+}
+
+.confluence-tier-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.confluence-tier-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.6);
+  border-left: 4px solid #94a3b8;
+  backdrop-filter: blur(6px);
+}
+
+.confluence-tier-section.tier-1 .confluence-tier-header {
+  border-left-color: #fbbf24;
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.12) 0%, rgba(15, 23, 42, 0.6) 100%);
+}
+
+.confluence-tier-section.tier-2 .confluence-tier-header {
+  border-left-color: #10b981;
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.12) 0%, rgba(15, 23, 42, 0.6) 100%);
+}
+
+.confluence-tier-section.tier-3 .confluence-tier-header {
+  border-left-color: #38bdf8;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.12) 0%, rgba(15, 23, 42, 0.6) 100%);
+}
+
+.tier-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.tier-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tier-badge.tier-badge-gold {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+}
+
+.tier-badge.tier-badge-green {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.tier-badge.tier-badge-blue {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+}
+
+.tier-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.tier-subtitle {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.tier-count-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Executive Cards Grid */
+.confluence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.15rem;
+  width: 100%;
+}
+
+@media (min-width: 1280px) {
+  .confluence-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.confluence-stock-card {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.95rem;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.confluence-stock-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Tier Accents */
+.confluence-stock-card.tier-1-card {
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  box-shadow: 0 4px 18px rgba(251, 191, 36, 0.06);
+}
+.confluence-stock-card.tier-1-card:hover {
+  border-color: #fbbf24;
+  box-shadow: 0 6px 24px rgba(251, 191, 36, 0.18);
+}
+
+.confluence-stock-card.tier-2-card {
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.06);
+}
+.confluence-stock-card.tier-2-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.18);
+}
+
+.confluence-stock-card.tier-3-card {
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 4px 18px rgba(56, 189, 248, 0.06);
+}
+.confluence-stock-card.tier-3-card:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 6px 24px rgba(56, 189, 248, 0.18);
+}
+
+/* Card Header */
+.card-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.card-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.card-sym-star {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-symbol {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: 0.02em;
+}
+
+.card-company {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.card-sector {
+  font-size: 0.68rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.card-price-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.card-ltp {
+  font-size: 1.08rem;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+  color: #f8fafc;
+}
+
+.card-chg {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+}
+
+/* Confluence Tags Area */
+.card-confluence-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  min-height: 48px;
+  align-content: flex-start;
+}
+
+.confluence-setup-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.confluence-setup-pill.pill-rs {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+}
+
+.confluence-setup-pill.pill-bo {
+  background: rgba(245, 158, 11, 0.14);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+.confluence-setup-pill.pill-mc {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.confluence-setup-pill.pill-rbr {
+  background: rgba(139, 92, 246, 0.14);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: #c084fc;
+}
+
+.confluence-setup-pill.pill-htf {
+  background: rgba(236, 72, 153, 0.14);
+  border-color: rgba(236, 72, 153, 0.4);
+  color: #f472b6;
+}
+
+.confluence-setup-pill.pill-pullback {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.confluence-setup-pill.pill-momentum {
+  background: rgba(249, 115, 22, 0.14);
+  border-color: rgba(249, 115, 22, 0.4);
+  color: #fb923c;
+}
+
+.confluence-setup-pill.pill-reversal {
+  background: rgba(14, 165, 233, 0.14);
+  border-color: rgba(14, 165, 233, 0.4);
+  color: #38bdf8;
+}
+
+/* Metrics Grid Inside Card */
+.card-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+}
+
+.metric-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metric-box .metric-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.metric-box .metric-val {
+  font-size: 0.88rem;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+  color: #f8fafc;
+}
+
+/* Card Action Footer */
+.card-footer-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-inspect-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  padding: 6px 12px;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .confluence-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .confluence-tier-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .card-top-row {
+    flex-direction: row;
+  }
+}
+
 /* Left-aligned Symbol Block */
 .col-symbol {
   text-align: left !important;

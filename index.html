@@ -748,19 +748,19 @@
               </div>
             </div>
 
-            <!-- Slot 5: Supply-Demand Zone Retest (Coming Soon) -->
-            <div class="adv-sub-card disabled" role="tab" aria-selected="false">
+            <!-- Slot 5: Multi-Scanner Confluence Engine (ACTIVE) -->
+            <div class="adv-sub-card" id="adv-slot-5-card" data-sub="confluence_engine" role="tab" aria-selected="false">
               <div class="sub-card-top">
-                <span class="sub-card-icon">🎯</span>
-                <span class="sub-card-status status-soon">COMING SOON</span>
+                <span class="sub-card-icon">⚡</span>
+                <span class="sub-card-status status-active">ACTIVE ENGINE</span>
               </div>
               <div class="sub-card-body">
-                <h4 class="sub-card-title">DBR Order Blocks</h4>
-                <p class="sub-card-desc">Institutional demand zone retests, fresh leg-outs, and liquidity sweeps</p>
+                <h4 class="sub-card-title">⚡ Multi-Scanner Confluence</h4>
+                <p class="sub-card-desc">Intersection Matrix &amp; High Conviction Multi-Setup Screener</p>
               </div>
               <div class="sub-card-footer">
-                <span class="sub-card-badge">Slot 5</span>
-                <span class="sub-card-lock">🔒</span>
+                <span class="sub-card-badge" id="adv-confluence-badge">89 Confluence Setups</span>
+                <span class="sub-card-arrow">→</span>
               </div>
             </div>
 
@@ -817,7 +817,7 @@
             </div>
 
             <!-- RS Data Table Card -->
-            <div class="table-card">
+            <div class="table-card" id="adv-table-card">
               <div class="table-responsive table-responsive-wrapper">
                 <table class="pro-table adv-rs-table" id="adv-rs-table">
                   <thead id="adv-table-thead">
@@ -851,6 +851,11 @@
                 <div class="pagination-info" id="adv-pagination-info">Showing 0 to 0 of Total 0 stocks</div>
                 <div class="pagination-controls" id="adv-pagination-controls"></div>
               </div>
+            </div>
+
+            <!-- Executive Confluence Cards Container (Slot 5) -->
+            <div id="adv-confluence-container" class="adv-confluence-container" style="display: none;">
+              <!-- Rendered dynamically by js/app.js -->
             </div>
           </div>
     </div><!-- /#view-advanced-scanner -->

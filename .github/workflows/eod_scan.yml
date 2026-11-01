@@ -48,6 +48,7 @@ jobs:
           python scripts/adv_scanner_2_early_bo.py
           python scripts/adv_scanner_3_momentum_continuation.py
           python scripts/adv_scanner_4_rbr_proportional.py
+          python scripts/adv_scanner_5_confluence_engine.py
           if [ ! -f data/master_universe_eod.json ]; then
             echo "master_universe_eod.json not found, running standalone exporter..."
             python scripts/master_universe_exporter.py
@@ -61,7 +62,8 @@ jobs:
           test -f data/adv_scanner_2_early_bo.json || (echo "ERROR: Missing data/adv_scanner_2_early_bo.json" && exit 1)
           test -f data/adv_scanner_3_momentum_continuation.json || (echo "ERROR: Missing data/adv_scanner_3_momentum_continuation.json" && exit 1)
           test -f data/adv_scanner_4_rbr_proportional.json || (echo "ERROR: Missing data/adv_scanner_4_rbr_proportional.json" && exit 1)
-          echo "Feed integrity verified: scanner_results.json, master_universe_eod.json, adv_scanner_1_rs.json, adv_scanner_2_early_bo.json, adv_scanner_3_momentum_continuation.json, and adv_scanner_4_rbr_proportional.json exist."
+          test -f data/adv_scanner_5_confluence_engine.json || (echo "ERROR: Missing data/adv_scanner_5_confluence_engine.json" && exit 1)
+          echo "Feed integrity verified: scanner_results.json, master_universe_eod.json, adv_scanner_1_rs.json, adv_scanner_2_early_bo.json, adv_scanner_3_momentum_continuation.json, adv_scanner_4_rbr_proportional.json, and adv_scanner_5_confluence_engine.json exist."
 
       - name: Commit and Push Updated Data Feeds
         run: |

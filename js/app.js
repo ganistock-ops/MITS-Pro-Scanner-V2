@@ -4309,11 +4309,12 @@
 
   // --- Advanced Scanner State ---
   const advState = {
-    activeSlot: 1, // 1: RS Outperformer, 2: Early Breakout, 3: Momentum Continuation, 4: Rally-Base-Rally
+    activeSlot: 1, // 1: RS Outperformer, 2: Early Breakout, 3: Momentum Continuation, 4: Rally-Base-Rally, 5: Confluence Engine
     rsData: null,
     boData: null,
     mcData: null,
     rbrData: null,
+    confluenceData: null,
     searchQuery: '',
     gradeFilter: 'ALL',
     classFilter: 'ALL',
@@ -4352,12 +4353,15 @@
           loadAdvBoData();
         } else if (advState.activeSlot === 3) {
           loadAdvMcData();
-        } else {
+        } else if (advState.activeSlot === 4) {
           loadAdvRbrData();
+        } else {
+          loadAdvConfluenceData();
         }
         loadAdvBoData(); // Preload Slot 2 counts
         loadAdvMcData(); // Preload Slot 3 counts
         loadAdvRbrData(); // Preload Slot 4 counts
+        loadAdvConfluenceData(); // Preload Slot 5 counts
       } else {
         if (aView) {
           aView.classList.add('hidden');
@@ -4409,7 +4413,7 @@
     window.addEventListener('hashchange', handleHashRouting);
     handleHashRouting();
 
-    // Bind Slot Card Switcher (Slot 1 vs Slot 2 vs Slot 3 vs Slot 4)
+    // Bind Slot Card Switcher (Slot 1 vs Slot 2 vs Slot 3 vs Slot 4 vs Slot 5)
     document.querySelectorAll('.adv-subscanner-grid .adv-sub-card').forEach(card => {
       card.addEventListener('click', () => {
         const sub = card.getAttribute('data-sub');
@@ -4421,6 +4425,8 @@
           selectAdvSlot(3);
         } else if (sub === 'rbr_proportional') {
           selectAdvSlot(4);
+        } else if (sub === 'confluence_engine') {
+          selectAdvSlot(5);
         }
       });
     });
@@ -4509,6 +4515,14 @@
           <option value="A">Grade A (Confirmed RBR 70–84)</option>
           <option value="B">Grade B (Constructive Base &lt; 70)</option>
         `;
+      } else if (slotNum === 5) {
+        gSelect.style.display = '';
+        gSelect.innerHTML = `
+          <option value="ALL">All Conviction Tiers</option>
+          <option value="ULTRA HIGH CONVICTION">Tier 1: Ultra High Conviction (4+ Setups)</option>
+          <option value="HIGH CONVICTION">Tier 2: High Conviction (3 Setups)</option>
+          <option value="MODERATE CONFLUENCE">Tier 3: Moderate Confluence (2 Setups)</option>
+        `;
       } else {
         gSelect.style.display = 'none';
       }
@@ -4527,12 +4541,14 @@
       else if (slotNum === 2) expBtn.innerHTML = '<span>⬇ Export Breakout Data</span>';
       else if (slotNum === 3) expBtn.innerHTML = '<span>⬇ Export Momentum Data</span>';
       else if (slotNum === 4) expBtn.innerHTML = '<span>⬇ Export RBR Data</span>';
+      else if (slotNum === 5) expBtn.innerHTML = '<span>⬇ Export Confluence Data</span>';
     }
 
     const card1 = document.getElementById('adv-slot-1-card') || document.querySelector('.adv-sub-card[data-sub="rs_scanner"]');
     const card2 = document.getElementById('adv-slot-2-card') || document.querySelector('.adv-sub-card[data-sub="early_breakout"]');
     const card3 = document.getElementById('adv-slot-3-card') || document.querySelector('.adv-sub-card[data-sub="momentum_continuation"]');
     const card4 = document.getElementById('adv-slot-4-card') || document.querySelector('.adv-sub-card[data-sub="rbr_proportional"]');
+    const card5 = document.getElementById('adv-slot-5-card') || document.querySelector('.adv-sub-card[data-sub="confluence_engine"]');
     if (card1) {
       card1.classList.toggle('active', slotNum === 1);
       card1.setAttribute('aria-selected', slotNum === 1 ? 'true' : 'false');
@@ -4548,6 +4564,10 @@
     if (card4) {
       card4.classList.toggle('active', slotNum === 4);
       card4.setAttribute('aria-selected', slotNum === 4 ? 'true' : 'false');
+    }
+    if (card5) {
+      card5.classList.toggle('active', slotNum === 5);
+      card5.setAttribute('aria-selected', slotNum === 5 ? 'true' : 'false');
     }
 
     if (slotNum === 1) {
@@ -4591,6 +4611,16 @@
       populateAdvSectorFilter();
       if (!advState.rbrData) {
         loadAdvRbrData();
+      } else {
+        renderAdvActiveTable();
+      }
+    } else if (slotNum === 5) {
+      advState.sortColumn = 'confluence_count';
+      advState.sortDirection = 'desc';
+      updateAdvHeaderKpis();
+      populateAdvSectorFilter();
+      if (!advState.confluenceData) {
+        loadAdvConfluenceData();
       } else {
         renderAdvActiveTable();
       }
@@ -4905,16 +4935,62 @@
     }
   }
 
+  async function loadAdvConfluenceData() {
+    if (advState.confluenceData && advState.confluenceData.stocks && advState.confluenceData.stocks.length) {
+      updateAdvConfluenceBadge();
+      if (advState.activeSlot === 5) {
+        populateAdvSectorFilter();
+        updateAdvHeaderKpis();
+        renderAdvActiveTable();
+      }
+      return;
+    }
+    try {
+      const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
+      let res = await fetch(`${basePath}adv_scanner_5_confluence_engine.json?t=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/adv_scanner_5_confluence_engine.json').catch(() => null);
+      if (!res || !res.ok) res = await fetch('./data/adv_scanner_5_confluence_engine.json').catch(() => null);
+      if (res && res.ok) {
+        advState.confluenceData = await res.json().catch(err => {
+          console.warn('[MITS Pro] Error parsing adv_scanner_5_confluence_engine.json:', err);
+          return null;
+        });
+        if (advState.confluenceData) {
+          console.log(`[MITS Pro] Successfully loaded adv_scanner_5_confluence_engine.json (${advState.confluenceData.stocks ? advState.confluenceData.stocks.length : 0} stocks)`);
+          updateAdvConfluenceBadge();
+          if (advState.activeSlot === 5) {
+            populateAdvSectorFilter();
+            updateAdvHeaderKpis();
+            renderAdvActiveTable();
+          }
+        }
+      } else {
+        console.warn(`[MITS Pro] Failed to load adv_scanner_5_confluence_engine.json: HTTP ${res ? res.status : 'Network Offline'}`);
+      }
+    } catch (err) {
+      console.warn('[MITS Pro] Error loading adv_scanner_5_confluence_engine.json:', err);
+    }
+  }
+
+  function updateAdvConfluenceBadge() {
+    const bEl = document.getElementById('adv-confluence-badge');
+    if (bEl && advState.confluenceData && advState.confluenceData.total_stocks !== undefined) {
+      bEl.textContent = `${advState.confluenceData.total_stocks} Confluence Setups`;
+    }
+  }
+
   function updateAdvHeaderKpis() {
     const isSlot1 = advState.activeSlot === 1;
     const isSlot2 = advState.activeSlot === 2;
     const isSlot3 = advState.activeSlot === 3;
     const isSlot4 = advState.activeSlot === 4;
+    const isSlot5 = advState.activeSlot === 5;
     let d = null;
     if (isSlot1) d = advState.rsData;
     else if (isSlot2) d = advState.boData;
     else if (isSlot3) d = advState.mcData;
     else if (isSlot4) d = advState.rbrData;
+    else if (isSlot5) d = advState.confluenceData;
 
     const uEl = document.getElementById('adv-kpi-universe');
     const rEl = document.getElementById('adv-kpi-rs80');
@@ -4991,6 +5067,23 @@
         if (lbl) lbl.textContent = 'Grade A (Strong)';
       }
       if (tEl) tEl.textContent = d.scan_date || d.generated_at || 'Verified EOD';
+    } else if (isSlot5 && d) {
+      if (uEl) {
+        uEl.textContent = d.total_stocks || 89;
+        const lbl = uEl.previousElementSibling;
+        if (lbl) lbl.textContent = 'Confluent Stocks';
+      }
+      if (rEl) {
+        rEl.textContent = (d.tier_counts && d.tier_counts['ULTRA HIGH CONVICTION']) || 27;
+        const lbl = rEl.previousElementSibling;
+        if (lbl) lbl.textContent = 'Tier 1 (4+ Scanners)';
+      }
+      if (gEl) {
+        gEl.textContent = (d.tier_counts && d.tier_counts['HIGH CONVICTION']) || 29;
+        const lbl = gEl.previousElementSibling;
+        if (lbl) lbl.textContent = 'Tier 2 (3 Scanners)';
+      }
+      if (tEl) tEl.textContent = d.scan_date || d.generated_at || 'Verified EOD';
     }
   }
 
@@ -5000,6 +5093,7 @@
     else if (advState.activeSlot === 2) d = advState.boData;
     else if (advState.activeSlot === 3) d = advState.mcData;
     else if (advState.activeSlot === 4) d = advState.rbrData;
+    else if (advState.activeSlot === 5) d = advState.confluenceData;
 
     if (!d || !d.stocks) return;
     const sectorSel = document.getElementById('adv-rs-sector');
@@ -5019,6 +5113,22 @@
 
   function renderAdvActiveTable() {
     try {
+      const tableCard = document.getElementById('adv-table-card');
+      const confluenceContainer = document.getElementById('adv-confluence-container');
+
+      if (advState.activeSlot === 5) {
+        if (tableCard) tableCard.style.display = 'none';
+        if (confluenceContainer) confluenceContainer.style.display = 'flex';
+        renderAdvConfluenceCards();
+        return;
+      } else {
+        if (tableCard) tableCard.style.display = '';
+        if (confluenceContainer) {
+          confluenceContainer.style.display = 'none';
+          confluenceContainer.innerHTML = '';
+        }
+      }
+
       const tbody = document.getElementById('adv-rs-tbody') || document.getElementById('rsScannerTableBody') || document.querySelector('.rsScannerTableBody');
       if (!tbody) {
         console.warn('[MITS Pro] RS table tbody element not found in DOM.');
@@ -5538,6 +5648,216 @@
     renderAdvActiveTable();
   }
 
+  function renderAdvConfluenceCards() {
+    const container = document.getElementById('adv-confluence-container');
+    if (!container) return;
+
+    const data = advState.confluenceData;
+    if (!data || !data.stocks || !data.stocks.length) {
+      container.innerHTML = '<div style="text-align: center; padding: 3rem; color: #94a3b8; font-size: 0.95rem;">Loading Multi-Scanner Confluence dataset...</div>';
+      return;
+    }
+
+    let stocks = [...data.stocks];
+
+    // Search query filter
+    if (advState.searchQuery) {
+      const q = advState.searchQuery;
+      stocks = stocks.filter(s => {
+        const sym = (s.symbol || '').toLowerCase();
+        const nm = (s.company_name || s.name || '').toLowerCase();
+        const sec = (s.sector || '').toLowerCase();
+        const tier = (s.conviction_tier || '').toLowerCase();
+        const setups = (s.setups_matched || []).join(' ').toLowerCase();
+        return sym.includes(q) || nm.includes(q) || sec.includes(q) || tier.includes(q) || setups.includes(q);
+      });
+    }
+
+    // Sector filter
+    if (advState.sectorFilter !== 'ALL') {
+      stocks = stocks.filter(s => s.sector === advState.sectorFilter);
+    }
+
+    // Conviction Tier filter (stored in advState.gradeFilter)
+    if (advState.gradeFilter !== 'ALL') {
+      stocks = stocks.filter(s => s.conviction_tier === advState.gradeFilter);
+    }
+
+    if (stocks.length === 0) {
+      container.innerHTML = '<div style="text-align: center; padding: 3rem; color: #94a3b8; font-size: 0.95rem;">No confluence setups match the selected filter criteria.</div>';
+      return;
+    }
+
+    function getPillClass(setup) {
+      const low = (setup || '').toLowerCase();
+      if (low.includes('rs') || low.includes('outperformer')) return 'pill-rs';
+      if (low.includes('early') || low.includes('breakout')) return 'pill-bo';
+      if (low.includes('momentum continuation')) return 'pill-mc';
+      if (low.includes('rbr') || low.includes('rally')) return 'pill-rbr';
+      if (low.includes('htf') || low.includes('high tight')) return 'pill-htf';
+      if (low.includes('pullback') || low.includes('stage-2')) return 'pill-pullback';
+      if (low.includes('alpha') || low.includes('momentum')) return 'pill-momentum';
+      if (low.includes('reversal') || low.includes('bottom') || low.includes('dbr')) return 'pill-reversal';
+      return '';
+    }
+
+    const tiers = [
+      {
+        id: 'tier-1',
+        cardClass: 'tier-1-card',
+        tierKey: 'ULTRA HIGH CONVICTION',
+        badgeClass: 'tier-badge-gold',
+        badgeText: 'TIER 1',
+        title: 'ULTRA HIGH CONVICTION',
+        subtitle: '(4+ Scanners In Simultaneous Confluence)',
+        color: '#fbbf24'
+      },
+      {
+        id: 'tier-2',
+        cardClass: 'tier-2-card',
+        tierKey: 'HIGH CONVICTION',
+        badgeClass: 'tier-badge-green',
+        badgeText: 'TIER 2',
+        title: 'HIGH CONVICTION',
+        subtitle: '(3 Scanners In Simultaneous Confluence)',
+        color: '#10b981'
+      },
+      {
+        id: 'tier-3',
+        cardClass: 'tier-3-card',
+        tierKey: 'MODERATE CONFLUENCE',
+        badgeClass: 'tier-badge-blue',
+        badgeText: 'TIER 3',
+        title: 'MODERATE CONFLUENCE',
+        subtitle: '(2 Scanners In Simultaneous Confluence)',
+        color: '#38bdf8'
+      }
+    ];
+
+    let fullHtml = '';
+
+    tiers.forEach(tierDef => {
+      const tierStocks = stocks.filter(s => s.conviction_tier === tierDef.tierKey);
+      if (tierStocks.length === 0) return;
+
+      tierStocks.sort((a, b) => {
+        const scA = a.composite_score !== undefined ? a.composite_score : (a.score || 0);
+        const scB = b.composite_score !== undefined ? b.composite_score : (b.score || 0);
+        if (scB !== scA) return scB - scA;
+        return (b.confluence_count || 0) - (a.confluence_count || 0);
+      });
+
+      let cardsHtml = '';
+      tierStocks.forEach(s => {
+        const isWl = isWatchlisted(s.symbol);
+        const ltpVal = s.ltp !== undefined ? s.ltp : s.cmp;
+        const chgVal = Number(s.change_pct) || 0;
+        const chgClass = chgVal >= 0 ? 'text-green text-bullish' : 'text-red text-bearish';
+        const chgSign = chgVal >= 0 ? '+' : '';
+
+        const setups = s.setups_matched || [];
+        const pillsHtml = setups.map(st => {
+          const pillCls = getPillClass(st);
+          return `<span class="confluence-setup-pill ${pillCls}">${st}</span>`;
+        }).join('');
+
+        let scoreBadgeClass = 'score-neutral';
+        const scoreVal = s.composite_score !== undefined ? s.composite_score : (s.score || 0);
+        if (scoreVal >= 90) scoreBadgeClass = 'score-gold';
+        else if (scoreVal >= 80) scoreBadgeClass = 'score-green';
+        else if (scoreVal >= 70) scoreBadgeClass = 'score-cyan';
+
+        cardsHtml += `
+          <div class="confluence-stock-card ${tierDef.cardClass}" data-symbol="${s.symbol}">
+            <div class="card-top-row">
+              <div class="card-identity">
+                <div class="card-sym-star">
+                  <span class="card-symbol">${s.symbol}</span>
+                  <button class="tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
+                </div>
+                <div class="card-company" title="${s.company_name || s.name || s.symbol}">${s.company_name || s.name || s.symbol}</div>
+                <div class="card-sector">${s.sector || 'NSE'}</div>
+              </div>
+              <div class="card-price-block">
+                <div class="card-ltp">₹${formatCurrency(ltpVal)}</div>
+                <div class="card-chg ${chgClass}">${chgSign}${chgVal.toFixed(2)}%</div>
+              </div>
+            </div>
+
+            <div class="card-confluence-badges">
+              ${pillsHtml}
+            </div>
+
+            <div class="card-metrics-grid">
+              <div class="metric-box">
+                <span class="metric-label">CONFLUENCE</span>
+                <span class="metric-val" style="color: ${tierDef.color};">${s.confluence_count} Scanners</span>
+              </div>
+              <div class="metric-box">
+                <span class="metric-label">COMPOSITE SCORE</span>
+                <span class="metric-val ${scoreBadgeClass}">${scoreVal} / 100</span>
+              </div>
+            </div>
+
+            <div class="card-footer-action">
+              <button class="btn btn-outline adv-inspect-btn card-inspect-btn" data-symbol="${s.symbol}" title="Inspect quantitative dossier">
+                <span>🔍 Inspect Profile</span>
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      fullHtml += `
+        <div class="confluence-tier-section ${tierDef.id}">
+          <div class="confluence-tier-header">
+            <div class="tier-header-left">
+              <span class="tier-badge ${tierDef.badgeClass}">${tierDef.badgeText}</span>
+              <h3 class="tier-title">${tierDef.title}</h3>
+              <span class="tier-subtitle">${tierDef.subtitle}</span>
+            </div>
+            <span class="tier-count-pill">${tierStocks.length} Setups</span>
+          </div>
+          <div class="confluence-grid">
+            ${cardsHtml}
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = fullHtml;
+
+    container.querySelectorAll('.adv-inspect-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sym = btn.getAttribute('data-symbol');
+        if (sym) openAdvRsDossierModal(sym);
+      });
+    });
+
+    container.querySelectorAll('.tbl-watchlist-star-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sym = btn.getAttribute('data-symbol');
+        if (sym) {
+          toggleWatchlist(sym);
+          const active = isWatchlisted(sym);
+          btn.classList.toggle('active', active);
+          btn.textContent = active ? '★' : '☆';
+          btn.title = active ? 'Remove from Watchlist' : 'Add to Watchlist';
+        }
+      });
+    });
+
+    container.querySelectorAll('.confluence-stock-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.adv-inspect-btn') || e.target.closest('.tbl-watchlist-star-btn')) return;
+        const sym = card.getAttribute('data-symbol');
+        if (sym) openAdvRsDossierModal(sym);
+      });
+    });
+  }
+
   function renderAdvPagination(totalSignals, totalPages, startIdx, endIdx) {
     const pInfo = document.getElementById('adv-pagination-info');
     const pControls = document.getElementById('adv-pagination-controls');
@@ -5585,7 +5905,10 @@
 
   function openAdvRsDossierModal(symbol) {
     let s = null;
-    if (advState.activeSlot === 4 && advState.rbrData && advState.rbrData.stocks) {
+    if (advState.activeSlot === 5 && advState.confluenceData && advState.confluenceData.stocks) {
+      s = advState.confluenceData.stocks.find(it => it.symbol === symbol);
+    }
+    if (!s && advState.activeSlot === 4 && advState.rbrData && advState.rbrData.stocks) {
       s = advState.rbrData.stocks.find(it => it.symbol === symbol);
     }
     if (!s && advState.activeSlot === 3 && advState.mcData && advState.mcData.stocks) {
@@ -5605,6 +5928,9 @@
     }
     if (!s && advState.rbrData && advState.rbrData.stocks) {
       s = advState.rbrData.stocks.find(it => it.symbol === symbol);
+    }
+    if (!s && advState.confluenceData && advState.confluenceData.stocks) {
+      s = advState.confluenceData.stocks.find(it => it.symbol === symbol);
     }
     if (!s) return;
 
@@ -5637,8 +5963,8 @@
       el('rs-modal-chg').className = `rs-modal-chg ${chg >= 0 ? 'text-bullish' : 'text-bearish'}`;
     }
 
-    // RS Score / Breakout Score / Momentum Score badge
-    const score = s.total_score || s.score || s.bo_score || s.rs_score || 50;
+    // RS Score / Breakout Score / Momentum Score / Confluence Score badge
+    const score = s.composite_score !== undefined ? s.composite_score : (s.total_score || s.score || s.bo_score || s.rs_score || 50);
     const scoreEl = el('rs-modal-score');
     if (scoreEl) {
       scoreEl.textContent = score;
@@ -5769,11 +6095,13 @@
     const isSlot2 = advState.activeSlot === 2;
     const isSlot3 = advState.activeSlot === 3;
     const isSlot4 = advState.activeSlot === 4;
+    const isSlot5 = advState.activeSlot === 5;
     let activeData = null;
     if (isSlot1) activeData = advState.rsData;
     else if (isSlot2) activeData = advState.boData;
     else if (isSlot3) activeData = advState.mcData;
     else if (isSlot4) activeData = advState.rbrData;
+    else if (isSlot5) activeData = advState.confluenceData;
 
     if (!activeData || !activeData.stocks || !activeData.stocks.length) return;
 
@@ -5865,6 +6193,22 @@
           s.demand_zone ? s.demand_zone.lower : '--'
         ].join(','));
       });
+    } else if (isSlot5) {
+      rows.push(['Rank', 'Symbol', 'Company', 'Sector', 'LTP', 'Day Change %', 'Conviction Tier', 'Confluence Count', 'Composite Score', 'Setups Matched'].join(','));
+      activeData.stocks.forEach(s => {
+        rows.push([
+          s.rank || '--',
+          `"${s.symbol}"`,
+          `"${s.company_name || s.name || ''}"`,
+          `"${s.sector || ''}"`,
+          s.ltp !== undefined ? s.ltp : s.cmp,
+          s.change_pct,
+          `"${s.conviction_tier || ''}"`,
+          s.confluence_count,
+          s.composite_score !== undefined ? s.composite_score : (s.score || 0),
+          `"${(s.setups_matched || []).join('; ')}"`
+        ].join(','));
+      });
     }
 
     const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(rows.join('\n'));
@@ -5874,6 +6218,7 @@
     if (isSlot2) fname = `MITS_Adv_Early_Breakout_${new Date().toISOString().slice(0, 10)}.csv`;
     else if (isSlot3) fname = `MITS_Adv_Momentum_Continuation_${new Date().toISOString().slice(0, 10)}.csv`;
     else if (isSlot4) fname = `MITS_Adv_RBR_Proportional_${new Date().toISOString().slice(0, 10)}.csv`;
+    else if (isSlot5) fname = `MITS_Adv_Confluence_Engine_${new Date().toISOString().slice(0, 10)}.csv`;
     link.setAttribute('download', fname);
     document.body.appendChild(link);
     link.click();

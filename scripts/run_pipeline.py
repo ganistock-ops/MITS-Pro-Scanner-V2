@@ -755,6 +755,21 @@ def run_pipeline():
     except Exception as e:
         logger.warning(f"Advanced RBR Proportional scanner export bypassed or error: {e}")
 
+    # Isolated Advanced Scanner 5: Multi-Scanner Confluence Engine
+    try:
+        from adv_scanner_5_confluence_engine import generate_adv_scanner_confluence_engine
+        generate_adv_scanner_confluence_engine(
+            symbols=symbols,
+            stock_dfs=stock_dfs,
+            bhav_date=bhav_date,
+            bhav_map=bhav_map,
+            delivery_analytics_map=delivery_analytics_map,
+            n_df=n_df
+        )
+        logger.info("Enriched data/adv_scanner_5_confluence_engine.json with Multi-Scanner Confluence metrics.")
+    except Exception as e:
+        logger.warning(f"Advanced Confluence Engine export bypassed or error: {e}")
+
     print("\n" + "=" * 75)
     print("MITS PRO SCANNER - NIFTY 500 REAL MARKET PIPELINE COMPLETE")
     print(f"Time Taken: {duration:.2f}s | Scanned: {success_count}/{len(symbols)} Equities")
