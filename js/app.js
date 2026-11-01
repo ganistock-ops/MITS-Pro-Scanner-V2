@@ -4781,20 +4781,25 @@
     }
     try {
       const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
-      let res = await fetch(`${basePath}adv_scanner_3_momentum_continuation.json?t=${Date.now()}`);
-      if (!res.ok) res = await fetch('data/adv_scanner_3_momentum_continuation.json');
-      if (!res.ok) res = await fetch('./data/adv_scanner_3_momentum_continuation.json');
-      if (res.ok) {
-        advState.mcData = await res.json();
-        console.log(`[MITS Pro] Successfully loaded adv_scanner_3_momentum_continuation.json (${advState.mcData.stocks ? advState.mcData.stocks.length : 0} stocks)`);
-        updateAdvMcBadge();
-        if (advState.activeSlot === 3) {
-          populateAdvSectorFilter();
-          updateAdvHeaderKpis();
-          renderAdvActiveTable();
+      let res = await fetch(`${basePath}adv_scanner_3_momentum_continuation.json?t=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/adv_scanner_3_momentum_continuation.json').catch(() => null);
+      if (!res || !res.ok) res = await fetch('./data/adv_scanner_3_momentum_continuation.json').catch(() => null);
+      if (res && res.ok) {
+        advState.mcData = await res.json().catch(err => {
+          console.warn('[MITS Pro] Error parsing adv_scanner_3_momentum_continuation.json:', err);
+          return null;
+        });
+        if (advState.mcData) {
+          console.log(`[MITS Pro] Successfully loaded adv_scanner_3_momentum_continuation.json (${advState.mcData.stocks ? advState.mcData.stocks.length : 0} stocks)`);
+          updateAdvMcBadge();
+          if (advState.activeSlot === 3) {
+            populateAdvSectorFilter();
+            updateAdvHeaderKpis();
+            renderAdvActiveTable();
+          }
         }
       } else {
-        console.warn(`[MITS Pro] Failed to load adv_scanner_3_momentum_continuation.json: HTTP ${res.status}`);
+        console.warn(`[MITS Pro] Failed to load adv_scanner_3_momentum_continuation.json: HTTP ${res ? res.status : 'Network Offline'}`);
       }
     } catch (err) {
       console.warn('[MITS Pro] Error loading adv_scanner_3_momentum_continuation.json:', err);
@@ -5599,8 +5604,7 @@
       });
     }
 
-    const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(rows.join('
-'));
+    const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(rows.join('\n'));
     const link = document.createElement('a');
     link.setAttribute('href', csvContent);
     let fname = `MITS_Adv_Relative_Strength_${new Date().toISOString().slice(0, 10)}.csv`;
@@ -5623,15 +5627,43 @@
 
   // Initialize App
   function init() {
-    bindEvents();
-    initAdvScannerNavigation();
-    loadFromLocalStorageCache();
-    ensureBaselineSignals();
-    renderAll();
-    fetchRemoteData();
-    loadAdvRsData();
-    loadAdvBoData();
-    loadAdvMcData();
+    try {
+      bindEvents();
+    } catch (e) {
+      console.error('[MITS Pro] Error in bindEvents():', e);
+    }
+    try {
+      initAdvScannerNavigation();
+    } catch (e) {
+      console.error('[MITS Pro] Error in initAdvScannerNavigation():', e);
+    }
+    try {
+      loadFromLocalStorageCache();
+    } catch (e) {
+      console.error('[MITS Pro] Error in loadFromLocalStorageCache():', e);
+    }
+    try {
+      ensureBaselineSignals();
+    } catch (e) {
+      console.error('[MITS Pro] Error in ensureBaselineSignals():', e);
+    }
+    try {
+      renderAll();
+    } catch (e) {
+      console.error('[MITS Pro] Error in renderAll():', e);
+    }
+    try {
+      fetchRemoteData();
+    } catch (e) {
+      console.error('[MITS Pro] Error in fetchRemoteData():', e);
+    }
+    try {
+      loadAdvRsData().catch(e => console.warn('[MITS Pro] loadAdvRsData catch:', e));
+      loadAdvBoData().catch(e => console.warn('[MITS Pro] loadAdvBoData catch:', e));
+      loadAdvMcData().catch(e => console.warn('[MITS Pro] loadAdvMcData catch:', e));
+    } catch (e) {
+      console.warn('[MITS Pro] Error initiating advanced scanner data loaders:', e);
+    }
   }
 
   function ensureBaselineSignals() {
