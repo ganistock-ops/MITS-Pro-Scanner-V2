@@ -5244,3 +5244,24 @@ body.table-col-resizing * {
     display: none !important;
   }
 }
+
+
+@media (max-width: 768px) {
+  #advScannerSlot3Container th,
+  #advScannerSlot3Container td,
+  .adv-slot-3-table th,
+  .adv-slot-3-table td,
+  .adv-slot-table th:first-child,
+  .adv-slot-table td:first-child,
+  .adv-slot-table th:nth-child(2),
+  .adv-slot-table td:nth-child(2),
+  .adv-slot-table th:nth-child(3),
+  .adv-slot-table td:nth-child(3) {
+    position: static !important;
+    left: auto !important;
+  }
+  .table-responsive, .scanner-table-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
