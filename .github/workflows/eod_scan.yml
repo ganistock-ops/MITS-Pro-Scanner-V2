@@ -45,10 +45,6 @@ jobs:
       - name: Execute MITS Pro Scanner Pipeline
         run: |
           python scripts/run_pipeline.py
-          python scripts/adv_scanner_2_early_bo.py
-          python scripts/adv_scanner_3_momentum_continuation.py
-          python scripts/adv_scanner_4_rbr_proportional.py
-          python scripts/adv_scanner_5_confluence_engine.py
           if [ ! -f data/master_universe_eod.json ]; then
             echo "master_universe_eod.json not found, running standalone exporter..."
             python scripts/master_universe_exporter.py

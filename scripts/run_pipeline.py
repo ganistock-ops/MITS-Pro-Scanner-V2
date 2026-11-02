@@ -222,6 +222,45 @@ def fetch_benchmark_data(bhav_date: Optional[datetime.date]) -> Tuple[Optional[p
 
     return n_df, cmp_n, chg_n, chg_pct_n, nifty_above_ema20, round(ema20_n, 2)
 
+
+def persist_parquet_cache(stock_dfs: Dict[str, pd.DataFrame], n_df: Optional[pd.DataFrame] = None) -> None:
+    """
+    Persists in-memory stock DataFrames and benchmark series to cache/market_ohlcv.parquet
+    and cache/benchmark.parquet as a dual-layer safety fallback for standalone scanner executions.
+    """
+    try:
+        cache_dir = BASE_DIR / "cache"
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        if stock_dfs:
+            dfs_to_concat = []
+            for sym, df_item in stock_dfs.items():
+                if df_item is not None and not df_item.empty:
+                    df_c = df_item.copy()
+                    if "Symbol" not in df_c.columns and "symbol" not in df_c.columns:
+                        df_c["Symbol"] = str(sym)
+                    if "Date" not in df_c.columns:
+                        if hasattr(df_c.index, "strftime"):
+                            df_c["Date"] = df_c.index.strftime("%Y-%m-%d")
+                        else:
+                            df_c["Date"] = pd.to_datetime(df_c.index).strftime("%Y-%m-%d")
+                    dfs_to_concat.append(df_c)
+            if dfs_to_concat:
+                full_market_df = pd.concat(dfs_to_concat, ignore_index=True)
+                full_market_df.to_parquet(cache_dir / "market_ohlcv.parquet", index=False)
+                logger.info(f"Persisted {len(full_market_df)} OHLCV rows for {len(dfs_to_concat)} equities to {cache_dir / 'market_ohlcv.parquet'}.")
+        if n_df is not None and not n_df.empty:
+            n_df_c = n_df.copy()
+            if "Date" not in n_df_c.columns:
+                if hasattr(n_df_c.index, "strftime"):
+                    n_df_c["Date"] = n_df_c.index.strftime("%Y-%m-%d")
+                else:
+                    n_df_c["Date"] = pd.to_datetime(n_df_c.index).strftime("%Y-%m-%d")
+            n_df_c.to_parquet(cache_dir / "benchmark.parquet", index=False)
+            logger.info(f"Persisted benchmark series to {cache_dir / 'benchmark.parquet'}.")
+    except Exception as e:
+        logger.warning(f"Dual-layer parquet cache persistence error: {e}")
+
+
 def run_pipeline():
     logger.info("Initializing MITS Pro Pipeline execution...")
     ist_now = get_ist_now()
@@ -341,6 +380,7 @@ def run_pipeline():
                     stock_dfs[sym] = df
 
     logger.info(f"Acquired price history for {len(stock_dfs)}/{len(symbols)} equities in {time.time()-t0:.2f}s.")
+    persist_parquet_cache(stock_dfs, n_df)
 
     # Step 5: Synchronize with Bhavcopy and run quantitative filter engines
     for item in symbols:
@@ -679,6 +719,9 @@ def run_pipeline():
             logger.info("Enriched market_summary.json with quantitative sector rotation.")
     except Exception as e:
         logger.warning(f"Sector rotation analysis bypassed: {e}")
+
+    # Dual-layer safety: update persisted parquet cache with Bhavcopy synchronized candles
+    persist_parquet_cache(stock_dfs, n_df)
 
     # Isolated Master Universe EOD Exporter (Zero-Regression Custom Scanner Snapshot)
     try:
