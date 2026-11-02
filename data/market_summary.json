@@ -1,5 +1,5 @@
 {
-  "scan_timestamp": "2026-11-02T19:23:12.824333+05:30",
+  "scan_timestamp": "2026-11-02T20:30:56.548707+05:30",
   "market_status": "CLOSED",
   "last_session_date": "2026-11-02",
   "session_date_display": "02-Nov-2026",
@@ -15,17 +15,17 @@
     },
     "BANKNIFTY": {
       "name": "BANK NIFTY",
-      "price": 55002.2,
-      "change": 315.25,
-      "change_pct": 0.58,
+      "price": 56548.9,
+      "change": 78.25,
+      "change_pct": 0.14,
       "trend": "BULLISH"
     },
     "INDIA_VIX": {
       "name": "INDIA VIX",
-      "price": 15.5,
-      "change": 0.2,
-      "change_pct": 1.31,
-      "trend": "MODERATE_VOLATILITY"
+      "price": 10.35,
+      "change": -0.9,
+      "change_pct": -8.04,
+      "trend": "LOW_VOLATILITY"
     }
   },
   "market_breadth": {
@@ -67,7 +67,7 @@
     }
   ],
   "sector_rotation": {
-    "updated_at": "2026-11-02T19:24:39.818027",
+    "updated_at": "2026-11-02T20:32:32.092088",
     "session_date": "2026-10-30",
     "session_date_display": "30-Oct-2026",
     "sectors_analyzed": 20,

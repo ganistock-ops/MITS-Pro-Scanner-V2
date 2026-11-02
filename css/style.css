@@ -5150,6 +5150,83 @@ body.dossier-modal-open {
 }
 
 /* ==========================================================================
+   SLOT 6: WYCKOFF ACCUMULATION & ABSORPTION SCANNER TABLE STYLES
+   ========================================================================== */
+#adv-rs-table.slot-6 {
+  min-width: 1150px !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(1), #adv-rs-table.slot-6 td:nth-child(1) {
+  width: 40px !important;
+  min-width: 40px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(2), #adv-rs-table.slot-6 td:nth-child(2) {
+  width: 40px !important;
+  min-width: 40px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(3), #adv-rs-table.slot-6 td:nth-child(3) {
+  min-width: 140px !important;
+  text-align: left !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(4), #adv-rs-table.slot-6 td:nth-child(4) {
+  width: 90px !important;
+  min-width: 90px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(5), #adv-rs-table.slot-6 td:nth-child(5) {
+  width: 75px !important;
+  min-width: 75px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(6), #adv-rs-table.slot-6 td:nth-child(6) {
+  width: 95px !important;
+  min-width: 95px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(7), #adv-rs-table.slot-6 td:nth-child(7) {
+  width: 140px !important;
+  min-width: 140px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(8), #adv-rs-table.slot-6 td:nth-child(8) {
+  width: 90px !important;
+  min-width: 90px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(9), #adv-rs-table.slot-6 td:nth-child(9) {
+  width: 100px !important;
+  min-width: 100px !important;
+  text-align: center !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(10), #adv-rs-table.slot-6 td:nth-child(10) {
+  min-width: 180px !important;
+  text-align: left !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(11), #adv-rs-table.slot-6 td:nth-child(11) {
+  width: 95px !important;
+  min-width: 95px !important;
+  text-align: right !important;
+}
+
+#adv-rs-table.slot-6 th:nth-child(12), #adv-rs-table.slot-6 td:nth-child(12) {
+  width: 75px !important;
+  min-width: 75px !important;
+  text-align: center !important;
+}
+
+/* ==========================================================================
    SLOT 5: MULTI-SCANNER CONFLUENCE ENGINE (EXECUTIVE CARD GRID)
    ========================================================================== */
 .adv-confluence-container {

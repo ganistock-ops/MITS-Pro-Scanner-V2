@@ -204,6 +204,20 @@ def fetch_benchmark_data(bhav_date: Optional[datetime.date]) -> Tuple[Optional[p
         except Exception as e:
             logger.warning(f"Error fetching benchmark {sym}: {e}")
 
+    if n_df is None or n_df.empty:
+        bench_parquet = BASE_DIR / "cache" / "benchmark.parquet"
+        if bench_parquet.exists():
+            try:
+                df = pd.read_parquet(bench_parquet)
+                if df is not None and not df.empty and len(df) >= 20:
+                    if "Date" in df.columns:
+                        df["Date"] = pd.to_datetime(df["Date"])
+                        df.set_index("Date", inplace=True)
+                    n_df = df
+                    logger.info(f"Loaded benchmark series from local parquet cache ({len(df)} candles).")
+            except Exception as e:
+                logger.warning(f"Error loading benchmark parquet cache: {e}")
+
     cmp_n = 23446.80
     chg_n = 32.50
     chg_pct_n = 0.14
@@ -378,6 +392,23 @@ def run_pipeline():
                 sym, df = fut.result()
                 if df is not None and not df.empty:
                     stock_dfs[sym] = df
+
+    if not stock_dfs:
+        parquet_path = BASE_DIR / "cache" / "market_ohlcv.parquet"
+        if parquet_path.exists():
+            logger.info(f"Loading stock data from local parquet cache fallback: {parquet_path}")
+            try:
+                cached_df = pd.read_parquet(parquet_path)
+                sym_col = "Symbol" if "Symbol" in cached_df.columns else "symbol"
+                for sym, s_df in cached_df.groupby(sym_col):
+                    s_df_sorted = s_df.sort_values("Date").copy()
+                    if "Date" in s_df_sorted.columns:
+                        s_df_sorted["Date"] = pd.to_datetime(s_df_sorted["Date"])
+                        s_df_sorted.set_index("Date", inplace=True)
+                    stock_dfs[str(sym)] = s_df_sorted
+                logger.info(f"Loaded {len(stock_dfs)} equities from parquet cache.")
+            except Exception as e:
+                logger.warning(f"Error reading parquet cache: {e}")
 
     logger.info(f"Acquired price history for {len(stock_dfs)}/{len(symbols)} equities in {time.time()-t0:.2f}s.")
     persist_parquet_cache(stock_dfs, n_df)
@@ -797,6 +828,21 @@ def run_pipeline():
         logger.info("Enriched data/adv_scanner_4_rbr_proportional.json with standalone RBR Proportional metrics.")
     except Exception as e:
         logger.warning(f"Advanced RBR Proportional scanner export bypassed or error: {e}")
+
+    # Isolated Advanced Scanner 6: Wyckoff Accumulation & Absorption Engine
+    try:
+        from adv_scanner_6_wyckoff_absorption import generate_adv_scanner_wyckoff_absorption
+        generate_adv_scanner_wyckoff_absorption(
+            symbols=symbols,
+            stock_dfs=stock_dfs,
+            bhav_date=bhav_date,
+            bhav_map=bhav_map,
+            delivery_analytics_map=delivery_analytics_map,
+            n_df=n_df
+        )
+        logger.info("Enriched data/adv_scanner_6_wyckoff_absorption.json with standalone Wyckoff Absorption metrics.")
+    except Exception as e:
+        logger.warning(f"Advanced Wyckoff Absorption scanner export bypassed or error: {e}")
 
     # Isolated Advanced Scanner 5: Multi-Scanner Confluence Engine
     try:
