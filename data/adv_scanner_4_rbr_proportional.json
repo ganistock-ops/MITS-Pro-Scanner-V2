@@ -1,9 +1,9 @@
 {
   "scan_date": "2026-11-02",
-  "generated_at": "2026-11-02T20:33:21 IST",
-  "total_stocks": 159,
+  "generated_at": "2026-11-02T20:30:59 IST",
+  "total_stocks": 160,
   "stage_counts": {
-    "FORMING": 46,
+    "FORMING": 47,
     "READY": 44,
     "CONFIRMED": 44,
     "CONTINUATION": 25
@@ -11,7 +11,7 @@
   "grade_counts": {
     "A+": 16,
     "A": 47,
-    "B": 96
+    "B": 97
   },
   "stocks": [
     {
@@ -12369,6 +12369,93 @@
       "rank": 142
     },
     {
+      "symbol": "HFCL",
+      "company_name": "HFCL Ltd.",
+      "sector": "Telecommunication",
+      "ltp": 231.29,
+      "change_pct": -5.0,
+      "first_rally_pct": 41.83,
+      "rally_days": 15,
+      "base_days": 7,
+      "retracement_pct": 64.55,
+      "range_ratio": 0.45,
+      "volume_ratio": 0.65,
+      "atr_ratio": 1.14,
+      "demand_zone": {
+        "upper": 259.0,
+        "lower": 228.51,
+        "mid": 243.75,
+        "status": "Tested"
+      },
+      "distance_to_base_high_pct": 12.95,
+      "second_rally_pct": 0.0,
+      "rbr_score": 61,
+      "grade": "B",
+      "stage_status": "FORMING",
+      "score_breakdown": {
+        "rally_strength": 20,
+        "base_quality": 22,
+        "retracement": 4,
+        "volume_contraction": 12,
+        "atr_contraction": 3,
+        "expansion": 0
+      },
+      "name": "HFCL Ltd.",
+      "cmp": 231.29,
+      "score": 61,
+      "s1": 228.51,
+      "r1": 265.69,
+      "support": 228.51,
+      "support_label": "Demand Zone Lower (Base Low)",
+      "resistance": 265.69,
+      "resistance_label": "Base High Breakout Pivot",
+      "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HFCL",
+      "dossier": {
+        "symbol": "HFCL",
+        "name": "HFCL Ltd.",
+        "sector": "Telecommunication",
+        "stage": "Stage-1 Base",
+        "stage_badge": "FORMING",
+        "stage_color": "gold",
+        "stage_desc": "Rally-Base-Rally Proportional Institutional Continuation",
+        "trend_stack": false,
+        "trend_stack_status": "FORMING (61/100)",
+        "trend_stack_badge": "RBR B",
+        "ema_20": 245.7,
+        "ema_50": 236.31,
+        "ema_200": 178.04,
+        "key_levels": {
+          "support": 228.51,
+          "support_label": "Demand Zone Lower (Base Low)",
+          "support_dist": "-1.2% below",
+          "resistance": 265.69,
+          "resistance_label": "Base High Breakout Pivot",
+          "resistance_dist": "+12.95% to pivot",
+          "high_52w": 282.25,
+          "dist_52w": "-18.1% from 52W High"
+        },
+        "volume_footprint": {
+          "volume_multiple": 0.65,
+          "volume_desc": "0.65x Base/Rally Vol",
+          "delivery_status": "Dry-up Accumulation",
+          "delivery_pct": null
+        },
+        "rs_profile": {
+          "rs_20d": 41.83
+        },
+        "support": 228.51,
+        "support_label": "Demand Zone Lower (Base Low)",
+        "support_dist": "-1.2% below",
+        "resistance": 265.69,
+        "resistance_label": "Base High Breakout Pivot",
+        "resistance_dist": "+12.95% to pivot",
+        "high_52w": 282.25,
+        "dist_52w": "-18.1% from 52W High",
+        "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HFCL"
+      },
+      "rank": 143
+    },
+    {
       "symbol": "ANGELONE",
       "company_name": "Angel One Ltd.",
       "sector": "Financial Services",
@@ -12453,7 +12540,7 @@
         "dist_52w": "-18.9% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ANGELONE"
       },
-      "rank": 143
+      "rank": 144
     },
     {
       "symbol": "HSCL",
@@ -12540,7 +12627,7 @@
         "dist_52w": "-36.5% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HSCL"
       },
-      "rank": 144
+      "rank": 145
     },
     {
       "symbol": "WHIRLPOOL",
@@ -12627,7 +12714,7 @@
         "dist_52w": "-40.7% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:WHIRLPOOL"
       },
-      "rank": 145
+      "rank": 146
     },
     {
       "symbol": "DIVISLAB",
@@ -12714,7 +12801,7 @@
         "dist_52w": "-0.4% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DIVISLAB"
       },
-      "rank": 146
+      "rank": 147
     },
     {
       "symbol": "BATAINDIA",
@@ -12801,7 +12888,7 @@
         "dist_52w": "-38.2% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BATAINDIA"
       },
-      "rank": 147
+      "rank": 148
     },
     {
       "symbol": "AUROPHARMA",
@@ -12888,7 +12975,7 @@
         "dist_52w": "-3.2% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AUROPHARMA"
       },
-      "rank": 148
+      "rank": 149
     },
     {
       "symbol": "CIPLA",
@@ -12975,7 +13062,7 @@
         "dist_52w": "-9.1% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CIPLA"
       },
-      "rank": 149
+      "rank": 150
     },
     {
       "symbol": "MARUTI",
@@ -13062,7 +13149,7 @@
         "dist_52w": "-32.1% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MARUTI"
       },
-      "rank": 150
+      "rank": 151
     },
     {
       "symbol": "BLUEJET",
@@ -13149,7 +13236,7 @@
         "dist_52w": "-28.1% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BLUEJET"
       },
-      "rank": 151
+      "rank": 152
     },
     {
       "symbol": "NUVAMA",
@@ -13236,7 +13323,7 @@
         "dist_52w": "-12.6% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NUVAMA"
       },
-      "rank": 152
+      "rank": 153
     },
     {
       "symbol": "KPRMILL",
@@ -13323,7 +13410,7 @@
         "dist_52w": "-15.0% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KPRMILL"
       },
-      "rank": 153
+      "rank": 154
     },
     {
       "symbol": "GRANULES",
@@ -13410,7 +13497,7 @@
         "dist_52w": "-11.1% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GRANULES"
       },
-      "rank": 154
+      "rank": 155
     },
     {
       "symbol": "WOCKPHARMA",
@@ -13497,7 +13584,7 @@
         "dist_52w": "-21.7% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:WOCKPHARMA"
       },
-      "rank": 155
+      "rank": 156
     },
     {
       "symbol": "GMRAIRPORT",
@@ -13584,7 +13671,7 @@
         "dist_52w": "-23.3% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GMRAIRPORT"
       },
-      "rank": 156
+      "rank": 157
     },
     {
       "symbol": "ASTERDM",
@@ -13671,7 +13758,7 @@
         "dist_52w": "-24.4% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ASTERDM"
       },
-      "rank": 157
+      "rank": 158
     },
     {
       "symbol": "RELIANCE",
@@ -13758,7 +13845,7 @@
         "dist_52w": "-19.0% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:RELIANCE"
       },
-      "rank": 158
+      "rank": 159
     },
     {
       "symbol": "MGL",
@@ -13845,7 +13932,7 @@
         "dist_52w": "-17.1% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MGL"
       },
-      "rank": 159
+      "rank": 160
     }
   ]
 }
