@@ -1,73 +1,73 @@
 {
-  "scan_timestamp": "2026-11-03T01:59:50.370734+05:30",
+  "scan_timestamp": "2026-11-03T13:37:34.070297+05:30",
   "market_status": "OPEN",
   "last_session_date": "2026-11-02",
-  "session_date_display": "02-Nov-2026",
+  "session_date_display": "03-Nov-2026",
   "indices": {
     "NIFTY_50": {
       "name": "NIFTY 50",
-      "price": 23053.1,
-      "change": 116.35,
-      "change_pct": 0.51,
+      "price": 23733.5,
+      "change": 292.7,
+      "change_pct": 1.25,
       "trend": "BULLISH ACCUMULATION",
       "above_ema20": true,
-      "ema_20": 22845.81
+      "ema_20": 22981.62
     },
     "BANKNIFTY": {
       "name": "BANK NIFTY",
-      "price": 54686.95,
-      "change": -222.7,
-      "change_pct": -0.41,
-      "trend": "DEFENSIVE"
+      "price": 55685.2,
+      "change": 683.0,
+      "change_pct": 1.24,
+      "trend": "BULLISH"
     },
     "INDIA_VIX": {
       "name": "INDIA VIX",
-      "price": 15.3,
-      "change": 0.18,
-      "change_pct": 1.19,
+      "price": 16.03,
+      "change": 0.53,
+      "change_pct": 3.42,
       "trend": "MODERATE_VOLATILITY"
     }
   },
   "market_breadth": {
-    "advances": 405,
-    "declines": 93,
-    "unchanged": 2,
-    "ratio": "4.35:1",
+    "advances": 349,
+    "declines": 148,
+    "unchanged": 3,
+    "ratio": "2.36:1",
     "institutional_bias": "STRONG ACCUMULATION",
     "bias_color": "gold",
     "total_scanned": 500,
-    "high_momentum_count": 257,
-    "pro_alerts_count": 52
+    "high_momentum_count": 177,
+    "pro_alerts_count": 30
   },
   "sector_matrix": [
     {
       "sector": "Healthcare",
-      "performance": "+0.32%",
+      "performance": "+0.46%",
       "bias": "SELECTIVE_ACCUMULATION"
     },
     {
       "sector": "Banking & Fin",
-      "performance": "+1.49%",
+      "performance": "+1.50%",
       "bias": "STRONG_ACCUMULATION"
     },
     {
       "sector": "IT & Tech",
-      "performance": "+1.67%",
-      "bias": "STRONG_ACCUMULATION"
+      "performance": "+0.91%",
+      "bias": "SELECTIVE_ACCUMULATION"
     },
     {
       "sector": "Metals & Mining",
-      "performance": "+2.50%",
-      "bias": "STRONG_ACCUMULATION"
+      "performance": "+0.01%",
+      "bias": "SELECTIVE_ACCUMULATION"
     },
     {
       "sector": "Auto & Mobility",
-      "performance": "+2.64%",
+      "performance": "+1.93%",
       "bias": "STRONG_ACCUMULATION"
     }
   ],
   "sector_rotation": {
-    "updated_at": "2026-11-02T20:30:45.702104",
+    "updated_at": "2026-11-03T08:08:07.366946",
     "session_date": "2026-10-30",
     "session_date_display": "30-Oct-2026",
     "sectors_analyzed": 20,
