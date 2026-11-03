@@ -4310,6 +4310,8 @@
   // --- Advanced Scanner State ---
   const advState = {
     activeSlot: 1, // 1: RS Outperformer, 2: Early Breakout, 3: Momentum Continuation, 4: Rally-Base-Rally, 5: Confluence Engine, 6: Wyckoff Absorption
+    get currentSlot() { return this.activeSlot; },
+    set currentSlot(val) { this.activeSlot = val; },
     rsData: null,
     boData: null,
     mcData: null,
@@ -4429,7 +4431,7 @@
           selectAdvSlot(3);
         } else if (sub === 'rbr_proportional') {
           selectAdvSlot(4);
-        } else if (sub === 'confluence_engine') {
+        } else if (sub === 'confluence_engine' || sub === 'confluence') {
           selectAdvSlot(5);
         } else if (sub === 'wyckoff' || sub === 'wyckoff_absorption') {
           selectAdvSlot(6);
@@ -4486,6 +4488,7 @@
 
   function selectAdvSlot(slotNum) {
     advState.activeSlot = slotNum;
+    advState.currentSlot = slotNum;
     advState.currentPage = 1;
     advState.searchQuery = '';
     advState.gradeFilter = 'ALL';
@@ -4656,6 +4659,7 @@
     } else if (slotNum === 5) {
       advState.sortColumn = 'confluence_count';
       advState.sortDirection = 'desc';
+      renderAdvThead(5);
       updateAdvHeaderKpis();
       populateAdvSectorFilter();
       if (!advState.confluenceData) {
@@ -4747,6 +4751,23 @@
           <th class="sortable text-center" data-col="range_ratio" style="width: 100px; text-align: center;">Compression <span class="sort-icon">↕</span><div class="col-resizer" data-min="75"></div></th>
           <th class="sortable text-center" data-col="volume_ratio" style="width: 105px; text-align: center;">Vol Ratio <span class="sort-icon">↕</span><div class="col-resizer" data-min="80"></div></th>
           <th class="sortable text-right" data-col="demand_zone_upper" style="width: 125px; text-align: right;">Demand Zone (₹) <span class="sort-icon">↕</span><div class="col-resizer" data-min="95"></div></th>
+          <th style="width: 75px; text-align: center;">Action</th>
+        </tr>
+      `;
+    } else if (slotNum === 5) {
+      thead.innerHTML = `
+        <tr>
+          <th style="width: 40px; text-align: center;">#<div class="col-resizer" data-min="36"></div></th>
+          <th style="width: 40px; text-align: center;" title="Quick Watchlist">★<div class="col-resizer" data-min="36"></div></th>
+          <th class="sortable text-left sticky-symbol-col" data-col="symbol" style="min-width: 140px; text-align: left;">Symbol &amp; Company <span class="sort-icon">↕</span><div class="col-resizer" data-min="90"></div></th>
+          <th class="sortable text-right" data-col="ltp" style="width: 95px; text-align: right;">LTP (₹) &amp; CHG% <span class="sort-icon">↕</span><div class="col-resizer" data-min="75"></div></th>
+          <th class="sortable text-center" data-col="conviction_tier" style="width: 140px; text-align: center;">Confluence Tier <span class="sort-icon">↕</span><div class="col-resizer" data-min="100"></div></th>
+          <th class="sortable active-sort text-center" data-col="confluence_count" style="width: 105px; text-align: center;">Score &amp; Overlap <span class="sort-icon active">▼</span><div class="col-resizer" data-min="80"></div></th>
+          <th class="sortable text-left" data-col="setups_matched" style="min-width: 220px; text-align: left;">Engines Matched <span class="sort-icon">↕</span><div class="col-resizer" data-min="140"></div></th>
+          <th class="sortable text-right" data-col="delivery_pct" style="width: 90px; text-align: right;">Delivery % <span class="sort-icon">↕</span><div class="col-resizer" data-min="70"></div></th>
+          <th class="sortable text-center" data-col="rs_score" style="width: 90px; text-align: center;">RS Score <span class="sort-icon">↕</span><div class="col-resizer" data-min="70"></div></th>
+          <th class="sortable text-center" data-col="volume_status" style="width: 120px; text-align: center;">Vol / Effort Status <span class="sort-icon">↕</span><div class="col-resizer" data-min="90"></div></th>
+          <th class="sortable text-left" data-col="sector" style="min-width: 120px; text-align: left;">Sector <span class="sort-icon">↕</span><div class="col-resizer" data-min="80"></div></th>
           <th style="width: 75px; text-align: center;">Action</th>
         </tr>
       `;
@@ -5017,6 +5038,8 @@
       let res = await fetch(`${basePath}adv_scanner_5_confluence_engine.json?t=${Date.now()}`).catch(() => null);
       if (!res || !res.ok) res = await fetch('data/adv_scanner_5_confluence_engine.json').catch(() => null);
       if (!res || !res.ok) res = await fetch('./data/adv_scanner_5_confluence_engine.json').catch(() => null);
+      if (!res || !res.ok) res = await fetch(`${basePath}adv_scanner_5_confluence.json?t=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/adv_scanner_5_confluence.json').catch(() => null);
       if (res && res.ok) {
         advState.confluenceData = await res.json().catch(err => {
           console.warn('[MITS Pro] Error parsing adv_scanner_5_confluence_engine.json:', err);
@@ -5247,17 +5270,10 @@
       const tableCard = document.getElementById('adv-table-card');
       const confluenceContainer = document.getElementById('adv-confluence-container');
 
-      if (advState.activeSlot === 5) {
-        if (tableCard) tableCard.style.display = 'none';
-        if (confluenceContainer) confluenceContainer.style.display = 'flex';
-        renderAdvConfluenceCards();
-        return;
-      } else {
-        if (tableCard) tableCard.style.display = '';
-        if (confluenceContainer) {
-          confluenceContainer.style.display = 'none';
-          confluenceContainer.innerHTML = '';
-        }
+      if (tableCard) tableCard.style.display = '';
+      if (confluenceContainer) {
+        confluenceContainer.style.display = 'none';
+        confluenceContainer.innerHTML = '';
       }
 
       const tbody = document.getElementById('adv-rs-tbody') || document.getElementById('rsScannerTableBody') || document.querySelector('.rsScannerTableBody');
@@ -5270,12 +5286,14 @@
       const isSlot2 = advState.activeSlot === 2;
       const isSlot3 = advState.activeSlot === 3;
       const isSlot4 = advState.activeSlot === 4;
+      const isSlot5 = advState.activeSlot === 5;
       const isSlot6 = advState.activeSlot === 6;
       let activeData = null;
       if (isSlot1) activeData = advState.rsData;
       else if (isSlot2) activeData = advState.boData;
       else if (isSlot3) activeData = advState.mcData;
       else if (isSlot4) activeData = advState.rbrData;
+      else if (isSlot5) activeData = advState.confluenceData;
       else if (isSlot6) activeData = advState.wyckoffData;
 
       const tableEl = document.getElementById('adv-rs-table');
@@ -5284,6 +5302,7 @@
         tableEl.classList.toggle('slot-2', isSlot2);
         tableEl.classList.toggle('slot-3', isSlot3);
         tableEl.classList.toggle('slot-4', isSlot4);
+        tableEl.classList.toggle('slot-5', isSlot5);
         tableEl.classList.toggle('slot-6', isSlot6);
       }
 
@@ -5292,6 +5311,7 @@
         if (isSlot2) scannerName = 'Early Breakout';
         else if (isSlot3) scannerName = 'Momentum Continuation';
         else if (isSlot4) scannerName = 'Rally-Base-Rally (RBR)';
+        else if (isSlot5) scannerName = 'Multi-Scanner Confluence';
         else if (isSlot6) scannerName = 'Wyckoff Absorption';
         tbody.innerHTML = `<tr><td colspan="17" style="text-align: center; padding: 2.5rem; color: #94a3b8;">Loading ${scannerName} dataset...</td></tr>`;
         return;
@@ -5306,8 +5326,9 @@
           const sym = (s.symbol || '').toLowerCase();
           const nm = (s.name || s.company_name || '').toLowerCase();
           const sec = (s.sector || '').toLowerCase();
-          const piv = (s.pivot_type || s.pullback_class || s.stage_status || s.phase_tag || s.phase || '').toLowerCase();
-          return sym.includes(q) || nm.includes(q) || sec.includes(q) || piv.includes(q);
+          const piv = (s.pivot_type || s.pullback_class || s.stage_status || s.phase_tag || s.phase || s.conviction_tier || '').toLowerCase();
+          const setups = (s.setups_matched || []).join(' ').toLowerCase();
+          return sym.includes(q) || nm.includes(q) || sec.includes(q) || piv.includes(q) || setups.includes(q);
         });
       }
 
@@ -5327,6 +5348,10 @@
           else if (minScore === 80) stocks = stocks.filter(s => s.rs_score >= 80 && s.rs_score < 90);
           else if (minScore === 70) stocks = stocks.filter(s => s.rs_score >= 70 && s.rs_score < 80);
           else if (minScore === 50) stocks = stocks.filter(s => s.rs_score < 70);
+        }
+      } else if (isSlot5) {
+        if (advState.gradeFilter !== 'ALL') {
+          stocks = stocks.filter(s => (s.conviction_tier === advState.gradeFilter || (s.tier_label && s.tier_label.includes(advState.gradeFilter))));
         }
       } else if (isSlot3 || isSlot4 || isSlot6) {
         if (advState.gradeFilter !== 'ALL') {
@@ -5349,9 +5374,24 @@
         } else if (col === 'delivery_pct') {
           va = a.delivery_pct !== undefined && a.delivery_pct !== null ? a.delivery_pct : (a.dossier?.delivery_pct || 0);
           vb = b.delivery_pct !== undefined && b.delivery_pct !== null ? b.delivery_pct : (b.dossier?.delivery_pct || 0);
-        } else if (col === 'total_score' || col === 'rbr_score' || col === 'score' || col === 'wyckoff_score') {
-          va = a.score !== undefined ? a.score : (a.wyckoff_score !== undefined ? a.wyckoff_score : (a.rbr_score !== undefined ? a.rbr_score : (a.total_score !== undefined ? a.total_score : 0)));
-          vb = b.score !== undefined ? b.score : (b.wyckoff_score !== undefined ? b.wyckoff_score : (b.rbr_score !== undefined ? b.rbr_score : (b.total_score !== undefined ? b.total_score : 0)));
+        } else if (col === 'total_score' || col === 'rbr_score' || col === 'score' || col === 'wyckoff_score' || col === 'composite_score') {
+          va = a.composite_score !== undefined ? a.composite_score : (a.score !== undefined ? a.score : (a.wyckoff_score !== undefined ? a.wyckoff_score : (a.rbr_score !== undefined ? a.rbr_score : (a.total_score !== undefined ? a.total_score : 0))));
+          vb = b.composite_score !== undefined ? b.composite_score : (b.score !== undefined ? b.score : (b.wyckoff_score !== undefined ? b.wyckoff_score : (b.rbr_score !== undefined ? b.rbr_score : (b.total_score !== undefined ? b.total_score : 0))));
+        } else if (col === 'confluence_count') {
+          va = a.confluence_count !== undefined ? a.confluence_count : ((a.setups_matched || []).length);
+          vb = b.confluence_count !== undefined ? b.confluence_count : ((b.setups_matched || []).length);
+        } else if (col === 'conviction_tier') {
+          va = a.tier !== undefined ? a.tier : (a.conviction_tier || '');
+          vb = b.tier !== undefined ? b.tier : (b.conviction_tier || '');
+        } else if (col === 'rs_score') {
+          va = a.setup_scores?.['RS Outperformer'] !== undefined ? a.setup_scores['RS Outperformer'] : (a.dossier?.rs_profile?.rs_20d || 0);
+          vb = b.setup_scores?.['RS Outperformer'] !== undefined ? b.setup_scores['RS Outperformer'] : (b.dossier?.rs_profile?.rs_20d || 0);
+        } else if (col === 'volume_status') {
+          va = a.dossier?.volume_footprint?.delivery_status || '';
+          vb = b.dossier?.volume_footprint?.delivery_status || '';
+        } else if (col === 'setups_matched') {
+          va = (a.setups_matched || []).length;
+          vb = (b.setups_matched || []).length;
         } else if (col === 'base_days') {
           va = a.base_days || 0;
           vb = b.base_days || 0;
@@ -5755,6 +5795,120 @@
               </td>
               <td class="text-center" style="width: 75px; text-align: center;">
                 <button type="button" class="btn-inspect adv-inspect-btn" data-symbol="${s.symbol}" onclick="openDossier('${s.symbol}')">Inspect</button>
+              </td>
+            </tr>
+          `;
+        });
+      } else if (isSlot5) {
+        // Slot 5: Multi-Scanner Confluence Engine table rows (Exact 12-column specification)
+        pageSignals.forEach((s, idx) => {
+          const globalIdx = startIdx + idx + 1;
+          const ltpVal = Number(s.ltp !== undefined ? s.ltp : s.cmp) || 0;
+          const dayChg = Number(s.change_pct) || 0;
+          const dayChgClass = dayChg >= 0 ? 'text-green text-bullish' : 'text-red text-bearish';
+          const compositeScore = Number(s.composite_score !== undefined ? s.composite_score : (s.score || 0)).toFixed(1);
+          const confluenceCount = s.confluence_count !== undefined ? s.confluence_count : (s.setups_matched ? s.setups_matched.length : 0);
+
+          let scoreBadge = 'score-neutral';
+          if (compositeScore >= 85) scoreBadge = 'score-gold';
+          else if (compositeScore >= 70) scoreBadge = 'score-green';
+          else if (compositeScore >= 60) scoreBadge = 'score-cyan';
+
+          const tier = (s.conviction_tier || s.tier_label || '').toUpperCase();
+          let tierBadgeClass = 'tier-badge-blue';
+          let tierDisplay = s.tier_label || s.conviction_tier || 'CONFLUENCE';
+          if (tier.includes('ULTRA') || s.tier === 1) {
+            tierBadgeClass = 'tier-badge-gold';
+            tierDisplay = '⚡ Tier 1: Ultra High';
+          } else if (tier.includes('HIGH') || s.tier === 2) {
+            tierBadgeClass = 'tier-badge-green';
+            tierDisplay = '⭐ Tier 2: High';
+          } else if (tier.includes('MODERATE') || s.tier === 3) {
+            tierBadgeClass = 'tier-badge-blue';
+            tierDisplay = '✓ Tier 3: Moderate';
+          }
+
+          const setupsMatched = Array.isArray(s.setups_matched) ? s.setups_matched : [];
+          const setupsTagsHtml = setupsMatched.map(setup => {
+            const low = setup.toLowerCase();
+            let pClass = 'pill-rs';
+            let shortName = setup;
+            if (low.includes('rs') || low.includes('relative')) { pClass = 'pill-rs'; shortName = 'RS'; }
+            else if (low.includes('early') || low.includes('breakout')) { pClass = 'pill-bo'; shortName = 'Early BO'; }
+            else if (low.includes('momentum continuation')) { pClass = 'pill-mc'; shortName = 'Momentum'; }
+            else if (low.includes('rbr') || low.includes('rally')) { pClass = 'pill-rbr'; shortName = 'RBR'; }
+            else if (low.includes('wyckoff')) { pClass = 'pill-momentum'; shortName = 'Wyckoff'; }
+            else if (low.includes('alpha')) { pClass = 'pill-pullback'; shortName = 'Alpha Mom'; }
+            else if (low.includes('htf') || low.includes('tight')) { pClass = 'pill-htf'; shortName = 'HTF'; }
+            else if (low.includes('reversal') || low.includes('bottom')) { pClass = 'pill-reversal'; shortName = 'Reversal'; }
+            return `<span class="confluence-setup-pill ${pClass}" title="${setup}">${shortName}</span>`;
+          }).join('');
+
+          const delivVal = s.delivery_pct !== undefined && s.delivery_pct !== null
+            ? Number(s.delivery_pct)
+            : (s.dossier?.delivery_pct !== undefined && s.dossier?.delivery_pct !== null
+                ? Number(s.dossier.delivery_pct)
+                : (s.dossier?.volume_footprint?.delivery_pct !== undefined && s.dossier?.volume_footprint?.delivery_pct !== null
+                    ? Number(s.dossier.volume_footprint.delivery_pct)
+                    : null));
+          const delivHighClass = delivVal !== null && delivVal >= 55 ? 'deliv-high' : '';
+
+          const rsScore = s.setup_scores?.['RS Outperformer'] !== undefined
+            ? s.setup_scores['RS Outperformer']
+            : (s.dossier?.rs_profile?.rs_20d !== undefined && s.dossier?.rs_profile?.rs_20d !== null
+                ? (Number(s.dossier.rs_profile.rs_20d) >= 0 ? `+${Number(s.dossier.rs_profile.rs_20d).toFixed(1)}%` : `${Number(s.dossier.rs_profile.rs_20d).toFixed(1)}%`)
+                : null);
+
+          const volStatus = s.dossier?.volume_footprint?.delivery_status || s.dossier?.volume_status || (s.dossier?.volume_footprint?.volume_multiple ? `${s.dossier.volume_footprint.volume_multiple}x Vol` : 'Normal');
+
+          const isWl = isWatchlisted(s.symbol);
+
+          html += `
+            <tr class="adv-rs-row" data-symbol="${s.symbol}">
+              <td class="row-index text-center" style="width: 40px; text-align: center;">${globalIdx}</td>
+              <td class="text-center" style="width: 40px; text-align: center;">
+                <button type="button" class="watchlist-star-btn tbl-watchlist-star-btn ${isWl ? 'active' : ''}" data-symbol="${s.symbol}" onclick="toggleWatchlist('${s.symbol}')" title="${isWl ? 'Remove from Watchlist' : 'Add to Watchlist'}">${isWl ? '★' : '☆'}</button>
+              </td>
+              <td class="col-symbol text-left sticky-symbol-col" style="min-width: 140px; text-align: left !important;">
+                <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
+                  <strong>${s.symbol}</strong>
+                  <span class="muted-sector">${s.company_name || s.name || s.sector || 'NSE'}</span>
+                </div>
+              </td>
+              <td class="text-right font-mono" style="width: 95px; text-align: right;">
+                <div style="display: flex; flex-direction: column; align-items: flex-end; line-height: 1.25;">
+                  <span>₹${formatCurrency(ltpVal)}</span>
+                  <span class="${dayChgClass}" style="font-size: 0.74rem;">${dayChg >= 0 ? '+' : ''}${dayChg.toFixed(2)}%</span>
+                </div>
+              </td>
+              <td class="text-center" style="width: 140px; text-align: center;">
+                <span class="tier-badge ${tierBadgeClass}">${tierDisplay}</span>
+              </td>
+              <td class="text-center" style="width: 105px; text-align: center;">
+                <div style="display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                  <span class="rs-score-pill ${scoreBadge}"><strong>${compositeScore}</strong></span>
+                  <span class="tag-bull" style="font-weight: 700; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px;">${confluenceCount} Overlap</span>
+                </div>
+              </td>
+              <td class="text-left" style="min-width: 220px; text-align: left;">
+                <div style="display: flex; flex-wrap: wrap; gap: 4px; align-items: center;">
+                  ${setupsTagsHtml || '<span style="color:#64748b;">--</span>'}
+                </div>
+              </td>
+              <td class="text-right font-mono" style="width: 90px; text-align: right;">
+                ${delivVal !== null ? `<span class="deliv-pill ${delivHighClass}">${delivVal.toFixed(1)}%</span>` : '<span style="color: #64748b;">--</span>'}
+              </td>
+              <td class="text-center font-mono" style="width: 90px; text-align: center;">
+                ${rsScore !== null ? `<span class="rs-score-pill ${Number(rsScore) >= 80 ? 'score-gold' : (Number(rsScore) >= 70 ? 'score-green' : 'score-neutral')}">${rsScore}</span>` : '<span style="color: #64748b;">--</span>'}
+              </td>
+              <td class="text-center font-mono" style="width: 120px; text-align: center;">
+                <span class="tag-neutral" style="font-size: 0.72rem; padding: 2px 6px; white-space: nowrap;">${volStatus}</span>
+              </td>
+              <td class="text-left font-mono" style="min-width: 120px; text-align: left; font-size: 0.78rem;">
+                <span class="muted-sector" style="color: #cbd5e1;">${s.sector || 'Diversified'}</span>
+              </td>
+              <td class="text-center" style="width: 75px; text-align: center;">
+                <button type="button" class="btn-inspect adv-inspect-btn" data-symbol="${s.symbol}" onclick="openAdvRsDossierModal('${s.symbol}')">Inspect</button>
               </td>
             </tr>
           `;
