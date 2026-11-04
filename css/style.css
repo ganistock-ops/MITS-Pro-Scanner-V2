@@ -5835,17 +5835,17 @@ body.table-col-resizing * {
    =================================================================================== */
 .sector-analysis-viewport {
   width: 100%;
-  padding: 20px 24px 60px;
   box-sizing: border-box;
   animation: fadeIn 0.25s ease-out;
 }
 
 .sector-analysis-container {
-  max-width: 1680px;
-  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* 1. Station Header */

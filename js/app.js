@@ -4328,32 +4328,595 @@
     pageSize: 15
   };
 
+/* ===================================================================================
+   PHASE 2: SECTOR ANALYSIS MODULE (STANDALONE & FULLY DECOUPLED)
+   =================================================================================== */
+window.SectorAnalysisModule = (function() {
+  let sectorData = null;
+  let activeView = 'grid'; // 'grid' | 'table'
+  let quadrantFilter = 'ALL';
+  let sortBy = 'rank';
+  let searchQuery = '';
+  let expandedSector = null;
+  let isInitialized = false;
+
+  async function init() {
+    if (!isInitialized) {
+      bindEvents();
+      isInitialized = true;
+    }
+    await loadData();
+  }
+
+  async function loadData() {
+    try {
+      if (window._cachedSectorAnalysis) {
+        sectorData = window._cachedSectorAnalysis;
+        renderMacroSummary();
+        renderActiveView();
+      }
+
+      const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+      let res = await fetch(`${basePath}data/sector_analysis.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch(`data/sector_analysis.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/sector_analysis.json').catch(() => null);
+
+      if (res && res.ok) {
+        sectorData = await res.json();
+        window._cachedSectorAnalysis = sectorData;
+        renderMacroSummary();
+        renderActiveView();
+      }
+    } catch (err) {
+      console.error('[SectorAnalysisModule] Error loading data:', err);
+    }
+  }
+
+  function bindEvents() {
+    const btnGrid = document.getElementById('btn-sector-view-grid');
+    const btnTable = document.getElementById('btn-sector-view-table');
+    const searchInput = document.getElementById('sector-search-input');
+    const quadrantSelect = document.getElementById('sector-quadrant-filter');
+    const sortSelect = document.getElementById('sector-sort-by');
+    const refreshBtn = document.getElementById('sector-refresh-btn');
+
+    if (btnGrid) {
+      btnGrid.addEventListener('click', () => {
+        activeView = 'grid';
+        btnGrid.classList.add('active');
+        btnGrid.setAttribute('aria-pressed', 'true');
+        if (btnTable) {
+          btnTable.classList.remove('active');
+          btnTable.setAttribute('aria-pressed', 'false');
+        }
+        document.getElementById('sector-heatmap-view')?.classList.remove('hidden');
+        document.getElementById('sector-table-view')?.classList.add('hidden');
+        renderActiveView();
+      });
+    }
+
+    if (btnTable) {
+      btnTable.addEventListener('click', () => {
+        activeView = 'table';
+        btnTable.classList.add('active');
+        btnTable.setAttribute('aria-pressed', 'true');
+        if (btnGrid) {
+          btnGrid.classList.remove('active');
+          btnGrid.setAttribute('aria-pressed', 'false');
+        }
+        document.getElementById('sector-table-view')?.classList.remove('hidden');
+        document.getElementById('sector-heatmap-view')?.classList.add('hidden');
+        renderActiveView();
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = (e.target.value || '').trim().toLowerCase();
+        renderActiveView();
+      });
+    }
+
+    if (quadrantSelect) {
+      quadrantSelect.addEventListener('change', (e) => {
+        quadrantFilter = e.target.value;
+        renderActiveView();
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        sortBy = e.target.value;
+        renderActiveView();
+      });
+    }
+
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', async () => {
+        refreshBtn.innerHTML = '<span>↻</span> Refreshing...';
+        await loadData();
+        refreshBtn.innerHTML = '<span>↻</span> Refresh';
+      });
+    }
+  }
+
+  function renderMacroSummary() {
+    if (!sectorData || !sectorData.macro_summary) return;
+    const m = sectorData.macro_summary;
+
+    const eodBadge = document.getElementById('sector-eod-badge');
+    if (eodBadge && sectorData.scan_date) {
+      eodBadge.textContent = `● EOD SYNC: ${sectorData.scan_date}`;
+    }
+
+    if (m.benchmark) {
+      const bVal = document.getElementById('sector-bench-val');
+      const bChg = document.getElementById('sector-bench-change');
+      const b1d = document.getElementById('macro-bench-1d');
+      const b5d = document.getElementById('macro-bench-5d');
+      const b20d = document.getElementById('macro-bench-20d');
+      const bCmp = document.getElementById('macro-bench-cmp-sub');
+
+      if (bVal) bVal.textContent = m.benchmark.cmp ? Number(m.benchmark.cmp).toLocaleString('en-IN', { minimumFractionDigits: 2 }) : '--';
+      if (bChg) {
+        const ret1d = m.benchmark.return_1d || 0;
+        bChg.textContent = `${ret1d >= 0 ? '+' : ''}${ret1d}%`;
+        bChg.className = ret1d >= 0 ? 'text-bullish' : 'text-bearish';
+      }
+      if (b1d) {
+        const ret1d = m.benchmark.return_1d || 0;
+        b1d.textContent = `${ret1d >= 0 ? '+' : ''}${ret1d}%`;
+        b1d.className = `macro-value ${ret1d >= 0 ? 'text-bullish' : 'text-bearish'}`;
+      }
+      if (b5d) {
+        const ret5d = m.benchmark.return_5d || 0;
+        b5d.textContent = `${ret5d >= 0 ? '+' : ''}${ret5d}%`;
+        b5d.className = `macro-value ${ret5d >= 0 ? 'text-bullish' : 'text-bearish'}`;
+      }
+      if (b20d) {
+        const ret20d = m.benchmark.return_20d || 0;
+        b20d.textContent = `${ret20d >= 0 ? '+' : ''}${ret20d}%`;
+        b20d.className = `macro-value ${ret20d >= 0 ? 'text-bullish' : 'text-bearish'}`;
+      }
+      if (bCmp) {
+        bCmp.textContent = m.benchmark.cmp ? `₹${Number(m.benchmark.cmp).toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '--';
+      }
+    }
+
+    const leadEl = document.getElementById('macro-leading-count');
+    const impEl = document.getElementById('macro-improving-count');
+    const lagEl = document.getElementById('macro-lagging-count');
+    const strongEl = document.getElementById('macro-strongest-sec');
+
+    if (leadEl) leadEl.textContent = m.leading_sectors_count ?? 0;
+    if (impEl) impEl.textContent = m.improving_sectors_count ?? 0;
+    if (lagEl) lagEl.textContent = (m.lagging_sectors_count || 0) + (m.weakening_sectors_count || 0);
+    if (strongEl) strongEl.textContent = `${m.strongest_sector || 'N/A'}`;
+
+    if (m.market_breadth) {
+      const advEl = document.getElementById('macro-adv-count');
+      const decEl = document.getElementById('macro-dec-count');
+      const adEl = document.getElementById('macro-ad-ratio');
+      const brPctEl = document.getElementById('macro-breadth-pct');
+
+      if (advEl) advEl.textContent = m.market_breadth.advances ?? 0;
+      if (decEl) decEl.textContent = m.market_breadth.declines ?? 0;
+      if (adEl) adEl.textContent = `${m.market_breadth.ad_ratio || 0}:1`;
+      if (brPctEl) brPctEl.textContent = `${m.market_breadth.pct_above_20_ema || 0}% > 20 EMA | ${m.market_breadth.pct_above_50_ema || 0}% > 50 EMA`;
+    }
+
+    const inEl = document.getElementById('macro-top-inflows');
+    const outEl = document.getElementById('macro-top-outflows');
+    if (inEl && m.top_inflows) inEl.textContent = m.top_inflows.join(', ');
+    if (outEl && m.top_outflows) outEl.textContent = m.top_outflows.join(', ');
+  }
+
+  function getFilteredSectors() {
+    if (!sectorData || !sectorData.sectors) return [];
+    let list = [...sectorData.sectors];
+
+    // 1. Quadrant filter
+    if (quadrantFilter !== 'ALL') {
+      list = list.filter(s => s.quadrant === quadrantFilter || s.grade === quadrantFilter);
+    }
+
+    // 2. Search query filter
+    if (searchQuery) {
+      list = list.filter(s => {
+        const secMatch = s.sector.toLowerCase().includes(searchQuery) || s.display_name.toLowerCase().includes(searchQuery);
+        const leaderMatch = (s.leaders || []).some(l => l.symbol.toLowerCase().includes(searchQuery) || l.name.toLowerCase().includes(searchQuery));
+        return secMatch || leaderMatch;
+      });
+    }
+
+    // 3. Sorting
+    list.sort((a, b) => {
+      if (sortBy === 'return_1d') return b.metrics.return_1d - a.metrics.return_1d;
+      if (sortBy === 'return_5d') return b.metrics.return_5d - a.metrics.return_5d;
+      if (sortBy === 'rs_20d') return b.metrics.rs_20d - a.metrics.rs_20d;
+      if (sortBy === 'delivery_spike_pct') return b.metrics.delivery_spike_pct - a.metrics.delivery_spike_pct;
+      if (sortBy === 'pct_above_20_ema') return b.metrics.pct_above_20_ema - a.metrics.pct_above_20_ema;
+      if (sortBy === 'delivery_turnover_cr') return b.metrics.delivery_turnover_cr - a.metrics.delivery_turnover_cr;
+      return a.rank - b.rank; // default rank
+    });
+
+    return list;
+  }
+
+  function renderActiveView() {
+    if (activeView === 'grid') {
+      renderHeatmapGrid();
+    } else {
+      renderTable();
+    }
+  }
+
+  function getStatusClass(status) {
+    const st = (status || '').toUpperCase();
+    if (st.includes('LEAD')) return 'pill-leader';
+    if (st.includes('IMP')) return 'pill-improving';
+    if (st.includes('NEUT')) return 'pill-neutral';
+    if (st.includes('WEAK')) return 'pill-weakening';
+    return 'pill-lagging';
+  }
+
+  function renderHeatmapGrid() {
+    const grid = document.getElementById('sector-heatmap-grid');
+    if (!grid) return;
+
+    const list = getFilteredSectors();
+    if (!list.length) {
+      grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:rgba(255,255,255,0.4);">No sectors match the active filter criteria.</div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(s => {
+      const qClass = `quadrant-${(s.quadrant || 'neutral').toLowerCase()}`;
+      const statusPillClass = getStatusClass(s.status);
+      const m = s.metrics;
+      const p = s.pillar_scores;
+
+      const ret1dFmt = `${m.return_1d >= 0 ? '+' : ''}${m.return_1d}%`;
+      const ret1dClass = m.return_1d >= 0 ? 'text-bullish' : 'text-bearish';
+      const rs5dFmt = `${m.rs_5d >= 0 ? '+' : ''}${m.rs_5d}%`;
+      const rs5dClass = m.rs_5d >= 0 ? 'text-bullish' : 'text-bearish';
+      const rs20dFmt = `${m.rs_20d >= 0 ? '+' : ''}${m.rs_20d}%`;
+      const rs20dClass = m.rs_20d >= 0 ? 'text-bullish' : 'text-bearish';
+      const spikeFmt = `${m.delivery_spike_pct >= 0 ? '+' : ''}${m.delivery_spike_pct}%`;
+      const spikeClass = m.delivery_spike_pct >= 0 ? 'text-bullish' : 'text-bearish';
+
+      const rsWidth = Math.min(100, Math.round((p.rs_score / 35) * 100));
+      const brWidth = Math.min(100, Math.round((p.breadth_score / 35) * 100));
+      const flWidth = Math.min(100, Math.round((p.flow_score / 30) * 100));
+
+      const leadersHtml = (s.leaders || []).slice(0, 3).map(l => `
+        <span class="leader-pill" title="${l.name} | CMP: ₹${l.close} | Deliv: ${l.delivery_pct}%">
+          <strong>${l.symbol}</strong>
+          <span class="pill-chg ${l.change_pct >= 0 ? 'text-bullish' : 'text-bearish'}">
+            ${l.change_pct >= 0 ? '+' : ''}${l.change_pct}%
+          </span>
+        </span>
+      `).join('');
+
+      return `
+        <div class="sector-tile-card ${qClass}">
+          <div class="sector-tile-top">
+            <div class="sector-tile-meta">
+              <span class="sector-tile-rank">RANK #${s.rank}</span>
+              <span class="sector-tile-name">${s.display_name}</span>
+            </div>
+            <div class="sector-tile-badge-group">
+              <span class="sector-status-pill ${statusPillClass}">${s.status}</span>
+            </div>
+          </div>
+
+          <!-- 3-Pillar Score Bar -->
+          <div class="sector-score-bar-wrap">
+            <div>
+              <div class="sector-score-num">${s.total_score}</div>
+              <div class="sector-score-max">/ 100 PTS</div>
+            </div>
+            <div class="pillar-bars-stack">
+              <div class="pillar-bar-item" title="Institutional RS Score: ${p.rs_score} / 35">
+                <span>RS (35)</span>
+                <div class="pillar-progress-track">
+                  <div class="pillar-progress-fill fill-rs" style="width: ${rsWidth}%;"></div>
+                </div>
+                <span>${p.rs_score}</span>
+              </div>
+              <div class="pillar-bar-item" title="Structural Breadth Score: ${p.breadth_score} / 35">
+                <span>BR (35)</span>
+                <div class="pillar-progress-track">
+                  <div class="pillar-progress-fill fill-breadth" style="width: ${brWidth}%;"></div>
+                </div>
+                <span>${p.breadth_score}</span>
+              </div>
+              <div class="pillar-bar-item" title="Whale Flow Score: ${p.flow_score} / 30">
+                <span>FL (30)</span>
+                <div class="pillar-progress-track">
+                  <div class="pillar-progress-fill fill-flow" style="width: ${flWidth}%;"></div>
+                </div>
+                <span>${p.flow_score}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Metrics Grid -->
+          <div class="sector-stats-grid">
+            <div class="sector-stat-cell">
+              <span class="stat-lbl">1D Perf</span>
+              <span class="stat-val ${ret1dClass}">${ret1dFmt}</span>
+            </div>
+            <div class="sector-stat-cell">
+              <span class="stat-lbl">5D RS</span>
+              <span class="stat-val ${rs5dClass}">${rs5dFmt}</span>
+            </div>
+            <div class="sector-stat-cell">
+              <span class="stat-lbl">20D RS</span>
+              <span class="stat-val ${rs20dClass}">${rs20dFmt}</span>
+            </div>
+            <div class="sector-stat-cell">
+              <span class="stat-lbl">> 20 EMA</span>
+              <span class="stat-val">${m.pct_above_20_ema}%</span>
+            </div>
+            <div class="sector-stat-cell">
+              <span class="stat-lbl">Deliv ₹ Cr</span>
+              <span class="stat-val">₹${m.delivery_turnover_cr}</span>
+            </div>
+            <div class="sector-stat-cell">
+              <span class="stat-lbl">Whale Spike</span>
+              <span class="stat-val ${spikeClass}">${spikeFmt}</span>
+            </div>
+          </div>
+
+          <!-- Top Leaders -->
+          <div class="sector-tile-leaders">
+            <div class="tile-leaders-title">
+              <span>Top Constituent Leaders</span>
+              <span style="opacity:0.6;">${m.stocks_count} Stocks</span>
+            </div>
+            <div class="tile-leaders-pills">
+              ${leadersHtml}
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="sector-tile-actions">
+            <button class="btn-filter-adv" type="button" onclick="window.filterInAdvScanner('${s.sector}')">
+              <span>🔬</span> Filter in Adv Scanner
+            </button>
+            <button class="btn-filter-adv" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.15); color:#ffffff;" type="button" onclick="SectorAnalysisModule.openTableWithSector('${s.sector}')">
+              <span>📋</span> Details
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById('sector-table-body');
+    if (!tbody) return;
+
+    const list = getFilteredSectors();
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; padding:30px; color:rgba(255,255,255,0.4);">No sectors match active filters.</td></tr>';
+      return;
+    }
+
+    let rowsHtml = '';
+    list.forEach(s => {
+      const isExpanded = expandedSector === s.sector;
+      const statusPillClass = getStatusClass(s.status);
+      const m = s.metrics;
+
+      const ret1dFmt = `${m.return_1d >= 0 ? '+' : ''}${m.return_1d}%`;
+      const ret1dClass = m.return_1d >= 0 ? 'text-bullish' : 'text-bearish';
+      const rs5dFmt = `${m.rs_5d >= 0 ? '+' : ''}${m.rs_5d}%`;
+      const rs5dClass = m.rs_5d >= 0 ? 'text-bullish' : 'text-bearish';
+      const rs20dFmt = `${m.rs_20d >= 0 ? '+' : ''}${m.rs_20d}%`;
+      const rs20dClass = m.rs_20d >= 0 ? 'text-bullish' : 'text-bearish';
+      const spikeFmt = `${m.delivery_spike_pct >= 0 ? '+' : ''}${m.delivery_spike_pct}%`;
+      const spikeClass = m.delivery_spike_pct >= 0 ? 'text-bullish' : 'text-bearish';
+
+      const topLeaderSyms = (s.leaders || []).slice(0, 3).map(l => l.symbol).join(', ');
+
+      rowsHtml += `
+        <tr class="sector-row ${isExpanded ? 'expanded' : ''}" onclick="SectorAnalysisModule.toggleAccordion('${s.sector}')">
+          <td style="font-weight:800; font-family:var(--font-mono, monospace); color:rgba(255,255,255,0.6);">#${s.rank}</td>
+          <td>
+            <div style="font-weight:700; color:#ffffff;">${s.display_name}</div>
+            <div style="font-size:10px; color:rgba(255,255,255,0.4);">${s.metrics.stocks_count} stocks (${m.advances} Adv / ${m.declines} Dec)</div>
+          </td>
+          <td>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:14px; font-weight:800; font-family:var(--font-mono, monospace);">${s.total_score}</span>
+              <span class="sector-status-pill ${statusPillClass}" style="padding:2px 6px; font-size:9px;">${s.status}</span>
+            </div>
+          </td>
+          <td class="${ret1dClass}" style="font-weight:700; font-family:var(--font-mono, monospace);">${ret1dFmt}</td>
+          <td class="${rs5dClass}" style="font-weight:700; font-family:var(--font-mono, monospace);">${rs5dFmt}</td>
+          <td class="${rs20dClass}" style="font-weight:700; font-family:var(--font-mono, monospace);">${rs20dFmt}</td>
+          <td style="font-family:var(--font-mono, monospace); font-size:11px;">
+            <span>${m.pct_above_20_ema}% > 20E</span> | <span style="opacity:0.7;">${m.pct_above_50_ema}% > 50E</span>
+          </td>
+          <td style="font-family:var(--font-mono, monospace); font-weight:600;">₹${m.delivery_turnover_cr} Cr</td>
+          <td class="${spikeClass}" style="font-weight:700; font-family:var(--font-mono, monospace);">${spikeFmt}</td>
+          <td>
+            <span style="font-size:11px; font-weight:700; color:${m.flow_bias === 'ACCUMULATION' ? '#00e676' : m.flow_bias === 'DISTRIBUTION' ? '#ff3d71' : '#ffb300'};">
+              ${m.flow_bias_display}
+            </span>
+          </td>
+          <td style="font-family:var(--font-mono, monospace); font-size:11px; color:#ffffff;">
+            ${topLeaderSyms || '--'}
+          </td>
+          <td style="white-space:nowrap;" onclick="event.stopPropagation();">
+            <button class="btn-filter-adv" style="padding:4px 8px; font-size:10px; margin-right:4px;" type="button" onclick="window.filterInAdvScanner('${s.sector}')">
+              🔬 Filter
+            </button>
+            <button class="btn-filter-adv" style="padding:4px 8px; font-size:10px; background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#ffffff;" type="button" onclick="SectorAnalysisModule.toggleAccordion('${s.sector}')">
+              ${isExpanded ? '▲ Close' : '▼ Drill'}
+            </button>
+          </td>
+        </tr>
+      `;
+
+      if (isExpanded) {
+        const leadersCards = (s.leaders || []).map(l => {
+          const lChg = `${l.change_pct >= 0 ? '+' : ''}${l.change_pct}%`;
+          const lSpike = `${l.delivery_spike_pct >= 0 ? '+' : ''}${l.delivery_spike_pct}%`;
+          const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${l.symbol}`;
+          return `
+            <div class="drilldown-stock-card">
+              <div class="drilldown-stock-top">
+                <span class="drilldown-stock-sym">${l.symbol}</span>
+                <span class="drilldown-stock-price ${l.change_pct >= 0 ? 'text-bullish' : 'text-bearish'}">
+                  ₹${l.close} (${lChg})
+                </span>
+              </div>
+              <div style="font-size:10px; color:rgba(255,255,255,0.5); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                ${l.name}
+              </div>
+              <div class="drilldown-stock-details">
+                <span>Deliv: ${l.delivery_pct}% (₹${l.delivery_turnover_cr} Cr)</span>
+                <span class="${l.delivery_spike_pct >= 0 ? 'text-bullish' : 'text-bearish'}">Spike: ${lSpike}</span>
+              </div>
+              <div class="drilldown-stock-details">
+                <span>20D RS: ${l.rs_20d >= 0 ? '+' : ''}${l.rs_20d}%</span>
+                <span>${l.above_20_ema ? '🟢 > 20 EMA' : '🔴 < 20 EMA'}</span>
+              </div>
+              <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="drilldown-stock-tv">
+                <span>View Chart on TradingView ↗</span>
+              </a>
+            </div>
+          `;
+        }).join('');
+
+        rowsHtml += `
+          <tr class="sector-drilldown-row">
+            <td colspan="12">
+              <div class="sector-drilldown-content">
+                <div class="drilldown-header">
+                  <div class="drilldown-title">
+                    <span>🏛️ ${s.display_name} — Institutional Constituent Drill-Down</span>
+                    <span style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.6);">(${s.metrics.stocks_count} Total Stocks | A/D Ratio: ${m.ad_ratio}:1)</span>
+                  </div>
+                  <button class="btn-filter-adv" style="padding:6px 12px; font-size:11px;" type="button" onclick="window.filterInAdvScanner('${s.sector}')">
+                    <span>🔬</span> Open All ${s.display_name} Stocks in Advanced Scanner ↗
+                  </button>
+                </div>
+                <div class="drilldown-stocks-grid">
+                  ${leadersCards}
+                </div>
+              </div>
+            </td>
+          </tr>
+        `;
+      }
+    });
+
+    tbody.innerHTML = rowsHtml;
+  }
+
+  function toggleAccordion(sectorName) {
+    if (expandedSector === sectorName) {
+      expandedSector = null;
+    } else {
+      expandedSector = sectorName;
+    }
+    renderTable();
+  }
+
+  function openTableWithSector(sectorName) {
+    activeView = 'table';
+    expandedSector = sectorName;
+    const btnTable = document.getElementById('btn-sector-view-table');
+    const btnGrid = document.getElementById('btn-sector-view-grid');
+    if (btnTable) {
+      btnTable.classList.add('active');
+      btnTable.setAttribute('aria-pressed', 'true');
+    }
+    if (btnGrid) {
+      btnGrid.classList.remove('active');
+      btnGrid.setAttribute('aria-pressed', 'false');
+    }
+    document.getElementById('sector-table-view')?.classList.remove('hidden');
+    document.getElementById('sector-heatmap-view')?.classList.add('hidden');
+    renderTable();
+
+    const tableEl = document.getElementById('sector-table-view');
+    if (tableEl) {
+      tableEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  return {
+    init,
+    loadData,
+    toggleAccordion,
+    openTableWithSector
+  };
+})();
+
+// Cross-Tab Synergy Link to filter Advanced Scanner by sector
+window.filterInAdvScanner = function(sectorName) {
+  if (typeof window.switchAppView === 'function') {
+    window.switchAppView('adv');
+  }
+  const sectorSelect = document.getElementById('adv-rs-sector');
+  if (sectorSelect && sectorName) {
+    let matched = 'ALL';
+    for (let i = 0; i < sectorSelect.options.length; i++) {
+      const val = sectorSelect.options[i].value;
+      if (
+        val.toLowerCase() === sectorName.toLowerCase() ||
+        val.toLowerCase().includes(sectorName.toLowerCase()) ||
+        sectorName.toLowerCase().includes(val.toLowerCase())
+      ) {
+        matched = val;
+        break;
+      }
+    }
+    sectorSelect.value = matched;
+    if (typeof advState !== 'undefined') {
+      advState.sectorFilter = matched;
+      advState.currentPage = 1;
+    }
+  }
+  if (typeof renderAdvTable === 'function') {
+    renderAdvTable();
+  }
+  const targetTable = document.getElementById('adv-rs-table-container') || document.getElementById('adv-rs-table');
+  if (targetTable) {
+    targetTable.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
   function initAdvScannerNavigation() {
     function switchView(target) {
       const dView = document.getElementById('view-dashboard') || document.getElementById('dashboard-view');
+      const dCont = document.getElementById('dashboard-container');
+      const mCont = document.getElementById('main-scanner-container');
       const aView = document.getElementById('view-advanced-scanner') || document.getElementById('adv-scanner-view');
-      const sView = document.getElementById('view-sector-analysis') || document.getElementById('sector-analysis-container');
+      const sView = document.getElementById('view-sector-analysis');
+      const sCont = document.getElementById('sector-analysis-container');
       const dBtn = document.getElementById('nav-dashboard');
       const aBtn = document.getElementById('nav-adv-scanner');
       const sBtn = document.getElementById('nav-sector-analysis');
 
       if (target === 'sec') {
-        if (dView) {
-          dView.classList.add('hidden');
-          dView.style.setProperty('display', 'none', 'important');
-        }
-        if (sView) {
-          sView.classList.add('hidden');
-          sView.style.setProperty('display', 'none', 'important');
-        }
-        if (aView) {
-          aView.classList.add('hidden');
-          aView.style.setProperty('display', 'none', 'important');
-        }
+        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
+        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
+        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
+        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
         if (sView) {
           sView.classList.remove('hidden');
           sView.style.setProperty('display', 'block', 'important');
           sView.style.minHeight = '500px';
+        }
+        if (sCont) {
+          sCont.classList.remove('hidden');
+          sCont.style.setProperty('display', 'flex', 'important');
         }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (sBtn) sBtn.classList.add('active');
@@ -4367,10 +4930,11 @@
       }
 
       if (target === 'adv') {
-        if (dView) {
-          dView.classList.add('hidden');
-          dView.style.setProperty('display', 'none', 'important');
-        }
+        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
+        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
+        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
+        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
+        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
         if (aView) {
           aView.classList.remove('hidden');
           aView.style.setProperty('display', 'block', 'important');
@@ -4400,21 +4964,24 @@
         loadAdvConfluenceData(); // Preload Slot 5 counts
         loadAdvWyckoffData(); // Preload Slot 6 counts
       } else {
-        if (aView) {
-          aView.classList.add('hidden');
-          aView.style.setProperty('display', 'none', 'important');
-        }
-        if (sView) {
-          sView.classList.add('hidden');
-          sView.style.setProperty('display', 'none', 'important');
-        }
+        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
+        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
+        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
         if (dView) {
           dView.classList.remove('hidden');
           dView.style.setProperty('display', 'block', 'important');
         }
+        if (dCont) {
+          dCont.classList.remove('hidden');
+          dCont.style.setProperty('display', 'flex', 'important');
+        }
+        if (mCont) {
+          mCont.classList.remove('hidden');
+          mCont.style.setProperty('display', 'block', 'important');
+        }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (dBtn) dBtn.classList.add('active');
-        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner') {
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis') {
           window.location.hash = '#dashboard';
         }
       }
@@ -8618,567 +9185,3 @@
     init();
   }
 })();
-
-/* ===================================================================================
-   PHASE 2: SECTOR ANALYSIS MODULE (STANDALONE & FULLY DECOUPLED)
-   =================================================================================== */
-window.SectorAnalysisModule = (function() {
-  let sectorData = null;
-  let activeView = 'grid'; // 'grid' | 'table'
-  let quadrantFilter = 'ALL';
-  let sortBy = 'rank';
-  let searchQuery = '';
-  let expandedSector = null;
-  let isInitialized = false;
-
-  async function init() {
-    if (!isInitialized) {
-      bindEvents();
-      isInitialized = true;
-    }
-    await loadData();
-  }
-
-  async function loadData() {
-    try {
-      if (window._cachedSectorAnalysis) {
-        sectorData = window._cachedSectorAnalysis;
-        renderMacroSummary();
-        renderActiveView();
-      }
-
-      const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-      let res = await fetch(`${basePath}data/sector_analysis.json?v=${Date.now()}`).catch(() => null);
-      if (!res || !res.ok) res = await fetch(`data/sector_analysis.json?v=${Date.now()}`).catch(() => null);
-      if (!res || !res.ok) res = await fetch('data/sector_analysis.json').catch(() => null);
-
-      if (res && res.ok) {
-        sectorData = await res.json();
-        window._cachedSectorAnalysis = sectorData;
-        renderMacroSummary();
-        renderActiveView();
-      }
-    } catch (err) {
-      console.error('[SectorAnalysisModule] Error loading data:', err);
-    }
-  }
-
-  function bindEvents() {
-    const btnGrid = document.getElementById('btn-sector-view-grid');
-    const btnTable = document.getElementById('btn-sector-view-table');
-    const searchInput = document.getElementById('sector-search-input');
-    const quadrantSelect = document.getElementById('sector-quadrant-filter');
-    const sortSelect = document.getElementById('sector-sort-by');
-    const refreshBtn = document.getElementById('sector-refresh-btn');
-
-    if (btnGrid) {
-      btnGrid.addEventListener('click', () => {
-        activeView = 'grid';
-        btnGrid.classList.add('active');
-        btnGrid.setAttribute('aria-pressed', 'true');
-        if (btnTable) {
-          btnTable.classList.remove('active');
-          btnTable.setAttribute('aria-pressed', 'false');
-        }
-        document.getElementById('sector-heatmap-view')?.classList.remove('hidden');
-        document.getElementById('sector-table-view')?.classList.add('hidden');
-        renderActiveView();
-      });
-    }
-
-    if (btnTable) {
-      btnTable.addEventListener('click', () => {
-        activeView = 'table';
-        btnTable.classList.add('active');
-        btnTable.setAttribute('aria-pressed', 'true');
-        if (btnGrid) {
-          btnGrid.classList.remove('active');
-          btnGrid.setAttribute('aria-pressed', 'false');
-        }
-        document.getElementById('sector-table-view')?.classList.remove('hidden');
-        document.getElementById('sector-heatmap-view')?.classList.add('hidden');
-        renderActiveView();
-      });
-    }
-
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        searchQuery = (e.target.value || '').trim().toLowerCase();
-        renderActiveView();
-      });
-    }
-
-    if (quadrantSelect) {
-      quadrantSelect.addEventListener('change', (e) => {
-        quadrantFilter = e.target.value;
-        renderActiveView();
-      });
-    }
-
-    if (sortSelect) {
-      sortSelect.addEventListener('change', (e) => {
-        sortBy = e.target.value;
-        renderActiveView();
-      });
-    }
-
-    if (refreshBtn) {
-      refreshBtn.addEventListener('click', async () => {
-        refreshBtn.innerHTML = '<span>↻</span> Refreshing...';
-        await loadData();
-        refreshBtn.innerHTML = '<span>↻</span> Refresh';
-      });
-    }
-  }
-
-  function renderMacroSummary() {
-    if (!sectorData || !sectorData.macro_summary) return;
-    const m = sectorData.macro_summary;
-
-    const eodBadge = document.getElementById('sector-eod-badge');
-    if (eodBadge && sectorData.scan_date) {
-      eodBadge.textContent = `● EOD SYNC: ${sectorData.scan_date}`;
-    }
-
-    if (m.benchmark) {
-      const bVal = document.getElementById('sector-bench-val');
-      const bChg = document.getElementById('sector-bench-change');
-      const b1d = document.getElementById('macro-bench-1d');
-      const b5d = document.getElementById('macro-bench-5d');
-      const b20d = document.getElementById('macro-bench-20d');
-      const bCmp = document.getElementById('macro-bench-cmp-sub');
-
-      if (bVal) bVal.textContent = m.benchmark.cmp ? Number(m.benchmark.cmp).toLocaleString('en-IN', { minimumFractionDigits: 2 }) : '--';
-      if (bChg) {
-        const ret1d = m.benchmark.return_1d || 0;
-        bChg.textContent = `${ret1d >= 0 ? '+' : ''}${ret1d}%`;
-        bChg.className = ret1d >= 0 ? 'text-bullish' : 'text-bearish';
-      }
-      if (b1d) {
-        const ret1d = m.benchmark.return_1d || 0;
-        b1d.textContent = `${ret1d >= 0 ? '+' : ''}${ret1d}%`;
-        b1d.className = `macro-value ${ret1d >= 0 ? 'text-bullish' : 'text-bearish'}`;
-      }
-      if (b5d) {
-        const ret5d = m.benchmark.return_5d || 0;
-        b5d.textContent = `${ret5d >= 0 ? '+' : ''}${ret5d}%`;
-        b5d.className = `macro-value ${ret5d >= 0 ? 'text-bullish' : 'text-bearish'}`;
-      }
-      if (b20d) {
-        const ret20d = m.benchmark.return_20d || 0;
-        b20d.textContent = `${ret20d >= 0 ? '+' : ''}${ret20d}%`;
-        b20d.className = `macro-value ${ret20d >= 0 ? 'text-bullish' : 'text-bearish'}`;
-      }
-      if (bCmp) {
-        bCmp.textContent = m.benchmark.cmp ? `₹${Number(m.benchmark.cmp).toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : '--';
-      }
-    }
-
-    const leadEl = document.getElementById('macro-leading-count');
-    const impEl = document.getElementById('macro-improving-count');
-    const lagEl = document.getElementById('macro-lagging-count');
-    const strongEl = document.getElementById('macro-strongest-sec');
-
-    if (leadEl) leadEl.textContent = m.leading_sectors_count ?? 0;
-    if (impEl) impEl.textContent = m.improving_sectors_count ?? 0;
-    if (lagEl) lagEl.textContent = (m.lagging_sectors_count || 0) + (m.weakening_sectors_count || 0);
-    if (strongEl) strongEl.textContent = `${m.strongest_sector || 'N/A'}`;
-
-    if (m.market_breadth) {
-      const advEl = document.getElementById('macro-adv-count');
-      const decEl = document.getElementById('macro-dec-count');
-      const adEl = document.getElementById('macro-ad-ratio');
-      const brPctEl = document.getElementById('macro-breadth-pct');
-
-      if (advEl) advEl.textContent = m.market_breadth.advances ?? 0;
-      if (decEl) decEl.textContent = m.market_breadth.declines ?? 0;
-      if (adEl) adEl.textContent = `${m.market_breadth.ad_ratio || 0}:1`;
-      if (brPctEl) brPctEl.textContent = `${m.market_breadth.pct_above_20_ema || 0}% > 20 EMA | ${m.market_breadth.pct_above_50_ema || 0}% > 50 EMA`;
-    }
-
-    const inEl = document.getElementById('macro-top-inflows');
-    const outEl = document.getElementById('macro-top-outflows');
-    if (inEl && m.top_inflows) inEl.textContent = m.top_inflows.join(', ');
-    if (outEl && m.top_outflows) outEl.textContent = m.top_outflows.join(', ');
-  }
-
-  function getFilteredSectors() {
-    if (!sectorData || !sectorData.sectors) return [];
-    let list = [...sectorData.sectors];
-
-    // 1. Quadrant filter
-    if (quadrantFilter !== 'ALL') {
-      list = list.filter(s => s.quadrant === quadrantFilter || s.grade === quadrantFilter);
-    }
-
-    // 2. Search query filter
-    if (searchQuery) {
-      list = list.filter(s => {
-        const secMatch = s.sector.toLowerCase().includes(searchQuery) || s.display_name.toLowerCase().includes(searchQuery);
-        const leaderMatch = (s.leaders || []).some(l => l.symbol.toLowerCase().includes(searchQuery) || l.name.toLowerCase().includes(searchQuery));
-        return secMatch || leaderMatch;
-      });
-    }
-
-    // 3. Sorting
-    list.sort((a, b) => {
-      if (sortBy === 'return_1d') return b.metrics.return_1d - a.metrics.return_1d;
-      if (sortBy === 'return_5d') return b.metrics.return_5d - a.metrics.return_5d;
-      if (sortBy === 'rs_20d') return b.metrics.rs_20d - a.metrics.rs_20d;
-      if (sortBy === 'delivery_spike_pct') return b.metrics.delivery_spike_pct - a.metrics.delivery_spike_pct;
-      if (sortBy === 'pct_above_20_ema') return b.metrics.pct_above_20_ema - a.metrics.pct_above_20_ema;
-      if (sortBy === 'delivery_turnover_cr') return b.metrics.delivery_turnover_cr - a.metrics.delivery_turnover_cr;
-      return a.rank - b.rank; // default rank
-    });
-
-    return list;
-  }
-
-  function renderActiveView() {
-    if (activeView === 'grid') {
-      renderHeatmapGrid();
-    } else {
-      renderTable();
-    }
-  }
-
-  function getStatusClass(status) {
-    const st = (status || '').toUpperCase();
-    if (st.includes('LEAD')) return 'pill-leader';
-    if (st.includes('IMP')) return 'pill-improving';
-    if (st.includes('NEUT')) return 'pill-neutral';
-    if (st.includes('WEAK')) return 'pill-weakening';
-    return 'pill-lagging';
-  }
-
-  function renderHeatmapGrid() {
-    const grid = document.getElementById('sector-heatmap-grid');
-    if (!grid) return;
-
-    const list = getFilteredSectors();
-    if (!list.length) {
-      grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:rgba(255,255,255,0.4);">No sectors match the active filter criteria.</div>';
-      return;
-    }
-
-    grid.innerHTML = list.map(s => {
-      const qClass = `quadrant-${(s.quadrant || 'neutral').toLowerCase()}`;
-      const statusPillClass = getStatusClass(s.status);
-      const m = s.metrics;
-      const p = s.pillar_scores;
-
-      const ret1dFmt = `${m.return_1d >= 0 ? '+' : ''}${m.return_1d}%`;
-      const ret1dClass = m.return_1d >= 0 ? 'text-bullish' : 'text-bearish';
-      const rs5dFmt = `${m.rs_5d >= 0 ? '+' : ''}${m.rs_5d}%`;
-      const rs5dClass = m.rs_5d >= 0 ? 'text-bullish' : 'text-bearish';
-      const rs20dFmt = `${m.rs_20d >= 0 ? '+' : ''}${m.rs_20d}%`;
-      const rs20dClass = m.rs_20d >= 0 ? 'text-bullish' : 'text-bearish';
-      const spikeFmt = `${m.delivery_spike_pct >= 0 ? '+' : ''}${m.delivery_spike_pct}%`;
-      const spikeClass = m.delivery_spike_pct >= 0 ? 'text-bullish' : 'text-bearish';
-
-      const rsWidth = Math.min(100, Math.round((p.rs_score / 35) * 100));
-      const brWidth = Math.min(100, Math.round((p.breadth_score / 35) * 100));
-      const flWidth = Math.min(100, Math.round((p.flow_score / 30) * 100));
-
-      const leadersHtml = (s.leaders || []).slice(0, 3).map(l => `
-        <span class="leader-pill" title="${l.name} | CMP: ₹${l.close} | Deliv: ${l.delivery_pct}%">
-          <strong>${l.symbol}</strong>
-          <span class="pill-chg ${l.change_pct >= 0 ? 'text-bullish' : 'text-bearish'}">
-            ${l.change_pct >= 0 ? '+' : ''}${l.change_pct}%
-          </span>
-        </span>
-      `).join('');
-
-      return `
-        <div class="sector-tile-card ${qClass}">
-          <div class="sector-tile-top">
-            <div class="sector-tile-meta">
-              <span class="sector-tile-rank">RANK #${s.rank}</span>
-              <span class="sector-tile-name">${s.display_name}</span>
-            </div>
-            <div class="sector-tile-badge-group">
-              <span class="sector-status-pill ${statusPillClass}">${s.status}</span>
-            </div>
-          </div>
-
-          <!-- 3-Pillar Score Bar -->
-          <div class="sector-score-bar-wrap">
-            <div>
-              <div class="sector-score-num">${s.total_score}</div>
-              <div class="sector-score-max">/ 100 PTS</div>
-            </div>
-            <div class="pillar-bars-stack">
-              <div class="pillar-bar-item" title="Institutional RS Score: ${p.rs_score} / 35">
-                <span>RS (35)</span>
-                <div class="pillar-progress-track">
-                  <div class="pillar-progress-fill fill-rs" style="width: ${rsWidth}%;"></div>
-                </div>
-                <span>${p.rs_score}</span>
-              </div>
-              <div class="pillar-bar-item" title="Structural Breadth Score: ${p.breadth_score} / 35">
-                <span>BR (35)</span>
-                <div class="pillar-progress-track">
-                  <div class="pillar-progress-fill fill-breadth" style="width: ${brWidth}%;"></div>
-                </div>
-                <span>${p.breadth_score}</span>
-              </div>
-              <div class="pillar-bar-item" title="Whale Flow Score: ${p.flow_score} / 30">
-                <span>FL (30)</span>
-                <div class="pillar-progress-track">
-                  <div class="pillar-progress-fill fill-flow" style="width: ${flWidth}%;"></div>
-                </div>
-                <span>${p.flow_score}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Key Metrics Grid -->
-          <div class="sector-stats-grid">
-            <div class="sector-stat-cell">
-              <span class="stat-lbl">1D Perf</span>
-              <span class="stat-val ${ret1dClass}">${ret1dFmt}</span>
-            </div>
-            <div class="sector-stat-cell">
-              <span class="stat-lbl">5D RS</span>
-              <span class="stat-val ${rs5dClass}">${rs5dFmt}</span>
-            </div>
-            <div class="sector-stat-cell">
-              <span class="stat-lbl">20D RS</span>
-              <span class="stat-val ${rs20dClass}">${rs20dFmt}</span>
-            </div>
-            <div class="sector-stat-cell">
-              <span class="stat-lbl">> 20 EMA</span>
-              <span class="stat-val">${m.pct_above_20_ema}%</span>
-            </div>
-            <div class="sector-stat-cell">
-              <span class="stat-lbl">Deliv ₹ Cr</span>
-              <span class="stat-val">₹${m.delivery_turnover_cr}</span>
-            </div>
-            <div class="sector-stat-cell">
-              <span class="stat-lbl">Whale Spike</span>
-              <span class="stat-val ${spikeClass}">${spikeFmt}</span>
-            </div>
-          </div>
-
-          <!-- Top Leaders -->
-          <div class="sector-tile-leaders">
-            <div class="tile-leaders-title">
-              <span>Top Constituent Leaders</span>
-              <span style="opacity:0.6;">${m.stocks_count} Stocks</span>
-            </div>
-            <div class="tile-leaders-pills">
-              ${leadersHtml}
-            </div>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="sector-tile-actions">
-            <button class="btn-filter-adv" type="button" onclick="window.filterInAdvScanner('${s.sector}')">
-              <span>🔬</span> Filter in Adv Scanner
-            </button>
-            <button class="btn-filter-adv" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.15); color:#ffffff;" type="button" onclick="SectorAnalysisModule.openTableWithSector('${s.sector}')">
-              <span>📋</span> Details
-            </button>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  function renderTable() {
-    const tbody = document.getElementById('sector-table-body');
-    if (!tbody) return;
-
-    const list = getFilteredSectors();
-    if (!list.length) {
-      tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; padding:30px; color:rgba(255,255,255,0.4);">No sectors match active filters.</td></tr>';
-      return;
-    }
-
-    let rowsHtml = '';
-    list.forEach(s => {
-      const isExpanded = expandedSector === s.sector;
-      const statusPillClass = getStatusClass(s.status);
-      const m = s.metrics;
-
-      const ret1dFmt = `${m.return_1d >= 0 ? '+' : ''}${m.return_1d}%`;
-      const ret1dClass = m.return_1d >= 0 ? 'text-bullish' : 'text-bearish';
-      const rs5dFmt = `${m.rs_5d >= 0 ? '+' : ''}${m.rs_5d}%`;
-      const rs5dClass = m.rs_5d >= 0 ? 'text-bullish' : 'text-bearish';
-      const rs20dFmt = `${m.rs_20d >= 0 ? '+' : ''}${m.rs_20d}%`;
-      const rs20dClass = m.rs_20d >= 0 ? 'text-bullish' : 'text-bearish';
-      const spikeFmt = `${m.delivery_spike_pct >= 0 ? '+' : ''}${m.delivery_spike_pct}%`;
-      const spikeClass = m.delivery_spike_pct >= 0 ? 'text-bullish' : 'text-bearish';
-
-      const topLeaderSyms = (s.leaders || []).slice(0, 3).map(l => l.symbol).join(', ');
-
-      rowsHtml += `
-        <tr class="sector-row ${isExpanded ? 'expanded' : ''}" onclick="SectorAnalysisModule.toggleAccordion('${s.sector}')">
-          <td style="font-weight:800; font-family:var(--font-mono, monospace); color:rgba(255,255,255,0.6);">#${s.rank}</td>
-          <td>
-            <div style="font-weight:700; color:#ffffff;">${s.display_name}</div>
-            <div style="font-size:10px; color:rgba(255,255,255,0.4);">${s.metrics.stocks_count} stocks (${m.advances} Adv / ${m.declines} Dec)</div>
-          </td>
-          <td>
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span style="font-size:14px; font-weight:800; font-family:var(--font-mono, monospace);">${s.total_score}</span>
-              <span class="sector-status-pill ${statusPillClass}" style="padding:2px 6px; font-size:9px;">${s.status}</span>
-            </div>
-          </td>
-          <td class="${ret1dClass}" style="font-weight:700; font-family:var(--font-mono, monospace);">${ret1dFmt}</td>
-          <td class="${rs5dClass}" style="font-weight:700; font-family:var(--font-mono, monospace);">${rs5dFmt}</td>
-          <td class="${rs20dClass}" style="font-weight:700; font-family:var(--font-mono, monospace);">${rs20dFmt}</td>
-          <td style="font-family:var(--font-mono, monospace); font-size:11px;">
-            <span>${m.pct_above_20_ema}% > 20E</span> | <span style="opacity:0.7;">${m.pct_above_50_ema}% > 50E</span>
-          </td>
-          <td style="font-family:var(--font-mono, monospace); font-weight:600;">₹${m.delivery_turnover_cr} Cr</td>
-          <td class="${spikeClass}" style="font-weight:700; font-family:var(--font-mono, monospace);">${spikeFmt}</td>
-          <td>
-            <span style="font-size:11px; font-weight:700; color:${m.flow_bias === 'ACCUMULATION' ? '#00e676' : m.flow_bias === 'DISTRIBUTION' ? '#ff3d71' : '#ffb300'};">
-              ${m.flow_bias_display}
-            </span>
-          </td>
-          <td style="font-family:var(--font-mono, monospace); font-size:11px; color:#ffffff;">
-            ${topLeaderSyms || '--'}
-          </td>
-          <td style="white-space:nowrap;" onclick="event.stopPropagation();">
-            <button class="btn-filter-adv" style="padding:4px 8px; font-size:10px; margin-right:4px;" type="button" onclick="window.filterInAdvScanner('${s.sector}')">
-              🔬 Filter
-            </button>
-            <button class="btn-filter-adv" style="padding:4px 8px; font-size:10px; background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); color:#ffffff;" type="button" onclick="SectorAnalysisModule.toggleAccordion('${s.sector}')">
-              ${isExpanded ? '▲ Close' : '▼ Drill'}
-            </button>
-          </td>
-        </tr>
-      `;
-
-      if (isExpanded) {
-        const leadersCards = (s.leaders || []).map(l => {
-          const lChg = `${l.change_pct >= 0 ? '+' : ''}${l.change_pct}%`;
-          const lSpike = `${l.delivery_spike_pct >= 0 ? '+' : ''}${l.delivery_spike_pct}%`;
-          const tvUrl = `https://in.tradingview.com/chart/?symbol=NSE:${l.symbol}`;
-          return `
-            <div class="drilldown-stock-card">
-              <div class="drilldown-stock-top">
-                <span class="drilldown-stock-sym">${l.symbol}</span>
-                <span class="drilldown-stock-price ${l.change_pct >= 0 ? 'text-bullish' : 'text-bearish'}">
-                  ₹${l.close} (${lChg})
-                </span>
-              </div>
-              <div style="font-size:10px; color:rgba(255,255,255,0.5); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                ${l.name}
-              </div>
-              <div class="drilldown-stock-details">
-                <span>Deliv: ${l.delivery_pct}% (₹${l.delivery_turnover_cr} Cr)</span>
-                <span class="${l.delivery_spike_pct >= 0 ? 'text-bullish' : 'text-bearish'}">Spike: ${lSpike}</span>
-              </div>
-              <div class="drilldown-stock-details">
-                <span>20D RS: ${l.rs_20d >= 0 ? '+' : ''}${l.rs_20d}%</span>
-                <span>${l.above_20_ema ? '🟢 > 20 EMA' : '🔴 < 20 EMA'}</span>
-              </div>
-              <a href="${tvUrl}" target="_blank" rel="noopener noreferrer" class="drilldown-stock-tv">
-                <span>View Chart on TradingView ↗</span>
-              </a>
-            </div>
-          `;
-        }).join('');
-
-        rowsHtml += `
-          <tr class="sector-drilldown-row">
-            <td colspan="12">
-              <div class="sector-drilldown-content">
-                <div class="drilldown-header">
-                  <div class="drilldown-title">
-                    <span>🏛️ ${s.display_name} — Institutional Constituent Drill-Down</span>
-                    <span style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.6);">(${s.metrics.stocks_count} Total Stocks | A/D Ratio: ${m.ad_ratio}:1)</span>
-                  </div>
-                  <button class="btn-filter-adv" style="padding:6px 12px; font-size:11px;" type="button" onclick="window.filterInAdvScanner('${s.sector}')">
-                    <span>🔬</span> Open All ${s.display_name} Stocks in Advanced Scanner ↗
-                  </button>
-                </div>
-                <div class="drilldown-stocks-grid">
-                  ${leadersCards}
-                </div>
-              </div>
-            </td>
-          </tr>
-        `;
-      }
-    });
-
-    tbody.innerHTML = rowsHtml;
-  }
-
-  function toggleAccordion(sectorName) {
-    if (expandedSector === sectorName) {
-      expandedSector = null;
-    } else {
-      expandedSector = sectorName;
-    }
-    renderTable();
-  }
-
-  function openTableWithSector(sectorName) {
-    activeView = 'table';
-    expandedSector = sectorName;
-    const btnTable = document.getElementById('btn-sector-view-table');
-    const btnGrid = document.getElementById('btn-sector-view-grid');
-    if (btnTable) {
-      btnTable.classList.add('active');
-      btnTable.setAttribute('aria-pressed', 'true');
-    }
-    if (btnGrid) {
-      btnGrid.classList.remove('active');
-      btnGrid.setAttribute('aria-pressed', 'false');
-    }
-    document.getElementById('sector-table-view')?.classList.remove('hidden');
-    document.getElementById('sector-heatmap-view')?.classList.add('hidden');
-    renderTable();
-
-    const tableEl = document.getElementById('sector-table-view');
-    if (tableEl) {
-      tableEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  return {
-    init,
-    loadData,
-    toggleAccordion,
-    openTableWithSector
-  };
-})();
-
-// Cross-Tab Synergy Link to filter Advanced Scanner by sector
-window.filterInAdvScanner = function(sectorName) {
-  if (typeof window.switchAppView === 'function') {
-    window.switchAppView('adv');
-  }
-  const sectorSelect = document.getElementById('adv-rs-sector');
-  if (sectorSelect && sectorName) {
-    let matched = 'ALL';
-    for (let i = 0; i < sectorSelect.options.length; i++) {
-      const val = sectorSelect.options[i].value;
-      if (
-        val.toLowerCase() === sectorName.toLowerCase() ||
-        val.toLowerCase().includes(sectorName.toLowerCase()) ||
-        sectorName.toLowerCase().includes(val.toLowerCase())
-      ) {
-        matched = val;
-        break;
-      }
-    }
-    sectorSelect.value = matched;
-    if (typeof advState !== 'undefined') {
-      advState.sectorFilter = matched;
-      advState.currentPage = 1;
-    }
-  }
-  if (typeof renderAdvTable === 'function') {
-    renderAdvTable();
-  }
-  const targetTable = document.getElementById('adv-rs-table-container') || document.getElementById('adv-rs-table');
-  if (targetTable) {
-    targetTable.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-};
