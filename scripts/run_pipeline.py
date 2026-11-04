@@ -760,7 +760,7 @@ def run_pipeline():
         generate_master_universe_eod(
             symbols=symbols,
             stock_dfs=stock_dfs,
-            bhav_date=bhav_date,
+            bhav_date=active_date,
             bhav_map=bhav_map,
             delivery_analytics_map=delivery_analytics_map,
             n_df=n_df
@@ -775,7 +775,7 @@ def run_pipeline():
         generate_adv_scanner_rs(
             symbols=symbols,
             stock_dfs=stock_dfs,
-            bhav_date=bhav_date,
+            bhav_date=active_date,
             bhav_map=bhav_map,
             delivery_analytics_map=delivery_analytics_map,
             n_df=n_df
@@ -790,7 +790,7 @@ def run_pipeline():
         generate_adv_scanner_early_bo(
             symbols=symbols,
             stock_dfs=stock_dfs,
-            bhav_date=bhav_date,
+            bhav_date=active_date,
             bhav_map=bhav_map,
             delivery_analytics_map=delivery_analytics_map,
             n_df=n_df
@@ -805,7 +805,7 @@ def run_pipeline():
         generate_adv_scanner_momentum_continuation(
             symbols=symbols,
             stock_dfs=stock_dfs,
-            bhav_date=bhav_date,
+            bhav_date=active_date,
             bhav_map=bhav_map,
             delivery_analytics_map=delivery_analytics_map,
             n_df=n_df
@@ -820,7 +820,7 @@ def run_pipeline():
         generate_adv_scanner_rbr_proportional(
             symbols=symbols,
             stock_dfs=stock_dfs,
-            bhav_date=bhav_date,
+            bhav_date=active_date,
             bhav_map=bhav_map,
             delivery_analytics_map=delivery_analytics_map,
             n_df=n_df
@@ -835,7 +835,7 @@ def run_pipeline():
         generate_adv_scanner_wyckoff_absorption(
             symbols=symbols,
             stock_dfs=stock_dfs,
-            bhav_date=bhav_date,
+            bhav_date=active_date,
             bhav_map=bhav_map,
             delivery_analytics_map=delivery_analytics_map,
             n_df=n_df
@@ -850,7 +850,7 @@ def run_pipeline():
         generate_adv_scanner_confluence_engine(
             symbols=symbols,
             stock_dfs=stock_dfs,
-            bhav_date=bhav_date,
+            bhav_date=active_date,
             bhav_map=bhav_map,
             delivery_analytics_map=delivery_analytics_map,
             n_df=n_df

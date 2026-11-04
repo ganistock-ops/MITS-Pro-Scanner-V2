@@ -601,7 +601,9 @@ def generate_adv_scanner_momentum_continuation(
     }
 
     # 6. Generate payload
-    scan_dt = bhav_date.strftime("%Y-%m-%d") if bhav_date else datetime.now().strftime("%Y-%m-%d")
+    latest_candle_dt = max((df.index[-1].date() for df in stock_dfs.values() if df is not None and not df.empty and hasattr(df.index[-1], "date")), default=None) if stock_dfs else None
+    effective_date = latest_candle_dt if (latest_candle_dt and (not bhav_date or latest_candle_dt > bhav_date)) else (bhav_date or datetime.now().date())
+    scan_dt = effective_date.strftime("%Y-%m-%d") if hasattr(effective_date, "strftime") else str(effective_date)[:10]
     payload = {
         "scan_date": scan_dt,
         "generated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S IST"),

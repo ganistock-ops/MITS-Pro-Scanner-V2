@@ -431,7 +431,9 @@ def generate_adv_scanner_confluence_engine(
     }
 
     # Session scan date resolution
-    resolved_scan_date = bhav_date.isoformat() if isinstance(bhav_date, (date, datetime)) else "2026-10-30"
+    latest_candle_dt = max((df.index[-1].date() for df in stock_dfs.values() if df is not None and not df.empty and hasattr(df.index[-1], "date")), default=None) if stock_dfs else None
+    effective_date = latest_candle_dt if (latest_candle_dt and (not bhav_date or latest_candle_dt > bhav_date)) else bhav_date
+    resolved_scan_date = effective_date.strftime("%Y-%m-%d") if (effective_date and hasattr(effective_date, "strftime")) else (str(effective_date)[:10] if effective_date else "2026-10-30")
     for fname in ["adv_scanner_4_rbr_proportional.json", "adv_scanner_1_rs.json", "scanner_results.json"]:
         p = DATA_DIR / fname
         if p.exists():

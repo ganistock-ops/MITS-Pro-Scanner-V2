@@ -2,8 +2,8 @@ name: MITS Pro Institutional EOD Scanner
 
 on:
   schedule:
-    # 4:15 PM IST is 10:45 UTC (Monday to Friday trading days)
-    - cron: '45 10 * * 1-5'
+    # 5:45 PM IST is 12:15 UTC (Monday to Friday trading days)
+    - cron: '15 12 * * 1-5'
   workflow_dispatch:
     inputs:
       force_scan:

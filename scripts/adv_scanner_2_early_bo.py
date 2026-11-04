@@ -16,6 +16,7 @@ from datetime import datetime, date
 from typing import Dict, Any, List, Optional
 import pandas as pd
 import numpy as np
+import math
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SCRIPTS_DIR = BASE_DIR / "scripts"
@@ -240,9 +241,9 @@ def compute_early_bo_metrics(
                 s_ret = ((combined["stock_close"].iloc[-1] / combined["stock_close"].iloc[-1 - p]) - 1.0) * 100.0
                 b_ret = ((combined["bench_close"].iloc[-1] / combined["bench_close"].iloc[-1 - p]) - 1.0) * 100.0
                 rs_val = s_ret - b_ret
-                ret_data[f"stock_ret_{p}d"] = round(float(s_ret), 2)
-                ret_data[f"bench_ret_{p}d"] = round(float(b_ret), 2)
-                ret_data[f"rs_{p}d"] = round(float(rs_val), 2)
+                ret_data[f"stock_ret_{p}d"] = round(float(s_ret), 2) if not math.isnan(s_ret) else None
+                ret_data[f"bench_ret_{p}d"] = round(float(b_ret), 2) if not math.isnan(b_ret) else None
+                ret_data[f"rs_{p}d"] = round(float(rs_val), 2) if not math.isnan(rs_val) else None
             else:
                 ret_data[f"stock_ret_{p}d"] = None
                 ret_data[f"bench_ret_{p}d"] = None
@@ -504,7 +505,9 @@ def generate_adv_scanner_early_bo(
                 r["rank"] = idx + 1
                 r["dossier"]["rank"] = idx + 1
 
-            scan_dt = bhav_date.strftime("%Y-%m-%d") if bhav_date else rs_data.get("scan_date", datetime.now().strftime("%Y-%m-%d"))
+            latest_candle_dt = max((df.index[-1].date() for df in stock_dfs.values() if df is not None and not df.empty and hasattr(df.index[-1], "date")), default=None) if stock_dfs else None
+            effective_date = latest_candle_dt if (latest_candle_dt and (not bhav_date or latest_candle_dt > bhav_date)) else (bhav_date or rs_data.get("scan_date") or datetime.now().date())
+            scan_dt = effective_date.strftime("%Y-%m-%d") if hasattr(effective_date, "strftime") else str(effective_date)[:10]
             coiling_tight_count = sum(1 for r in records if r.get("dist_to_pivot", 99) <= 1.5)
             volume_surge_count = sum(1 for r in records if r.get("vol_badge") == "SURGE")
 
@@ -562,7 +565,9 @@ def generate_adv_scanner_early_bo(
         r["dossier"]["rank"] = idx + 1
 
     # 6. Generate payload
-    scan_dt = bhav_date.strftime("%Y-%m-%d") if bhav_date else datetime.now().strftime("%Y-%m-%d")
+    latest_candle_dt = max((df.index[-1].date() for df in stock_dfs.values() if df is not None and not df.empty and hasattr(df.index[-1], "date")), default=None) if stock_dfs else None
+    effective_date = latest_candle_dt if (latest_candle_dt and (not bhav_date or latest_candle_dt > bhav_date)) else (bhav_date or datetime.now().date())
+    scan_dt = effective_date.strftime("%Y-%m-%d") if hasattr(effective_date, "strftime") else str(effective_date)[:10]
     coiling_tight_count = sum(1 for r in records if r.get("dist_to_pivot", 99) <= 1.5)
     volume_surge_count = sum(1 for r in records if r.get("vol_badge") == "SURGE")
 

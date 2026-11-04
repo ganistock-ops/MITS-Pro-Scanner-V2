@@ -649,7 +649,9 @@ def generate_adv_scanner_rs(
     ranked_records = calculate_cross_sectional_scores(records)
 
     # 6. Generate payload
-    scan_dt = bhav_date.strftime("%Y-%m-%d") if bhav_date else datetime.now().strftime("%Y-%m-%d")
+    latest_candle_dt = max((df.index[-1].date() for df in stock_dfs.values() if df is not None and not df.empty and hasattr(df.index[-1], "date")), default=None) if stock_dfs else None
+    effective_date = latest_candle_dt if (latest_candle_dt and (not bhav_date or latest_candle_dt > bhav_date)) else (bhav_date or datetime.now().date())
+    scan_dt = effective_date.strftime("%Y-%m-%d") if hasattr(effective_date, "strftime") else str(effective_date)[:10]
     strong_rs_count = sum(1 for r in ranked_records if r.get("rs_score", 0) >= 80)
     grade_a_count = sum(1 for r in ranked_records if r.get("grade") == "Grade A")
 
