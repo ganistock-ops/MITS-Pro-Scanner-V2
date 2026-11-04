@@ -82,7 +82,7 @@
           <span class="sidebar-icon">📊</span>
           <span class="sidebar-label">Market Intelligence</span>
         </a>
-        <a href="#sector-analysis" class="sidebar-item">
+        <a href="#sector-analysis" class="sidebar-item" id="nav-sector-analysis">
           <span class="sidebar-icon">▦</span>
           <span class="sidebar-label">Sector Analysis</span>
         </a>
@@ -258,7 +258,7 @@
                 <span class="card-icon rotation-icon">⚡</span>
                 <span>SECTOR ROTATION (5D STRENGTH)</span>
               </div>
-              <span class="rotation-date-tag" id="rotation-date-badge">30-Oct-2026</span>
+              <span class="rotation-date-tag" id="rotation-date-badge">04-Nov-2026</span>
             </div>
             <div class="sector-bars-list" id="sector-rotation-pills">
               <!-- Dynamically populated horizontal bars with genuine sector data -->
@@ -1057,6 +1057,216 @@
       </div>
     </div>
   </div>
+
+  <!-- ===================================================================================
+       SECTOR ANALYSIS & ROTATION INTELLIGENCE STATION (VIEW 3)
+       =================================================================================== -->
+  <div id="view-sector-analysis" class="terminal-view hidden sector-analysis-viewport" aria-label="Sector Intelligence Station Workspace">
+    <div id="sector-analysis-container" class="sector-analysis-container">
+
+      <!-- 1. Station Header -->
+      <div class="sector-station-header">
+        <div class="sector-header-left">
+          <div class="sector-title-row">
+            <span class="adv-badge-chip">INSTITUTIONAL QUANTITATIVE SUITE</span>
+            <span class="sector-badge-live" id="sector-eod-badge">● EOD SYNC: 2026-11-04</span>
+            <h2 class="sector-main-title">🏛️ Sector Analysis Station</h2>
+          </div>
+          <p class="sector-sub-title">
+            Cross-Sectional Relative Strength, Structural Market Breadth &amp; Smart Money Whale Delivery Flows across all 20 NSE Sectors
+          </p>
+        </div>
+        <div class="sector-header-right">
+          <div class="sector-bench-pill" id="sector-bench-pill">
+            <span class="bench-label">NIFTY 50</span>
+            <strong id="sector-bench-val">23,960.60</strong>
+            <span id="sector-bench-change" class="text-bullish">+0.63%</span>
+          </div>
+          <button id="sector-refresh-btn" class="sector-action-btn" type="button" title="Reload Sector Analysis Data">
+            <span>↻</span> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Macro Summary KPI Spectrum (4 Cards) -->
+      <div class="sector-macro-grid">
+        <!-- KPI 1: Leadership Quadrant -->
+        <div class="sector-macro-card">
+          <div class="macro-card-title">
+            <span class="macro-card-icon">👑</span>
+            <span>Leadership Quadrant</span>
+          </div>
+          <div class="macro-kpi-row">
+            <div class="macro-kpi-item">
+              <span class="macro-label">Leading</span>
+              <strong class="macro-value text-bullish" id="macro-leading-count">3</strong>
+            </div>
+            <div class="macro-kpi-item">
+              <span class="macro-label">Improving</span>
+              <strong class="macro-value text-info" id="macro-improving-count">11</strong>
+            </div>
+            <div class="macro-kpi-item">
+              <span class="macro-label">Weak / Lag</span>
+              <strong class="macro-value text-bearish" id="macro-lagging-count">1</strong>
+            </div>
+          </div>
+          <div class="macro-kpi-sub">
+            <span>Top Sector:</span>
+            <strong id="macro-strongest-sec" class="text-bullish">Media &amp; Ent (87.0)</strong>
+          </div>
+        </div>
+
+        <!-- KPI 2: Overall Market Breadth -->
+        <div class="sector-macro-card">
+          <div class="macro-card-title">
+            <span class="macro-card-icon">📐</span>
+            <span>500-Stock Breadth</span>
+          </div>
+          <div class="macro-kpi-row">
+            <div class="macro-kpi-item">
+              <span class="macro-label">Advances</span>
+              <strong class="macro-value text-bullish" id="macro-adv-count">410</strong>
+            </div>
+            <div class="macro-kpi-item">
+              <span class="macro-label">Declines</span>
+              <strong class="macro-value text-bearish" id="macro-dec-count">89</strong>
+            </div>
+            <div class="macro-kpi-item">
+              <span class="macro-label">A/D Ratio</span>
+              <strong class="macro-value" id="macro-ad-ratio">4.61</strong>
+            </div>
+          </div>
+          <div class="macro-kpi-sub">
+            <span>Trend Participation:</span>
+            <strong id="macro-breadth-pct">66.6% > 20 EMA | 41.2% > 50 EMA</strong>
+          </div>
+        </div>
+
+        <!-- KPI 3: Whale Delivery Flows -->
+        <div class="sector-macro-card">
+          <div class="macro-card-title">
+            <span class="macro-card-icon">🐋</span>
+            <span>Institutional Flows</span>
+          </div>
+          <div class="macro-flow-summary">
+            <div class="macro-flow-row">
+              <span class="macro-label">Top Inflows:</span>
+              <strong id="macro-top-inflows" class="text-bullish">Media &amp; Ent, Diversified, Textiles</strong>
+            </div>
+            <div class="macro-flow-row">
+              <span class="macro-label">Top Outflows:</span>
+              <strong id="macro-top-outflows" class="text-bearish">IT &amp; Tech, Oil &amp; Gas, Consumer Serv</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI 4: Benchmark Momentum -->
+        <div class="sector-macro-card">
+          <div class="macro-card-title">
+            <span class="macro-card-icon">🎯</span>
+            <span>NIFTY 50 Alpha Anchor</span>
+          </div>
+          <div class="macro-kpi-row">
+            <div class="macro-kpi-item">
+              <span class="macro-label">1D Return</span>
+              <strong class="macro-value text-bullish" id="macro-bench-1d">+0.63%</strong>
+            </div>
+            <div class="macro-kpi-item">
+              <span class="macro-label">5D Return</span>
+              <strong class="macro-value text-bullish" id="macro-bench-5d">+5.56%</strong>
+            </div>
+            <div class="macro-kpi-item">
+              <span class="macro-label">20D Return</span>
+              <strong class="macro-value text-bullish" id="macro-bench-20d">+5.20%</strong>
+            </div>
+          </div>
+          <div class="macro-kpi-sub">
+            <span>Benchmark CMP:</span>
+            <strong id="macro-bench-cmp-sub">₹23,960.60</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Station Controls & View Switcher -->
+      <div class="sector-controls-bar">
+        <div class="sector-view-toggle-group">
+          <button id="btn-sector-view-grid" class="sector-toggle-btn active" type="button" aria-pressed="true">
+            <span>▦</span> 20 Sector Heatmap Grid
+          </button>
+          <button id="btn-sector-view-table" class="sector-toggle-btn" type="button" aria-pressed="false">
+            <span>📋</span> Rotation Leaderboard Table
+          </button>
+        </div>
+
+        <div class="sector-filter-group">
+          <div class="sector-search-wrap">
+            <span class="search-icon-sm">🔍</span>
+            <input type="text" id="sector-search-input" placeholder="Search sector or constituent stock..." aria-label="Search sector or stock">
+          </div>
+
+          <div class="sector-select-wrap">
+            <label for="sector-quadrant-filter" class="filter-label">Quadrant:</label>
+            <select id="sector-quadrant-filter" class="sector-select">
+              <option value="ALL">All Quadrants (20)</option>
+              <option value="Leading">Leading (Score ≥ 75)</option>
+              <option value="Improving">Improving (60 - 74)</option>
+              <option value="Neutral">Neutral (45 - 59)</option>
+              <option value="Weakening">Weakening (30 - 44)</option>
+              <option value="Lagging">Lagging (&lt; 30)</option>
+            </select>
+          </div>
+
+          <div class="sector-select-wrap">
+            <label for="sector-sort-by" class="filter-label">Sort By:</label>
+            <select id="sector-sort-by" class="sector-select">
+              <option value="rank">Rank / Quant Score</option>
+              <option value="return_1d">1D Return %</option>
+              <option value="return_5d">5D Return %</option>
+              <option value="rs_20d">20D RS vs Nifty</option>
+              <option value="delivery_spike_pct">Whale Delivery Spike %</option>
+              <option value="pct_above_20_ema">Breadth (&gt; 20 EMA %)</option>
+              <option value="delivery_turnover_cr">Delivery Turnover (₹ Cr)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. VIEW 1: 20 SECTOR HEATMAP GRID -->
+      <div id="sector-heatmap-view" class="sector-view-container">
+        <div class="sector-heatmap-grid" id="sector-heatmap-grid">
+          <!-- Dynamically populated by SectorAnalysisModule -->
+        </div>
+      </div>
+
+      <!-- 5. VIEW 2: SECTOR ROTATION LEADERBOARD TABLE -->
+      <div id="sector-table-view" class="sector-view-container hidden">
+        <div class="table-responsive sector-table-wrapper">
+          <table class="sector-leaderboard-table" id="sector-leaderboard-table">
+            <thead>
+              <tr>
+                <th class="th-rank">#</th>
+                <th class="th-sector">Sector</th>
+                <th class="th-score">Quant Score</th>
+                <th class="th-perf">1D Chg</th>
+                <th class="th-rs">5D RS</th>
+                <th class="th-rs">20D RS</th>
+                <th class="th-breadth">Breadth (20 / 50 EMA)</th>
+                <th class="th-deliv">Delivery ₹ Cr</th>
+                <th class="th-spike">Whale Spike %</th>
+                <th class="th-bias">Flow Bias</th>
+                <th class="th-leaders">Top Leaders</th>
+                <th class="th-actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sector-table-body">
+              <!-- Dynamically populated rows with accordion drill-downs -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /.sector-analysis-container -->
+  </div><!-- /#view-sector-analysis -->
 
   <!-- ===================================================================================
        ZERO-SERVER-LOAD INSTITUTIONAL STOCK DOSSIER MODAL / BOTTOM SHEET (SWINGEDGE/MARKETSMITH)
