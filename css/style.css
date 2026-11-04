@@ -6589,3 +6589,611 @@ body.table-col-resizing * {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+
+/* ===================================================================================
+   PHASE 2: SMART MONEY RADAR & WEINSTEIN REGIME MATRIX STYLING
+   =================================================================================== */
+.smart-money-viewport {
+  width: 100%;
+  box-sizing: border-box;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.smart-money-container {
+  padding: 1rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 1. Station Header */
+.sm-station-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(16, 24, 39, 0.95), rgba(11, 15, 25, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.sm-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sm-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sm-badge-live {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono, monospace);
+}
+
+.sm-main-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.5px;
+}
+
+.sm-sub-title {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.sm-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sm-action-btn {
+  background: rgba(255, 107, 53, 0.15);
+  border: 1px solid rgba(255, 107, 53, 0.4);
+  color: #ff6b35;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sm-action-btn:hover {
+  background: rgba(255, 107, 53, 0.25);
+  border-color: #ff6b35;
+  transform: translateY(-1px);
+}
+
+/* 2. Institutional Whale Flow KPI Grid */
+.sm-whale-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.sm-kpi-card {
+  background: linear-gradient(135deg, rgba(16, 24, 39, 0.85), rgba(11, 15, 25, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.sm-kpi-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.sm-card-accum {
+  border-left: 3px solid #00e676;
+}
+
+.sm-card-distrib {
+  border-left: 3px solid #f43f5e;
+}
+
+.sm-card-turnover {
+  border-left: 3px solid #fbbf24;
+}
+
+.sm-card-counts {
+  border-left: 3px solid #38bdf8;
+}
+
+.sm-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.sm-kpi-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sm-flow-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono, monospace);
+}
+
+.badge-accum {
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.badge-distrib {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.badge-neutral {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sm-kpi-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sm-kpi-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.sm-kpi-cr {
+  font-size: 17px;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+}
+
+.sm-kpi-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sm-kpi-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 11px;
+}
+
+.sm-foot-label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sm-anchor-pill {
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.sm-kpi-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 4px 0;
+}
+
+.sm-split-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.sm-split-num {
+  font-size: 20px;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+}
+
+.sm-split-lbl {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.sm-split-divider {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.sm-ratio-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(244, 63, 94, 0.4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sm-ratio-fill {
+  height: 100%;
+  background: #00e676;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* 3. Stan Weinstein 4-Stage Regime Section */
+.sm-weinstein-station {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sm-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sm-section-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sm-section-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.sm-section-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sm-stage-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sm-legend-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.sm-legend-pill.stage-1 {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.sm-legend-pill.stage-2 {
+  background: rgba(0, 230, 118, 0.1);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.25);
+}
+
+.sm-legend-pill.stage-3 {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+.sm-legend-pill.stage-4 {
+  background: rgba(244, 63, 94, 0.1);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.25);
+}
+
+/* 4-Stage Column Grid */
+.sm-stages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.sm-stage-col {
+  background: linear-gradient(135deg, rgba(16, 24, 39, 0.75), rgba(11, 15, 25, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sm-stage-col.stage-col-1 {
+  border-top: 3px solid #38bdf8;
+}
+
+.sm-stage-col.stage-col-2 {
+  border-top: 3px solid #00e676;
+}
+
+.sm-stage-col.stage-col-3 {
+  border-top: 3px solid #fbbf24;
+}
+
+.sm-stage-col.stage-col-4 {
+  border-top: 3px solid #f43f5e;
+}
+
+.sm-stage-col-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 10px;
+}
+
+.sm-stage-col-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono, monospace);
+}
+
+.badge-s1 {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badge-s2 {
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.badge-s3 {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.badge-s4 {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.sm-stage-col-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.sm-stage-count {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sm-stage-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+}
+
+/* Individual Sector Card inside Stage */
+.sm-sector-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sm-sector-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.sm-sc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.sm-sc-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.sm-sc-flow {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+  font-family: var(--font-mono, monospace);
+}
+
+.flow-accum {
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.flow-distrib {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.flow-neutral {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sm-sc-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  font-size: 11px;
+}
+
+.sm-sc-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.sm-sc-metric .lbl {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+}
+
+.sm-sc-metric .val {
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+}
+
+.sm-sc-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 11px;
+}
+
+.sm-sc-anchor-lbl {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sm-sc-anchor-val {
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  color: #fbbf24;
+}
+
+/* ===================================================================================
+   SMART MONEY RADAR RESPONSIVE RULES (Mobile & Tablet)
+   =================================================================================== */
+@media (max-width: 1024px) {
+  .sm-whale-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sm-stages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sm-station-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+  }
+  .sm-header-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .sm-main-title {
+    font-size: 18px;
+  }
+  .sm-whale-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .sm-stages-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .sm-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .sm-stage-legend {
+    width: 100%;
+  }
+  .sm-stage-cards-list {
+    min-height: auto;
+  }
+}

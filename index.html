@@ -86,7 +86,7 @@
           <span class="sidebar-icon">▦</span>
           <span class="sidebar-label">Sector Analysis</span>
         </a>
-        <a href="#smart-money" class="sidebar-item">
+        <a href="#smart-money" class="sidebar-item" id="nav-smart-money">
           <span class="sidebar-icon">🐋</span>
           <span class="sidebar-label">Smart Money Radar</span>
         </a>
@@ -1038,6 +1038,180 @@
 
     </div><!-- /.sector-analysis-container -->
   </div><!-- /#view-sector-analysis -->
+  <!-- ===================================================================================
+       SMART MONEY RADAR & WEINSTEIN REGIME MATRIX (VIEW 4)
+       =================================================================================== -->
+  <div id="view-smart-money" class="terminal-view hidden smart-money-viewport" aria-label="Smart Money Radar Workspace">
+    <div id="smart-money-radar" class="smart-money-container">
+
+      <!-- 1. Station Header -->
+      <div class="sm-station-header">
+        <div class="sm-header-left">
+          <div class="sm-title-row">
+            <span class="adv-badge-chip">INSTITUTIONAL QUANTITATIVE RADAR</span>
+            <span class="sm-badge-live" id="sm-eod-badge">● EOD SYNC: 2026-11-04</span>
+            <h2 class="sm-main-title">🐋 Smart Money Institutional Flow &amp; Weinstein Stage Matrix</h2>
+          </div>
+          <p class="sm-sub-title">
+            Tracking ₹ Crores Delivery Turnover Inflows, Accumulation / Distribution Exhaustion &amp; Stan Weinstein 4-Stage Regimes across all 20 NSE Sectors
+          </p>
+        </div>
+        <div class="sm-header-right">
+          <button id="sm-refresh-btn" class="sm-action-btn" type="button" title="Reload Smart Money Data">
+            <span>↻</span> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Institutional Whale Flow KPI Grid (4 Cards) -->
+      <section class="sm-whale-grid" aria-label="Whale Flow Summary Cards">
+        
+        <!-- Card 1: Top Accumulating Sector -->
+        <div class="sm-kpi-card sm-card-accum">
+          <div class="sm-card-top">
+            <span class="sm-kpi-label">🐋 TOP ACCUMULATING SECTOR</span>
+            <span class="sm-flow-badge badge-accum" id="sm-accum-flow-tag">ACCUMULATION</span>
+          </div>
+          <div class="sm-kpi-main">
+            <strong class="sm-kpi-val" id="sm-top-accum-sector">--</strong>
+            <span class="sm-kpi-cr text-bullish" id="sm-top-accum-cr">+₹0 Cr</span>
+          </div>
+          <div class="sm-kpi-footer">
+            <span class="sm-foot-label">Lead Anchor Stock:</span>
+            <span class="sm-anchor-pill" id="sm-top-accum-anchor">--</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Top Distributing Sector -->
+        <div class="sm-kpi-card sm-card-distrib">
+          <div class="sm-card-top">
+            <span class="sm-kpi-label">⚠️ TOP DISTRIBUTING SECTOR</span>
+            <span class="sm-flow-badge badge-distrib" id="sm-distrib-flow-tag">OUTFLOW</span>
+          </div>
+          <div class="sm-kpi-main">
+            <strong class="sm-kpi-val" id="sm-top-distrib-sector">--</strong>
+            <span class="sm-kpi-cr text-bearish" id="sm-top-distrib-cr">₹0 Cr</span>
+          </div>
+          <div class="sm-kpi-footer">
+            <span class="sm-foot-label">Lead Drain Stock:</span>
+            <span class="sm-anchor-pill" id="sm-top-distrib-anchor">--</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Total Institutional Delivery Turnover -->
+        <div class="sm-kpi-card sm-card-turnover">
+          <div class="sm-card-top">
+            <span class="sm-kpi-label">💰 NET INSTITUTIONAL DELIVERY</span>
+            <span class="sm-flow-badge badge-neutral">NSE 500 TOTAL</span>
+          </div>
+          <div class="sm-kpi-main">
+            <strong class="sm-kpi-val text-gold" id="sm-total-deliv-cr">₹0 Cr</strong>
+            <span class="sm-kpi-sub">Total Bhavcopy Turnover</span>
+          </div>
+          <div class="sm-kpi-footer">
+            <span class="sm-foot-label">Flow Ratio:</span>
+            <span id="sm-flow-ratio">--</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Net Flow Sector Count -->
+        <div class="sm-kpi-card sm-card-counts">
+          <div class="sm-card-top">
+            <span class="sm-kpi-label">📊 SECTOR FLOW BALANCE</span>
+            <span class="sm-flow-badge badge-neutral">20 SECTORS</span>
+          </div>
+          <div class="sm-kpi-split">
+            <div class="sm-split-item text-bullish">
+              <span class="sm-split-num" id="sm-inflow-count">0</span>
+              <span class="sm-split-lbl">Inflow / Acc</span>
+            </div>
+            <div class="sm-split-divider">/</div>
+            <div class="sm-split-item text-bearish">
+              <span class="sm-split-num" id="sm-outflow-count">0</span>
+              <span class="sm-split-lbl">Outflow / Neut</span>
+            </div>
+          </div>
+          <div class="sm-kpi-footer">
+            <div class="sm-ratio-bar">
+              <div class="sm-ratio-fill" id="sm-ratio-fill" style="width: 50%;"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 3. Stan Weinstein 4-Stage Regime Matrix Container -->
+      <section class="sm-weinstein-station" aria-label="Stan Weinstein 4-Stage Regime Matrix">
+        <div class="sm-section-header">
+          <div class="sm-section-title-wrap">
+            <h3 class="sm-section-title">🏛️ Stan Weinstein 4-Stage Market Regimes</h3>
+            <span class="sm-section-badge">QUANT REGIME CLASSIFICATION</span>
+          </div>
+          <div class="sm-stage-legend">
+            <span class="sm-legend-pill stage-1">● Stage 1: Base Building</span>
+            <span class="sm-legend-pill stage-2">● Stage 2: Mark-Up Breakout</span>
+            <span class="sm-legend-pill stage-3">● Stage 3: Distribution Topping</span>
+            <span class="sm-legend-pill stage-4">● Stage 4: Capitulation Markdown</span>
+          </div>
+        </div>
+
+        <!-- 4-Stage Column Swimlanes (Desktop: 4 columns, Mobile: 1-2 columns) -->
+        <div class="sm-stages-grid" id="sm-stages-grid">
+          
+          <!-- Column 1: Stage 1 Accumulation -->
+          <div class="sm-stage-col stage-col-1">
+            <div class="sm-stage-col-header">
+              <div class="sm-stage-col-badge badge-s1">STAGE 1</div>
+              <h4 class="sm-stage-col-title">Accumulation (Base)</h4>
+              <span class="sm-stage-count" id="count-stage-1">0 Sectors</span>
+            </div>
+            <div class="sm-stage-cards-list" id="list-stage-1">
+              <!-- Dynamically rendered sector cards -->
+            </div>
+          </div>
+
+          <!-- Column 2: Stage 2 Mark-Up -->
+          <div class="sm-stage-col stage-col-2">
+            <div class="sm-stage-col-header">
+              <div class="sm-stage-col-badge badge-s2">STAGE 2</div>
+              <h4 class="sm-stage-col-title">Mark-Up (Expansion)</h4>
+              <span class="sm-stage-count" id="count-stage-2">0 Sectors</span>
+            </div>
+            <div class="sm-stage-cards-list" id="list-stage-2">
+              <!-- Dynamically rendered sector cards -->
+            </div>
+          </div>
+
+          <!-- Column 3: Stage 3 Distribution -->
+          <div class="sm-stage-col stage-col-3">
+            <div class="sm-stage-col-header">
+              <div class="sm-stage-col-badge badge-s3">STAGE 3</div>
+              <h4 class="sm-stage-col-title">Distribution (Top)</h4>
+              <span class="sm-stage-count" id="count-stage-3">0 Sectors</span>
+            </div>
+            <div class="sm-stage-cards-list" id="list-stage-3">
+              <!-- Dynamically rendered sector cards -->
+            </div>
+          </div>
+
+          <!-- Column 4: Stage 4 Capitulation -->
+          <div class="sm-stage-col stage-col-4">
+            <div class="sm-stage-col-header">
+              <div class="sm-stage-col-badge badge-s4">STAGE 4</div>
+              <h4 class="sm-stage-col-title">Capitulation (Markdown)</h4>
+              <span class="sm-stage-count" id="count-stage-4">0 Sectors</span>
+            </div>
+            <div class="sm-stage-cards-list" id="list-stage-4">
+              <!-- Dynamically rendered sector cards -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div><!-- /#smart-money-radar -->
+  </div><!-- /#view-smart-money -->
+
 
     <!-- FOOTER -->
       <footer class="pro-footer">

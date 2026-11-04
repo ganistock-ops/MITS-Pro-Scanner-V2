@@ -4892,6 +4892,215 @@ window.filterInAdvScanner = function(sectorName) {
   }
 };
 
+
+/* ===================================================================================
+   PHASE 2: SMART MONEY RADAR & WEINSTEIN REGIME MODULE (STANDALONE & FULLY DECOUPLED)
+   =================================================================================== */
+window.SmartMoneyRadarModule = (function() {
+  let smData = null;
+  let isInitialized = false;
+
+  async function init() {
+    if (!isInitialized) {
+      bindEvents();
+      isInitialized = true;
+    }
+    await loadData();
+  }
+
+  async function loadData() {
+    try {
+      if (window._cachedSmartMoneyData) {
+        smData = window._cachedSmartMoneyData;
+        renderSmartMoneyUI();
+      }
+
+      const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+      let res = await fetch(`${basePath}data/smart_money_data.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch(`data/smart_money_data.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/smart_money_data.json').catch(() => null);
+
+      if (res && res.ok) {
+        smData = await res.json();
+        window._cachedSmartMoneyData = smData;
+        renderSmartMoneyUI();
+      }
+    } catch (err) {
+      console.error('[SmartMoneyRadarModule] Error loading data:', err);
+    }
+  }
+
+  function bindEvents() {
+    const refreshBtn = document.getElementById('sm-refresh-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', async () => {
+        refreshBtn.innerHTML = '<span>↻</span> Refreshing...';
+        refreshBtn.disabled = true;
+        window._cachedSmartMoneyData = null;
+        await loadData();
+        refreshBtn.innerHTML = '<span>↻</span> Refresh';
+        refreshBtn.disabled = false;
+      });
+    }
+  }
+
+  function renderSmartMoneyUI() {
+    if (!smData) return;
+
+    // 1. Date badge
+    const badge = document.getElementById('sm-eod-badge');
+    if (badge && smData.scan_date) {
+      badge.textContent = `● EOD SYNC: ${smData.scan_date}`;
+    }
+
+    // 2. Whale Flow Cards
+    const wf = smData.whale_flow || {};
+    
+    // Top Accumulating
+    const topAcc = wf.top_accumulating;
+    const elAccSec = document.getElementById('sm-top-accum-sector');
+    const elAccCr = document.getElementById('sm-top-accum-cr');
+    const elAccAnchor = document.getElementById('sm-top-accum-anchor');
+    const elAccTag = document.getElementById('sm-accum-flow-tag');
+    if (topAcc) {
+      if (elAccSec) elAccSec.textContent = topAcc.sector || '--';
+      if (elAccCr) elAccCr.textContent = `+₹${Number(topAcc.deliv_cr || 0).toLocaleString('en-IN')} Cr`;
+      if (elAccAnchor) elAccAnchor.textContent = topAcc.anchor || '--';
+      if (elAccTag) elAccTag.textContent = topAcc.flow || 'ACCUMULATION';
+    }
+
+    // Top Distributing
+    const topDist = wf.top_distributing;
+    const elDistSec = document.getElementById('sm-top-distrib-sector');
+    const elDistCr = document.getElementById('sm-top-distrib-cr');
+    const elDistAnchor = document.getElementById('sm-top-distrib-anchor');
+    const elDistTag = document.getElementById('sm-distrib-flow-tag');
+    if (topDist) {
+      if (elDistSec) elDistSec.textContent = topDist.sector || '--';
+      if (elDistCr) elDistCr.textContent = `₹${Number(topDist.deliv_cr || 0).toLocaleString('en-IN')} Cr`;
+      if (elDistAnchor) elDistAnchor.textContent = topDist.anchor || '--';
+      if (elDistTag) elDistTag.textContent = topDist.flow || 'OUTFLOW';
+    }
+
+    // Total Delivery Turnover
+    const elTotal = document.getElementById('sm-total-deliv-cr');
+    const elRatio = document.getElementById('sm-flow-ratio');
+    if (elTotal) {
+      elTotal.textContent = `₹${Number(wf.total_deliv_cr || 0).toLocaleString('en-IN')} Cr`;
+    }
+    const inCount = wf.inflow_sectors_count || 0;
+    const outCount = wf.outflow_sectors_count || 0;
+    const totalSectors = inCount + outCount || 20;
+    if (elRatio) {
+      elRatio.textContent = `${Math.round((inCount / totalSectors) * 100)}% Positive Bias`;
+    }
+
+    // Counts & Ratio Bar
+    const elIn = document.getElementById('sm-inflow-count');
+    const elOut = document.getElementById('sm-outflow-count');
+    const elFill = document.getElementById('sm-ratio-fill');
+    if (elIn) elIn.textContent = inCount;
+    if (elOut) elOut.textContent = outCount;
+    if (elFill) {
+      const pct = Math.round((inCount / totalSectors) * 100);
+      elFill.style.width = `${pct}%`;
+    }
+
+    // 3. Weinstein 4-Stage Matrix
+    const sr = smData.stage_regimes || {};
+    const summary = sr.summary || {};
+
+    const elC1 = document.getElementById('count-stage-1');
+    const elC2 = document.getElementById('count-stage-2');
+    const elC3 = document.getElementById('count-stage-3');
+    const elC4 = document.getElementById('count-stage-4');
+
+    if (elC1) elC1.textContent = `${summary.stage_1_accumulation || 0} Sectors`;
+    if (elC2) elC2.textContent = `${summary.stage_2_markup || 0} Sectors`;
+    if (elC3) elC3.textContent = `${summary.stage_3_distribution || 0} Sectors`;
+    if (elC4) elC4.textContent = `${summary.stage_4_capitulation || 0} Sectors`;
+
+    const list1 = document.getElementById('list-stage-1');
+    const list2 = document.getElementById('list-stage-2');
+    const list3 = document.getElementById('list-stage-3');
+    const list4 = document.getElementById('list-stage-4');
+
+    if (list1) list1.innerHTML = '';
+    if (list2) list2.innerHTML = '';
+    if (list3) list3.innerHTML = '';
+    if (list4) list4.innerHTML = '';
+
+    const sectors = smData.sectors || [];
+    sectors.forEach(sec => {
+      const card = createSectorCard(sec);
+      if (sec.stage === 1 && list1) list1.appendChild(card);
+      else if (sec.stage === 2 && list2) list2.appendChild(card);
+      else if (sec.stage === 3 && list3) list3.appendChild(card);
+      else if (sec.stage === 4 && list4) list4.appendChild(card);
+    });
+  }
+
+  function createSectorCard(sec) {
+    const el = document.createElement('div');
+    el.className = 'sm-sector-card';
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', `${sec.sector} in ${sec.stage_name || ''}`);
+
+    let flowClass = 'flow-neutral';
+    if (sec.flow === 'ACCUMULATION' || sec.flow === 'INFLOW') flowClass = 'flow-accum';
+    else if (sec.flow === 'DISTRIBUTION' || sec.flow === 'OUTFLOW') flowClass = 'flow-distrib';
+
+    const p20Color = sec.pct_20 >= 60 ? 'text-bullish' : (sec.pct_20 <= 40 ? 'text-bearish' : '');
+    const p50Color = sec.pct_50 >= 50 ? 'text-bullish' : (sec.pct_50 <= 35 ? 'text-bearish' : '');
+    const rsSign = sec.rs_20 >= 0 ? `+${sec.rs_20}` : `${sec.rs_20}`;
+    const rsColor = sec.rs_20 >= 0 ? 'text-bullish' : 'text-bearish';
+
+    el.innerHTML = `
+      <div class="sm-sc-top">
+        <strong class="sm-sc-name">${sec.sector}</strong>
+        <span class="sm-sc-flow ${flowClass}">${sec.flow}</span>
+      </div>
+      <div class="sm-sc-metrics">
+        <div class="sm-sc-metric">
+          <span class="lbl">&gt;20 EMA:</span>
+          <strong class="val ${p20Color}">${sec.pct_20}%</strong>
+        </div>
+        <div class="sm-sc-metric">
+          <span class="lbl">&gt;50 EMA:</span>
+          <strong class="val ${p50Color}">${sec.pct_50}%</strong>
+        </div>
+        <div class="sm-sc-metric">
+          <span class="lbl">RS 20D:</span>
+          <strong class="val ${rsColor}">${rsSign}</strong>
+        </div>
+        <div class="sm-sc-metric">
+          <span class="lbl">Deliv:</span>
+          <strong class="val text-gold">₹${Math.round(sec.deliv_cr).toLocaleString('en-IN')} Cr</strong>
+        </div>
+      </div>
+      <div class="sm-sc-footer">
+        <span class="sm-sc-anchor-lbl">Lead Anchor:</span>
+        <span class="sm-sc-anchor-val">${sec.anchor || 'N/A'}</span>
+      </div>
+    `;
+
+    el.addEventListener('click', () => {
+      if (typeof window.filterBySector === 'function') {
+        window.switchAppView('dash');
+        window.filterBySector(sec.sector);
+      }
+    });
+
+    return el;
+  }
+
+  return {
+    init: init,
+    loadData: loadData
+  };
+})();
+
   function initAdvScannerNavigation() {
     function switchView(target) {
       const dView = document.getElementById('view-dashboard') || document.getElementById('dashboard-view');
@@ -4900,15 +5109,47 @@ window.filterInAdvScanner = function(sectorName) {
       const aView = document.getElementById('view-advanced-scanner') || document.getElementById('adv-scanner-view');
       const sView = document.getElementById('view-sector-analysis');
       const sCont = document.getElementById('sector-analysis-container');
+      const smView = document.getElementById('view-smart-money');
+      const smCont = document.getElementById('smart-money-radar');
       const dBtn = document.getElementById('nav-dashboard');
       const aBtn = document.getElementById('nav-adv-scanner');
       const sBtn = document.getElementById('nav-sector-analysis');
+      const smBtn = document.getElementById('nav-smart-money') || document.querySelector('a[href="#smart-money"]');
+
+      if (target === 'smart') {
+        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
+        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
+        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
+        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
+        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
+        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
+        if (smView) {
+          smView.classList.remove('hidden');
+          smView.style.setProperty('display', 'block', 'important');
+          smView.style.minHeight = '500px';
+        }
+        if (smCont) {
+          smCont.classList.remove('hidden');
+          smCont.style.setProperty('display', 'flex', 'important');
+        }
+        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+        if (smBtn) smBtn.classList.add('active');
+        if (window.location.hash !== '#smart-money') {
+          window.location.hash = '#smart-money';
+        }
+        if (window.SmartMoneyRadarModule && typeof window.SmartMoneyRadarModule.init === 'function') {
+          window.SmartMoneyRadarModule.init();
+        }
+        return;
+      }
 
       if (target === 'sec') {
         if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
         if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
         if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
         if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
+        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
+        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
         if (sView) {
           sView.classList.remove('hidden');
           sView.style.setProperty('display', 'block', 'important');
@@ -4935,6 +5176,8 @@ window.filterInAdvScanner = function(sectorName) {
         if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
         if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
         if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
+        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
+        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
         if (aView) {
           aView.classList.remove('hidden');
           aView.style.setProperty('display', 'block', 'important');
@@ -4967,6 +5210,8 @@ window.filterInAdvScanner = function(sectorName) {
         if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
         if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
         if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
+        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
+        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
         if (dView) {
           dView.classList.remove('hidden');
           dView.style.setProperty('display', 'block', 'important');
@@ -4981,7 +5226,7 @@ window.filterInAdvScanner = function(sectorName) {
         }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (dBtn) dBtn.classList.add('active');
-        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis') {
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar') {
           window.location.hash = '#dashboard';
         }
       }
@@ -5001,6 +5246,11 @@ window.filterInAdvScanner = function(sectorName) {
         item.addEventListener('click', (e) => {
           e.preventDefault();
           switchView('sec');
+        });
+      } else if (item.id === 'nav-smart-money' || item.getAttribute('href') === '#smart-money' || item.getAttribute('href') === '#smart-money-radar') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('smart');
         });
       } else if (item.id === 'nav-dashboard' || item.getAttribute('href') === '#dashboard') {
         item.addEventListener('click', (e) => {
@@ -5023,6 +5273,8 @@ window.filterInAdvScanner = function(sectorName) {
         switchView('adv');
       } else if (hash === '#sector-analysis') {
         switchView('sec');
+      } else if (hash === '#smart-money' || hash === '#smart-money-radar') {
+        switchView('smart');
       } else {
         switchView('dash');
       }
