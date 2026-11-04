@@ -769,6 +769,21 @@ def run_pipeline():
     except Exception as e:
         logger.warning(f"Master universe export bypassed or error: {e}")
 
+    # Isolated Quantitative Sector Analysis Engine (Phase 1 Backend)
+    try:
+        from sector_analysis_engine import generate_sector_analysis
+        generate_sector_analysis(
+            symbols=symbols,
+            stock_dfs=stock_dfs,
+            bhav_date=active_date,
+            bhav_map=bhav_map,
+            delivery_analytics_map=delivery_analytics_map,
+            n_df=n_df
+        )
+        logger.info("Enriched data/sector_analysis.json with 3-Pillar Institutional Sector Analysis.")
+    except Exception as e:
+        logger.warning(f"Sector analysis engine export bypassed or error: {e}")
+
     # Isolated Advanced Scanner 1: Relative Strength (RS) Engine
     try:
         from adv_scanner_1_rs import generate_adv_scanner_rs
