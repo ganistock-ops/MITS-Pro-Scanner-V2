@@ -770,9 +770,10 @@ def run_pipeline():
         logger.warning(f"Master universe export bypassed or error: {e}")
 
     # Isolated Quantitative Sector Analysis Engine (Phase 1 Backend)
+    sector_payload = None
     try:
         from sector_analysis_engine import generate_sector_analysis
-        generate_sector_analysis(
+        sector_payload = generate_sector_analysis(
             symbols=symbols,
             stock_dfs=stock_dfs,
             bhav_date=active_date,
@@ -783,6 +784,17 @@ def run_pipeline():
         logger.info("Enriched data/sector_analysis.json with 3-Pillar Institutional Sector Analysis.")
     except Exception as e:
         logger.warning(f"Sector analysis engine export bypassed or error: {e}")
+
+    # Isolated Smart Money Institutional Flow & Stage Regime Engine (Phase 1 Backend)
+    try:
+        from smart_money_engine import generate_smart_money_data
+        generate_smart_money_data(
+            sector_payload=sector_payload,
+            bhav_date=active_date
+        )
+        logger.info("Enriched data/smart_money_data.json with Smart Money Flow and Weinstein Stages.")
+    except Exception as e:
+        logger.warning(f"Smart money radar engine export bypassed or error: {e}")
 
     # Isolated Advanced Scanner 1: Relative Strength (RS) Engine
     try:
