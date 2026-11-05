@@ -82,7 +82,9 @@ def generate_smart_money_data(
         logger.warning(f"Sector analysis source not available at {SECTOR_ANALYSIS_FILE}.")
         data = {}
 
-    scan_date = bhav_date or data.get("scan_date") or ist_now.strftime("%Y-%m-%d")
+    if hasattr(bhav_date, 'strftime'):
+        bhav_date = bhav_date.strftime("%Y-%m-%d")
+    scan_date = str(bhav_date) if bhav_date else (data.get("scan_date") or ist_now.strftime("%Y-%m-%d"))
     sectors = data.get("sectors", [])
 
     stage_counts = {1: 0, 2: 0, 3: 0, 4: 0}
