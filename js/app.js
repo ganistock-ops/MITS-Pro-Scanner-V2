@@ -5101,7 +5101,321 @@ window.SmartMoneyRadarModule = (function() {
   };
 })();
 
-  function initAdvScannerNavigation() {
+/* ===================================================================================
+   PHASE 2: FUNDAMENTAL RESEARCH MODULE (STANDALONE & FULLY DECOUPLED)
+   =================================================================================== */
+window.FundamentalResearchModule = (function() {
+  let fundData = null;
+  let isInitialized = false;
+  let activeFilter = 'all';
+  let searchQuery = '';
+  let sortConfig = { key: 'f_score', dir: 'desc' };
+
+  async function init() {
+    if (!isInitialized) {
+      bindEvents();
+      isInitialized = true;
+    }
+    await loadData();
+  }
+
+  async function loadData() {
+    try {
+      if (window._cachedFundamentalData) {
+        fundData = window._cachedFundamentalData;
+        renderUI();
+      }
+
+      const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+      let res = await fetch(`${basePath}data/fundamental_data.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch(`data/fundamental_data.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/fundamental_data.json').catch(() => null);
+
+      if (res && res.ok) {
+        fundData = await res.json();
+        window._cachedFundamentalData = fundData;
+        renderUI();
+        if (typeof window.populateFundamentalQualityCard === 'function') {
+          window.populateFundamentalQualityCard();
+        }
+      }
+    } catch (err) {
+      console.error('[FundamentalResearchModule] Error loading data:', err);
+    }
+  }
+
+  function bindEvents() {
+    // Refresh button
+    const refreshBtn = document.getElementById('fund-refresh-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', async () => {
+        refreshBtn.innerHTML = '<span>↻</span> Refreshing...';
+        refreshBtn.disabled = true;
+        window._cachedFundamentalData = null;
+        await loadData();
+        refreshBtn.innerHTML = '<span>↻</span> Refresh';
+        refreshBtn.disabled = false;
+      });
+    }
+
+    // Search input
+    const searchInput = document.getElementById('fund-search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = (e.target.value || '').trim().toLowerCase();
+        renderTable();
+      });
+    }
+
+    // Filter preset buttons
+    const filterButtons = document.querySelectorAll('.fund-filter-btn');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        activeFilter = btn.getAttribute('data-filter') || 'all';
+        renderTable();
+      });
+    });
+
+    // Sortable table headers
+    const tableEl = document.getElementById('fund-leaderboard-table');
+    if (tableEl) {
+      tableEl.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+          const colKey = th.getAttribute('data-sort');
+          if (!colKey) return;
+          if (sortConfig.key === colKey) {
+            sortConfig.dir = sortConfig.dir === 'asc' ? 'desc' : 'asc';
+          } else {
+            sortConfig.key = colKey;
+            sortConfig.dir = ['s', 'sec', 'tier'].includes(colKey) ? 'asc' : 'desc';
+          }
+          // Update header classes
+          tableEl.querySelectorAll('th.sortable').forEach(h => {
+            h.classList.remove('sorted-asc', 'sorted-desc');
+          });
+          th.classList.add(sortConfig.dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+          renderTable();
+        });
+      });
+    }
+  }
+
+  function renderUI() {
+    if (!fundData) return;
+
+    // 1. EOD date badge
+    const badge = document.getElementById('fund-eod-badge');
+    if (badge && fundData.scan_date) {
+      badge.textContent = `● EOD SYNC: ${fundData.scan_date}`;
+    }
+
+    // 2. Macro KPI Summary Cards
+    const macro = fundData.macro_summary || {};
+    const stocks = fundData.stocks || [];
+
+    const elPe = document.getElementById('fund-kpi-pe');
+    const elDebt = document.getElementById('fund-kpi-debt');
+    const elDebtRatio = document.getElementById('fund-kpi-debt-ratio');
+    const elRoe = document.getElementById('fund-kpi-roe');
+    const elRoeHigh = document.getElementById('fund-kpi-roe-high');
+    const elMoat = document.getElementById('fund-kpi-moat');
+
+    if (elPe) {
+      elPe.textContent = macro.median_pe ? `${macro.median_pe}x` : '33.1x';
+    }
+    const debtFreeCount = macro.debt_free_count !== undefined ? macro.debt_free_count : stocks.filter(s => (Number(s.de) || 0) === 0).length;
+    if (elDebt) {
+      elDebt.textContent = `${debtFreeCount} Stocks`;
+    }
+    if (elDebtRatio && stocks.length > 0) {
+      const ratio = ((debtFreeCount / stocks.length) * 100).toFixed(1);
+      elDebtRatio.textContent = `${ratio}% of Universe`;
+    }
+    if (elRoe) {
+      elRoe.textContent = macro.median_roe ? `${macro.median_roe}%` : '15.9%';
+    }
+    const highRoeCount = stocks.filter(s => (Number(s.roe) || 0) > 20).length;
+    if (elRoeHigh) {
+      elRoeHigh.textContent = `${highRoeCount} Stocks`;
+    }
+    const f7Count = stocks.filter(s => (Number(s.f_score) || 0) >= 7).length;
+    if (elMoat) {
+      elMoat.textContent = `${f7Count} Stocks`;
+    }
+
+    // 3. Update filter button counts
+    const countAll = stocks.length;
+    const countBuffett = stocks.filter(s => (Number(s.roe) >= 20 && Number(s.roce) >= 15 && Number(s.de) <= 0.5 && Number(s.f_score) >= 7) || s.tier === 'Buffett Compounder').length;
+    const countGarp = stocks.filter(s => (Number(s.eps_g) >= 15 && Number(s.pe) <= 35 && Number(s.roe) >= 14) || s.tier === 'High-Growth GARP').length;
+    const countValue = stocks.filter(s => (Number(s.pe) <= 18 && Number(s.f_score) >= 5) || s.tier === 'Deep Value Moat').length;
+    const countHighDebt = stocks.filter(s => Number(s.de) >= 1.5 || Number(s.f_score) <= 4).length;
+
+    const elCAll = document.getElementById('count-filter-all');
+    const elCBuffett = document.getElementById('count-filter-compounders');
+    const elCGarp = document.getElementById('count-filter-garp');
+    const elCValue = document.getElementById('count-filter-value');
+    const elCHighDebt = document.getElementById('count-filter-highdebt');
+
+    if (elCAll) elCAll.textContent = countAll;
+    if (elCBuffett) elCBuffett.textContent = countBuffett;
+    if (elCGarp) elCGarp.textContent = countGarp;
+    if (elCValue) elCValue.textContent = countValue;
+    if (elCHighDebt) elCHighDebt.textContent = countHighDebt;
+
+    // 4. Render Table
+    renderTable();
+  }
+
+  function getFilteredStocks() {
+    if (!fundData || !fundData.stocks) return [];
+    let list = fundData.stocks;
+
+    // Apply Preset Filter
+    if (activeFilter === 'compounders') {
+      list = list.filter(s => (Number(s.roe) >= 20 && Number(s.roce) >= 15 && Number(s.de) <= 0.5 && Number(s.f_score) >= 7) || s.tier === 'Buffett Compounder');
+    } else if (activeFilter === 'garp') {
+      list = list.filter(s => (Number(s.eps_g) >= 15 && Number(s.pe) <= 35 && Number(s.roe) >= 14) || s.tier === 'High-Growth GARP');
+    } else if (activeFilter === 'value') {
+      list = list.filter(s => (Number(s.pe) <= 18 && Number(s.f_score) >= 5) || s.tier === 'Deep Value Moat');
+    } else if (activeFilter === 'highdebt') {
+      list = list.filter(s => Number(s.de) >= 1.5 || Number(s.f_score) <= 4);
+    }
+
+    // Apply Search Query
+    if (searchQuery) {
+      list = list.filter(s => {
+        const sym = (s.s || '').toLowerCase();
+        const sec = (s.sec || '').toLowerCase();
+        return sym.includes(searchQuery) || sec.includes(searchQuery);
+      });
+    }
+
+    // Sort
+    const { key, dir } = sortConfig;
+    list = [...list].sort((a, b) => {
+      let valA = a[key];
+      let valB = b[key];
+      if (typeof valA === 'string') {
+        const res = (valA || '').localeCompare(valB || '');
+        return dir === 'asc' ? res : -res;
+      }
+      valA = Number(valA) !== undefined && !isNaN(Number(valA)) ? Number(valA) : (dir === 'asc' ? 999999 : -999999);
+      valB = Number(valB) !== undefined && !isNaN(Number(valB)) ? Number(valB) : (dir === 'asc' ? 999999 : -999999);
+      return dir === 'asc' ? valA - valB : valB - valA;
+    });
+
+    return list;
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById('fund-table-tbody');
+    const countEl = document.getElementById('fund-showing-count');
+    if (!tbody) return;
+
+    const stocks = getFilteredStocks();
+    const totalCount = (fundData && fundData.stocks) ? fundData.stocks.length : 275;
+
+    if (countEl) {
+      countEl.textContent = `Showing ${stocks.length} of ${totalCount} Equities`;
+    }
+
+    if (stocks.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="12" style="text-align: center; padding: 2.5rem; color: rgba(255,255,255,0.4);">
+            No institutional equities matching current filter / search query.
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = stocks.map(s => {
+      const cmp = Number(s.cmp) || 0;
+      const pe = Number(s.pe) || 0;
+      const pb = Number(s.pb) || 0;
+      const roe = Number(s.roe) || 0;
+      const roce = Number(s.roce) || 0;
+      const de = Number(s.de) !== undefined ? Number(s.de) : 0;
+      const epsG = Number(s.eps_g) !== undefined ? Number(s.eps_g) : 0;
+      const prom = Number(s.prom) !== undefined ? Number(s.prom) : 0;
+      const fScore = Number(s.f_score) || 0;
+      const tier = s.tier || 'Fair Value';
+
+      // Score Pill
+      let scoreClass = 'score-pill-neutral';
+      if (fScore >= 8) scoreClass = 'score-pill-gold';
+      else if (fScore >= 6) scoreClass = 'score-pill-blue';
+      else if (fScore <= 3) scoreClass = 'score-pill-fragile';
+
+      // Tier Badge
+      let tierClass = 'tier-fair';
+      let tierIcon = '⚖️';
+      if (tier === 'Buffett Compounder') {
+        tierClass = 'tier-buffett';
+        tierIcon = '👑';
+      } else if (tier === 'High-Growth GARP') {
+        tierClass = 'tier-garp';
+        tierIcon = '🚀';
+      } else if (tier === 'Deep Value Moat') {
+        tierClass = 'tier-value';
+        tierIcon = '🛡️';
+      } else if (tier === 'Turnaround') {
+        tierClass = 'tier-turnaround';
+        tierIcon = '⚡';
+      }
+
+      // Formatting colors
+      const roeClass = roe >= 20 ? 'text-emerald font-bold' : (roe >= 14 ? 'text-cyan' : (roe < 8 ? 'text-rose' : 'text-slate'));
+      const roceClass = roce >= 20 ? 'text-emerald font-bold' : (roce >= 12 ? 'text-cyan' : 'text-slate');
+      const deClass = de === 0 ? 'text-emerald font-bold' : (de < 0.5 ? 'text-emerald' : (de > 1.5 ? 'text-rose font-bold' : 'text-slate'));
+      const epsGClass = epsG >= 20 ? 'text-emerald font-bold' : (epsG > 0 ? 'text-cyan' : 'text-rose');
+      const peClass = pe < 20 ? 'text-emerald' : (pe > 50 ? 'text-amber' : 'text-slate');
+
+      const cmpFormatted = cmp >= 1000 ? cmp.toLocaleString('en-IN', { minimumFractionDigits: 1, maximumFractionDigits: 2 }) : cmp.toFixed(2);
+      const epsGFormatted = epsG > 0 ? `+${epsG.toFixed(1)}%` : `${epsG.toFixed(1)}%`;
+
+      return `
+        <tr>
+          <td class="col-sticky-symbol">
+            <span class="fund-symbol-text">${s.s}</span>
+          </td>
+          <td>
+            <span class="fund-sec-pill">${s.sec || '--'}</span>
+          </td>
+          <td class="text-right">₹${cmpFormatted}</td>
+          <td class="text-right ${peClass}">${pe.toFixed(1)}</td>
+          <td class="text-right text-slate">${pb.toFixed(1)}</td>
+          <td class="text-right ${roeClass}">${roe.toFixed(1)}%</td>
+          <td class="text-right ${roceClass}">${roce.toFixed(1)}%</td>
+          <td class="text-right ${deClass}">${de === 0 ? '0.00' : de.toFixed(2)}</td>
+          <td class="text-right ${epsGClass}">${epsGFormatted}</td>
+          <td class="text-right text-slate">${prom.toFixed(1)}%</td>
+          <td class="text-center">
+            <span class="fund-score-pill ${scoreClass}">${fScore}/9</span>
+          </td>
+          <td class="text-center">
+            <span class="fund-tier-badge ${tierClass}">${tierIcon} ${tier}</span>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  return {
+    init: init,
+    loadData: loadData,
+    renderTable: renderTable
+  };
+})();
+
+function initAdvScannerNavigation() {
     function switchView(target) {
       const dView = document.getElementById('view-dashboard') || document.getElementById('dashboard-view');
       const dCont = document.getElementById('dashboard-container');
@@ -5111,10 +5425,42 @@ window.SmartMoneyRadarModule = (function() {
       const sCont = document.getElementById('sector-analysis-container');
       const smView = document.getElementById('view-smart-money');
       const smCont = document.getElementById('smart-money-radar');
+      const fView = document.getElementById('view-fundamental-research');
+      const fCont = document.getElementById('fundamental-research-container');
       const dBtn = document.getElementById('nav-dashboard');
       const aBtn = document.getElementById('nav-adv-scanner');
       const sBtn = document.getElementById('nav-sector-analysis');
       const smBtn = document.getElementById('nav-smart-money') || document.querySelector('a[href="#smart-money"]');
+      const fBtn = document.getElementById('nav-fundamental-research') || document.querySelector('a[href="#fundamental-research"]');
+
+      if (target === 'fund' || target === 'fundamental') {
+        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
+        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
+        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
+        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
+        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
+        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
+        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
+        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
+        if (fView) {
+          fView.classList.remove('hidden');
+          fView.style.setProperty('display', 'block', 'important');
+          fView.style.minHeight = '500px';
+        }
+        if (fCont) {
+          fCont.classList.remove('hidden');
+          fCont.style.setProperty('display', 'flex', 'important');
+        }
+        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+        if (fBtn) fBtn.classList.add('active');
+        if (window.location.hash !== '#fundamental-research') {
+          window.location.hash = '#fundamental-research';
+        }
+        if (window.FundamentalResearchModule && typeof window.FundamentalResearchModule.init === 'function') {
+          window.FundamentalResearchModule.init();
+        }
+        return;
+      }
 
       if (target === 'smart') {
         if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
@@ -5123,6 +5469,8 @@ window.SmartMoneyRadarModule = (function() {
         if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
         if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
         if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
+        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
+        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
         if (smView) {
           smView.classList.remove('hidden');
           smView.style.setProperty('display', 'block', 'important');
@@ -5150,6 +5498,8 @@ window.SmartMoneyRadarModule = (function() {
         if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
         if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
         if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
+        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
+        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
         if (sView) {
           sView.classList.remove('hidden');
           sView.style.setProperty('display', 'block', 'important');
@@ -5178,6 +5528,8 @@ window.SmartMoneyRadarModule = (function() {
         if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
         if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
         if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
+        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
+        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
         if (aView) {
           aView.classList.remove('hidden');
           aView.style.setProperty('display', 'block', 'important');
@@ -5212,6 +5564,8 @@ window.SmartMoneyRadarModule = (function() {
         if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
         if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
         if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
+        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
+        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
         if (dView) {
           dView.classList.remove('hidden');
           dView.style.setProperty('display', 'block', 'important');
@@ -5226,7 +5580,7 @@ window.SmartMoneyRadarModule = (function() {
         }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (dBtn) dBtn.classList.add('active');
-        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar') {
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research') {
           window.location.hash = '#dashboard';
         }
       }
@@ -5252,6 +5606,11 @@ window.SmartMoneyRadarModule = (function() {
           e.preventDefault();
           switchView('smart');
         });
+      } else if (item.id === 'nav-fundamental-research' || item.getAttribute('href') === '#fundamental-research') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('fund');
+        });
       } else if (item.id === 'nav-dashboard' || item.getAttribute('href') === '#dashboard') {
         item.addEventListener('click', (e) => {
           e.preventDefault();
@@ -5275,6 +5634,8 @@ window.SmartMoneyRadarModule = (function() {
         switchView('sec');
       } else if (hash === '#smart-money' || hash === '#smart-money-radar') {
         switchView('smart');
+      } else if (hash === '#fundamental-research' || hash === '#fundamental') {
+        switchView('fund');
       } else {
         switchView('dash');
       }
@@ -8311,9 +8672,67 @@ window.SmartMoneyRadarModule = (function() {
     if (samplesEl) samplesEl.textContent = `${Number(data.total_samples).toLocaleString('en-IN')} ${unit}`;
   }
 
+async function populateFundamentalQualityCard() {
+    const fBody = document.getElementById('fund-sub-tbody') || document.getElementById('fundamental-quality-body');
+    if (!fBody) return;
+
+    let stocks = null;
+    if (window._cachedFundamentalData && window._cachedFundamentalData.stocks) {
+      stocks = window._cachedFundamentalData.stocks;
+    } else {
+      try {
+        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+        let res = await fetch(`${basePath}data/fundamental_data.json?v=${Date.now()}`).catch(() => null);
+        if (!res || !res.ok) res = await fetch(`data/fundamental_data.json?v=${Date.now()}`).catch(() => null);
+        if (!res || !res.ok) res = await fetch('data/fundamental_data.json').catch(() => null);
+        if (res && res.ok) {
+          const d = await res.json();
+          window._cachedFundamentalData = d;
+          stocks = d.stocks;
+        }
+      } catch (e) {
+        console.warn('[FundamentalQualityCard] Fetch error:', e);
+      }
+    }
+
+    if (stocks && stocks.length > 0) {
+      // Filter: ROE > 20%, Debt < 0.5
+      const eligible = stocks.filter(s => (Number(s.roe) || 0) > 20 && (Number(s.de) !== undefined ? Number(s.de) : 99) < 0.5);
+      // Sort: highest F-score desc, lowest D/E asc, highest ROE desc
+      eligible.sort((a, b) => {
+        const fDiff = (Number(b.f_score) || 0) - (Number(a.f_score) || 0);
+        if (fDiff !== 0) return fDiff;
+        const deDiff = (Number(a.de) || 0) - (Number(b.de) || 0);
+        if (deDiff !== 0) return deDiff;
+        return (Number(b.roe) || 0) - (Number(a.roe) || 0);
+      });
+      const top5 = eligible.slice(0, 5);
+      if (top5.length > 0) {
+        fBody.innerHTML = top5.map(s => {
+          const roe = Number(s.roe) || 0;
+          const roce = Number(s.roce) || 0;
+          const de = Number(s.de) !== undefined ? Number(s.de) : 0;
+          const pe = Number(s.pe) || 0;
+          const fScore = Number(s.f_score) || 0;
+          return `
+            <tr>
+              <td><strong class="text-white">${s.s}</strong></td>
+              <td class="font-mono text-emerald font-bold">${roe.toFixed(1)}%</td>
+              <td class="font-mono text-cyan">${roce.toFixed(1)}%</td>
+              <td class="font-mono ${de < 0.05 ? 'text-emerald font-bold' : 'text-slate'}">${de === 0 ? '0.00' : de.toFixed(2)}</td>
+              <td class="font-mono text-slate">${pe.toFixed(1)}</td>
+              <td><span class="score-badge score-a font-mono font-bold">${fScore}/9</span></td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+  }
+  window.populateFundamentalQualityCard = populateFundamentalQualityCard;
+
   function renderBottomWidgets() {
     // 1. Smart Money Top 5 Accumulation
-    const smBody = document.getElementById('smart-money-top5-body');
+    const smBody = document.getElementById('radar-sub-tbody') || document.getElementById('smart-money-top5-body');
     if (smBody && state.scannerData && state.scannerData.setups) {
       let allSigs = [];
       Object.values(state.scannerData.setups).forEach(s => {
@@ -8350,32 +8769,7 @@ window.SmartMoneyRadarModule = (function() {
     }
 
     // 2. Fundamental Quality Top Stocks
-    const fBody = document.getElementById('fundamental-quality-body');
-    if (fBody && state.fundamentalsData) {
-      const fundList = Object.entries(state.fundamentalsData).map(([sym, f]) => ({
-        symbol: sym,
-        roe: parseFloat(f.roe) || 0,
-        roce: parseFloat(f.roce) || 0,
-        de: parseFloat(f.debt_to_equity) || 0,
-        pe: parseFloat(f.pe_ratio) || 0,
-        score: f.financial_health_score || 85
-      }));
-      // Filter high ROE, low Debt
-      fundList.sort((a, b) => b.roe - a.roe);
-      const topFund = fundList.slice(0, 5);
-      if (topFund.length > 0) {
-        fBody.innerHTML = topFund.map(f => `
-          <tr>
-            <td><strong>${f.symbol}</strong></td>
-            <td class="font-mono">${f.roe.toFixed(1)}</td>
-            <td class="font-mono">${f.roce.toFixed(1)}</td>
-            <td class="font-mono">${f.de.toFixed(1)}</td>
-            <td class="font-mono">${f.pe.toFixed(1)}</td>
-            <td><span class="score-badge score-a font-mono font-bold">${f.score}</span></td>
-          </tr>
-        `).join('');
-      }
-    }
+    populateFundamentalQualityCard();
   }
 
   function renderAll() {

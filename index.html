@@ -90,7 +90,7 @@
           <span class="sidebar-icon">🐋</span>
           <span class="sidebar-label">Smart Money Radar</span>
         </a>
-        <a href="#fundamental-research" class="sidebar-item">
+        <a href="#fundamental-research" class="sidebar-item" id="nav-fundamental-research">
           <span class="sidebar-icon">🏛️</span>
           <span class="sidebar-label">Fundamental Research</span>
         </a>
@@ -1211,6 +1211,175 @@
 
     </div><!-- /#smart-money-radar -->
   </div><!-- /#view-smart-money -->
+
+  <!-- ===================================================================================
+       FUNDAMENTAL RESEARCH & VALUATION INTELLIGENCE STATION (VIEW 5)
+       =================================================================================== -->
+  <div id="view-fundamental-research" class="terminal-view hidden fundamental-research-viewport" aria-label="Fundamental Research Workspace">
+    <div id="fundamental-research-container" class="fundamental-research-container">
+
+      <!-- 1. Station Header -->
+      <div id="fund-station-header" class="fund-station-header">
+        <div class="fund-header-left">
+          <div class="fund-title-row">
+            <span class="adv-badge-chip">INSTITUTIONAL QUANTITATIVE SUITE</span>
+            <span class="fund-badge-live" id="fund-eod-badge">● EOD SYNC: 2026-11-04</span>
+            <h2 class="fund-main-title">🏛️ Fundamental Research Station</h2>
+          </div>
+          <p class="fund-sub-title">
+            Institutional Valuation Multiples, Buffett Compounders, Balance Sheet Quality &amp; Piotroski F-Score Screener across NSE 500 / Core 275 Universe
+          </p>
+        </div>
+        <div class="fund-header-right">
+          <div class="fund-search-wrap">
+            <span class="fund-search-icon">🔍</span>
+            <input type="text" id="fund-search-input" class="fund-search-input" placeholder="Search Symbol or Sector..." aria-label="Search Symbol or Sector" />
+          </div>
+          <button id="fund-refresh-btn" class="fund-action-btn" type="button" title="Reload Fundamental Data">
+            <span>↻</span> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Macro KPI Summary Cards (4 Cards) -->
+      <section class="fund-kpi-grid" aria-label="Macro Fundamental Summary Cards">
+        
+        <!-- Card 1: Market Valuation (Median PE) -->
+        <div class="fund-kpi-card fund-card-pe">
+          <div class="fund-card-top">
+            <span class="fund-kpi-label">🏛️ MARKET VALUATION</span>
+            <span class="fund-flow-badge badge-neutral">MEDIAN MULTIPLE</span>
+          </div>
+          <div class="fund-kpi-main">
+            <strong class="fund-kpi-val text-cyan" id="fund-kpi-pe">33.1x</strong>
+            <span class="fund-kpi-sub">Median P/E (Core 275)</span>
+          </div>
+          <div class="fund-kpi-footer">
+            <span class="fund-foot-label">Valuation Regime:</span>
+            <span class="fund-anchor-pill" id="fund-kpi-pe-regime">Fair Market Value</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Balance Sheet Quality (Debt-Free Count / Ratio) -->
+        <div class="fund-kpi-card fund-card-debt">
+          <div class="fund-card-top">
+            <span class="fund-kpi-label">🛡️ BALANCE SHEET QUALITY</span>
+            <span class="fund-flow-badge badge-emerald">ZERO DEBT</span>
+          </div>
+          <div class="fund-kpi-main">
+            <strong class="fund-kpi-val text-emerald" id="fund-kpi-debt">10 Stocks</strong>
+            <span class="fund-kpi-sub" id="fund-kpi-debt-ratio">3.6% of Universe</span>
+          </div>
+          <div class="fund-kpi-footer">
+            <span class="fund-foot-label">Solvency Standard:</span>
+            <span class="fund-anchor-pill" id="fund-kpi-debt-anchor">Debt/Equity = 0.00</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Earnings Power (Median ROE) -->
+        <div class="fund-kpi-card fund-card-roe">
+          <div class="fund-card-top">
+            <span class="fund-kpi-label">⚡ EARNINGS POWER</span>
+            <span class="fund-flow-badge badge-neutral">EQUITY RETURN</span>
+          </div>
+          <div class="fund-kpi-main">
+            <strong class="fund-kpi-val text-gold" id="fund-kpi-roe">15.9%</strong>
+            <span class="fund-kpi-sub">Median Return on Equity</span>
+          </div>
+          <div class="fund-kpi-footer">
+            <span class="fund-foot-label">High-ROE (&gt;20%):</span>
+            <span class="fund-anchor-pill" id="fund-kpi-roe-high">49 Stocks</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Institutional Moats (Piotroski F-Score >= 7) -->
+        <div class="fund-kpi-card fund-card-moat">
+          <div class="fund-card-top">
+            <span class="fund-kpi-label">💎 INSTITUTIONAL MOATS</span>
+            <span class="fund-flow-badge badge-purple">PIOTROSKI F-SCORE</span>
+          </div>
+          <div class="fund-kpi-main">
+            <strong class="fund-kpi-val text-purple" id="fund-kpi-moat">45 Stocks</strong>
+            <span class="fund-kpi-sub">F-Score 7 to 9 / 9</span>
+          </div>
+          <div class="fund-kpi-footer">
+            <span class="fund-foot-label">Pristine Moats:</span>
+            <span class="fund-anchor-pill" id="fund-kpi-moat-high">F-Score 9/9 (TCS, etc.)</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 3. Quant Preset Filter Bar & Counter Strip -->
+      <section class="fund-controls-section" aria-label="Quant Strategy Filters">
+        <div class="fund-filter-strip">
+          <div class="fund-filter-group" role="tablist" aria-label="Quant Strategy Filters">
+            <button class="fund-filter-btn active" data-filter="all" type="button" role="tab" aria-selected="true">
+              <span class="fund-btn-icon">✦</span>
+              <span>All Core 275</span>
+              <span class="fund-btn-count" id="count-filter-all">275</span>
+            </button>
+            <button class="fund-filter-btn" data-filter="compounders" type="button" role="tab" aria-selected="false">
+              <span class="fund-btn-icon">👑</span>
+              <span>Buffett Compounders</span>
+              <span class="fund-btn-count" id="count-filter-compounders">21</span>
+            </button>
+            <button class="fund-filter-btn" data-filter="garp" type="button" role="tab" aria-selected="false">
+              <span class="fund-btn-icon">🚀</span>
+              <span>High-Growth GARP</span>
+              <span class="fund-btn-count" id="count-filter-garp">29</span>
+            </button>
+            <button class="fund-filter-btn" data-filter="value" type="button" role="tab" aria-selected="false">
+              <span class="fund-btn-icon">🛡️</span>
+              <span>Deep Value Moat</span>
+              <span class="fund-btn-count" id="count-filter-value">61</span>
+            </button>
+            <button class="fund-filter-btn" data-filter="highdebt" type="button" role="tab" aria-selected="false">
+              <span class="fund-btn-icon">⚠️</span>
+              <span>High Debt / Fragile</span>
+              <span class="fund-btn-count" id="count-filter-highdebt">140</span>
+            </button>
+          </div>
+          <div class="fund-results-info">
+            <span id="fund-showing-count">Showing 275 of 275 Equities</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Interactive Leaderboard Table -->
+      <section class="fund-table-section" aria-label="Fundamental Leaderboard Table">
+        <div class="fund-table-card">
+          <div class="fund-table-responsive" tabindex="0" role="region" aria-label="Scrollable Fundamental Table">
+            <table class="fund-table" id="fund-leaderboard-table">
+              <thead>
+                <tr>
+                  <th data-sort="s" class="sortable col-sticky-symbol">Symbol <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="sec" class="sortable">Sector <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="cmp" class="sortable text-right">CMP (₹) <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="pe" class="sortable text-right">P/E <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="pb" class="sortable text-right">P/B <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="roe" class="sortable text-right">ROE % <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="roce" class="sortable text-right">ROCE % <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="de" class="sortable text-right">D/E <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="eps_g" class="sortable text-right">EPS Growth % <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="prom" class="sortable text-right">Promoter % <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="f_score" class="sortable text-center">F-Score <span class="sort-icon">▲▼</span></th>
+                  <th data-sort="tier" class="sortable text-center">Strategy Tier <span class="sort-icon">▲▼</span></th>
+                </tr>
+              </thead>
+              <tbody id="fund-table-tbody">
+                <tr>
+                  <td colspan="12" class="fund-table-loading">Loading Institutional Fundamental Intelligence...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /#fundamental-research-container -->
+  </div><!-- /#view-fundamental-research -->
+
 
 
     <!-- FOOTER -->

@@ -7197,3 +7197,592 @@ body.table-col-resizing * {
     min-height: auto;
   }
 }
+
+/* ===================================================================================
+   PHASE 2: DASHBOARD FUNDAMENTAL QUALITY CARD LAYOUT CONTAINMENT (CRITICAL)
+   =================================================================================== */
+#fund-bottom-card {
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#fund-bottom-card .sub-table-responsive {
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+#fund-bottom-card .terminal-mini-table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#fund-bottom-card .terminal-mini-table th,
+#fund-bottom-card .terminal-mini-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.35rem 0.25rem;
+  font-size: 0.72rem;
+  box-sizing: border-box;
+}
+
+#fund-bottom-card .terminal-mini-table th:nth-child(1),
+#fund-bottom-card .terminal-mini-table td:nth-child(1) {
+  width: 28%;
+  text-align: left;
+}
+
+#fund-bottom-card .terminal-mini-table th:nth-child(2),
+#fund-bottom-card .terminal-mini-table td:nth-child(2),
+#fund-bottom-card .terminal-mini-table th:nth-child(3),
+#fund-bottom-card .terminal-mini-table td:nth-child(3),
+#fund-bottom-card .terminal-mini-table th:nth-child(4),
+#fund-bottom-card .terminal-mini-table td:nth-child(4),
+#fund-bottom-card .terminal-mini-table th:nth-child(5),
+#fund-bottom-card .terminal-mini-table td:nth-child(5) {
+  width: 14%;
+  text-align: right;
+}
+
+#fund-bottom-card .terminal-mini-table th:nth-child(6),
+#fund-bottom-card .terminal-mini-table td:nth-child(6) {
+  width: 16%;
+  text-align: center;
+}
+
+/* ===================================================================================
+   PHASE 2: FUNDAMENTAL RESEARCH STATION STYLING (#view-fundamental-research)
+   =================================================================================== */
+.fundamental-research-viewport {
+  width: 100%;
+  box-sizing: border-box;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.fundamental-research-container {
+  padding: 1rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 1. Station Header */
+.fund-station-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(16, 24, 39, 0.95), rgba(11, 15, 25, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.fund-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fund-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fund-badge-live {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono, monospace);
+}
+
+.fund-main-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.5px;
+}
+
+.fund-sub-title {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.fund-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fund-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fund-search-icon {
+  position: absolute;
+  left: 10px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.fund-search-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  padding: 8px 12px 8px 32px;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  width: 220px;
+  transition: all 0.2s ease;
+}
+
+.fund-search-input:focus {
+  border-color: #ff6b35;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+}
+
+.fund-action-btn {
+  background: rgba(255, 107, 53, 0.15);
+  border: 1px solid rgba(255, 107, 53, 0.4);
+  color: #ff6b35;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fund-action-btn:hover {
+  background: rgba(255, 107, 53, 0.25);
+  border-color: #ff6b35;
+  transform: translateY(-1px);
+}
+
+/* 2. Macro KPI Summary Cards Grid */
+.fund-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.fund-kpi-card {
+  background: linear-gradient(135deg, rgba(16, 24, 39, 0.85), rgba(11, 15, 25, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.fund-kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.fund-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.fund-kpi-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.5px;
+}
+
+.fund-flow-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.5px;
+}
+
+.fund-kpi-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fund-kpi-val {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+  font-family: var(--font-mono, monospace);
+}
+
+.fund-kpi-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-mono, monospace);
+}
+
+.fund-kpi-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 11px;
+}
+
+.fund-foot-label {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.fund-anchor-pill {
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+}
+
+/* 3. Controls & Filter Strip */
+.fund-controls-section {
+  width: 100%;
+}
+
+.fund-filter-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(16, 24, 39, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.fund-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.fund-filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fund-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.fund-filter-btn.active {
+  background: rgba(255, 107, 53, 0.15);
+  border-color: #ff6b35;
+  color: #ff6b35;
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+}
+
+.fund-btn-icon {
+  font-size: 13px;
+}
+
+.fund-btn-count {
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 10px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+}
+
+.fund-filter-btn.active .fund-btn-count {
+  background: rgba(255, 107, 53, 0.3);
+  color: #ffffff;
+}
+
+.fund-results-info {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-mono, monospace);
+}
+
+/* 4. Interactive Leaderboard Table Section */
+.fund-table-section {
+  width: 100%;
+}
+
+.fund-table-card {
+  background: linear-gradient(135deg, rgba(16, 24, 39, 0.85), rgba(11, 15, 25, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.fund-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fund-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.fund-table th {
+  background: #111827;
+  color: #94a3b8;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  letter-spacing: 0.5px;
+  padding: 11px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+.fund-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.fund-table th.sortable:hover {
+  color: #ffffff;
+  background: #1a2234;
+}
+
+.fund-table th .sort-icon {
+  font-size: 9px;
+  opacity: 0.4;
+  margin-left: 3px;
+}
+
+.fund-table th.sorted-asc .sort-icon,
+.fund-table th.sorted-desc .sort-icon {
+  opacity: 1;
+  color: #ff6b35;
+}
+
+.fund-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: var(--font-mono, monospace);
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.fund-table tr:hover td {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+/* Sticky first column for symbol on desktop & mobile */
+.fund-table th.col-sticky-symbol,
+.fund-table td.col-sticky-symbol {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #0d121d;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.45);
+}
+
+.fund-table th.col-sticky-symbol {
+  z-index: 3;
+  background: #111827;
+}
+
+.fund-table tr:hover td.col-sticky-symbol {
+  background: #151b29;
+}
+
+/* Cell typography & badges */
+.fund-symbol-text {
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.fund-sec-pill {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Score Pills */
+.fund-score-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  min-width: 32px;
+}
+
+.score-pill-gold {
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+.score-pill-blue {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.score-pill-neutral {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.score-pill-fragile {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.4);
+}
+
+/* Strategy Tier Badges */
+.fund-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.tier-buffett {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(245, 158, 11, 0.15));
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+.tier-garp {
+  background: rgba(16, 185, 129, 0.18);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.tier-value {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.tier-turnaround {
+  background: rgba(245, 158, 11, 0.18);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.tier-fair {
+  background: rgba(148, 163, 184, 0.12);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.fund-table-loading {
+  text-align: center;
+  padding: 3rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .fund-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .fund-station-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+  }
+  .fund-header-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .fund-search-input {
+    width: 100%;
+  }
+  .fund-kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .fund-filter-strip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .fund-filter-group {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .fund-main-title {
+    font-size: 18px;
+  }
+}
