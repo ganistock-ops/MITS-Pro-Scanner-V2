@@ -4262,15 +4262,22 @@
     return wl.includes(symbol);
   }
 
-  function toggleWatchlist(symbol) {
+  function toggleWatchlist(symbol, directAdd = false) {
     if (!symbol) return false;
     let wl = getWatchlist();
     const idx = wl.indexOf(symbol);
     let added = false;
-    if (idx >= 0) {
+    if (idx >= 0 && !directAdd) {
       wl.splice(idx, 1);
       added = false;
-    } else {
+      if (window.WatchlistAlertsModule && typeof window.WatchlistAlertsModule.removeStockInternal === 'function') {
+        window.WatchlistAlertsModule.removeStockInternal(symbol, false);
+      }
+    } else if (idx < 0) {
+      if (!directAdd && window.WatchlistAlertsModule && typeof window.WatchlistAlertsModule.openAlertModal === 'function') {
+        window.WatchlistAlertsModule.openAlertModal(symbol);
+        return true;
+      }
       wl.push(symbol);
       added = true;
     }
@@ -4280,6 +4287,9 @@
       console.warn('[MITS Pro] Error saving watchlist to localStorage:', e);
     }
     updateAllWatchlistUI(symbol, added);
+    if (window.WatchlistAlertsModule && typeof window.WatchlistAlertsModule.evaluateAllAlerts === 'function') {
+      window.WatchlistAlertsModule.evaluateAllAlerts();
+    }
     return added;
   }
 
@@ -5523,6 +5533,8 @@ function initAdvScannerNavigation() {
       const fCont = document.getElementById('fundamental-research-container');
       const btView = document.getElementById('view-strategy-backtest');
       const btCont = document.getElementById('strategy-backtest-container');
+      const wView = document.getElementById('view-watchlist-alerts');
+      const wCont = document.getElementById('watchlist-alerts-container');
 
       const dBtn = document.getElementById('nav-dashboard');
       const aBtn = document.getElementById('nav-adv-scanner');
@@ -5530,6 +5542,7 @@ function initAdvScannerNavigation() {
       const smBtn = document.getElementById('nav-smart-money') || document.querySelector('a[href="#smart-money"]');
       const fBtn = document.getElementById('nav-fundamental-research') || document.querySelector('a[href="#fundamental-research"]');
       const btBtn = document.getElementById('nav-strategy-backtest') || document.querySelector('a[href="#strategy-backtest"]');
+      const wBtn = document.getElementById('nav-watchlist-alerts') || document.querySelector('a[href="#watchlist-alerts"]');
 
       function hideAllViews() {
         if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
@@ -5544,7 +5557,30 @@ function initAdvScannerNavigation() {
         if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
         if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
         if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
+        if (wView) { wView.classList.add('hidden'); wView.style.setProperty('display', 'none', 'important'); }
+        if (wCont) { wCont.classList.add('hidden'); wCont.style.setProperty('display', 'none', 'important'); }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+      }
+
+      if (target === 'watchlist' || target === 'alerts') {
+        hideAllViews();
+        if (wView) {
+          wView.classList.remove('hidden');
+          wView.style.setProperty('display', 'block', 'important');
+          wView.style.minHeight = '500px';
+        }
+        if (wCont) {
+          wCont.classList.remove('hidden');
+          wCont.style.setProperty('display', 'flex', 'important');
+        }
+        if (wBtn) wBtn.classList.add('active');
+        if (window.location.hash !== '#watchlist-alerts') {
+          window.location.hash = '#watchlist-alerts';
+        }
+        if (window.WatchlistAlertsModule && typeof window.WatchlistAlertsModule.init === 'function') {
+          window.WatchlistAlertsModule.init();
+        }
+        return;
       }
 
       if (target === 'backtest' || target === 'strategy') {
@@ -5675,7 +5711,7 @@ function initAdvScannerNavigation() {
           mCont.style.setProperty('display', 'block', 'important');
         }
         if (dBtn) dBtn.classList.add('active');
-        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest' || window.location.hash === '#backtest') {
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest' || window.location.hash === '#backtest' || window.location.hash === '#watchlist-alerts' || window.location.hash === '#watchlist') {
           window.location.hash = '#dashboard';
         }
       }
@@ -5711,6 +5747,11 @@ function initAdvScannerNavigation() {
           e.preventDefault();
           switchView('backtest');
         });
+      } else if (item.id === 'nav-watchlist-alerts' || item.getAttribute('href') === '#watchlist-alerts' || item.getAttribute('href') === '#watchlist') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('watchlist');
+        });
       } else if (item.id === 'nav-dashboard' || item.getAttribute('href') === '#dashboard') {
         item.addEventListener('click', (e) => {
           e.preventDefault();
@@ -5738,6 +5779,8 @@ function initAdvScannerNavigation() {
         switchView('fund');
       } else if (hash === '#strategy-backtest' || hash === '#backtest') {
         switchView('backtest');
+      } else if (hash === '#watchlist-alerts' || hash === '#watchlist' || hash === '#alerts') {
+        switchView('watchlist');
       } else {
         switchView('dash');
       }
@@ -10175,4 +10218,903 @@ window.StrategyBacktestModule = (function() {
 // Preload backtest data in background for instant dashboard card sync & zero station latency
 if (window.StrategyBacktestModule && typeof window.StrategyBacktestModule.loadData === 'function') {
   window.StrategyBacktestModule.loadData();
+}
+
+/* ==========================================================================
+   VIEW 7: WATCHLIST & TACTICAL ALERTS STATION MODULE (100% Client-Side)
+   ========================================================================== */
+window.WatchlistAlertsModule = (function() {
+  const STORAGE_KEY_ALERTS = 'mits_pro_watchlist_alerts';
+  const STORAGE_KEY_WATCHLIST = 'mits_pro_watchlist';
+
+  let alerts = [];
+  let cachedUniverse = [];
+  let isInitialized = false;
+  let activeFilter = 'all';
+  let currentModalStock = null;
+  let selectedPreset = 'S1_RETEST';
+  let dismissedSymbols = new Set();
+
+  function getAlertsFromStorage() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_ALERTS);
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.warn('[WatchlistAlertsModule] Error reading alerts from storage:', e);
+      return [];
+    }
+  }
+
+  function saveAlertsToStorage(data) {
+    try {
+      localStorage.setItem(STORAGE_KEY_ALERTS, JSON.stringify(data));
+    } catch (e) {
+      console.warn('[WatchlistAlertsModule] Error saving alerts to storage:', e);
+    }
+  }
+
+  function getRawWatchlist() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_WATCHLIST);
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveRawWatchlist(list) {
+    try {
+      localStorage.setItem(STORAGE_KEY_WATCHLIST, JSON.stringify(list));
+    } catch (e) {}
+  }
+
+  function syncStorage() {
+    alerts = getAlertsFromStorage();
+    const rawWl = getRawWatchlist();
+    let changed = false;
+
+    // 1. Ensure any stock in raw watchlist exists in alerts
+    rawWl.forEach(sym => {
+      const upper = sym.toUpperCase();
+      if (!alerts.some(a => a.symbol.toUpperCase() === upper)) {
+        alerts.push({
+          symbol: upper,
+          addedAt: new Date().toISOString(),
+          alertType: 'WATCH_ONLY',
+          targetPrice: null,
+          bufferPct: 0.8,
+          condition: 'ZONE',
+          notes: 'Added from Watchlist',
+          isTriggered: false
+        });
+        changed = true;
+      }
+    });
+
+    // 2. Ensure raw watchlist contains all symbols from alerts
+    alerts.forEach(a => {
+      const upper = a.symbol.toUpperCase();
+      if (!rawWl.includes(upper)) {
+        rawWl.push(upper);
+        changed = true;
+      }
+    });
+
+    if (changed) {
+      saveAlertsToStorage(alerts);
+      saveRawWatchlist(rawWl);
+    }
+  }
+
+  async function loadUniverse() {
+    if (window._masterUniverseData && window._masterUniverseData.stocks) {
+      cachedUniverse = window._masterUniverseData.stocks;
+      return cachedUniverse;
+    }
+    const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
+    try {
+      let res = await fetch(`${basePath}master_universe_eod.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch(`data/master_universe_eod.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/master_universe_eod.json').catch(() => null);
+      if (res && res.ok) {
+        const data = await res.json();
+        window._masterUniverseData = data;
+        cachedUniverse = data.stocks || [];
+      }
+    } catch (e) {
+      console.warn('[WatchlistAlertsModule] Could not load master universe:', e);
+    }
+    return cachedUniverse;
+  }
+
+  function findStockData(symbol) {
+    if (!symbol) return null;
+    const sym = symbol.trim().toUpperCase();
+
+    // Check cached universe
+    const uStock = cachedUniverse.find(s => (s.symbol || '').toUpperCase() === sym) || null;
+
+    // Check scanner signals across setups
+    let sig = null;
+    if (window.state && window.state.scannerData && window.state.scannerData.setups) {
+      for (const k of Object.keys(window.state.scannerData.setups)) {
+        const setup = window.state.scannerData.setups[k];
+        if (setup && Array.isArray(setup.signals)) {
+          const match = setup.signals.find(s => (s.symbol || '').toUpperCase() === sym);
+          if (match) {
+            sig = match;
+            break;
+          }
+        }
+      }
+    }
+
+    const cmp = uStock ? uStock.cmp : (sig ? sig.cmp : 0);
+    const chg = uStock ? uStock.change_pct : (sig ? sig.change_pct : 0);
+    const ema20 = uStock?.ema_20 || null;
+    const s1 = sig?.s1 || (ema20 ? +(ema20 * 0.985).toFixed(2) : (cmp ? +(cmp * 0.96).toFixed(2) : 0));
+    const r1 = sig?.r1 || uStock?.high_52w || (cmp ? +(cmp * 1.05).toFixed(2) : 0);
+
+    return {
+      symbol: sym,
+      name: uStock?.name || sig?.name || sym,
+      sector: uStock?.sector || sig?.sector || 'Broad Market',
+      cmp: cmp,
+      change_pct: chg,
+      ema_20: ema20,
+      ema_50: uStock?.ema_50 || null,
+      high_52w: uStock?.high_52w || null,
+      low_52w: uStock?.low_52w || null,
+      s1: s1,
+      r1: r1,
+      rvol: uStock?.rvol || sig?.rvol || 1,
+      rsi_14: uStock?.rsi_14 || null,
+      tv_url: uStock?.tv_url || `https://www.tradingview.com/chart/?symbol=NSE%3A${sym}`,
+      breakout_status: uStock?.breakout_status || sig?.status || 'Active'
+    };
+  }
+
+  function evaluateAllAlerts(showFeedback = false) {
+    syncStorage();
+    let triggeredCount = 0;
+
+    alerts.forEach(item => {
+      const st = findStockData(item.symbol);
+      if (st) {
+        item.cmp = st.cmp;
+        item.change_pct = st.change_pct;
+        item.name = st.name;
+        item.sector = st.sector;
+        item.tv_url = st.tv_url;
+      }
+
+      const cmp = Number(item.cmp) || 0;
+      const target = Number(item.targetPrice) || 0;
+      const buf = Number(item.bufferPct) || 0.8;
+      let triggered = false;
+      let message = '';
+      let distPct = 0;
+
+      if (cmp > 0 && target > 0) {
+        distPct = +(((cmp - target) / target) * 100).toFixed(2);
+      }
+
+      if (item.alertType === 'S1_RETEST') {
+        const lower = target * (1 - buf / 100);
+        const upper = target * (1 + buf / 100);
+        if (cmp >= lower && cmp <= upper) {
+          triggered = true;
+          message = `In S1 Retest Zone (CMP: ₹${cmp.toLocaleString('en-IN')} vs S1: ₹${target.toLocaleString('en-IN')})`;
+        } else if (cmp <= upper && cmp >= target * 0.985) {
+          triggered = true;
+          message = `Testing S1 Support (CMP: ₹${cmp.toLocaleString('en-IN')} vs S1: ₹${target.toLocaleString('en-IN')})`;
+        }
+      } else if (item.alertType === 'EMA20_PULLBACK') {
+        const lower = target * (1 - buf / 100);
+        const upper = target * (1 + buf / 100);
+        if (cmp >= lower && cmp <= upper) {
+          triggered = true;
+          message = `At 20 EMA Pullback Zone (CMP: ₹${cmp.toLocaleString('en-IN')} vs EMA20: ₹${target.toLocaleString('en-IN')})`;
+        }
+      } else if (item.alertType === 'BREAKOUT_R1') {
+        if (cmp >= target) {
+          triggered = true;
+          message = `Breakout Above R1 Target (CMP: ₹${cmp.toLocaleString('en-IN')} >= R1: ₹${target.toLocaleString('en-IN')})`;
+        }
+      } else if (item.alertType === 'CUSTOM') {
+        const cond = item.condition || 'ZONE';
+        if (cond === 'ZONE') {
+          const lower = target * (1 - buf / 100);
+          const upper = target * (1 + buf / 100);
+          if (cmp >= lower && cmp <= upper) {
+            triggered = true;
+            message = `In Retest Zone (CMP: ₹${cmp.toLocaleString('en-IN')} vs Target: ₹${target.toLocaleString('en-IN')})`;
+          }
+        } else if (cond === 'ABOVE') {
+          if (cmp >= target) {
+            triggered = true;
+            message = `Price Above Target (CMP: ₹${cmp.toLocaleString('en-IN')} >= Target: ₹${target.toLocaleString('en-IN')})`;
+          }
+        } else if (cond === 'BELOW') {
+          if (cmp <= target) {
+            triggered = true;
+            message = `Price Below Target (CMP: ₹${cmp.toLocaleString('en-IN')} <= Target: ₹${target.toLocaleString('en-IN')})`;
+          }
+        }
+      }
+
+      item.isTriggered = triggered && !dismissedSymbols.has(item.symbol);
+      item.distPct = distPct;
+      item.lastTriggerMessage = message;
+
+      if (item.isTriggered) {
+        triggeredCount++;
+      }
+    });
+
+    saveAlertsToStorage(alerts);
+    updateSidebarBadge(triggeredCount);
+    updateStatPills(alerts.length, triggeredCount);
+
+    const wView = document.getElementById('view-watchlist-alerts');
+    if (wView && !wView.classList.contains('hidden')) {
+      renderTriggeredQueue();
+      renderMonitoredList();
+    }
+
+    if (showFeedback) {
+      showToast(`↻ Evaluated ${alerts.length} alerts against EOD data (${triggeredCount} triggered)`);
+    }
+
+    return { totalCount: alerts.length, triggeredCount };
+  }
+
+  function updateSidebarBadge(count) {
+    const badge = document.getElementById('watchlist-alert-count-badge');
+    if (!badge) return;
+    if (count > 0) {
+      badge.style.display = 'inline-flex';
+      badge.textContent = count;
+      badge.title = `${count} Tactical Alerts Triggered`;
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  function updateStatPills(totalCount, triggeredCount) {
+    const countActive = document.getElementById('wl-count-active');
+    const countTriggered = document.getElementById('wl-count-triggered');
+    const badgeTriggered = document.getElementById('wl-triggered-count-badge');
+    const badgeMonitored = document.getElementById('wl-monitored-count-badge');
+
+    if (countActive) countActive.textContent = totalCount;
+    if (countTriggered) countTriggered.textContent = triggeredCount;
+    if (badgeTriggered) badgeTriggered.textContent = `${triggeredCount} Triggered`;
+    if (badgeMonitored) badgeMonitored.textContent = `${totalCount} Watched`;
+  }
+
+  function renderTriggeredQueue() {
+    const container = document.getElementById('wl-triggered-cards-container');
+    if (!container) return;
+
+    const triggeredAlerts = alerts.filter(a => a.isTriggered);
+
+    if (triggeredAlerts.length === 0) {
+      container.innerHTML = `
+        <div class="wl-queue-empty-card">
+          <span class="wl-queue-empty-icon">🛡️</span>
+          <div class="wl-queue-empty-text">
+            <strong>No Tactical Alerts Triggered</strong><br>
+            All ${alerts.length} monitored positions are currently trading outside trigger zones.
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '';
+    triggeredAlerts.forEach(item => {
+      const isBreakout = item.alertType === 'BREAKOUT_R1';
+      const chgClass = (item.change_pct || 0) >= 0 ? 'text-emerald' : 'text-rose';
+      const chgSign = (item.change_pct || 0) >= 0 ? '+' : '';
+      const distSign = (item.distPct || 0) >= 0 ? '+' : '';
+
+      html += `
+        <div class="wl-triggered-card ${isBreakout ? 'card-breakout' : ''}">
+          <div class="wl-card-header">
+            <div class="wl-card-sym-box">
+              <span class="wl-card-sym">${item.symbol}</span>
+              <span class="wl-card-name">${item.name || item.symbol}</span>
+            </div>
+            <div class="wl-card-price-box">
+              <span class="wl-card-cmp">₹${Number(item.cmp || 0).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+              <span class="wl-card-chg ${chgClass}">${chgSign}${Number(item.change_pct || 0).toFixed(2)}%</span>
+            </div>
+          </div>
+
+          <div class="wl-card-trigger-banner">
+            <span>⚡</span>
+            <span><strong>${item.lastTriggerMessage || 'Alert Trigger Condition Met'}</strong></span>
+          </div>
+
+          <div class="wl-card-metrics-row">
+            <div class="wl-metric-item">
+              <span class="wl-metric-lbl">Target Level</span>
+              <span class="wl-metric-val">₹${Number(item.targetPrice || 0).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            </div>
+            <div class="wl-metric-item">
+              <span class="wl-metric-lbl">Distance</span>
+              <span class="wl-metric-val ${item.distPct >= 0 ? 'text-emerald' : 'text-rose'}">${distSign}${item.distPct}%</span>
+            </div>
+          </div>
+
+          <div class="wl-card-actions">
+            <button type="button" class="wl-btn wl-btn-primary" onclick="WatchlistAlertsModule.inspectStock('${item.symbol}')">Inspect Dossier</button>
+            <a href="${item.tv_url || 'https://www.tradingview.com'}" target="_blank" rel="noopener noreferrer" class="wl-btn wl-btn-secondary" style="text-decoration:none;">TradingView ↗</a>
+            <button type="button" class="wl-btn wl-btn-secondary" onclick="WatchlistAlertsModule.snoozeAlert('${item.symbol}')" title="Dismiss from triggered queue">Snooze</button>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  }
+
+  function renderMonitoredList() {
+    const tableBody = document.getElementById('wl-desktop-table-body');
+    const mobileCardsWrap = document.getElementById('watchlist-mobile-cards');
+    const emptyState = document.getElementById('wl-empty-state');
+
+    if (!tableBody || !mobileCardsWrap) return;
+
+    if (alerts.length === 0) {
+      tableBody.innerHTML = '';
+      mobileCardsWrap.innerHTML = '';
+      if (emptyState) emptyState.style.display = 'flex';
+      return;
+    }
+
+    if (emptyState) emptyState.style.display = 'none';
+
+    let filtered = alerts;
+    if (activeFilter === 'triggered') {
+      filtered = alerts.filter(a => a.isTriggered);
+    } else if (activeFilter === 'armed') {
+      filtered = alerts.filter(a => a.alertType !== 'WATCH_ONLY' && !a.isTriggered);
+    } else if (activeFilter === 'watching') {
+      filtered = alerts.filter(a => a.alertType === 'WATCH_ONLY');
+    }
+
+    // Render Desktop Table
+    let tableHtml = '';
+    filtered.forEach(item => {
+      const chgClass = (item.change_pct || 0) >= 0 ? 'text-emerald' : 'text-rose';
+      const chgSign = (item.change_pct || 0) >= 0 ? '+' : '';
+      const distSign = (item.distPct || 0) >= 0 ? '+' : '';
+
+      let levelPill = '<span class="wl-level-pill">Watch Only</span>';
+      if (item.alertType === 'S1_RETEST') {
+        levelPill = `<span class="wl-level-pill pill-s1">⚡ S1: ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (±${item.bufferPct}%)</span>`;
+      } else if (item.alertType === 'EMA20_PULLBACK') {
+        levelPill = `<span class="wl-level-pill pill-ema20">📉 EMA20: ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (±${item.bufferPct}%)</span>`;
+      } else if (item.alertType === 'BREAKOUT_R1') {
+        levelPill = `<span class="wl-level-pill pill-breakout">🚀 R1: ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>`;
+      } else if (item.alertType === 'CUSTOM') {
+        levelPill = `<span class="wl-level-pill">⚙️ ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>`;
+      }
+
+      let statusBadge = '<span class="wl-status-badge status-watching">Watching</span>';
+      if (item.isTriggered) {
+        statusBadge = '<span class="wl-status-badge status-triggered">🚨 TRIGGERED</span>';
+      } else if (item.alertType !== 'WATCH_ONLY') {
+        statusBadge = '<span class="wl-status-badge status-armed">ARMED</span>';
+      }
+
+      tableHtml += `
+        <tr class="${item.isTriggered ? 'row-triggered' : ''}">
+          <td style="text-align: center;">
+            <button type="button" class="wl-star-btn" onclick="WatchlistAlertsModule.removeStock('${item.symbol}')" title="Remove from Watchlist">★</button>
+          </td>
+          <td>
+            <div class="wl-tbl-sym-box">
+              <span class="wl-tbl-sym">${item.symbol}</span>
+              <span class="wl-tbl-name">${item.name || item.symbol}</span>
+            </div>
+          </td>
+          <td><span class="wl-sector-tag">${item.sector || 'Broad Market'}</span></td>
+          <td style="text-align: right; font-family: var(--font-mono, monospace); font-weight: 700;">₹${Number(item.cmp || 0).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+          <td style="text-align: right; font-family: var(--font-mono, monospace); font-weight: 700;" class="${chgClass}">${chgSign}${Number(item.change_pct || 0).toFixed(2)}%</td>
+          <td>${levelPill}</td>
+          <td style="text-align: right; font-family: var(--font-mono, monospace); font-weight: 700;" class="${item.distPct >= 0 ? 'text-emerald' : 'text-rose'}">
+            ${item.alertType !== 'WATCH_ONLY' ? `${distSign}${item.distPct}%` : '—'}
+          </td>
+          <td style="text-align: center;">${statusBadge}</td>
+          <td>
+            <div class="wl-tbl-actions">
+              <button type="button" class="wl-tbl-btn" onclick="WatchlistAlertsModule.inspectStock('${item.symbol}')" title="Inspect Quantitative Dossier">Inspect</button>
+              <button type="button" class="wl-tbl-btn" onclick="WatchlistAlertsModule.openAlertModal('${item.symbol}', true)" title="Configure Alert Preset">Edit</button>
+              <button type="button" class="wl-tbl-btn btn-remove" onclick="WatchlistAlertsModule.removeStock('${item.symbol}')" title="Remove Stock">✕</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    });
+    tableBody.innerHTML = tableHtml;
+
+    // Render Mobile Touch Cards
+    let mobileHtml = '';
+    filtered.forEach(item => {
+      const chgClass = (item.change_pct || 0) >= 0 ? 'text-emerald' : 'text-rose';
+      const chgSign = (item.change_pct || 0) >= 0 ? '+' : '';
+      const distSign = (item.distPct || 0) >= 0 ? '+' : '';
+
+      let levelText = 'Watch Only';
+      if (item.alertType === 'S1_RETEST') levelText = `⚡ S1: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
+      else if (item.alertType === 'EMA20_PULLBACK') levelText = `📉 20 EMA: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
+      else if (item.alertType === 'BREAKOUT_R1') levelText = `🚀 Breakout: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
+      else if (item.alertType === 'CUSTOM') levelText = `⚙️ Target: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
+
+      mobileHtml += `
+        <div class="watchlist-mobile-card ${item.isTriggered ? 'card-triggered' : ''}">
+          <div class="wl-mob-header">
+            <div class="wl-mob-sym-wrap">
+              <button type="button" class="wl-star-btn" style="min-width:36px; min-height:36px; padding:0;" onclick="WatchlistAlertsModule.removeStock('${item.symbol}')" title="Remove">★</button>
+              <div>
+                <div class="wl-mob-sym">${item.symbol}</div>
+                <div class="wl-sector-tag" style="margin-top:2px;">${item.sector || 'Market'}</div>
+              </div>
+            </div>
+            <div class="wl-mob-price-wrap">
+              <span class="wl-mob-cmp">₹${Number(item.cmp || 0).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+              <span class="${chgClass}" style="font-weight:700; font-size:0.78rem; font-family: var(--font-mono, monospace);">${chgSign}${Number(item.change_pct || 0).toFixed(2)}%</span>
+            </div>
+          </div>
+
+          <div class="wl-mob-body">
+            <div>
+              <span style="color:#94a3b8; font-size:0.72rem; display:block;">ALERT CRITERIA</span>
+              <strong style="color:#f8fafc; font-size:0.8rem;">${levelText}</strong>
+            </div>
+            <div style="text-align:right;">
+              <span style="color:#94a3b8; font-size:0.72rem; display:block;">STATUS</span>
+              ${item.isTriggered ? '<span class="wl-status-badge status-triggered">🚨 TRIGGERED</span>' : (item.alertType !== 'WATCH_ONLY' ? '<span class="wl-status-badge status-armed">ARMED</span>' : '<span class="wl-status-badge status-watching">WATCHING</span>')}
+            </div>
+          </div>
+
+          <div class="wl-mob-footer">
+            <button type="button" class="wl-mob-btn" onclick="WatchlistAlertsModule.inspectStock('${item.symbol}')">Inspect</button>
+            <a href="${item.tv_url || 'https://www.tradingview.com'}" target="_blank" rel="noopener noreferrer" class="wl-mob-btn" style="text-decoration:none;">Chart ↗</a>
+            <button type="button" class="wl-mob-btn" onclick="WatchlistAlertsModule.openAlertModal('${item.symbol}', true)">Edit</button>
+            <button type="button" class="wl-mob-btn" style="color:#f43f5e;" onclick="WatchlistAlertsModule.removeStock('${item.symbol}')" title="Remove">✕</button>
+          </div>
+        </div>
+      `;
+    });
+    mobileCardsWrap.innerHTML = mobileHtml;
+  }
+
+  function openAlertModal(symbol, editMode = false) {
+    if (!symbol) return;
+    const st = findStockData(symbol);
+    if (!st) return;
+
+    currentModalStock = st;
+
+    const overlay = document.getElementById('alert-config-modal-overlay');
+    const modalSym = document.getElementById('alert-modal-symbol');
+    const modalName = document.getElementById('alert-modal-name');
+    const modalSector = document.getElementById('alert-modal-sector');
+    const modalCmp = document.getElementById('alert-modal-cmp');
+    const modalChg = document.getElementById('alert-modal-chg');
+
+    if (modalSym) modalSym.textContent = st.symbol;
+    if (modalName) modalName.textContent = st.name || st.symbol;
+    if (modalSector) modalSector.textContent = st.sector || 'Broad Market';
+    if (modalCmp) modalCmp.textContent = `₹${Number(st.cmp || 0).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    if (modalChg) {
+      const cls = (st.change_pct || 0) >= 0 ? 'text-emerald' : 'text-rose';
+      const sign = (st.change_pct || 0) >= 0 ? '+' : '';
+      modalChg.className = `alert-modal-chg ${cls}`;
+      modalChg.textContent = `${sign}${Number(st.change_pct || 0).toFixed(2)}%`;
+    }
+
+    // Populate Presets Targets
+    const s1Target = st.s1 || (st.cmp ? +(st.cmp * 0.96).toFixed(2) : 0);
+    const ema20Target = st.ema_20 || (st.cmp ? +(st.cmp * 0.98).toFixed(2) : 0);
+    const breakoutTarget = st.r1 || (st.cmp ? +(st.cmp * 1.05).toFixed(2) : 0);
+
+    const s1El = document.getElementById('preset-target-s1');
+    const ema20El = document.getElementById('preset-target-ema20');
+    const boEl = document.getElementById('preset-target-breakout');
+
+    if (s1El) s1El.textContent = `₹${Number(s1Target).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (±0.8%)`;
+    if (ema20El) ema20El.textContent = `₹${Number(ema20Target).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (±0.5%)`;
+    if (boEl) boEl.textContent = `₹${Number(breakoutTarget).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (> target)`;
+
+    // Check existing alert
+    const existing = alerts.find(a => a.symbol.toUpperCase() === st.symbol.toUpperCase());
+    if (existing && editMode) {
+      selectedPreset = existing.alertType || 'S1_RETEST';
+      const customTarget = document.getElementById('alert-custom-target');
+      const customBuf = document.getElementById('alert-custom-buffer');
+      const customCond = document.getElementById('alert-custom-condition');
+      if (customTarget && existing.targetPrice) customTarget.value = existing.targetPrice;
+      if (customBuf && existing.bufferPct) customBuf.value = existing.bufferPct;
+      if (customCond && existing.condition) customCond.value = existing.condition;
+    } else {
+      selectedPreset = 'S1_RETEST';
+      const customTarget = document.getElementById('alert-custom-target');
+      if (customTarget) customTarget.value = s1Target;
+    }
+
+    updatePresetChipsUI();
+
+    if (overlay) {
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function updatePresetChipsUI() {
+    document.querySelectorAll('.alert-preset-chip').forEach(chip => {
+      const p = chip.getAttribute('data-preset');
+      if (p === selectedPreset) {
+        chip.classList.add('selected');
+      } else {
+        chip.classList.remove('selected');
+      }
+    });
+  }
+
+  function closeAlertModal() {
+    const overlay = document.getElementById('alert-config-modal-overlay');
+    if (overlay) {
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    currentModalStock = null;
+  }
+
+  function saveModalAlert() {
+    if (!currentModalStock) return;
+    const sym = currentModalStock.symbol.toUpperCase();
+
+    let targetPrice = null;
+    let bufferPct = 0.8;
+    let condition = 'ZONE';
+
+    const s1Target = currentModalStock.s1 || (currentModalStock.cmp ? +(currentModalStock.cmp * 0.96).toFixed(2) : 0);
+    const ema20Target = currentModalStock.ema_20 || (currentModalStock.cmp ? +(currentModalStock.cmp * 0.98).toFixed(2) : 0);
+    const breakoutTarget = currentModalStock.r1 || (currentModalStock.cmp ? +(currentModalStock.cmp * 1.05).toFixed(2) : 0);
+
+    if (selectedPreset === 'S1_RETEST') {
+      targetPrice = s1Target;
+      bufferPct = 0.8;
+      condition = 'ZONE';
+    } else if (selectedPreset === 'EMA20_PULLBACK') {
+      targetPrice = ema20Target;
+      bufferPct = 0.5;
+      condition = 'ZONE';
+    } else if (selectedPreset === 'BREAKOUT_R1') {
+      targetPrice = breakoutTarget;
+      bufferPct = 0.5;
+      condition = 'ABOVE';
+    } else if (selectedPreset === 'WATCH_ONLY') {
+      targetPrice = null;
+      bufferPct = 0;
+      condition = 'NONE';
+    } else if (selectedPreset === 'CUSTOM') {
+      const customTarget = document.getElementById('alert-custom-target');
+      const customBuf = document.getElementById('alert-custom-buffer');
+      const customCond = document.getElementById('alert-custom-condition');
+      targetPrice = customTarget ? Number(customTarget.value) : s1Target;
+      bufferPct = customBuf ? Number(customBuf.value) : 0.8;
+      condition = customCond ? customCond.value : 'ZONE';
+    }
+
+    const idx = alerts.findIndex(a => a.symbol.toUpperCase() === sym);
+    const alertObj = {
+      symbol: sym,
+      name: currentModalStock.name || sym,
+      sector: currentModalStock.sector || 'Broad Market',
+      cmp: currentModalStock.cmp,
+      change_pct: currentModalStock.change_pct,
+      addedAt: new Date().toISOString(),
+      alertType: selectedPreset,
+      targetPrice: targetPrice,
+      bufferPct: bufferPct,
+      condition: condition,
+      tv_url: currentModalStock.tv_url,
+      isTriggered: false
+    };
+
+    if (idx >= 0) {
+      alerts[idx] = alertObj;
+    } else {
+      alerts.push(alertObj);
+    }
+
+    saveAlertsToStorage(alerts);
+
+    // Also update raw watchlist
+    const rawWl = getRawWatchlist();
+    if (!rawWl.includes(sym)) {
+      rawWl.push(sym);
+      saveRawWatchlist(rawWl);
+    }
+
+    closeAlertModal();
+    updateAllWatchlistUI(sym, true);
+    evaluateAllAlerts();
+
+    showToast(`✅ Alert configured & armed for ${sym}!`);
+  }
+
+  function removeStock(symbol) {
+    if (!symbol) return;
+    const sym = symbol.toUpperCase();
+
+    alerts = alerts.filter(a => a.symbol.toUpperCase() !== sym);
+    saveAlertsToStorage(alerts);
+
+    let rawWl = getRawWatchlist();
+    rawWl = rawWl.filter(s => s.toUpperCase() !== sym);
+    saveRawWatchlist(rawWl);
+
+    dismissedSymbols.delete(sym);
+
+    updateAllWatchlistUI(sym, false);
+    evaluateAllAlerts();
+
+    showToast(`🗑️ ${sym} removed from Watchlist`);
+  }
+
+  function snoozeAlert(symbol) {
+    if (!symbol) return;
+    dismissedSymbols.add(symbol.toUpperCase());
+    evaluateAllAlerts();
+    showToast(`💤 Snoozed alert for ${symbol.toUpperCase()}`);
+  }
+
+  function clearAll() {
+    if (alerts.length === 0) return;
+    if (!confirm('Are you sure you want to clear all watchlist stocks and alerts?')) return;
+
+    alerts = [];
+    saveAlertsToStorage([]);
+    saveRawWatchlist([]);
+    dismissedSymbols.clear();
+
+    document.querySelectorAll('.tbl-watchlist-star-btn').forEach(b => {
+      b.classList.remove('active');
+      b.textContent = '☆';
+      b.title = 'Add to Watchlist';
+    });
+
+    evaluateAllAlerts();
+    showToast('Cleared all watchlist stocks and alerts');
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('wl-toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.style.display = 'flex';
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+      toast.style.display = 'none';
+    }, 3000);
+  }
+
+  function inspectStock(symbol) {
+    if (typeof openSetupDossier === 'function') {
+      try {
+        openSetupDossier(symbol);
+        return;
+      } catch (e) {}
+    }
+    if (typeof openAdvRsDossierModal === 'function') {
+      try {
+        openAdvRsDossierModal(symbol);
+        return;
+      } catch (e) {}
+    }
+    if (window.openDossier) {
+      window.openDossier(symbol);
+    }
+  }
+
+  function bindEvents() {
+    // Quick Add Autocomplete
+    const quickInput = document.getElementById('wl-quickadd-input');
+    const autoDropdown = document.getElementById('wl-autocomplete-dropdown');
+    const quickBtn = document.getElementById('wl-quickadd-btn');
+
+    if (quickInput && autoDropdown) {
+      quickInput.addEventListener('input', (e) => {
+        const q = e.target.value.trim().toUpperCase();
+        if (q.length < 1) {
+          autoDropdown.style.display = 'none';
+          return;
+        }
+
+        const matches = (cachedUniverse || []).filter(s => {
+          return (s.symbol && s.symbol.toUpperCase().includes(q)) || (s.name && s.name.toUpperCase().includes(q));
+        }).slice(0, 8);
+
+        if (matches.length === 0) {
+          autoDropdown.style.display = 'none';
+          return;
+        }
+
+        let html = '';
+        matches.forEach(m => {
+          const chgClass = (m.change_pct || 0) >= 0 ? 'text-emerald' : 'text-rose';
+          const chgSign = (m.change_pct || 0) >= 0 ? '+' : '';
+          html += `
+            <div class="wl-autocomplete-item" data-symbol="${m.symbol}">
+              <div class="wl-auto-left">
+                <span class="wl-auto-sym">${m.symbol}</span>
+                <span class="wl-auto-name">${m.name || ''}</span>
+              </div>
+              <div class="wl-auto-right">
+                <span class="wl-auto-cmp">₹${Number(m.cmp || 0).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                <span class="wl-auto-chg ${chgClass}">${chgSign}${Number(m.change_pct || 0).toFixed(2)}%</span>
+              </div>
+            </div>
+          `;
+        });
+        autoDropdown.innerHTML = html;
+        autoDropdown.style.display = 'block';
+      });
+
+      autoDropdown.addEventListener('click', (e) => {
+        const item = e.target.closest('.wl-autocomplete-item');
+        if (item) {
+          const sym = item.getAttribute('data-symbol');
+          quickInput.value = sym;
+          autoDropdown.style.display = 'none';
+          openAlertModal(sym);
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.quickadd-input-wrapper')) {
+          autoDropdown.style.display = 'none';
+        }
+      });
+
+      quickInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const val = quickInput.value.trim().toUpperCase();
+          if (val) {
+            autoDropdown.style.display = 'none';
+            openAlertModal(val);
+          }
+        }
+      });
+    }
+
+    if (quickBtn && quickInput) {
+      quickBtn.addEventListener('click', () => {
+        const val = quickInput.value.trim().toUpperCase();
+        if (val) {
+          if (autoDropdown) autoDropdown.style.display = 'none';
+          openAlertModal(val);
+        } else {
+          quickInput.focus();
+        }
+      });
+    }
+
+    // Refresh button
+    const refreshBtn = document.getElementById('wl-refresh-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        refreshBtn.classList.add('spinning');
+        setTimeout(() => {
+          evaluateAllAlerts(true);
+          refreshBtn.classList.remove('spinning');
+        }, 300);
+      });
+    }
+
+    // Clear all button
+    const clearBtn = document.getElementById('wl-clear-all-btn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', clearAll);
+    }
+
+    // Filter pills
+    document.querySelectorAll('#wl-status-filter-pills .wl-filter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('#wl-status-filter-pills .wl-filter-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        activeFilter = pill.getAttribute('data-filter') || 'all';
+        renderMonitoredList();
+      });
+    });
+
+    // Modal Presets
+    document.querySelectorAll('.alert-preset-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        selectedPreset = chip.getAttribute('data-preset');
+        updatePresetChipsUI();
+      });
+    });
+
+    // Custom toggle
+    const customToggle = document.getElementById('alert-custom-toggle');
+    const customFields = document.getElementById('alert-custom-fields');
+    const customArrow = document.getElementById('custom-toggle-arrow');
+    if (customToggle && customFields) {
+      customToggle.addEventListener('click', () => {
+        const isHidden = customFields.style.display === 'none';
+        customFields.style.display = isHidden ? 'flex' : 'none';
+        if (customArrow) customArrow.textContent = isHidden ? '▴' : '▾';
+        if (isHidden) {
+          selectedPreset = 'CUSTOM';
+          updatePresetChipsUI();
+        }
+      });
+    }
+
+    // Modal Buttons
+    const closeBtn = document.getElementById('alert-modal-close-btn');
+    const cancelBtn = document.getElementById('alert-modal-cancel-btn');
+    const saveBtn = document.getElementById('alert-modal-save-btn');
+    const overlay = document.getElementById('alert-config-modal-overlay');
+
+    if (closeBtn) closeBtn.addEventListener('click', closeAlertModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeAlertModal);
+    if (saveBtn) saveBtn.addEventListener('click', saveModalAlert);
+    if (overlay) {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeAlertModal();
+      });
+    }
+  }
+
+  async function init() {
+    await loadUniverse();
+    syncStorage();
+    if (!isInitialized) {
+      bindEvents();
+      isInitialized = true;
+    }
+    evaluateAllAlerts();
+    renderTriggeredQueue();
+    renderMonitoredList();
+  }
+
+  // Background boot for instant sidebar badge count
+  async function boot() {
+    await loadUniverse();
+    syncStorage();
+    evaluateAllAlerts();
+  }
+
+  return {
+    init,
+    boot,
+    openAlertModal,
+    closeAlertModal,
+    removeStock,
+    removeStockInternal: (sym) => {
+      alerts = alerts.filter(a => a.symbol.toUpperCase() !== sym.toUpperCase());
+      saveAlertsToStorage(alerts);
+      dismissedSymbols.delete(sym.toUpperCase());
+      evaluateAllAlerts();
+    },
+    evaluateAllAlerts,
+    inspectStock,
+    snoozeAlert,
+    clearAll
+  };
+})();
+
+// Automatically boot Watchlist & Alerts engine in background on page load
+if (window.WatchlistAlertsModule && typeof window.WatchlistAlertsModule.boot === 'function') {
+  window.WatchlistAlertsModule.boot();
 }

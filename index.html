@@ -98,9 +98,10 @@
           <span class="sidebar-icon">📈</span>
           <span class="sidebar-label">Strategy &amp; Backtest</span>
         </a>
-        <a href="#watchlist-alerts" class="sidebar-item">
+        <a href="#watchlist-alerts" class="sidebar-item" id="nav-watchlist-alerts">
           <span class="sidebar-icon">🔔</span>
           <span class="sidebar-label">Watchlist &amp; Alerts</span>
+          <span class="sidebar-badge" id="watchlist-alert-count-badge" style="display:none;"></span>
         </a>
         <a href="#trade-planner" class="sidebar-item">
           <span class="sidebar-icon">📝</span>
@@ -1636,6 +1637,131 @@
     </div><!-- /#strategy-backtest-container -->
   </div><!-- /#view-strategy-backtest -->
 
+  <!-- ===================================================================================
+       VIEW 7: WATCHLIST & ALERTS STATION (100% Client-Side LocalStorage Engine)
+       =================================================================================== -->
+  <div id="view-watchlist-alerts" class="terminal-view hidden watchlist-alerts-viewport" aria-label="Watchlist & Tactical Alerts Station">
+    <div id="watchlist-alerts-container" class="watchlist-alerts-container">
+      
+      <!-- Station Header -->
+      <header class="watchlist-station-header">
+        <div class="watchlist-header-left">
+          <div class="watchlist-title-badge-row">
+            <h1 class="watchlist-station-title">
+              <span class="watchlist-title-icon">🔔</span> WATCHLIST &amp; TACTICAL ALERTS STATION
+            </h1>
+            <span class="watchlist-tag-pill tag-storage">⚡ Client-Side LocalStorage</span>
+            <span class="watchlist-tag-pill tag-status" id="wl-sync-status-badge">● Engine Synced</span>
+          </div>
+          <p class="watchlist-station-subtitle">
+            Institutional Price Action Monitoring &amp; Level-Trigger Engine • Zero Server Latency • EOD S1 Retest &amp; EMA Pullback Tracking
+          </p>
+        </div>
+        <div class="watchlist-header-actions">
+          <div class="watchlist-stat-pill" id="wl-stat-pill-active" title="Total active positions being monitored">
+            <span class="stat-pill-lbl">Watched:</span>
+            <span class="stat-pill-val" id="wl-count-active">0</span>
+          </div>
+          <div class="watchlist-stat-pill pill-triggered" id="wl-stat-pill-triggered" title="Active alerts meeting trigger thresholds">
+            <span class="stat-pill-lbl">Triggered:</span>
+            <span class="stat-pill-val" id="wl-count-triggered">0</span>
+          </div>
+          <button type="button" class="wl-btn wl-btn-refresh" id="wl-refresh-btn" title="Re-evaluate all alerts against latest data">
+            <span class="btn-icon">↻</span> Refresh
+          </button>
+          <button type="button" class="wl-btn wl-btn-secondary" id="wl-clear-all-btn" title="Clear all watchlist items">
+            Clear All
+          </button>
+        </div>
+      </header>
+
+      <!-- Quick Add Bar -->
+      <section class="watchlist-quickadd-bar" aria-label="Quick Add Stock to Watchlist">
+        <div class="quickadd-form">
+          <div class="quickadd-input-wrapper">
+            <span class="quickadd-search-icon">🔍</span>
+            <input type="text" id="wl-quickadd-input" class="quickadd-input" placeholder="Quick Add Stock (e.g. RELIANCE, TRENT, TATASTEEL)..." autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+            <div id="wl-autocomplete-dropdown" class="wl-autocomplete-dropdown" style="display: none;"></div>
+          </div>
+          <button type="button" id="wl-quickadd-btn" class="wl-btn wl-btn-primary">
+            + Add &amp; Configure Alert
+          </button>
+        </div>
+      </section>
+
+      <!-- Section A: Actionable Triggered Queue -->
+      <section class="watchlist-section" id="wl-section-triggered" aria-label="Actionable Triggered Queue">
+        <div class="watchlist-section-header">
+          <div class="section-title-wrap">
+            <span class="section-pulse-icon">🚨</span>
+            <h2 class="section-title">ACTIONABLE TRIGGERED QUEUE</h2>
+            <span class="section-badge-count" id="wl-triggered-count-badge">0 Triggered</span>
+          </div>
+          <span class="section-hint">Positions meeting S1 retest, EMA pullback, or Breakout threshold</span>
+        </div>
+
+        <div id="wl-triggered-cards-container" class="wl-triggered-grid">
+          <!-- Dynamically populated or empty state -->
+        </div>
+      </section>
+
+      <!-- Section B: Monitored Stocks Watchlist -->
+      <section class="watchlist-section" id="wl-section-monitored" aria-label="Monitored Watchlist">
+        <div class="watchlist-section-header">
+          <div class="section-title-wrap">
+            <span class="section-pulse-icon">📋</span>
+            <h2 class="section-title">ALL MONITORED STOCKS</h2>
+            <span class="section-badge-count" id="wl-monitored-count-badge">0 Watched</span>
+          </div>
+          <div class="watchlist-filter-pills" id="wl-status-filter-pills">
+            <button type="button" class="wl-filter-pill active" data-filter="all">All</button>
+            <button type="button" class="wl-filter-pill" data-filter="triggered">Triggered</button>
+            <button type="button" class="wl-filter-pill" data-filter="armed">Armed Alerts</button>
+            <button type="button" class="wl-filter-pill" data-filter="watching">Watch Only</button>
+          </div>
+        </div>
+
+        <!-- Desktop Table View (>= 640px) -->
+        <div class="watchlist-desktop-table-wrap">
+          <table class="watchlist-table" id="watchlist-desktop-table">
+            <thead>
+              <tr>
+                <th style="width: 44px; text-align: center;">★</th>
+                <th>Stock / Company</th>
+                <th>Sector</th>
+                <th style="text-align: right;">CMP</th>
+                <th style="text-align: right;">1D Chg</th>
+                <th>Alert Target &amp; Level</th>
+                <th style="text-align: right;">Dist to Trigger</th>
+                <th style="text-align: center;">Status</th>
+                <th style="text-align: center; width: 150px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="wl-desktop-table-body">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Touch Cards (< 640px) -->
+        <div class="watchlist-mobile-cards-wrap" id="watchlist-mobile-cards">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="wl-empty-state" class="watchlist-empty-state" style="display: none;">
+          <div class="empty-state-icon">☆</div>
+          <h3 class="empty-state-title">Your Watchlist is Empty</h3>
+          <p class="empty-state-desc">
+            Star any stock from the Advanced Scanners or use the Quick Add bar above to set local alerts for S1 Retest, 20 EMA Pullback, or Breakouts.
+          </p>
+        </div>
+
+      </section>
+
+    </div><!-- /#watchlist-alerts-container -->
+  </div><!-- /#view-watchlist-alerts -->
+
 
 
 
@@ -2082,6 +2208,102 @@
       </div>
     </div>
   </div>
+
+  <!-- ===================================================================================
+       ALERT CONFIGURATION MODAL (Client-Side LocalStorage Preset & Custom Config)
+       =================================================================================== -->
+  <div id="alert-config-modal-overlay" class="alert-modal-overlay" style="display: none;">
+    <div class="alert-modal-container" role="dialog" aria-modal="true" aria-labelledby="alert-modal-title">
+      <button type="button" class="alert-modal-close" id="alert-modal-close-btn" aria-label="Close Alert Config">✕</button>
+      
+      <div class="alert-modal-header">
+        <div class="alert-modal-tag-row">
+          <span class="alert-modal-badge">🔔 TACTICAL ALERT CONFIG</span>
+          <span class="alert-modal-sector" id="alert-modal-sector">Sector</span>
+        </div>
+        <div class="alert-modal-symbol-row">
+          <h3 class="alert-modal-symbol" id="alert-modal-symbol">SYMBOL</h3>
+          <div class="alert-modal-price-box">
+            <span class="alert-modal-cmp" id="alert-modal-cmp">₹0.00</span>
+            <span class="alert-modal-chg" id="alert-modal-chg">+0.00%</span>
+          </div>
+        </div>
+        <p class="alert-modal-name" id="alert-modal-name">Company Name</p>
+      </div>
+
+      <div class="alert-modal-body">
+        <div class="alert-presets-label">QUICK-TAP INSTITUTIONAL PRESETS:</div>
+        <div class="alert-presets-grid">
+          <button type="button" class="alert-preset-chip" data-preset="S1_RETEST" id="preset-btn-s1">
+            <span class="preset-icon">⚡</span>
+            <div class="preset-meta">
+              <span class="preset-name">S1 Retest Zone</span>
+              <span class="preset-target" id="preset-target-s1">₹0.00 (±0.8%)</span>
+            </div>
+          </button>
+
+          <button type="button" class="alert-preset-chip" data-preset="EMA20_PULLBACK" id="preset-btn-ema20">
+            <span class="preset-icon">📉</span>
+            <div class="preset-meta">
+              <span class="preset-name">20 EMA Pullback</span>
+              <span class="preset-target" id="preset-target-ema20">₹0.00 (±0.5%)</span>
+            </div>
+          </button>
+
+          <button type="button" class="alert-preset-chip" data-preset="BREAKOUT_R1" id="preset-btn-breakout">
+            <span class="preset-icon">🚀</span>
+            <div class="preset-meta">
+              <span class="preset-name">Breakout (R1/Ceiling)</span>
+              <span class="preset-target" id="preset-target-breakout">₹0.00 (&gt; target)</span>
+            </div>
+          </button>
+
+          <button type="button" class="alert-preset-chip" data-preset="WATCH_ONLY" id="preset-btn-watchonly">
+            <span class="preset-icon">👁️</span>
+            <div class="preset-meta">
+              <span class="preset-name">Skip Alert</span>
+              <span class="preset-target">Just Add to Watchlist</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Custom Level Setting (Optional Expansion) -->
+        <div class="alert-custom-box">
+          <div class="custom-box-toggle" id="alert-custom-toggle">
+            <span>⚙️ Custom Target Price (Optional)</span>
+            <span id="custom-toggle-arrow">▾</span>
+          </div>
+          <div class="custom-box-fields" id="alert-custom-fields" style="display: none;">
+            <div class="custom-field-row">
+              <label for="alert-custom-target">Target Level (₹):</label>
+              <input type="number" id="alert-custom-target" step="0.05" class="alert-input-num" placeholder="e.g. 1500.00">
+            </div>
+            <div class="custom-field-row">
+              <label for="alert-custom-buffer">Buffer Window (%):</label>
+              <input type="number" id="alert-custom-buffer" step="0.1" value="0.8" class="alert-input-num">
+            </div>
+            <div class="custom-field-row">
+              <label for="alert-custom-condition">Condition:</label>
+              <select id="alert-custom-condition" class="alert-select">
+                <option value="ZONE">Retest Zone (Target ± Buffer %)</option>
+                <option value="ABOVE">Breakout Above Target (&gt;=)</option>
+                <option value="BELOW">Breakdown Below Target (&lt;=)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="alert-modal-footer">
+        <button type="button" class="alert-modal-btn btn-secondary" id="alert-modal-cancel-btn">Cancel</button>
+        <button type="button" class="alert-modal-btn btn-primary" id="alert-modal-save-btn">Save &amp; Arm Alert</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="wl-toast" class="wl-toast" style="display: none;"></div>
 
   <!-- Master JavaScript Application -->
   <script src="js/app.js"></script>
