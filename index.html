@@ -107,7 +107,7 @@
           <span class="sidebar-icon">📝</span>
           <span class="sidebar-label">Trade Planner</span>
         </a>
-        <a href="#stock-comparison" class="sidebar-item">
+        <a href="#stock-comparison" class="sidebar-item" id="nav-stock-comparison">
           <span class="sidebar-icon">⚖️</span>
           <span class="sidebar-label">Stock Comparison</span>
         </a>
@@ -1761,6 +1761,140 @@
 
     </div><!-- /#watchlist-alerts-container -->
   </div><!-- /#view-watchlist-alerts -->
+
+  <!-- ===================================================================================
+       VIEW 8: STOCK COMPARISON STATION (100% Client-Side In-Memory Engine)
+       =================================================================================== -->
+  <div id="view-stock-comparison" class="terminal-view hidden stock-comparison-viewport" aria-label="Stock Comparison Station">
+    <div id="stock-comparison-container" class="stock-comparison-container">
+      
+      <!-- Station Header -->
+      <header class="compare-station-header">
+        <div class="compare-header-left">
+          <div class="compare-title-badge-row">
+            <h1 class="compare-station-title">
+              <span class="compare-title-icon">⚖️</span> STOCK COMPARISON &amp; ALPHA BENCHMARK
+            </h1>
+            <span class="compare-tag-pill tag-storage">⚡ In-Memory EOD Engine</span>
+            <span class="compare-tag-pill tag-status" id="compare-sync-status-badge">● 5-Pillar Tale of Tape</span>
+          </div>
+          <p class="compare-station-subtitle">
+            Side-by-Side Institutional Analysis • Price Action, Relative Strength, Volume Footprint, Pivots &amp; Fundamentals
+          </p>
+        </div>
+        <div class="compare-header-actions">
+          <button type="button" class="compare-btn compare-btn-swap" id="compare-swap-btn" title="Swap Slot A and Slot B">
+            <span class="btn-icon">⇄</span> Swap Stocks
+          </button>
+          <button type="button" class="compare-btn compare-btn-refresh" id="compare-refresh-btn" title="Re-evaluate Comparison Matrix">
+            <span class="btn-icon">↻</span> Refresh
+          </button>
+        </div>
+      </header>
+
+      <!-- Selector Bar: Stock Slot A vs Stock Slot B -->
+      <section class="compare-selectors-bar" aria-label="Stock Selectors">
+        <div class="compare-selectors-grid">
+          
+          <!-- Slot A -->
+          <div class="compare-slot-box" id="compare-slot-box-a">
+            <div class="slot-box-label">
+              <span class="slot-badge badge-a">SLOT A</span>
+              <span class="slot-stock-name" id="slot-a-company-name">Tata Consultancy Services Ltd.</span>
+            </div>
+            <div class="slot-input-wrap">
+              <span class="slot-input-icon">🔍</span>
+              <input type="text" id="compare-input-a" class="compare-stock-input" value="TCS" placeholder="Search Symbol (e.g. TCS)..." autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+              <div id="compare-autocomplete-a" class="compare-autocomplete-dropdown" style="display: none;"></div>
+            </div>
+          </div>
+
+          <!-- VS Badge / Divider -->
+          <div class="compare-vs-badge-wrap">
+            <span class="compare-vs-badge">VS</span>
+          </div>
+
+          <!-- Slot B -->
+          <div class="compare-slot-box" id="compare-slot-box-b">
+            <div class="slot-box-label">
+              <span class="slot-badge badge-b">SLOT B</span>
+              <span class="slot-stock-name" id="slot-b-company-name">Infosys Ltd.</span>
+            </div>
+            <div class="slot-input-wrap">
+              <span class="slot-input-icon">🔍</span>
+              <input type="text" id="compare-input-b" class="compare-stock-input" value="INFY" placeholder="Search Symbol (e.g. INFY)..." autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+              <div id="compare-autocomplete-b" class="compare-autocomplete-dropdown" style="display: none;"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 1-Tap Sector Rivalry Presets -->
+        <div class="compare-rivalry-pills-row">
+          <span class="rivalry-label">QUICK RIVALRIES:</span>
+          <div class="rivalry-pills-wrap" id="compare-rivalry-pills-wrap">
+            <button type="button" class="rivalry-pill active" data-pair="TCS,INFY">IT: TCS vs INFY</button>
+            <button type="button" class="rivalry-pill" data-pair="ICICIBANK,HDFCBANK">Banking: ICICI vs HDFC</button>
+            <button type="button" class="rivalry-pill" data-pair="M&M,MARUTI">Auto: M&amp;M vs MARUTI</button>
+            <button type="button" class="rivalry-pill" data-pair="TATASTEEL,JSWSTEEL">Metals: TATA vs JSW</button>
+            <button type="button" class="rivalry-pill" data-pair="RELIANCE,ONGC">Energy: RELIANCE vs ONGC</button>
+            <button type="button" class="rivalry-pill" data-pair="DIVISLAB,APOLLOHOSP">Pharma/Health: DIVIS vs APOLLO</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Verdict Banner -->
+      <section class="compare-verdict-section" id="compare-verdict-section" aria-label="Algorithmic Alpha Verdict">
+        <div class="compare-verdict-card" id="compare-verdict-card">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+      <!-- Mobile Segmented View Switcher (< 768px) -->
+      <div class="compare-mobile-segmented-bar" id="compare-mobile-segmented-bar">
+        <button type="button" class="compare-segment-btn active" data-view="both">Dual View</button>
+        <button type="button" class="compare-segment-btn" data-view="a" id="seg-btn-slot-a">TCS</button>
+        <button type="button" class="compare-segment-btn" data-view="b" id="seg-btn-slot-b">INFY</button>
+      </div>
+
+      <!-- 5-Pillar Head-to-Head Comparison Matrix (Desktop Table & Mobile Dual Progress Cards) -->
+      <section class="compare-matrix-section" aria-label="Head to Head Metric Pillars">
+        
+        <!-- Pillar Table Container -->
+        <div class="compare-table-wrapper" id="compare-table-wrapper">
+          <table class="compare-matrix-table" id="compare-matrix-table">
+            <thead>
+              <tr>
+                <th class="col-metric-name">TACTICAL PILLAR / METRIC</th>
+                <th class="col-stock-a" id="th-stock-a">
+                  <div class="th-stock-wrap">
+                    <span class="th-stock-sym" id="th-sym-a">TCS</span>
+                    <span class="th-stock-cmp" id="th-cmp-a">₹0.00</span>
+                  </div>
+                </th>
+                <th class="col-stock-b" id="th-stock-b">
+                  <div class="th-stock-wrap">
+                    <span class="th-stock-sym" id="th-sym-b">INFY</span>
+                    <span class="th-stock-cmp" id="th-cmp-b">₹0.00</span>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="compare-table-body">
+              <!-- Populated dynamically: Pillar 1 to Pillar 5 -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Touch Cards (< 768px) -->
+        <div class="compare-mobile-cards-wrap" id="compare-mobile-cards-wrap">
+          <!-- Populated dynamically for mobile -->
+        </div>
+
+      </section>
+
+    </div><!-- /#stock-comparison-container -->
+  </div><!-- /#view-stock-comparison -->
 
 
 

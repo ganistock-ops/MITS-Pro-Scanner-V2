@@ -5535,6 +5535,8 @@ function initAdvScannerNavigation() {
       const btCont = document.getElementById('strategy-backtest-container');
       const wView = document.getElementById('view-watchlist-alerts');
       const wCont = document.getElementById('watchlist-alerts-container');
+      const cView = document.getElementById('view-stock-comparison');
+      const cCont = document.getElementById('stock-comparison-container');
 
       const dBtn = document.getElementById('nav-dashboard');
       const aBtn = document.getElementById('nav-adv-scanner');
@@ -5543,6 +5545,7 @@ function initAdvScannerNavigation() {
       const fBtn = document.getElementById('nav-fundamental-research') || document.querySelector('a[href="#fundamental-research"]');
       const btBtn = document.getElementById('nav-strategy-backtest') || document.querySelector('a[href="#strategy-backtest"]');
       const wBtn = document.getElementById('nav-watchlist-alerts') || document.querySelector('a[href="#watchlist-alerts"]');
+      const cBtn = document.getElementById('nav-stock-comparison') || document.querySelector('a[href="#stock-comparison"]');
 
       function hideAllViews() {
         if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
@@ -5559,7 +5562,30 @@ function initAdvScannerNavigation() {
         if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
         if (wView) { wView.classList.add('hidden'); wView.style.setProperty('display', 'none', 'important'); }
         if (wCont) { wCont.classList.add('hidden'); wCont.style.setProperty('display', 'none', 'important'); }
+        if (cView) { cView.classList.add('hidden'); cView.style.setProperty('display', 'none', 'important'); }
+        if (cCont) { cCont.classList.add('hidden'); cCont.style.setProperty('display', 'none', 'important'); }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+      }
+
+      if (target === 'compare' || target === 'comparison') {
+        hideAllViews();
+        if (cView) {
+          cView.classList.remove('hidden');
+          cView.style.setProperty('display', 'block', 'important');
+          cView.style.minHeight = '500px';
+        }
+        if (cCont) {
+          cCont.classList.remove('hidden');
+          cCont.style.setProperty('display', 'flex', 'important');
+        }
+        if (cBtn) cBtn.classList.add('active');
+        if (window.location.hash !== '#stock-comparison') {
+          window.location.hash = '#stock-comparison';
+        }
+        if (window.StockComparisonModule && typeof window.StockComparisonModule.init === 'function') {
+          window.StockComparisonModule.init();
+        }
+        return;
       }
 
       if (target === 'watchlist' || target === 'alerts') {
@@ -5711,7 +5737,7 @@ function initAdvScannerNavigation() {
           mCont.style.setProperty('display', 'block', 'important');
         }
         if (dBtn) dBtn.classList.add('active');
-        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest' || window.location.hash === '#backtest' || window.location.hash === '#watchlist-alerts' || window.location.hash === '#watchlist') {
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest' || window.location.hash === '#backtest' || window.location.hash === '#watchlist-alerts' || window.location.hash === '#watchlist' || window.location.hash === '#stock-comparison' || window.location.hash === '#compare') {
           window.location.hash = '#dashboard';
         }
       }
@@ -5752,6 +5778,11 @@ function initAdvScannerNavigation() {
           e.preventDefault();
           switchView('watchlist');
         });
+      } else if (item.id === 'nav-stock-comparison' || item.getAttribute('href') === '#stock-comparison' || item.getAttribute('href') === '#compare') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('compare');
+        });
       } else if (item.id === 'nav-dashboard' || item.getAttribute('href') === '#dashboard') {
         item.addEventListener('click', (e) => {
           e.preventDefault();
@@ -5781,6 +5812,8 @@ function initAdvScannerNavigation() {
         switchView('backtest');
       } else if (hash === '#watchlist-alerts' || hash === '#watchlist' || hash === '#alerts') {
         switchView('watchlist');
+      } else if (hash === '#stock-comparison' || hash === '#compare') {
+        switchView('compare');
       } else {
         switchView('dash');
       }
@@ -11234,4 +11267,1096 @@ window.WatchlistAlertsModule = (function() {
 // Automatically boot Watchlist & Alerts engine in background on page load
 if (window.WatchlistAlertsModule && typeof window.WatchlistAlertsModule.boot === 'function') {
   window.WatchlistAlertsModule.boot();
+}
+
+// ===================================================================================
+// STOCK COMPARISON STATION MODULE (100% Client-Side In-Memory Engine)
+// ===================================================================================
+window.StockComparisonModule = (function () {
+  let slotA = 'TCS';
+  let slotB = 'INFY';
+  let cachedUniverse = [];
+  let cachedFundamentals = {};
+  let isInitialized = false;
+  let activeMobileView = 'both'; // 'both' | 'a' | 'b'
+
+  function formatINR(val) {
+    if (val === null || val === undefined || isNaN(val)) return '₹0.00';
+    return '₹' + Number(val).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function formatPct(val, showSign = true) {
+    if (val === null || val === undefined || isNaN(val)) return '0.00%';
+    const num = Number(val);
+    const sign = showSign && num > 0 ? '+' : '';
+    return sign + num.toFixed(2) + '%';
+  }
+
+  function formatNum(val, dec = 2) {
+    if (val === null || val === undefined || isNaN(val)) return '0.00';
+    return Number(val).toFixed(dec);
+  }
+
+  // Load EOD Datasets (Universe + Fundamentals)
+  async function loadData() {
+    const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
+
+    // 1. Master Universe EOD
+    if (!window._masterUniverseData || !window._masterUniverseData.stocks) {
+      try {
+        let res = await fetch(`${basePath}master_universe_eod.json?v=${Date.now()}`).catch(() => null);
+        if (!res || !res.ok) res = await fetch(`data/master_universe_eod.json?v=${Date.now()}`).catch(() => null);
+        if (!res || !res.ok) res = await fetch('data/master_universe_eod.json').catch(() => null);
+        if (res && res.ok) {
+          const data = await res.json();
+          window._masterUniverseData = data;
+          cachedUniverse = data.stocks || [];
+        }
+      } catch (e) {
+        console.warn('[StockComparisonModule] Error loading master universe:', e);
+      }
+    } else {
+      cachedUniverse = window._masterUniverseData.stocks || [];
+    }
+
+    // 2. Fundamental Data
+    if (!window._fundamentalData || !window._fundamentalData.stocks) {
+      try {
+        let res = await fetch(`${basePath}fundamental_data.json?v=${Date.now()}`).catch(() => null);
+        if (!res || !res.ok) res = await fetch(`data/fundamental_data.json?v=${Date.now()}`).catch(() => null);
+        if (!res || !res.ok) res = await fetch('data/fundamental_data.json').catch(() => null);
+        if (res && res.ok) {
+          const data = await res.json();
+          window._fundamentalData = data;
+        }
+      } catch (e) {
+        console.warn('[StockComparisonModule] Error loading fundamentals:', e);
+      }
+    }
+
+    if (window._fundamentalData && Array.isArray(window._fundamentalData.stocks)) {
+      window._fundamentalData.stocks.forEach(s => {
+        if (s && s.s) {
+          cachedFundamentals[s.s.toUpperCase()] = s;
+        }
+      });
+    }
+
+    const statusBadge = document.getElementById('compare-sync-status-badge');
+    if (statusBadge && cachedUniverse.length > 0) {
+      statusBadge.textContent = `● 5-Pillar Tale of Tape (${cachedUniverse.length} Stocks)`;
+    }
+  }
+
+  // Resolve Stock Data combining Universe, Fundamentals & Technical Dossier Levels
+  function resolveStock(symbol) {
+    if (!symbol) return null;
+    const sym = symbol.trim().toUpperCase();
+
+    // 1. Search cached universe
+    const uStock = cachedUniverse.find(s => (s.symbol || '').toUpperCase() === sym) || null;
+
+    // 2. Search fundamentals
+    const fStock = cachedFundamentals[sym] || null;
+
+    // 3. Search advanced scanner data for 20D S/R levels
+    let advStock = null;
+    if (typeof advState !== 'undefined') {
+      const advLists = [
+        advState.rsData?.stocks,
+        advState.boData?.stocks,
+        advState.mcData?.stocks,
+        advState.rbrData?.stocks,
+        advState.confluenceData?.stocks,
+        advState.wyckoffData?.stocks
+      ];
+      for (const list of advLists) {
+        if (Array.isArray(list)) {
+          const found = list.find(it => (it.symbol || '').toUpperCase() === sym);
+          if (found) {
+            advStock = found;
+            break;
+          }
+        }
+      }
+    }
+
+    // 4. Search scanner signals across Tab 1 to 6 setups
+    let sig = null;
+    if (window.state && window.state.scannerData && window.state.scannerData.setups) {
+      for (const k of Object.keys(window.state.scannerData.setups)) {
+        const setup = window.state.scannerData.setups[k];
+        if (setup && Array.isArray(setup.signals)) {
+          const match = setup.signals.find(s => (s.symbol || '').toUpperCase() === sym);
+          if (match) {
+            sig = match;
+            break;
+          }
+        }
+      }
+    }
+
+    const d = advStock?.dossier || sig?.dossier || {};
+    const kl = d.key_levels || {};
+
+    const cmp = uStock?.cmp || advStock?.cmp || advStock?.ltp || sig?.cmp || fStock?.cmp || 0;
+    const change_pct = uStock?.change_pct !== undefined ? uStock.change_pct : (advStock?.change_pct !== undefined ? advStock.change_pct : (sig?.change_pct || 0));
+
+    // Support (20D Swing Low Support)
+    let support = kl.support || kl.support_1 || d.support_20d || d.support || advStock?.support || sig?.support || null;
+    if (!support || support <= 0) {
+      if (uStock?.ema_20 && cmp > uStock.ema_20) {
+        support = Number(uStock.ema_20);
+      } else if (uStock?.low_52w && cmp > uStock.low_52w) {
+        support = Math.max(uStock.low_52w, cmp * 0.94);
+      } else {
+        support = cmp * 0.94;
+      }
+    }
+
+    // Resistance (20D Swing High / Pivot Resistance)
+    let resistance = kl.resistance || kl.pivot_resistance || d.resistance_20d || d.resistance || advStock?.resistance || sig?.resistance || null;
+    if (!resistance || resistance <= cmp) {
+      if (uStock?.high_52w && uStock.high_52w > cmp) {
+        resistance = Number(uStock.high_52w);
+      } else {
+        resistance = cmp * 1.06;
+      }
+    }
+
+    // Risk and Reward calculations
+    const risk_pct = cmp > 0 && support < cmp ? ((cmp - support) / cmp) * 100 : 3.0;
+    const reward_pct = cmp > 0 && resistance > cmp ? ((resistance - cmp) / cmp) * 100 : 6.0;
+    const rr_ratio = risk_pct > 0 ? (reward_pct / risk_pct) : 2.0;
+
+    // Trend Stack
+    let trend_stack_label = 'Consolidating / Mixed';
+    let trend_stack_score = 1;
+    if (uStock?.ema_20 && uStock?.ema_50 && uStock?.ema_200) {
+      if (uStock.ema_20 > uStock.ema_50 && uStock.ema_50 > uStock.ema_200) {
+        trend_stack_label = 'Bullish (20 > 50 > 200)';
+        trend_stack_score = 3;
+      } else if (uStock.ema_20 < uStock.ema_50 && uStock.ema_50 < uStock.ema_200) {
+        trend_stack_label = 'Bearish (20 < 50 < 200)';
+        trend_stack_score = 0;
+      }
+    }
+
+    return {
+      symbol: sym,
+      name: uStock?.name || sym,
+      sector: uStock?.sector || fStock?.sec || 'Broad Market',
+      cmp: cmp,
+      change_pct: change_pct,
+
+      // Pillar 1: Price Action & Trend Structure
+      trend_stack_label: trend_stack_label,
+      trend_stack_score: trend_stack_score,
+      dist_ema20_pct: uStock?.dist_ema20_pct !== undefined ? uStock.dist_ema20_pct : (uStock?.ema_20 ? ((cmp - uStock.ema_20) / uStock.ema_20) * 100 : 0),
+      dist_52w_high_pct: uStock?.dist_52w_high_pct !== undefined ? uStock.dist_52w_high_pct : 15.0,
+      dist_52w_low_pct: uStock?.dist_52w_low_pct !== undefined ? uStock.dist_52w_low_pct : 20.0,
+      ema_20: uStock?.ema_20 || cmp * 0.98,
+      ema_50: uStock?.ema_50 || cmp * 0.95,
+      ema_200: uStock?.ema_200 || cmp * 0.90,
+
+      // Pillar 2: Relative Strength & Momentum
+      rs_score: uStock?.rs_score !== undefined ? uStock.rs_score : 50,
+      rs_1m: uStock?.rs_1m !== undefined ? uStock.rs_1m : 0,
+      rs_3m: uStock?.rs_3m !== undefined ? uStock.rs_3m : 0,
+      rsi_14: uStock?.rsi_14 !== undefined ? uStock.rsi_14 : 50,
+      breakout_status: uStock?.breakout_status || (uStock?.is_new_52w_high ? '52W High Breakout' : (uStock?.breakout_20d ? '20D Breakout' : (uStock?.is_nr4 ? 'NR4 Squeeze' : 'Consolidating'))),
+
+      // Pillar 3: Institutional Volume & Delivery Footprint
+      delivery_pct: uStock?.delivery_pct !== undefined ? uStock.delivery_pct : 45.0,
+      delivery_spike_pct: uStock?.delivery_spike_pct !== undefined ? uStock.delivery_spike_pct : 0,
+      rvol: uStock?.rvol !== undefined ? uStock.rvol : 1.0,
+      clv: uStock?.clv !== undefined ? uStock.clv : 0.5,
+      deliv_turnover_cr: uStock?.deliv_turnover_cr !== undefined ? uStock.deliv_turnover_cr : (uStock?.turnover_cr ? uStock.turnover_cr * 0.5 : 50.0),
+      turnover_cr: uStock?.turnover_cr || 100.0,
+
+      // Pillar 4: Structural Key Levels & Risk-Reward
+      support: support,
+      resistance: resistance,
+      risk_pct: risk_pct,
+      reward_pct: reward_pct,
+      rr_ratio: rr_ratio,
+
+      // Pillar 5: Fundamentals & Valuation Quality
+      pe: fStock?.pe !== undefined ? fStock.pe : null,
+      pb: fStock?.pb !== undefined ? fStock.pb : null,
+      roe: fStock?.roe !== undefined ? fStock.roe : null,
+      roce: fStock?.roce !== undefined ? fStock.roce : null,
+      de: fStock?.de !== undefined ? fStock.de : null,
+      f_score: fStock?.f_score !== undefined ? fStock.f_score : null,
+      tier: fStock?.tier || 'Unrated',
+      has_fundamentals: !!fStock
+    };
+  }
+
+  // Calculate Absolute Tactical Score (0-100)
+  function calculateTacticalScore(s) {
+    if (!s) return 50;
+    // RS score (0-25)
+    const rs_pts = (s.rs_score / 100.0) * 25.0;
+
+    // Delivery % (0-20)
+    const deliv_pts = Math.min(20.0, (s.delivery_pct / 100.0) * 20.0);
+
+    // 52W High proximity (0-15)
+    const high_dist = Math.max(0, s.dist_52w_high_pct || 0);
+    const high_pts = Math.max(0.0, 15.0 - (high_dist * 0.4));
+
+    // Trend Stack (0-15)
+    const ts = s.trend_stack_score !== undefined ? s.trend_stack_score : 1;
+    const ts_pts = ts >= 3 ? 15.0 : (ts === 1 ? 9.0 : 3.0);
+
+    // Risk:Reward (0-15)
+    const rr = s.rr_ratio || 1.5;
+    const rr_pts = rr >= 2.5 ? 15.0 : (rr >= 1.8 ? 11.0 : (rr >= 1.2 ? 7.0 : 4.0));
+
+    // Fundamentals (0-10)
+    const f = s.f_score !== null && s.f_score !== undefined ? s.f_score : 5;
+    const f_pts = f >= 8 ? 10.0 : (f >= 6 ? 7.0 : (f >= 4 ? 5.0 : 3.0));
+
+    const total = Math.round(rs_pts + deliv_pts + high_pts + ts_pts + rr_pts + f_pts);
+    return Math.max(15, Math.min(98, total));
+  }
+
+  // Compare Two Stock Values for Metric Highlighting
+  // rule: 'higher' | 'lower' | 'rsi' | 'trend' | 'tier'
+  function compareMetric(valA, valB, rule = 'higher') {
+    if (valA === null || valA === undefined) return valB !== null && valB !== undefined ? 'b' : 'tie';
+    if (valB === null || valB === undefined) return 'a';
+
+    if (rule === 'higher') {
+      if (valA > valB) return 'a';
+      if (valB > valA) return 'b';
+      return 'tie';
+    }
+    if (rule === 'lower') {
+      if (valA < valB) return 'a';
+      if (valB < valA) return 'b';
+      return 'tie';
+    }
+    if (rule === 'rsi') {
+      // Golden momentum range is 55 to 70 (optimum 62.5)
+      const distA = Math.abs(valA - 62.5);
+      const distB = Math.abs(valB - 62.5);
+      if (distA < distB) return 'a';
+      if (distB < distA) return 'b';
+      return 'tie';
+    }
+    if (rule === 'pe') {
+      // Positive and lower PE is better
+      if (valA > 0 && valB > 0) {
+        if (valA < valB) return 'a';
+        if (valB < valA) return 'b';
+        return 'tie';
+      }
+      if (valA > 0 && valB <= 0) return 'a';
+      if (valB > 0 && valA <= 0) return 'b';
+      return 'tie';
+    }
+    if (rule === 'tier') {
+      const tierRank = { 'Buffett Compounder': 4, 'Deep Value Moat': 3, 'High Quality Growth': 3, 'Fair Value': 2, 'Unrated': 1 };
+      const rankA = tierRank[valA] || 1;
+      const rankB = tierRank[valB] || 1;
+      if (rankA > rankB) return 'a';
+      if (rankB > rankA) return 'b';
+      return 'tie';
+    }
+    return 'tie';
+  }
+
+  // Generate Executive Verdict
+  function calculateExecutiveVerdict(stA, stB) {
+    const scoreA = calculateTacticalScore(stA);
+    const scoreB = calculateTacticalScore(stB);
+    const diff = Math.abs(scoreA - scoreB);
+
+    let winner = 'tie';
+    if (scoreA > scoreB + 2) winner = 'a';
+    else if (scoreB > scoreA + 2) winner = 'b';
+
+    const bulletsA = [];
+    const bulletsB = [];
+
+    // Identify primary tactical advantages for Stock A
+    if (stA.rs_score > stB.rs_score) bulletsA.push(`Superior RS Score (${stA.rs_score} vs ${stB.rs_score})`);
+    if (stA.delivery_pct > stB.delivery_pct) bulletsA.push(`Higher Institutional Delivery (${stA.delivery_pct.toFixed(1)}% vs ${stB.delivery_pct.toFixed(1)}%)`);
+    if (stA.rvol > stB.rvol) bulletsA.push(`Stronger Volume Surge (${stA.rvol.toFixed(2)}x vs ${stB.rvol.toFixed(2)}x RVOL)`);
+    if (stA.dist_52w_high_pct < stB.dist_52w_high_pct) bulletsA.push(`Closer to 52W Breakout (-${stA.dist_52w_high_pct.toFixed(1)}% vs -${stB.dist_52w_high_pct.toFixed(1)}%)`);
+    if (stA.rr_ratio > stB.rr_ratio) bulletsA.push(`Attractive Risk-Reward (${stA.rr_ratio.toFixed(2)}:1 vs ${stB.rr_ratio.toFixed(2)}:1)`);
+    if (stA.f_score > stB.f_score) bulletsA.push(`Higher Quality F-Score (${stA.f_score}/9 vs ${stB.f_score}/9)`);
+    if (stA.roe > stB.roe) bulletsA.push(`Higher Return on Equity (${stA.roe}% vs ${stB.roe}%)`);
+
+    // Identify primary tactical advantages for Stock B
+    if (stB.rs_score > stA.rs_score) bulletsB.push(`Superior RS Score (${stB.rs_score} vs ${stA.rs_score})`);
+    if (stB.delivery_pct > stA.delivery_pct) bulletsB.push(`Higher Institutional Delivery (${stB.delivery_pct.toFixed(1)}% vs ${stA.delivery_pct.toFixed(1)}%)`);
+    if (stB.rvol > stA.rvol) bulletsB.push(`Stronger Volume Surge (${stB.rvol.toFixed(2)}x vs ${stA.rvol.toFixed(2)}x RVOL)`);
+    if (stB.dist_52w_high_pct < stA.dist_52w_high_pct) bulletsB.push(`Closer to 52W Breakout (-${stB.dist_52w_high_pct.toFixed(1)}% vs -${stA.dist_52w_high_pct.toFixed(1)}%)`);
+    if (stB.rr_ratio > stA.rr_ratio) bulletsB.push(`Attractive Risk-Reward (${stB.rr_ratio.toFixed(2)}:1 vs ${stB.rr_ratio.toFixed(2)}:1)`);
+    if (stB.f_score > stA.f_score) bulletsB.push(`Higher Quality F-Score (${stB.f_score}/9 vs ${stA.f_score}/9)`);
+    if (stB.roe > stA.roe) bulletsB.push(`Higher Return on Equity (${stB.roe}% vs ${stA.roe}%)`);
+
+    let title = '';
+    let badgeText = '';
+    let thesis = '';
+
+    if (winner === 'a') {
+      title = `${stA.symbol} OUTPERFORMS ${stB.symbol}`;
+      badgeText = `👑 ${stA.symbol} WINS (+${diff} PTS)`;
+      const topBullets = bulletsA.slice(0, 3).join(' • ');
+      thesis = `Algorithmic model identifies ${stA.symbol} as the superior tactical play over ${stB.symbol} driven by: ${topBullets || 'Overall tactical momentum and delivery confirmation'}.`;
+    } else if (winner === 'b') {
+      title = `${stB.symbol} OUTPERFORMS ${stA.symbol}`;
+      badgeText = `👑 ${stB.symbol} WINS (+${diff} PTS)`;
+      const topBullets = bulletsB.slice(0, 3).join(' • ');
+      thesis = `Algorithmic model identifies ${stB.symbol} as the superior tactical play over ${stA.symbol} driven by: ${topBullets || 'Overall tactical momentum and delivery confirmation'}.`;
+    } else {
+      title = `${stA.symbol} & ${stB.symbol} ARE EVENLY MATCHED`;
+      badgeText = `🤝 TACTICAL DEAD HEAT`;
+      thesis = `Both ${stA.symbol} and ${stB.symbol} present balanced risk-reward profiles with matching composite tactical scores (${scoreA} vs ${scoreB}). Selection depends on individual sector preference.`;
+    }
+
+    return {
+      scoreA,
+      scoreB,
+      winner,
+      diff,
+      title,
+      badgeText,
+      thesis
+    };
+  }
+
+  // Render Table & Mobile Cards
+  function renderUI() {
+    const stA = resolveStock(slotA);
+    const stB = resolveStock(slotB);
+
+    if (!stA || !stB) {
+      console.warn('[StockComparisonModule] Could not resolve stocks:', slotA, slotB);
+      return;
+    }
+
+    // 1. Update Selector Header Names & Table Columns
+    const nameAEl = document.getElementById('slot-a-company-name');
+    const nameBEl = document.getElementById('slot-b-company-name');
+    if (nameAEl) nameAEl.textContent = `${stA.name} (${stA.sector})`;
+    if (nameBEl) nameBEl.textContent = `${stB.name} (${stB.sector})`;
+
+    const thSymA = document.getElementById('th-sym-a');
+    const thCmpA = document.getElementById('th-cmp-a');
+    const thSymB = document.getElementById('th-sym-b');
+    const thCmpB = document.getElementById('th-cmp-b');
+
+    if (thSymA) thSymA.textContent = stA.symbol;
+    if (thCmpA) thCmpA.textContent = formatINR(stA.cmp);
+    if (thSymB) thSymB.textContent = stB.symbol;
+    if (thCmpB) thCmpB.textContent = formatINR(stB.cmp);
+
+    const segBtnA = document.getElementById('seg-btn-slot-a');
+    const segBtnB = document.getElementById('seg-btn-slot-b');
+    if (segBtnA) segBtnA.textContent = stA.symbol;
+    if (segBtnB) segBtnB.textContent = stB.symbol;
+
+    // 2. Render Executive Verdict Card
+    const verdict = calculateExecutiveVerdict(stA, stB);
+    const verdictCard = document.getElementById('compare-verdict-card');
+    if (verdictCard) {
+      const isWinnerA = verdict.winner === 'a';
+      const isWinnerB = verdict.winner === 'b';
+      const trophyIcon = verdict.winner === 'tie' ? '🤝' : '🏆';
+
+      verdictCard.innerHTML = `
+        <div class="verdict-left">
+          <div class="verdict-trophy">${trophyIcon}</div>
+          <div class="verdict-meta">
+            <div class="verdict-title-row">
+              <h2 class="verdict-title">${verdict.title}</h2>
+              <span class="verdict-winner-badge">${verdict.badgeText}</span>
+            </div>
+            <p class="verdict-thesis">${verdict.thesis}</p>
+          </div>
+        </div>
+        <div class="verdict-scores-box">
+          <div class="verdict-score-pill ${isWinnerA ? 'winner' : ''}">
+            <span class="verdict-pill-lbl">${stA.symbol} SCORE</span>
+            <span class="verdict-pill-val" style="color: #38bdf8;">${verdict.scoreA} <small style="font-size:0.7rem; color:#64748b;">/ 100</small></span>
+          </div>
+          <div class="verdict-score-pill ${isWinnerB ? 'winner' : ''}">
+            <span class="verdict-pill-lbl">${stB.symbol} SCORE</span>
+            <span class="verdict-pill-val" style="color: #fbbf24;">${verdict.scoreB} <small style="font-size:0.7rem; color:#64748b;">/ 100</small></span>
+          </div>
+        </div>
+      `;
+    }
+
+    // 3. Define Metric Rows for the 5 Pillars
+    const pillars = [
+      {
+        id: 'pillar-1',
+        title: '📈 Pillar 1: Price Action & Trend Structure',
+        metrics: [
+          {
+            name: 'CMP & 1D Change',
+            sub: 'Close Price & Daily Direction',
+            valA: `${formatINR(stA.cmp)} (${formatPct(stA.change_pct)})`,
+            valB: `${formatINR(stB.cmp)} (${formatPct(stB.change_pct)})`,
+            rawA: stA.change_pct,
+            rawB: stB.change_pct,
+            rule: 'higher'
+          },
+          {
+            name: 'Trend Stack Alignment',
+            sub: 'EMA 20 > 50 > 200 Bullish Stack',
+            valA: stA.trend_stack_label,
+            valB: stB.trend_stack_label,
+            rawA: stA.trend_stack_score,
+            rawB: stB.trend_stack_score,
+            rule: 'higher'
+          },
+          {
+            name: 'Distance to 20 EMA',
+            sub: 'Mean Reversion & Pullback Cushion',
+            valA: formatPct(stA.dist_ema20_pct),
+            valB: formatPct(stB.dist_ema20_pct),
+            rawA: stA.dist_ema20_pct,
+            rawB: stB.dist_ema20_pct,
+            rule: 'higher'
+          },
+          {
+            name: 'Distance from 52W High',
+            sub: 'Overhead Supply Drawdown',
+            valA: `-${formatNum(stA.dist_52w_high_pct)}%`,
+            valB: `-${formatNum(stB.dist_52w_high_pct)}%`,
+            rawA: stA.dist_52w_high_pct,
+            rawB: stB.dist_52w_high_pct,
+            rule: 'lower' // Closer to high is better
+          },
+          {
+            name: 'Distance from 52W Low',
+            sub: 'Long-term Recovery Headroom',
+            valA: `+${formatNum(stA.dist_52w_low_pct)}%`,
+            valB: `+${formatNum(stB.dist_52w_low_pct)}%`,
+            rawA: stA.dist_52w_low_pct,
+            rawB: stB.dist_52w_low_pct,
+            rule: 'higher'
+          }
+        ]
+      },
+      {
+        id: 'pillar-2',
+        title: '🚀 Pillar 2: Relative Strength & Momentum',
+        metrics: [
+          {
+            name: 'Proprietary RS Score',
+            sub: 'Mansfield 0-100 Nifty Benchmark',
+            valA: `${stA.rs_score} / 100`,
+            valB: `${stB.rs_score} / 100`,
+            rawA: stA.rs_score,
+            rawB: stB.rs_score,
+            rule: 'higher'
+          },
+          {
+            name: '1-Month RS Alpha',
+            sub: 'Short-term Outperformance vs Nifty',
+            valA: formatPct(stA.rs_1m),
+            valB: formatPct(stB.rs_1m),
+            rawA: stA.rs_1m,
+            rawB: stB.rs_1m,
+            rule: 'higher'
+          },
+          {
+            name: '3-Month RS Alpha',
+            sub: 'Quarterly Outperformance vs Nifty',
+            valA: formatPct(stA.rs_3m),
+            valB: formatPct(stB.rs_3m),
+            rawA: stA.rs_3m,
+            rawB: stB.rs_3m,
+            rule: 'higher'
+          },
+          {
+            name: 'RSI (14 Period)',
+            sub: 'Wilder Momentum (Optimum: 55-70)',
+            valA: formatNum(stA.rsi_14, 1),
+            valB: formatNum(stB.rsi_14, 1),
+            rawA: stA.rsi_14,
+            rawB: stB.rsi_14,
+            rule: 'rsi'
+          },
+          {
+            name: 'Breakout Pattern Status',
+            sub: 'Volatility Contraction / Range Break',
+            valA: stA.breakout_status,
+            valB: stB.breakout_status,
+            rawA: stA.breakout_status === 'Consolidating' ? 1 : 2,
+            rawB: stB.breakout_status === 'Consolidating' ? 1 : 2,
+            rule: 'higher'
+          }
+        ]
+      },
+      {
+        id: 'pillar-3',
+        title: '🏦 Pillar 3: Institutional Volume & Delivery Footprint',
+        metrics: [
+          {
+            name: 'Delivery Volume %',
+            sub: 'True Institutional Accumulation',
+            valA: `${formatNum(stA.delivery_pct, 1)}%`,
+            valB: `${formatNum(stB.delivery_pct, 1)}%`,
+            rawA: stA.delivery_pct,
+            rawB: stB.delivery_pct,
+            rule: 'higher'
+          },
+          {
+            name: 'Delivery Spike vs 10D',
+            sub: 'Abnormal Delivery Inflow',
+            valA: formatPct(stA.delivery_spike_pct),
+            valB: formatPct(stB.delivery_spike_pct),
+            rawA: stA.delivery_spike_pct,
+            rawB: stB.delivery_spike_pct,
+            rule: 'higher'
+          },
+          {
+            name: 'Relative Volume (RVOL)',
+            sub: 'Volume Multiplier vs 10D Avg',
+            valA: `${formatNum(stA.rvol, 2)}x`,
+            valB: `${formatNum(stB.rvol, 2)}x`,
+            rawA: stA.rvol,
+            rawB: stB.rvol,
+            rule: 'higher'
+          },
+          {
+            name: 'Close Location Value (CLV)',
+            sub: 'Closing Range Pin (-1.0 to +1.0)',
+            valA: `${stA.clv >= 0 ? '+' : ''}${formatNum(stA.clv, 2)}`,
+            valB: `${stB.clv >= 0 ? '+' : ''}${formatNum(stB.clv, 2)}`,
+            rawA: stA.clv,
+            rawB: stB.clv,
+            rule: 'higher'
+          },
+          {
+            name: 'Daily Delivery Turnover',
+            sub: 'Institutional Rupee Value Commitment',
+            valA: `₹${formatNum(stA.deliv_turnover_cr, 1)} Cr`,
+            valB: `₹${formatNum(stB.deliv_turnover_cr, 1)} Cr`,
+            rawA: stA.deliv_turnover_cr,
+            rawB: stB.deliv_turnover_cr,
+            rule: 'higher'
+          }
+        ]
+      },
+      {
+        id: 'pillar-4',
+        title: '🎯 Pillar 4: Structural Key Levels & Risk-Reward',
+        metrics: [
+          {
+            name: '20D Swing Low Support',
+            sub: 'Structural Invalidation Level',
+            valA: formatINR(stA.support),
+            valB: formatINR(stB.support),
+            rawA: stA.support,
+            rawB: stB.support,
+            rule: 'none'
+          },
+          {
+            name: '20 EMA Dynamic Support',
+            sub: 'Institutional Trailing Base',
+            valA: formatINR(stA.ema_20),
+            valB: formatINR(stB.ema_20),
+            rawA: stA.ema_20,
+            rawB: stB.ema_20,
+            rule: 'none'
+          },
+          {
+            name: '20D Swing High Resistance',
+            sub: 'Structural Overhead Pivot Target',
+            valA: formatINR(stA.resistance),
+            valB: formatINR(stB.resistance),
+            rawA: stA.resistance,
+            rawB: stB.resistance,
+            rule: 'none'
+          },
+          {
+            name: 'Risk to Support %',
+            sub: 'Downside Distance to Safety Floor',
+            valA: `-${formatNum(stA.risk_pct, 2)}%`,
+            valB: `-${formatNum(stB.risk_pct, 2)}%`,
+            rawA: stA.risk_pct,
+            rawB: stB.risk_pct,
+            rule: 'lower' // Lower risk percentage is better
+          },
+          {
+            name: 'Reward to Resistance %',
+            sub: 'Upside Headroom to Overhead Pivot',
+            valA: `+${formatNum(stA.reward_pct, 2)}%`,
+            valB: `+${formatNum(stB.reward_pct, 2)}%`,
+            rawA: stA.reward_pct,
+            rawB: stB.reward_pct,
+            rule: 'higher'
+          },
+          {
+            name: 'Tactical Risk-Reward Ratio',
+            sub: 'Reward / Risk Multiplier (Min 2.0:1)',
+            valA: `${formatNum(stA.rr_ratio, 2)}:1`,
+            valB: `${formatNum(stB.rr_ratio, 2)}:1`,
+            rawA: stA.rr_ratio,
+            rawB: stB.rr_ratio,
+            rule: 'higher'
+          }
+        ]
+      },
+      {
+        id: 'pillar-5',
+        title: '💎 Pillar 5: Fundamentals & Valuation Quality',
+        metrics: [
+          {
+            name: 'P/E Ratio',
+            sub: 'Trailing Price to Earnings',
+            valA: stA.pe !== null ? formatNum(stA.pe, 1) : 'N/A',
+            valB: stB.pe !== null ? formatNum(stB.pe, 1) : 'N/A',
+            rawA: stA.pe,
+            rawB: stB.pe,
+            rule: 'pe'
+          },
+          {
+            name: 'Return on Equity (ROE %)',
+            sub: 'Shareholder Capital Compounding',
+            valA: stA.roe !== null ? `${formatNum(stA.roe, 1)}%` : 'N/A',
+            valB: stB.roe !== null ? `${formatNum(stB.roe, 1)}%` : 'N/A',
+            rawA: stA.roe,
+            rawB: stB.roe,
+            rule: 'higher'
+          },
+          {
+            name: 'Return on Cap Employed (ROCE %)',
+            sub: 'Total Capital Operational Return',
+            valA: stA.roce !== null ? `${formatNum(stA.roce, 1)}%` : 'N/A',
+            valB: stB.roce !== null ? `${formatNum(stB.roce, 1)}%` : 'N/A',
+            rawA: stA.roce,
+            rawB: stB.roce,
+            rule: 'higher'
+          },
+          {
+            name: 'Debt to Equity Ratio',
+            sub: 'Solvency & Leverage (< 0.5 is Fortress)',
+            valA: stA.de !== null ? formatNum(stA.de, 2) : 'N/A',
+            valB: stB.de !== null ? formatNum(stB.de, 2) : 'N/A',
+            rawA: stA.de,
+            rawB: stB.de,
+            rule: 'lower' // Lower leverage is safer
+          },
+          {
+            name: 'Piotroski F-Score (0-9)',
+            sub: 'Financial Health & Profitability',
+            valA: stA.f_score !== null ? `${stA.f_score} / 9` : 'N/A',
+            valB: stB.f_score !== null ? `${stB.f_score} / 9` : 'N/A',
+            rawA: stA.f_score,
+            rawB: stB.f_score,
+            rule: 'higher'
+          },
+          {
+            name: 'Fundamental Quality Tier',
+            sub: 'Buffett / Piotroski Moat Classification',
+            valA: stA.tier,
+            valB: stB.tier,
+            rawA: stA.tier,
+            rawB: stB.tier,
+            rule: 'tier'
+          }
+        ]
+      }
+    ];
+
+    // 4. Populate Desktop Table Body
+    const tbody = document.getElementById('compare-table-body');
+    if (tbody) {
+      let tableHtml = '';
+
+      pillars.forEach(p => {
+        tableHtml += `
+          <tr class="pillar-header-row">
+            <td colspan="3">
+              <span class="pillar-title-text">${p.title}</span>
+            </td>
+          </tr>
+        `;
+
+        p.metrics.forEach(m => {
+          let win = 'tie';
+          if (m.rule !== 'none') {
+            win = compareMetric(m.rawA, m.rawB, m.rule);
+          }
+
+          const isWinA = win === 'a';
+          const isWinB = win === 'b';
+          const crownA = isWinA ? '<span class="crown-badge" title="Superior Metric">👑</span>' : '';
+          const crownB = isWinB ? '<span class="crown-badge" title="Superior Metric">👑</span>' : '';
+
+          tableHtml += `
+            <tr class="metric-row">
+              <td class="td-metric-name">
+                <span>${m.name}</span>
+                <span class="metric-sub-lbl">${m.sub}</span>
+              </td>
+              <td class="td-val-cell ${isWinA ? 'cell-winner' : ''}">
+                ${m.valA} ${crownA}
+              </td>
+              <td class="td-val-cell ${isWinB ? 'cell-winner' : ''}">
+                ${m.valB} ${crownB}
+              </td>
+            </tr>
+          `;
+        });
+      });
+
+      // Quick Actions Row at Bottom of Table
+      tableHtml += `
+        <tr class="pillar-header-row">
+          <td colspan="3">
+            <span class="pillar-title-text">⚡ Quick Actions &amp; Chart Routing</span>
+          </td>
+        </tr>
+        <tr class="metric-row">
+          <td class="td-metric-name">
+            <span>Direct Modal &amp; Chart Links</span>
+            <span class="metric-sub-lbl">Inspect full technical dossier or TradingView chart</span>
+          </td>
+          <td class="td-val-cell">
+            <div class="action-row-wrap">
+              <button type="button" class="compare-table-action-btn" onclick="window.StockComparisonModule.inspect('${stA.symbol}')">Dossier</button>
+              <a href="https://in.tradingview.com/chart/?symbol=NSE:${stA.symbol}" target="_blank" rel="noopener" class="compare-table-action-btn" style="text-decoration:none; display:inline-flex; align-items:center;">Chart ↗</a>
+            </div>
+          </td>
+          <td class="td-val-cell">
+            <div class="action-row-wrap">
+              <button type="button" class="compare-table-action-btn" onclick="window.StockComparisonModule.inspect('${stB.symbol}')">Dossier</button>
+              <a href="https://in.tradingview.com/chart/?symbol=NSE:${stB.symbol}" target="_blank" rel="noopener" class="compare-table-action-btn" style="text-decoration:none; display:inline-flex; align-items:center;">Chart ↗</a>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      tbody.innerHTML = tableHtml;
+    }
+
+    // 5. Populate Mobile Dual Progress Cards
+    const mobCardsWrap = document.getElementById('compare-mobile-cards-wrap');
+    if (mobCardsWrap) {
+      let mobHtml = '';
+
+      pillars.forEach(p => {
+        mobHtml += `
+          <div class="compare-mob-pillar-box">
+            <div class="mob-pillar-title">${p.title}</div>
+        `;
+
+        p.metrics.forEach(m => {
+          let win = 'tie';
+          if (m.rule !== 'none') {
+            win = compareMetric(m.rawA, m.rawB, m.rule);
+          }
+
+          const isWinA = win === 'a';
+          const isWinB = win === 'b';
+          const crown = isWinA ? `👑 ${stA.symbol}` : (isWinB ? `👑 ${stB.symbol}` : '');
+
+          // Estimate relative progress bar widths (out of 100%)
+          let barA = 50;
+          let barB = 50;
+          if (typeof m.rawA === 'number' && typeof m.rawB === 'number' && (m.rawA + m.rawB) > 0) {
+            const sum = Math.abs(m.rawA) + Math.abs(m.rawB);
+            if (sum > 0) {
+              barA = Math.round((Math.abs(m.rawA) / sum) * 100);
+              barB = 100 - barA;
+            }
+          } else if (isWinA) {
+            barA = 65; barB = 35;
+          } else if (isWinB) {
+            barA = 35; barB = 65;
+          }
+
+          mobHtml += `
+            <div class="compare-mob-metric-card" data-metric="${m.name}">
+              <div class="mob-metric-header">
+                <span>${m.name}</span>
+                <span style="color: #fbbf24; font-size: 0.72rem; font-weight: 800;">${crown}</span>
+              </div>
+              <div class="mob-metric-vals-row">
+                <span class="mob-val-a ${isWinA ? 'winner' : ''}">${stA.symbol}: ${m.valA}</span>
+                <span class="mob-val-b ${isWinB ? 'winner' : ''}">${stB.symbol}: ${m.valB}</span>
+              </div>
+              <div class="mob-bar-track">
+                <div class="mob-bar-a" style="width: ${barA}%;"></div>
+                <div class="mob-bar-b" style="width: ${barB}%;"></div>
+              </div>
+            </div>
+          `;
+        });
+
+        mobHtml += `</div>`;
+      });
+
+      mobCardsWrap.innerHTML = mobHtml;
+      updateMobileSegmentedView();
+    }
+  }
+
+  // Update Mobile Segmented View (both, a, b)
+  function updateMobileSegmentedView() {
+    const mobCardsWrap = document.getElementById('compare-mobile-cards-wrap');
+    if (!mobCardsWrap) return;
+
+    const cards = mobCardsWrap.querySelectorAll('.compare-mob-metric-card');
+    cards.forEach(card => {
+      const valA = card.querySelector('.mob-val-a');
+      const valB = card.querySelector('.mob-val-b');
+      const barA = card.querySelector('.mob-bar-a');
+      const barB = card.querySelector('.mob-bar-b');
+
+      if (activeMobileView === 'a') {
+        if (valA) valA.style.opacity = '1';
+        if (valB) valB.style.opacity = '0.3';
+        if (barA) barA.style.opacity = '1';
+        if (barB) barB.style.opacity = '0.15';
+      } else if (activeMobileView === 'b') {
+        if (valA) valA.style.opacity = '0.3';
+        if (valB) valB.style.opacity = '1';
+        if (barA) barA.style.opacity = '0.15';
+        if (barB) barB.style.opacity = '1';
+      } else {
+        if (valA) valA.style.opacity = '1';
+        if (valB) valB.style.opacity = '1';
+        if (barA) barA.style.opacity = '1';
+        if (barB) barB.style.opacity = '1';
+      }
+    });
+  }
+
+  // Swap Slot A and Slot B
+  function swapStocks() {
+    const temp = slotA;
+    slotA = slotB;
+    slotB = temp;
+
+    const inputA = document.getElementById('compare-input-a');
+    const inputB = document.getElementById('compare-input-b');
+    if (inputA) inputA.value = slotA;
+    if (inputB) inputB.value = slotB;
+
+    renderUI();
+  }
+
+  // Set Stocks Programmatically
+  function setStocks(symA, symB) {
+    if (symA) slotA = symA.trim().toUpperCase();
+    if (symB) slotB = symB.trim().toUpperCase();
+
+    const inputA = document.getElementById('compare-input-a');
+    const inputB = document.getElementById('compare-input-b');
+    if (inputA) inputA.value = slotA;
+    if (inputB) inputB.value = slotB;
+
+    // Update active preset button if matches
+    document.querySelectorAll('#compare-rivalry-pills-wrap .rivalry-pill').forEach(pill => {
+      const pair = pill.getAttribute('data-pair') || '';
+      const [pA, pB] = pair.split(',');
+      if ((pA === slotA && pB === slotB) || (pA === slotB && pB === slotA)) {
+        pill.classList.add('active');
+      } else {
+        pill.classList.remove('active');
+      }
+    });
+
+    renderUI();
+  }
+
+  // Inspect Stock in Dossier Modal
+  function inspect(symbol) {
+    if (window.WatchlistAlertsModule && typeof window.WatchlistAlertsModule.inspectStock === 'function') {
+      window.WatchlistAlertsModule.inspectStock(symbol);
+      return;
+    }
+    if (typeof openAdvRsDossierModal === 'function') {
+      try {
+        openAdvRsDossierModal(symbol);
+        return;
+      } catch (e) {}
+    }
+    if (typeof openSetupDossier === 'function') {
+      try {
+        openSetupDossier(symbol);
+        return;
+      } catch (e) {}
+    }
+  }
+
+  // Autocomplete Setup Helper
+  function setupAutocomplete(inputId, dropdownId, onSelect) {
+    const input = document.getElementById(inputId);
+    const dropdown = document.getElementById(dropdownId);
+    if (!input || !dropdown) return;
+
+    function renderMatches(q) {
+      if (!cachedUniverse || cachedUniverse.length === 0) {
+        dropdown.style.display = 'none';
+        return;
+      }
+      const query = q.trim().toUpperCase();
+      let matches = [];
+      if (!query) {
+        matches = cachedUniverse.slice(0, 8);
+      } else {
+        matches = cachedUniverse.filter(s => {
+          const sym = (s.symbol || '').toUpperCase();
+          const name = (s.name || '').toUpperCase();
+          return sym.includes(query) || name.includes(query);
+        }).slice(0, 8);
+      }
+
+      if (matches.length === 0) {
+        dropdown.innerHTML = '<div style="padding:10px 14px; color:#64748b; font-size:0.78rem;">No matching stocks found</div>';
+        dropdown.style.display = 'block';
+        return;
+      }
+
+      dropdown.innerHTML = matches.map(s => `
+        <div class="compare-auto-item" data-sym="${s.symbol}">
+          <div>
+            <span class="ac-sym" style="font-weight:800; font-family:monospace; color:#38bdf8;">${s.symbol}</span>
+            <span class="ac-name" style="font-size:0.75rem; color:#94a3b8; margin-left:6px;">${s.name || ''}</span>
+          </div>
+          <span class="ac-cmp" style="font-weight:700; font-family:monospace; color:#f8fafc;">${formatINR(s.cmp)}</span>
+        </div>
+      `).join('');
+      dropdown.style.display = 'block';
+
+      dropdown.querySelectorAll('.compare-auto-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const sym = item.getAttribute('data-sym');
+          if (sym) {
+            input.value = sym;
+            dropdown.style.display = 'none';
+            onSelect(sym);
+          }
+        });
+      });
+    }
+
+    input.addEventListener('input', (e) => {
+      renderMatches(e.target.value);
+    });
+
+    input.addEventListener('focus', () => {
+      renderMatches(input.value);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const topItem = dropdown.querySelector('.compare-auto-item');
+        if (topItem) {
+          const sym = topItem.getAttribute('data-sym');
+          if (sym) {
+            input.value = sym;
+            dropdown.style.display = 'none';
+            onSelect(sym);
+          }
+        }
+      } else if (e.key === 'Escape') {
+        dropdown.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+  }
+
+  // Bind UI Events
+  function bindEvents() {
+    // 1. Autocomplete for Slot A & Slot B
+    setupAutocomplete('compare-input-a', 'compare-autocomplete-a', (sym) => {
+      slotA = sym;
+      renderUI();
+    });
+
+    setupAutocomplete('compare-input-b', 'compare-autocomplete-b', (sym) => {
+      slotB = sym;
+      renderUI();
+    });
+
+    // 2. Swap Button
+    const swapBtn = document.getElementById('compare-swap-btn');
+    if (swapBtn) {
+      swapBtn.addEventListener('click', swapStocks);
+    }
+
+    // 3. Refresh Button
+    const refreshBtn = document.getElementById('compare-refresh-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        refreshBtn.classList.add('spinning');
+        renderUI();
+        setTimeout(() => refreshBtn.classList.remove('spinning'), 350);
+      });
+    }
+
+    // 4. Sector Rivalry Presets
+    const pillsWrap = document.getElementById('compare-rivalry-pills-wrap');
+    if (pillsWrap) {
+      pillsWrap.addEventListener('click', (e) => {
+        const btn = e.target.closest('.rivalry-pill');
+        if (!btn) return;
+        const pair = btn.getAttribute('data-pair');
+        if (pair) {
+          const [symA, symB] = pair.split(',');
+          setStocks(symA, symB);
+        }
+      });
+    }
+
+    // 5. Mobile Segmented Buttons
+    const segBar = document.getElementById('compare-mobile-segmented-bar');
+    if (segBar) {
+      segBar.addEventListener('click', (e) => {
+        const btn = e.target.closest('.compare-segment-btn');
+        if (!btn) return;
+        segBar.querySelectorAll('.compare-segment-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeMobileView = btn.getAttribute('data-view') || 'both';
+        updateMobileSegmentedView();
+      });
+    }
+  }
+
+  // Initializer
+  async function init() {
+    await loadData();
+    if (!isInitialized) {
+      bindEvents();
+      isInitialized = true;
+    }
+    renderUI();
+  }
+
+  return {
+    init,
+    setStocks,
+    swapStocks,
+    renderUI,
+    resolveStock,
+    inspect
+  };
+})();
+
+// Automatically boot Stock Comparison module if loaded on the hash
+if (window.location.hash === '#stock-comparison' || window.location.hash === '#compare') {
+  if (window.StockComparisonModule && typeof window.StockComparisonModule.init === 'function') {
+    window.StockComparisonModule.init();
+  }
 }
