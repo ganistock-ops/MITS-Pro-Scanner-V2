@@ -7786,3 +7786,29 @@ body.table-col-resizing * {
     font-size: 18px;
   }
 }
+
+/* Fundamental Research Pagination Bar Specifics */
+#fund-pagination-bar {
+  background: #0d121d;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  #fund-pagination-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 0.75rem 0.5rem;
+  }
+  #fund-pagination-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+  #fund-pagination-controls .page-btn {
+    min-width: 30px;
+    height: 30px;
+    padding: 0 6px;
+    font-size: 0.75rem;
+  }
+}

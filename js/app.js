@@ -5110,6 +5110,8 @@ window.FundamentalResearchModule = (function() {
   let activeFilter = 'all';
   let searchQuery = '';
   let sortConfig = { key: 'f_score', dir: 'desc' };
+  let currentPage = 1;
+  const PAGE_SIZE = 20;
 
   async function init() {
     if (!isInitialized) {
@@ -5152,6 +5154,7 @@ window.FundamentalResearchModule = (function() {
         refreshBtn.innerHTML = '<span>↻</span> Refreshing...';
         refreshBtn.disabled = true;
         window._cachedFundamentalData = null;
+        currentPage = 1;
         await loadData();
         refreshBtn.innerHTML = '<span>↻</span> Refresh';
         refreshBtn.disabled = false;
@@ -5163,6 +5166,7 @@ window.FundamentalResearchModule = (function() {
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
         searchQuery = (e.target.value || '').trim().toLowerCase();
+        currentPage = 1;
         renderTable();
       });
     }
@@ -5178,6 +5182,7 @@ window.FundamentalResearchModule = (function() {
         btn.classList.add('active');
         btn.setAttribute('aria-selected', 'true');
         activeFilter = btn.getAttribute('data-filter') || 'all';
+        currentPage = 1;
         renderTable();
       });
     });
@@ -5200,6 +5205,7 @@ window.FundamentalResearchModule = (function() {
             h.classList.remove('sorted-asc', 'sorted-desc');
           });
           th.classList.add(sortConfig.dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+          currentPage = 1;
           renderTable();
         });
       });
@@ -5318,14 +5324,26 @@ window.FundamentalResearchModule = (function() {
     const countEl = document.getElementById('fund-showing-count');
     if (!tbody) return;
 
-    const stocks = getFilteredStocks();
-    const totalCount = (fundData && fundData.stocks) ? fundData.stocks.length : 275;
+    const allFiltered = getFilteredStocks();
+    const totalFiltered = allFiltered.length;
+    const totalPages = Math.ceil(totalFiltered / PAGE_SIZE) || 1;
+
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIdx = (currentPage - 1) * PAGE_SIZE;
+    const endIdx = Math.min(startIdx + PAGE_SIZE, totalFiltered);
+    const pagedStocks = allFiltered.slice(startIdx, endIdx);
 
     if (countEl) {
-      countEl.textContent = `Showing ${stocks.length} of ${totalCount} Equities`;
+      if (totalFiltered === 0) {
+        countEl.textContent = 'Showing 0 of 0 Equities';
+      } else {
+        countEl.textContent = `Showing ${startIdx + 1}-${endIdx} of ${totalFiltered} Equities`;
+      }
     }
 
-    if (stocks.length === 0) {
+    if (totalFiltered === 0) {
       tbody.innerHTML = `
         <tr>
           <td colspan="12" style="text-align: center; padding: 2.5rem; color: rgba(255,255,255,0.4);">
@@ -5333,10 +5351,11 @@ window.FundamentalResearchModule = (function() {
           </td>
         </tr>
       `;
+      renderPagination(0, 0, 0, 0);
       return;
     }
 
-    tbody.innerHTML = stocks.map(s => {
+    tbody.innerHTML = pagedStocks.map(s => {
       const cmp = Number(s.cmp) || 0;
       const pe = Number(s.pe) || 0;
       const pb = Number(s.pb) || 0;
@@ -5406,12 +5425,87 @@ window.FundamentalResearchModule = (function() {
         </tr>
       `;
     }).join('');
+
+    renderPagination(totalFiltered, totalPages, startIdx, endIdx);
+  }
+
+  function renderPagination(totalItems, totalPages, startIdx, endIdx) {
+    const pBar = document.getElementById('fund-pagination-bar');
+    const pInfo = document.getElementById('fund-pagination-info');
+    const pControls = document.getElementById('fund-pagination-controls');
+    if (!pBar || !pInfo || !pControls) return;
+
+    if (totalItems === 0) {
+      pInfo.innerHTML = 'Showing <span>0</span> to <span>0</span> of <span>0</span> Equities';
+      pControls.innerHTML = '';
+      pBar.style.display = 'none';
+      return;
+    }
+
+    pBar.style.display = 'flex';
+    pInfo.innerHTML = `Showing <span>${startIdx + 1}-${endIdx}</span> of <span>${totalItems}</span> Equities (Page <span>${currentPage}</span> of <span>${totalPages}</span>)`;
+
+    if (totalPages <= 1) {
+      pControls.innerHTML = '';
+      return;
+    }
+
+    let buttonsHtml = '';
+    const prevDisabled = currentPage === 1 ? ' disabled' : '';
+    buttonsHtml += `<button class="page-btn page-prev" data-page="${currentPage - 1}"${prevDisabled} aria-label="Previous Page">◀ Prev</button>`;
+
+    let startPage = Math.max(1, currentPage - 3);
+    let endPage = Math.min(totalPages, startPage + 6);
+    if (endPage - startPage < 6) {
+      startPage = Math.max(1, endPage - 6);
+    }
+
+    if (startPage > 1) {
+      buttonsHtml += `<button class="page-btn" data-page="1">1</button>`;
+      if (startPage > 2) {
+        buttonsHtml += `<span class="page-ellipsis" style="color:rgba(255,255,255,0.4); padding:0 4px; display:inline-flex; align-items:center;">…</span>`;
+      }
+    }
+
+    for (let p = startPage; p <= endPage; p++) {
+      const isActive = p === currentPage ? ' active' : '';
+      buttonsHtml += `<button class="page-btn${isActive}" data-page="${p}">${p}</button>`;
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        buttonsHtml += `<span class="page-ellipsis" style="color:rgba(255,255,255,0.4); padding:0 4px; display:inline-flex; align-items:center;">…</span>`;
+      }
+      buttonsHtml += `<button class="page-btn" data-page="${totalPages}">${totalPages}</button>`;
+    }
+
+    const nextDisabled = currentPage === totalPages ? ' disabled' : '';
+    buttonsHtml += `<button class="page-btn page-next" data-page="${currentPage + 1}"${nextDisabled} aria-label="Next Page">Next ▶</button>`;
+
+    pControls.innerHTML = buttonsHtml;
+
+    pControls.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetPage = parseInt(btn.getAttribute('data-page'), 10);
+        if (targetPage && targetPage !== currentPage && targetPage >= 1 && targetPage <= totalPages) {
+          currentPage = targetPage;
+          renderTable();
+          const tableCard = document.querySelector('.fund-table-card');
+          if (tableCard) {
+            tableCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      });
+    });
   }
 
   return {
     init: init,
     loadData: loadData,
-    renderTable: renderTable
+    renderTable: renderTable,
+    setPage: function(p) { currentPage = p; renderTable(); },
+    getPage: function() { return currentPage; },
+    getPageSize: function() { return PAGE_SIZE; }
   };
 })();
 
