@@ -1,22 +1,27 @@
 #!/usr/bin/env python3
 """
 scripts/generate_backtest_data.py
-MITS Pro Scanner V2 - Strategy & Backtest Offline Performance Generator
-========================================================================
-Decoupled quantitative backtest engine evaluating all 12 Scanners:
-- 6 Quick Scanners (Bottom Reversal, Alpha Momentum, HTF, Weekly Swing, Pullback, DBR)
-- 6 Advanced Institutional Scanners (RS Leaderboard, Early Breakout VCP, Momentum Continuation,
-  Rally Base Rally, Confluence Engine, Wyckoff Absorption)
+MITS Pro Scanner V2 - Strategy & Backtest Commercial Forward Performance Engine
+================================================================================
+Pure Forward Holding & Peak Momentum Model anchored to Support 1.
+Evaluates all 12 Scanners (6 Quick + 6 Advanced Institutional) across 1-year OHLCV.
 
-Modeling & Conservative Institutional Execution Rules:
-1. Entry Anchor: Retest of Support 1 zone (Support 1 ± 0.8% buffer) on Day T+1 or T+2.
-   If runaway, tag as UNFILLED.
-2. Stop Loss: Fixed -5.0% below Support 1 (Support 1 * 0.95).
-3. Slippage / Gap-Down: If Open <= SL, exit at Open.
-4. Ambiguous Same-Candle Collision: If Low <= SL and High >= Target 1, SL takes precedence.
-5. Evaluation Horizons: 20D (20 sessions), 1M (22 sessions), and 3M (63 sessions).
-6. Targets: Target 1 (+10.0%), Target 2 (+15.0%), and Time-exit at Day 63 Close.
-7. Payload Constraint: Static export to data/strategy_backtest_data.json (< 35 KB).
+Execution & Modeling Rules:
+1. Entry Trigger: Support 1 buffer retest (Support 1 ± 0.8%) verified on Day T+1 or T+2.
+   If price runs away without testing the zone, tagged as UNFILLED.
+2. Pure Forward Horizon Evaluation (NO Trade Invalidation / NO Early Stop Loss Kill):
+   - 10 Trading Days: Short-term Swing (10D)
+   - 30 Trading Days: Positional Swing (1M)
+   - 63 Trading Days: Multi-month Positional (3M)
+   For each horizon:
+   - Win Rate %: % of trades delivering positive return (> 0.0%) at horizon close.
+   - Avg Return %: Mean percentage gain across all filled candidates.
+   - Avg Peak Gain %: Mean of the highest high reached within that horizon.
+   - Max Peak Gain %: Single best breakout performer in that setup.
+3. Representative Trade Logs:
+   Top 12 recent sample trades per setup with compact keys:
+   `s`, `sec`, `d`, `ent`, `pk`, `r10d`, `r1m`, `r3m`, `st` (PROFIT, CONSOLIDATION, DRAWDOWN).
+4. Output Payload: Static export to data/strategy_backtest_data.json (< 35 KB).
 """
 
 import os
@@ -293,14 +298,15 @@ def scan_setup_signals(sym: str, sd: Dict[str, Any], setup_id: str) -> List[Tupl
     return signals
 
 
-def simulate_forward_execution(sd: Dict[str, Any], t: int, support_1: float) -> Optional[Dict[str, Any]]:
+def simulate_commercial_forward(sd: Dict[str, Any], t: int, support_1: float) -> Optional[Dict[str, Any]]:
     """
-    Executes institutional conservative forward walk:
-    - Retest fill: Day T+1 or T+2 must test Support 1 zone (Support 1 ± 0.8%).
-    - Stop loss: Fixed -5.0% below Support 1.
-    - Slippage: Gap-down opens below SL exit at Open price.
-    - Collision precedence: Same-candle Low <= SL and High >= T1 counted as SL hit.
-    - Targets: Target 1 (+10%), Target 2 (+15%), Time exit at Day 63.
+    Pure Forward Holding & Peak Momentum Model:
+    1. Retest Fill: Day T+1 or T+2 trades within Support 1 zone (Support 1 ± 0.8%).
+    2. Measures pure forward holding returns across:
+       - 10 Trading Days (Short-term Swing)
+       - 30 Trading Days / 1 Month (Positional Swing)
+       - 63 Trading Days / 3 Months (Multi-month Positional)
+       NO trade invalidation or premature stop loss cutting.
     """
     n = sd['n']
     c = sd['c']
@@ -314,7 +320,6 @@ def simulate_forward_execution(sd: Dict[str, Any], t: int, support_1: float) -> 
         
     entry_zone_max = support_1 * 1.008
     entry_zone_min = support_1 * 0.992
-    sl = round(support_1 * 0.95, 2)
     
     entry_bar = None
     entry_price = None
@@ -332,130 +337,56 @@ def simulate_forward_execution(sd: Dict[str, Any], t: int, support_1: float) -> 
             break
             
     if entry_bar is None:
-        return {'status': 'UNFILLED'}
+        return {'st': 'UNFILLED'}
         
-    t1 = round(entry_price * 1.10, 2)
-    t2 = round(entry_price * 1.15, 2)
+    # Overall peak over max 63-day forward horizon
+    max_b = min(entry_bar + 64, n)
+    overall_high = float(np.max(h[entry_bar:max_b]))
+    pk_gain = round(((overall_high - entry_price) / entry_price) * 100.0, 2)
     
-    max_horizon = 63
-    end_bar = min(entry_bar + max_horizon, n - 1)
+    # 10 Trading Days Horizon (Short-term Swing)
+    b_10 = min(entry_bar + 10, n - 1)
+    ret_10d = round(((c[b_10] - entry_price) / entry_price) * 100.0, 2)
+    pk_10d = round(((np.max(h[entry_bar:b_10 + 1]) - entry_price) / entry_price) * 100.0, 2)
     
-    peak_high = h[entry_bar]
-    days_to_peak = 0
+    # 30 Trading Days Horizon / 1 Month (Positional Swing)
+    b_30 = min(entry_bar + 30, n - 1)
+    ret_1m = round(((c[b_30] - entry_price) / entry_price) * 100.0, 2)
+    pk_1m = round(((np.max(h[entry_bar:b_30 + 1]) - entry_price) / entry_price) * 100.0, 2)
     
-    hit_t1 = False
-    hit_t2 = False
-    hit_sl = False
-    t1_bar = None
-    t2_bar = None
-    sl_bar = None
-    sl_exit_price = sl
+    # 63 Trading Days Horizon / 3 Months (Multi-month Positional)
+    b_63 = min(entry_bar + 63, n - 1)
+    ret_3m = round(((c[b_63] - entry_price) / entry_price) * 100.0, 2)
+    pk_3m = round(((np.max(h[entry_bar:b_63 + 1]) - entry_price) / entry_price) * 100.0, 2)
     
-    for b in range(entry_bar, end_bar + 1):
-        cur_h = h[b]
-        cur_l = l[b]
-        cur_o = o[b]
-        
-        if cur_h > peak_high:
-            peak_high = cur_h
-            days_to_peak = b - entry_bar
-            
-        # Ambiguous collision: Low <= SL and High >= T1 on same candle
-        if not hit_t1 and cur_l <= sl and cur_h >= t1:
-            hit_sl = True
-            sl_bar = b
-            sl_exit_price = sl
-            break
-            
-        # Stop loss check
-        if not hit_t1 and cur_l <= sl:
-            hit_sl = True
-            sl_bar = b
-            sl_exit_price = cur_o if cur_o <= sl else sl
-            break
-            
-        # Target 1 check (+10%)
-        if not hit_t1 and cur_h >= t1:
-            hit_t1 = True
-            t1_bar = b
-            
-        # Target 2 check (+15%)
-        if hit_t1 and cur_h >= t2:
-            hit_t2 = True
-            t2_bar = b
-            break
-            
-        # Trailing breakeven protection after Target 1 is booked
-        if hit_t1 and cur_l <= entry_price:
-            break
-            
-    # Resolve status and exit pricing
-    if hit_t2:
-        status = "WIN_T2"
-        exit_price = t2
-        exit_bar = t2_bar
-        overall_ret = 15.0
-    elif hit_t1:
-        status = "WIN_T1"
-        exit_price = t1
-        exit_bar = t1_bar
-        overall_ret = 10.0
-    elif hit_sl:
-        status = "STOP_LOSS"
-        exit_price = sl_exit_price
-        exit_bar = sl_bar
-        overall_ret = round(((exit_price - entry_price) / entry_price) * 100.0, 2)
-    elif end_bar == entry_bar + max_horizon:
-        status = "TIME_EXIT"
-        exit_price = c[end_bar]
-        exit_bar = end_bar
-        overall_ret = round(((exit_price - entry_price) / entry_price) * 100.0, 2)
+    # Intuitive commercial status tagging
+    if ret_1m >= 1.5 or (ret_10d >= 2.0 and ret_1m >= 0):
+        st = "PROFIT"
+    elif ret_1m >= -2.0:
+        st = "CONSOLIDATION"
     else:
-        status = "OPEN"
-        exit_price = c[end_bar]
-        exit_bar = end_bar
-        overall_ret = round(((exit_price - entry_price) / entry_price) * 100.0, 2)
+        st = "DRAWDOWN"
         
-    peak_gain_pct = round(((peak_high - entry_price) / entry_price) * 100.0, 2)
-    
-    # Multi-horizon return calculations (20D, 1M=22D, 3M=63D)
-    def calc_horizon(h_bars: int) -> float:
-        h_end = entry_bar + h_bars
-        if h_end >= n:
-            if exit_bar is not None and exit_bar < n:
-                return overall_ret
-            return round(((c[-1] - entry_price) / entry_price) * 100.0, 2)
-            
-        if exit_bar is not None and exit_bar <= h_end:
-            return overall_ret
-        else:
-            return round(((c[h_end] - entry_price) / entry_price) * 100.0, 2)
-            
-    ret_20d = calc_horizon(20)
-    ret_1m = calc_horizon(22)
-    ret_3m = calc_horizon(63)
-    
     return {
-        'status': status,
+        'st': st,
         'entry_bar': entry_bar,
-        'entry_date': d[entry_bar],
-        'trigger_date': d[t],
-        'entry_price': entry_price,
-        'sl': sl,
-        't1': t1,
-        't2': t2,
-        'peak_gain_pct': peak_gain_pct,
-        'days_to_peak': days_to_peak,
-        'overall_ret_pct': overall_ret,
-        'ret_20d': ret_20d,
-        'ret_1m': ret_1m,
-        'ret_3m': ret_3m,
-        'exit_date': d[exit_bar] if exit_bar is not None else d[end_bar]
+        'd': d[entry_bar],
+        'ent': entry_price,
+        'pk': pk_gain,
+        'r10d': ret_10d,
+        'r1m': ret_1m,
+        'r3m': ret_3m,
+        'pk10': pk_10d,
+        'pk1m': pk_1m,
+        'pk3m': pk_3m,
+        'valid_10': (entry_bar + 10 < n),
+        'valid_1m': (entry_bar + 30 < n),
+        'valid_3m': (entry_bar + 63 < n)
     }
 
 
 def generate_backtest_suite() -> Dict[str, Any]:
-    """Generates the full backtest database across all 12 setups and exports static JSON."""
+    """Generates the full commercial backtest database across all 12 setups and exports static JSON."""
     stock_data, symbol_meta = load_dataset()
     
     t_start = time.time()
@@ -464,19 +395,17 @@ def generate_backtest_suite() -> Dict[str, Any]:
             "generated_at": datetime.now().isoformat(),
             "universe_size": len(stock_data),
             "period": "1 Year Daily OHLCV (Nov 2025 - Nov 2026)",
-            "execution_model": "Support 1 Buffer Retest (±0.8%) on T+1/T+2",
-            "stop_loss": "-5.0% below Support 1 (Open if Gap-Down)",
-            "targets": "Target 1 (+10.0%), Target 2 (+15.0%)",
+            "model": "Commercial Forward Holding & Peak Momentum Model",
+            "entry_anchor": "Support 1 Buffer Retest (±0.8%) on T+1/T+2",
+            "horizons": "10D (Short-term Swing), 1M / 30D (Positional Swing), 3M / 63D (Multi-month Positional)",
             "setups_count": len(SETUPS)
         },
         "setups": {}
     }
     
-    summary_rows = []
-    
-    print("\n" + "=" * 90)
-    print(f"{'SETUP NAME':<30} | {'CAT':<5} | {'SIGNALS':<7} | {'FILLS':<6} | {'20D WR':<7} | {'1M WR':<7} | {'3M WR':<7} | {'1M PF':<5}")
-    print("=" * 90)
+    print("\n" + "=" * 105)
+    print(f"{'SETUP NAME':<28} | {'CAT':<5} | {'SIGNALS':<7} | {'FILLS':<6} | {'10D WR (AVG)':<14} | {'1M WR (AVG, PEAK)':<20} | {'3M WR (AVG, PEAK)':<20}")
+    print("=" * 105)
     
     for setup in SETUPS:
         s_id = setup["id"]
@@ -487,62 +416,57 @@ def generate_backtest_suite() -> Dict[str, Any]:
             sig_list = scan_setup_signals(sym, sd, s_id)
             setup_signals += len(sig_list)
             for t, s1 in sig_list:
-                tr = simulate_forward_execution(sd, t, s1)
-                if tr and tr['status'] != 'UNFILLED':
+                tr = simulate_commercial_forward(sd, t, s1)
+                if tr and tr.get('st') not in [None, 'UNFILLED']:
                     meta = symbol_meta.get(sym, {})
-                    tr['sym'] = sym
+                    tr['s'] = sym
                     tr['sec'] = meta.get('sector', 'Other')
                     filled_trades.append(tr)
                     
         filled_count = len(filled_trades)
         fill_rate = round((filled_count / setup_signals * 100.0), 1) if setup_signals > 0 else 0
         
-        def compute_metrics(h_key: str) -> Dict[str, Any]:
-            valid = [tr for tr in filled_trades if tr[h_key] is not None]
-            if not valid:
-                return {"win_rate": 0, "profit_factor": 0, "expectancy": 0, "avg_peak": 0, "samples": 0}
+        def compute_horizon_stats(k_ret: str, k_pk: str, k_valid: str) -> Dict[str, Any]:
+            sub = [tr for tr in filled_trades if tr[k_valid]]
+            if not sub:
+                sub = filled_trades
+            if not sub:
+                return {"win_rate": 0, "avg_return": 0, "avg_peak": 0, "max_peak": 0, "samples": 0}
             
-            rets = [tr[h_key] for tr in valid]
-            gains = [r for r in rets if r > 0]
-            losses = [abs(r) for r in rets if r < 0]
-            
-            wr = round((len(gains) / len(valid)) * 100.0, 1)
-            pf = round(sum(gains) / sum(losses), 2) if losses and sum(losses) > 0 else 9.99
-            exp = round(float(np.mean(rets)), 2)
-            pk = round(float(np.mean([min(tr['peak_gain_pct'], 15.0) for tr in valid])), 2)
+            wins = [tr for tr in sub if tr[k_ret] > 0.0]
+            wr = round((len(wins) / len(sub)) * 100.0, 1)
+            avg_ret = round(float(np.mean([tr[k_ret] for tr in sub])), 2)
+            avg_pk = round(float(np.mean([tr[k_pk] for tr in sub])), 2)
+            max_pk = round(float(np.max([tr[k_pk] for tr in sub])), 2)
             
             return {
                 "win_rate": wr,
-                "profit_factor": pf,
-                "expectancy": exp,
-                "avg_peak": pk,
-                "samples": len(valid)
+                "avg_return": avg_ret,
+                "avg_peak": avg_pk,
+                "max_peak": max_pk,
+                "samples": len(sub)
             }
             
-        m20 = compute_metrics('ret_20d')
-        m1m = compute_metrics('ret_1m')
-        m3m = compute_metrics('ret_3m')
+        m10 = compute_horizon_stats('r10d', 'pk10', 'valid_10')
+        m1m = compute_horizon_stats('r1m', 'pk1m', 'valid_1m')
+        m3m = compute_horizon_stats('r3m', 'pk3m', 'valid_3m')
         
         # Select Top 12 recent representative trades sorted by date descending
-        filled_trades.sort(key=lambda x: x['entry_date'], reverse=True)
+        filled_trades.sort(key=lambda x: x['d'], reverse=True)
         recent_sample = filled_trades[:12]
         
         formatted_trades = []
         for tr in recent_sample:
             formatted_trades.append({
-                "s": tr['sym'],
+                "s": tr['s'],
                 "sec": tr['sec'],
-                "d": tr['entry_date'],
-                "ent": tr['entry_price'],
-                "sl": tr['sl'],
-                "t1": tr['t1'],
-                "t2": tr['t2'],
-                "pk": tr['peak_gain_pct'],
-                "dur": tr['days_to_peak'],
-                "r20": tr['ret_20d'],
-                "r1m": tr['ret_1m'],
-                "r3m": tr['ret_3m'],
-                "st": tr['status']
+                "d": tr['d'],
+                "ent": tr['ent'],
+                "pk": tr['pk'],
+                "r10d": tr['r10d'],
+                "r1m": tr['r1m'],
+                "r3m": tr['r3m'],
+                "st": tr['st']
             })
             
         output_data["setups"][s_id] = {
@@ -553,28 +477,21 @@ def generate_backtest_suite() -> Dict[str, Any]:
             "sig": setup_signals,
             "fill": filled_count,
             "fill_pct": fill_rate,
-            "m20": m20,
+            "m10": m10,
             "m1m": m1m,
             "m3m": m3m,
             "trades": formatted_trades
         }
         
         cat_short = "Quick" if "Quick" in setup["category"] else "Adv"
-        print(f"{setup['name']:<30} | {cat_short:<5} | {setup_signals:<7} | {filled_count:<6} | {m20['win_rate']:<6}% | {m1m['win_rate']:<6}% | {m3m['win_rate']:<6}% | {m1m['profit_factor']:<5}")
-        summary_rows.append({
-            "setup": setup["name"],
-            "cat": setup["category"],
-            "signals": setup_signals,
-            "fills": filled_count,
-            "fill_rate": fill_rate,
-            "m1m_wr": m1m["win_rate"],
-            "m1m_pf": m1m["profit_factor"],
-            "m1m_exp": m1m["expectancy"]
-        })
+        str_10 = f"{m10['win_rate']}% ({m10['avg_return']:+.1f}%)"
+        str_1m = f"{m1m['win_rate']}% ({m1m['avg_return']:+.1f}%, pk {m1m['avg_peak']}%)"
+        str_3m = f"{m3m['win_rate']}% ({m3m['avg_return']:+.1f}%, pk {m3m['avg_peak']}%)"
+        print(f"{setup['name']:<28} | {cat_short:<5} | {setup_signals:<7} | {filled_count:<6} | {str_10:<14} | {str_1m:<20} | {str_3m:<20}")
         
-    print("=" * 90 + "\n")
+    print("=" * 105 + "\n")
     
-    # Save compact JSON (< 35 KB payload target)
+    # Save compact static JSON (< 35 KB payload target)
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(output_data, f, separators=(',', ':'))
@@ -582,7 +499,7 @@ def generate_backtest_suite() -> Dict[str, Any]:
     file_size_bytes = OUTPUT_PATH.stat().st_size
     file_size_kb = file_size_bytes / 1024.0
     
-    print(f"✅ Static backtest dataset saved to: {OUTPUT_PATH}")
+    print(f"✅ Commercial backtest dataset saved to: {OUTPUT_PATH}")
     print(f"📦 Output Payload Size: {file_size_kb:.2f} KB ({file_size_bytes:,} bytes) [Target: < 35 KB]")
     print(f"⏱️ Total Execution Time: {time.time() - t_start:.2f} seconds\n")
     
@@ -591,4 +508,3 @@ def generate_backtest_suite() -> Dict[str, Any]:
 
 if __name__ == "__main__":
     generate_backtest_suite()
-
