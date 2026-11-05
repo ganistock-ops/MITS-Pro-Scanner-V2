@@ -10165,3 +10165,8 @@ window.StrategyBacktestModule = (function() {
     setActiveSetup
   };
 })();
+
+// Preload backtest data in background for instant dashboard card sync & zero station latency
+if (window.StrategyBacktestModule && typeof window.StrategyBacktestModule.loadData === 'function') {
+  window.StrategyBacktestModule.loadData();
+}
