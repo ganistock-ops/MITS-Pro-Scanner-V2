@@ -7812,3 +7812,494 @@ body.table-col-resizing * {
     font-size: 0.75rem;
   }
 }
+
+
+/* ===================================================================================
+   6. STRATEGY & BACKTEST STATION (#view-strategy-backtest)
+   =================================================================================== */
+.strategy-backtest-viewport {
+  width: 100%;
+  box-sizing: border-box;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.strategy-backtest-container {
+  padding: 1rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 1. Station Header */
+.backtest-station-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(16, 24, 39, 0.95), rgba(11, 15, 25, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.backtest-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.backtest-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.backtest-badge-live {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono, monospace);
+}
+
+.backtest-main-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.5px;
+}
+
+.backtest-sub-title {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.backtest-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.backtest-action-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.backtest-action-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* 2. Selector Tabs */
+.backtest-selector-card {
+  background: rgba(13, 18, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.backtest-group-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.backtest-group-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.backtest-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bt-pill-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.bt-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.bt-pill-btn.active {
+  background: rgba(0, 230, 118, 0.12);
+  color: #00e676;
+  border-color: #00e676;
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.2);
+}
+
+.bt-pill-num {
+  font-size: 10px;
+  font-family: var(--font-mono, monospace);
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+}
+
+.bt-pill-btn.active .bt-pill-num {
+  background: rgba(0, 230, 118, 0.25);
+  color: #00e676;
+}
+
+/* 3. Active Strategy Banner */
+.backtest-active-banner {
+  background: linear-gradient(90deg, rgba(16, 24, 39, 0.9), rgba(15, 23, 42, 0.7));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #00e676;
+  border-radius: 8px;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.active-banner-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.active-banner-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(0, 230, 118, 0.2);
+  color: #00e676;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.5px;
+}
+
+.active-banner-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.active-banner-support {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.active-banner-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-pill {
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-mono, monospace);
+}
+
+.meta-pill strong {
+  color: #ffffff;
+}
+
+/* 4. KPI Grid */
+.backtest-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 1024px) {
+  .backtest-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .backtest-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.backtest-kpi-card {
+  background: rgba(13, 18, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.backtest-kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.bt-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.bt-card-tag {
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.bt-card-tag.tag-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+.bt-card-tag.tag-emerald { background: rgba(0, 230, 118, 0.15); color: #00e676; }
+.bt-card-tag.tag-gold { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+.bt-card-tag.tag-purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+
+.bt-card-horizon {
+  color: rgba(255, 255, 255, 0.45);
+  font-family: var(--font-mono, monospace);
+}
+
+.bt-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bt-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.bt-metric-lbl {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.bt-metric-val {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  color: #ffffff;
+}
+
+.bt-metric-val.text-xl {
+  font-size: 20px;
+}
+
+.bt-card-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 8px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: var(--font-mono, monospace);
+}
+
+/* 5. Table */
+.backtest-table-card {
+  background: rgba(13, 18, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.backtest-table-header {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.table-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.table-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.table-sub-title {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.table-stat-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  font-family: var(--font-mono, monospace);
+}
+
+.backtest-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.backtest-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.backtest-table th {
+  background: #111827;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+}
+
+.backtest-table td {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+}
+
+.backtest-table tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.backtest-table td.col-sticky-symbol {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #0d121d;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.45);
+}
+
+.backtest-table th.col-sticky-symbol {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: #111827;
+}
+
+.backtest-table tr:hover td.col-sticky-symbol {
+  background: #151b29;
+}
+
+/* Status Badges */
+.bt-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  font-family: var(--font-mono, monospace);
+  text-align: center;
+}
+
+.bt-badge-profit {
+  background: rgba(0, 230, 118, 0.15);
+  color: #00e676;
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.bt-badge-consolidation {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.bt-badge-drawdown {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+@media (max-width: 768px) {
+  .backtest-station-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+  }
+  .backtest-active-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .backtest-selector-card {
+    padding: 12px 14px;
+  }
+}

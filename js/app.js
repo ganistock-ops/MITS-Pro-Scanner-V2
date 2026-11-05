@@ -5526,6 +5526,50 @@ function initAdvScannerNavigation() {
       const sBtn = document.getElementById('nav-sector-analysis');
       const smBtn = document.getElementById('nav-smart-money') || document.querySelector('a[href="#smart-money"]');
       const fBtn = document.getElementById('nav-fundamental-research') || document.querySelector('a[href="#fundamental-research"]');
+      const btView = document.getElementById('view-strategy-backtest');
+      const btCont = document.getElementById('strategy-backtest-container');
+      const btBtn = document.getElementById('nav-strategy-backtest') || document.querySelector('a[href="#strategy-backtest"]');
+
+      if (target === 'backtest' || target === 'strategy') {
+        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
+        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
+        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
+        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
+        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
+        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
+        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
+        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
+        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
+        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
+        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
+        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
+        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
+        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
+        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
+        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
+        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
+        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
+        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
+        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
+        if (btView) {
+          btView.classList.remove('hidden');
+          btView.style.setProperty('display', 'block', 'important');
+          btView.style.minHeight = '500px';
+        }
+        if (btCont) {
+          btCont.classList.remove('hidden');
+          btCont.style.setProperty('display', 'flex', 'important');
+        }
+        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+        if (btBtn) btBtn.classList.add('active');
+        if (window.location.hash !== '#strategy-backtest') {
+          window.location.hash = '#strategy-backtest';
+        }
+        if (window.StrategyBacktestModule && typeof window.StrategyBacktestModule.init === 'function') {
+          window.StrategyBacktestModule.init();
+        }
+        return;
+      }
 
       if (target === 'fund' || target === 'fundamental') {
         if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
@@ -5674,7 +5718,7 @@ function initAdvScannerNavigation() {
         }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (dBtn) dBtn.classList.add('active');
-        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research') {
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest') {
           window.location.hash = '#dashboard';
         }
       }
@@ -5705,6 +5749,11 @@ function initAdvScannerNavigation() {
           e.preventDefault();
           switchView('fund');
         });
+      } else if (item.id === 'nav-strategy-backtest' || item.getAttribute('href') === '#strategy-backtest') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('backtest');
+        });
       } else if (item.id === 'nav-dashboard' || item.getAttribute('href') === '#dashboard') {
         item.addEventListener('click', (e) => {
           e.preventDefault();
@@ -5730,6 +5779,8 @@ function initAdvScannerNavigation() {
         switchView('smart');
       } else if (hash === '#fundamental-research' || hash === '#fundamental') {
         switchView('fund');
+      } else if (hash === '#strategy-backtest' || hash === '#backtest') {
+        switchView('backtest');
       } else {
         switchView('dash');
       }
@@ -8484,7 +8535,7 @@ function initAdvScannerNavigation() {
         return fetch('https://raw.githubusercontent.com/ganistock-ops/MITS-Pro-Scanner-V2/main/data/' + file + '?_t=' + timestamp, fetchOpts);
       };
 
-      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes, bt1Res, bt2Res, bt3Res, bt4Res, bt5Res, bt6Res] = await Promise.allSettled([
+      const [scannerRes, summaryRes, tab1Res, tab2Res, tab3Res, tab4Res, tab5Res, tab6Res, fundRes, bt1Res, bt2Res, bt3Res, bt4Res, bt5Res, bt6Res, strategyBtRes] = await Promise.allSettled([
         fetchLive('scanner_results.json'),
         fetchLive('market_summary.json'),
         fetchLive('tab1_bottom_reversal.json'),
@@ -8545,6 +8596,32 @@ function initAdvScannerNavigation() {
         try {
           const bt = await bt6Res.value.json();
           if (bt) state.backtestData.setup_6 = { ...state.backtestData.setup_6, ...bt };
+        } catch (e) {}
+      }
+
+      if (strategyBtRes && strategyBtRes.status === 'fulfilled' && strategyBtRes.value.ok) {
+        try {
+          const sbJson = await strategyBtRes.value.json();
+          if (sbJson) {
+            state.strategyBacktestData = sbJson;
+            window._cachedStrategyBacktestData = sbJson;
+            if (sbJson.setups) {
+              Object.keys(sbJson.setups).forEach(k => {
+                const s = sbJson.setups[k];
+                if (s && s.m3m) {
+                  state.backtestData[k] = {
+                    name: s.name,
+                    win_rate: s.m3m.win_rate,
+                    avg_peak_return: s.m3m.avg_peak,
+                    avg_days_to_peak: s.m3m.avg_days || 30.0,
+                    total_samples: s.fill,
+                    total_signals: s.sig,
+                    unit: 'Verified Fills'
+                  };
+                }
+              });
+            }
+          }
         } catch (e) {}
       }
 
@@ -8737,10 +8814,12 @@ function initAdvScannerNavigation() {
     const banner = document.getElementById('setup-perf-banner');
     if (!banner) return;
 
-    const data = (state.backtestData && state.backtestData[tabId]) || BACKTEST_DEFAULTS[tabId];
-    if (!data) return;
+    const validTab = (tabId && tabId.startsWith('setup_')) ? tabId : (state.activeTab || 'setup_1');
+    banner.className = `terminal-card bottom-widget-card perf-banner theme-${validTab}`;
 
-    banner.className = `perf-banner theme-${tabId}`;
+    const bData = window._cachedStrategyBacktestData || state.strategyBacktestData;
+    const setupData = bData && bData.setups && bData.setups[validTab];
+    const def = BACKTEST_DEFAULTS[validTab] || BACKTEST_DEFAULTS.setup_1;
 
     const titleEl = document.getElementById('perf-banner-title-text');
     const winEl = document.getElementById('perf-banner-win');
@@ -8748,23 +8827,21 @@ function initAdvScannerNavigation() {
     const daysEl = document.getElementById('perf-banner-days');
     const samplesEl = document.getElementById('perf-banner-samples');
 
-    const setupNum = tabId.replace('setup_', 'SETUP ');
-    if (titleEl) titleEl.textContent = `3-MONTH FORWARD PERFORMANCE (${setupNum.toUpperCase()} VERIFIED)`;
-    if (winEl) winEl.textContent = `${data.win_rate}%`;
-    if (gainEl) gainEl.textContent = `+${data.avg_peak_return}%`;
-    if (daysEl) daysEl.textContent = `${data.avg_days_to_peak} Days`;
+    const setupName = setupData ? setupData.name : (def.name || (SETUP_CONFIG[validTab] ? SETUP_CONFIG[validTab].title.replace(/^[^\w]+/, '').split(':')[1]?.trim() || validTab : validTab));
+    const winRate = setupData && setupData.m3m ? setupData.m3m.win_rate : def.win_rate;
+    const avgPeak = setupData && setupData.m3m ? setupData.m3m.avg_peak : def.avg_peak_return;
+    const avgDays = setupData && setupData.m3m ? setupData.m3m.avg_days : def.avg_days_to_peak;
+    const fillCount = setupData ? setupData.fill : def.total_samples;
+    const sigCount = setupData ? setupData.sig : (def.total_signals || def.total_samples * 2);
 
-    const unitMap = {
-      setup_1: 'Reversal Setups',
-      setup_2: 'Momentum Setups',
-      setup_3: 'HTF Setups',
-      setup_4: 'Swing Setups',
-      setup_5: 'Pullbacks',
-      setup_6: 'DBR Setups'
-    };
-    const unit = data.unit || unitMap[tabId] || 'Setups';
-    if (samplesEl) samplesEl.textContent = `${Number(data.total_samples).toLocaleString('en-IN')} ${unit}`;
+    if (titleEl) titleEl.textContent = `3-MONTH FORWARD PERFORMANCE (${setupName.toUpperCase()} VERIFIED)`;
+    if (winEl) winEl.textContent = `${winRate}%`;
+    if (gainEl) gainEl.textContent = `+${avgPeak}%`;
+    if (daysEl) daysEl.textContent = `${avgDays} Days`;
+    if (samplesEl) samplesEl.textContent = `${Number(fillCount).toLocaleString('en-IN')} Fills (${Number(sigCount).toLocaleString('en-IN')} Signals)`;
   }
+
+  window.syncDashboardBacktestCard = () => renderBacktestBanner(state.activeTab);
 
 async function populateFundamentalQualityCard() {
     const fBody = document.getElementById('fund-sub-tbody') || document.getElementById('fundamental-quality-body');
@@ -9924,4 +10001,210 @@ async function populateFundamentalQualityCard() {
   } else {
     init();
   }
+})();
+
+
+// =====================================================================================
+// STRATEGY & BACKTEST STATION MODULE (Phase 2 Commercial Implementation)
+// =====================================================================================
+window.StrategyBacktestModule = (function() {
+  let backtestData = null;
+  let isInitialized = false;
+  let activeSetupId = 'setup_1';
+
+  async function init() {
+    if (!isInitialized) {
+      bindEvents();
+      isInitialized = true;
+    }
+    await loadData();
+  }
+
+  async function loadData() {
+    try {
+      if (window._cachedStrategyBacktestData) {
+        backtestData = window._cachedStrategyBacktestData;
+        renderUI();
+      }
+
+      const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+      let res = await fetch(`${basePath}data/strategy_backtest_data.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch(`data/strategy_backtest_data.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/strategy_backtest_data.json').catch(() => null);
+
+      if (res && res.ok) {
+        backtestData = await res.json();
+        window._cachedStrategyBacktestData = backtestData;
+        renderUI();
+        if (typeof window.syncDashboardBacktestCard === 'function') {
+          window.syncDashboardBacktestCard();
+        }
+      }
+    } catch (err) {
+      console.error('[StrategyBacktestModule] Error loading data:', err);
+    }
+  }
+
+  function bindEvents() {
+    const refreshBtn = document.getElementById('backtest-refresh-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', async () => {
+        refreshBtn.classList.add('loading');
+        await loadData();
+        refreshBtn.classList.remove('loading');
+      });
+    }
+
+    // Bind setup pill buttons across both groups
+    document.querySelectorAll('.bt-pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const setupId = btn.getAttribute('data-setup');
+        if (setupId) {
+          activeSetupId = setupId;
+          renderUI();
+        }
+      });
+    });
+  }
+
+  function renderUI() {
+    if (!backtestData || !backtestData.setups) return;
+    const setup = backtestData.setups[activeSetupId] || backtestData.setups['setup_1'];
+    if (!setup) return;
+
+    // 1. Update Active Buttons
+    document.querySelectorAll('.bt-pill-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-setup') === activeSetupId);
+    });
+
+    // 2. Active Strategy Banner
+    const badgeEl = document.getElementById('bt-active-badge');
+    const nameEl = document.getElementById('bt-active-name');
+    const supportEl = document.getElementById('bt-active-support');
+    const sigEl = document.getElementById('bt-active-sig');
+    const fillEl = document.getElementById('bt-active-fill');
+
+    if (badgeEl) badgeEl.textContent = activeSetupId.startsWith('setup_') ? `SETUP ${activeSetupId.replace('setup_', '')}` : activeSetupId.toUpperCase();
+    if (nameEl) nameEl.textContent = setup.name || activeSetupId;
+    if (supportEl) supportEl.textContent = `Anchor: ${setup.support || 'Support 1'}`;
+    if (sigEl) sigEl.textContent = Number(setup.sig || 0).toLocaleString('en-IN');
+    if (fillEl) fillEl.textContent = `${Number(setup.fill || 0).toLocaleString('en-IN')} (${setup.fill_pct || 0}%)`;
+
+    // 3. KPI Scorecards
+    const m10 = setup.m10 || {};
+    const m1m = setup.m1m || {};
+    const m3m = setup.m3m || {};
+
+    // 10-Day
+    const el10wr = document.getElementById('bt-kpi-10d-wr');
+    const el10ret = document.getElementById('bt-kpi-10d-ret');
+    const el10pk = document.getElementById('bt-kpi-10d-pk');
+    const el10samp = document.getElementById('bt-kpi-10d-samples');
+
+    if (el10wr) el10wr.textContent = `${m10.win_rate || 0}%`;
+    if (el10ret) {
+      const val = m10.avg_return || 0;
+      el10ret.textContent = `${val >= 0 ? '+' : ''}${val}%`;
+      el10ret.className = `bt-metric-val ${val >= 0 ? 'text-emerald' : 'text-rose'}`;
+    }
+    if (el10pk) el10pk.textContent = `+${m10.avg_peak || 0}%`;
+    if (el10samp) el10samp.textContent = `${Number(m10.samples || 0).toLocaleString('en-IN')} Trades Evaluated`;
+
+    // 1-Month (30D)
+    const el1mwr = document.getElementById('bt-kpi-1m-wr');
+    const el1mret = document.getElementById('bt-kpi-1m-ret');
+    const el1mpk = document.getElementById('bt-kpi-1m-pk');
+    const el1msamp = document.getElementById('bt-kpi-1m-samples');
+
+    if (el1mwr) el1mwr.textContent = `${m1m.win_rate || 0}%`;
+    if (el1mret) {
+      const val = m1m.avg_return || 0;
+      el1mret.textContent = `${val >= 0 ? '+' : ''}${val}%`;
+      el1mret.className = `bt-metric-val ${val >= 0 ? 'text-emerald' : 'text-rose'}`;
+    }
+    if (el1mpk) el1mpk.textContent = `+${m1m.avg_peak || 0}%`;
+    if (el1msamp) el1msamp.textContent = `${Number(m1m.samples || 0).toLocaleString('en-IN')} Trades Evaluated`;
+
+    // 3-Month (63D)
+    const el3mwr = document.getElementById('bt-kpi-3m-wr');
+    const el3mret = document.getElementById('bt-kpi-3m-ret');
+    const el3mpk = document.getElementById('bt-kpi-3m-pk');
+    const el3msamp = document.getElementById('bt-kpi-3m-samples');
+
+    if (el3mwr) el3mwr.textContent = `${m3m.win_rate || 0}%`;
+    if (el3mret) {
+      const val = m3m.avg_return || 0;
+      el3mret.textContent = `${val >= 0 ? '+' : ''}${val}%`;
+      el3mret.className = `bt-metric-val ${val >= 0 ? 'text-emerald' : 'text-rose'}`;
+    }
+    if (el3mpk) el3mpk.textContent = `+${m3m.avg_peak || 0}%`;
+    if (el3msamp) el3msamp.textContent = `${Number(m3m.samples || 0).toLocaleString('en-IN')} Trades Evaluated`;
+
+    // Breakout Potential Card
+    const maxPkEl = document.getElementById('bt-kpi-max-pk');
+    const avgDaysEl = document.getElementById('bt-kpi-avg-days');
+    const fillRateEl = document.getElementById('bt-kpi-fill-rate');
+    const anchorDescEl = document.getElementById('bt-kpi-anchor-desc');
+
+    if (maxPkEl) maxPkEl.textContent = `+${m3m.max_peak || m1m.max_peak || 0}%`;
+    if (avgDaysEl) avgDaysEl.textContent = `${m3m.avg_days || 28.5} Days`;
+    if (fillRateEl) fillRateEl.textContent = `${setup.fill_pct || 0}%`;
+    if (anchorDescEl) anchorDescEl.textContent = `Support 1 Buffer (±0.8%)`;
+
+    // 4. Render Table
+    renderTradesTable(setup.trades || []);
+  }
+
+  function renderTradesTable(trades) {
+    const tbody = document.getElementById('backtest-table-tbody');
+    const countBadge = document.getElementById('bt-table-count-badge');
+    if (!tbody) return;
+
+    if (countBadge) countBadge.textContent = `${trades.length} Verified Trades`;
+
+    if (!trades || trades.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding: 2rem; color: rgba(255,255,255,0.4);">No historical trade logs found.</td></tr>';
+      return;
+    }
+
+    let rowsHtml = '';
+    trades.forEach(tr => {
+      const r10Class = tr.r10d >= 0 ? 'text-emerald' : 'text-rose';
+      const r1mClass = tr.r1m >= 0 ? 'text-emerald' : 'text-rose';
+      const r3mClass = tr.r3m >= 0 ? 'text-emerald' : 'text-rose';
+
+      let statusBadgeClass = 'bt-badge-consolidation';
+      if (tr.st === 'PROFIT') statusBadgeClass = 'bt-badge-profit';
+      else if (tr.st === 'DRAWDOWN') statusBadgeClass = 'bt-badge-drawdown';
+
+      rowsHtml += `
+        <tr>
+          <td class="col-sticky-symbol"><strong class="fund-symbol-text">${tr.s}</strong></td>
+          <td><span class="fund-sec-pill">${tr.sec || 'Other'}</span></td>
+          <td style="font-family: var(--font-mono, monospace); color: rgba(255,255,255,0.7);">${tr.d}</td>
+          <td class="text-right" style="font-family: var(--font-mono, monospace);">₹${Number(tr.ent).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+          <td class="text-right ${r10Class}" style="font-family: var(--font-mono, monospace); font-weight: 700;">${tr.r10d >= 0 ? '+' : ''}${tr.r10d}%</td>
+          <td class="text-right ${r1mClass}" style="font-family: var(--font-mono, monospace); font-weight: 700;">${tr.r1m >= 0 ? '+' : ''}${tr.r1m}%</td>
+          <td class="text-right ${r3mClass}" style="font-family: var(--font-mono, monospace); font-weight: 700;">${tr.r3m >= 0 ? '+' : ''}${tr.r3m}%</td>
+          <td class="text-right text-gold" style="font-family: var(--font-mono, monospace); font-weight: 700;">+${tr.pk}%</td>
+          <td class="text-center"><span class="bt-badge ${statusBadgeClass}">${tr.st}</span></td>
+        </tr>
+      `;
+    });
+
+    tbody.innerHTML = rowsHtml;
+  }
+
+  function setActiveSetup(setupId) {
+    if (setupId) {
+      activeSetupId = setupId;
+      renderUI();
+    }
+  }
+
+  return {
+    init,
+    loadData,
+    setActiveSetup
+  };
 })();

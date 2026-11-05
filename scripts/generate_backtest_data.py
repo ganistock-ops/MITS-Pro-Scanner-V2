@@ -343,6 +343,7 @@ def simulate_commercial_forward(sd: Dict[str, Any], t: int, support_1: float) ->
     max_b = min(entry_bar + 64, n)
     overall_high = float(np.max(h[entry_bar:max_b]))
     pk_gain = round(((overall_high - entry_price) / entry_price) * 100.0, 2)
+    dur = int(np.argmax(h[entry_bar:max_b]))
     
     # 10 Trading Days Horizon (Short-term Swing)
     b_10 = min(entry_bar + 10, n - 1)
@@ -373,6 +374,7 @@ def simulate_commercial_forward(sd: Dict[str, Any], t: int, support_1: float) ->
         'd': d[entry_bar],
         'ent': entry_price,
         'pk': pk_gain,
+        'dur': dur,
         'r10d': ret_10d,
         'r1m': ret_1m,
         'r3m': ret_3m,
@@ -438,12 +440,14 @@ def generate_backtest_suite() -> Dict[str, Any]:
             avg_ret = round(float(np.mean([tr[k_ret] for tr in sub])), 2)
             avg_pk = round(float(np.mean([tr[k_pk] for tr in sub])), 2)
             max_pk = round(float(np.max([tr[k_pk] for tr in sub])), 2)
+            avg_days = round(float(np.mean([tr.get('dur', 25) for tr in sub])), 1)
             
             return {
                 "win_rate": wr,
                 "avg_return": avg_ret,
                 "avg_peak": avg_pk,
                 "max_peak": max_pk,
+                "avg_days": avg_days,
                 "samples": len(sub)
             }
             
@@ -463,6 +467,7 @@ def generate_backtest_suite() -> Dict[str, Any]:
                 "d": tr['d'],
                 "ent": tr['ent'],
                 "pk": tr['pk'],
+                "dur": tr['dur'],
                 "r10d": tr['r10d'],
                 "r1m": tr['r1m'],
                 "r3m": tr['r3m'],

@@ -94,7 +94,7 @@
           <span class="sidebar-icon">🏛️</span>
           <span class="sidebar-label">Fundamental Research</span>
         </a>
-        <a href="#strategy-backtest" class="sidebar-item">
+        <a href="#strategy-backtest" class="sidebar-item" id="nav-strategy-backtest">
           <span class="sidebar-icon">📈</span>
           <span class="sidebar-label">Strategy &amp; Backtest</span>
         </a>
@@ -573,7 +573,7 @@
                 <span class="card-icon">📊</span>
                 <span id="perf-banner-title-text">PERFORMANCE SNAPSHOT (1Y VALIDATION)</span>
               </div>
-              <span class="card-action-tag">Backtest Verified</span>
+              <span class="card-action-tag" style="cursor: pointer;" title="Click to view full Strategy & Backtest Station" onclick="if(window.switchAppView)window.switchAppView('backtest');">Backtest Verified ↗</span>
             </div>
             <div class="perf-stats-grid">
               <div class="perf-stat-cell">
@@ -1384,6 +1384,258 @@
 
     </div><!-- /#fundamental-research-container -->
   </div><!-- /#view-fundamental-research -->
+
+  <!-- ===================================================================================
+       VIEW 6: STRATEGY & BACKTEST STATION
+       =================================================================================== -->
+  <div id="view-strategy-backtest" class="terminal-view hidden strategy-backtest-viewport" aria-label="Strategy & Backtest Workspace">
+    <div id="strategy-backtest-container" class="strategy-backtest-container">
+
+      <!-- 1. Station Header -->
+      <div id="backtest-station-header" class="backtest-station-header">
+        <div class="backtest-header-left">
+          <div class="backtest-title-row">
+            <span class="adv-badge-chip">INSTITUTIONAL QUANTITATIVE SUITE</span>
+            <span class="backtest-badge-live" id="backtest-eod-badge">● 1-YEAR OHLCV VALIDATION (NOV 2025 - NOV 2026)</span>
+            <h2 class="backtest-main-title">📈 Strategy &amp; Backtest Station</h2>
+          </div>
+          <p class="backtest-sub-title">
+            Commercial Forward Holding &amp; Peak Momentum Verification across 12 Scanners (NSE 500) • Support 1 Buffer Retest Execution
+          </p>
+        </div>
+        <div class="backtest-header-right">
+          <button id="backtest-refresh-btn" class="backtest-action-btn" type="button" title="Reload Backtest Dataset">
+            <span>↻</span> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Dual-Category Navigation Selector (12 Tabs) -->
+      <section class="backtest-nav-section" aria-label="12 Scanner Selector">
+        <div class="backtest-selector-card">
+          <!-- Group 1: Quick Scanners -->
+          <div class="backtest-group-block">
+            <div class="backtest-group-header">
+              <span class="backtest-group-icon">⚡</span>
+              <span class="backtest-group-title">QUICK SCANNERS (1-6)</span>
+            </div>
+            <div class="backtest-pills-row" id="backtest-pills-quick">
+              <button class="bt-pill-btn active" data-setup="setup_1" type="button">
+                <span class="bt-pill-num">1</span>
+                <span class="bt-pill-name">Bottom Reversal</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="setup_2" type="button">
+                <span class="bt-pill-num">2</span>
+                <span class="bt-pill-name">Alpha Momentum</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="setup_3" type="button">
+                <span class="bt-pill-num">3</span>
+                <span class="bt-pill-name">High Tight Flag</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="setup_4" type="button">
+                <span class="bt-pill-num">4</span>
+                <span class="bt-pill-name">Weekly Swing</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="setup_5" type="button">
+                <span class="bt-pill-num">5</span>
+                <span class="bt-pill-name">Stage-2 Pullback</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="setup_6" type="button">
+                <span class="bt-pill-num">6</span>
+                <span class="bt-pill-name">DBR Demand Zone</span>
+              </button>
+            </div>
+          </div>
+          <!-- Group 2: Institutional Scanners -->
+          <div class="backtest-group-block">
+            <div class="backtest-group-header">
+              <span class="backtest-group-icon">🔬</span>
+              <span class="backtest-group-title">INSTITUTIONAL SCANNERS (1-6)</span>
+            </div>
+            <div class="backtest-pills-row" id="backtest-pills-adv">
+              <button class="bt-pill-btn" data-setup="adv_1" type="button">
+                <span class="bt-pill-num">Adv 1</span>
+                <span class="bt-pill-name">RS Leaderboard</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="adv_2" type="button">
+                <span class="bt-pill-num">Adv 2</span>
+                <span class="bt-pill-name">Early Breakout (VCP)</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="adv_3" type="button">
+                <span class="bt-pill-num">Adv 3</span>
+                <span class="bt-pill-name">Momentum Cont.</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="adv_4" type="button">
+                <span class="bt-pill-num">Adv 4</span>
+                <span class="bt-pill-name">Rally Base Rally</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="adv_5" type="button">
+                <span class="bt-pill-num">Adv 5</span>
+                <span class="bt-pill-name">Confluence Engine</span>
+              </button>
+              <button class="bt-pill-btn" data-setup="adv_6" type="button">
+                <span class="bt-pill-num">Adv 6</span>
+                <span class="bt-pill-name">Wyckoff Absorption</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Active Strategy Header Banner -->
+      <div class="backtest-active-banner" id="backtest-active-banner">
+        <div class="active-banner-info">
+          <span class="active-banner-badge" id="bt-active-badge">SETUP 1</span>
+          <h3 class="active-banner-name" id="bt-active-name">Bottom Reversal Pro</h3>
+          <span class="active-banner-support" id="bt-active-support">Anchor: 5D Swing Low Base</span>
+        </div>
+        <div class="active-banner-meta">
+          <div class="meta-pill">Signals: <strong id="bt-active-sig">9,871</strong></div>
+          <div class="meta-pill">Fills: <strong id="bt-active-fill">3,863 (39.1%)</strong></div>
+        </div>
+      </div>
+
+      <!-- 4. Executive KPI Scorecards (Clean 4-Card Grid) -->
+      <section class="backtest-kpi-grid" aria-label="Executive Performance Scorecards">
+        <!-- Card 1: 10-Day Horizon -->
+        <div class="backtest-kpi-card card-10d">
+          <div class="bt-card-top">
+            <span class="bt-card-tag tag-blue">SHORT-TERM SWING</span>
+            <span class="bt-card-horizon">10 TRADING DAYS</span>
+          </div>
+          <div class="bt-card-main">
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Win Rate</span>
+              <strong class="bt-metric-val text-emerald" id="bt-kpi-10d-wr">45.3%</strong>
+            </div>
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Avg Return</span>
+              <strong class="bt-metric-val" id="bt-kpi-10d-ret">-0.1%</strong>
+            </div>
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Avg Peak Gain</span>
+              <strong class="bt-metric-val text-cyan" id="bt-kpi-10d-pk">+5.4%</strong>
+            </div>
+          </div>
+          <div class="bt-card-footer">
+            <span class="bt-foot-sub" id="bt-kpi-10d-samples">3,720 Trades Evaluated</span>
+          </div>
+        </div>
+
+        <!-- Card 2: 1-Month (30D) Horizon -->
+        <div class="backtest-kpi-card card-1m">
+          <div class="bt-card-top">
+            <span class="bt-card-tag tag-emerald">POSITIONAL SWING</span>
+            <span class="bt-card-horizon">30 TRADING DAYS (1M)</span>
+          </div>
+          <div class="bt-card-main">
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Win Rate</span>
+              <strong class="bt-metric-val text-emerald" id="bt-kpi-1m-wr">49.8%</strong>
+            </div>
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Avg Return</span>
+              <strong class="bt-metric-val text-emerald" id="bt-kpi-1m-ret">+1.5%</strong>
+            </div>
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Avg Peak Gain</span>
+              <strong class="bt-metric-val text-cyan" id="bt-kpi-1m-pk">+11.1%</strong>
+            </div>
+          </div>
+          <div class="bt-card-footer">
+            <span class="bt-foot-sub" id="bt-kpi-1m-samples">3,410 Trades Evaluated</span>
+          </div>
+        </div>
+
+        <!-- Card 3: 3-Month (63D) Horizon -->
+        <div class="backtest-kpi-card card-3m">
+          <div class="bt-card-top">
+            <span class="bt-card-tag tag-gold">MULTI-MONTH POSITIONAL</span>
+            <span class="bt-card-horizon">63 TRADING DAYS (3M)</span>
+          </div>
+          <div class="bt-card-main">
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Win Rate</span>
+              <strong class="bt-metric-val text-emerald" id="bt-kpi-3m-wr">56.4%</strong>
+            </div>
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Avg Return</span>
+              <strong class="bt-metric-val text-emerald" id="bt-kpi-3m-ret">+5.5%</strong>
+            </div>
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Avg Peak Gain</span>
+              <strong class="bt-metric-val text-gold" id="bt-kpi-3m-pk">+18.3%</strong>
+            </div>
+          </div>
+          <div class="bt-card-footer">
+            <span class="bt-foot-sub" id="bt-kpi-3m-samples">2,890 Trades Evaluated</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Breakout Potential & High Run-up -->
+        <div class="backtest-kpi-card card-max">
+          <div class="bt-card-top">
+            <span class="bt-card-tag tag-purple">BREAKOUT POTENTIAL</span>
+            <span class="bt-card-horizon">MAX RUN-UP BADGE</span>
+          </div>
+          <div class="bt-card-main">
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Max Peak Gain</span>
+              <strong class="bt-metric-val text-purple text-xl" id="bt-kpi-max-pk">+223.3%</strong>
+            </div>
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Avg Days to Peak</span>
+              <strong class="bt-metric-val text-amber" id="bt-kpi-avg-days">28.4 Days</strong>
+            </div>
+            <div class="bt-metric-row">
+              <span class="bt-metric-lbl">Retest Fill Rate</span>
+              <strong class="bt-metric-val text-cyan" id="bt-kpi-fill-rate">39.1%</strong>
+            </div>
+          </div>
+          <div class="bt-card-footer">
+            <span class="bt-foot-sub" id="bt-kpi-anchor-desc">Support 1 Buffer (±0.8%)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Recent Trade Log Table Section -->
+      <section class="backtest-table-section" aria-label="Recent Trade Log Table">
+        <div class="backtest-table-card">
+          <div class="backtest-table-header">
+            <div class="table-header-left">
+              <h3 class="table-title">⚡ Recent Forward Performance Trade Logs</h3>
+              <span class="table-sub-title">12 most recent representative signals with verified execution</span>
+            </div>
+            <div class="table-header-right">
+              <span class="table-stat-badge" id="bt-table-count-badge">12 Verified Trades</span>
+            </div>
+          </div>
+          <div class="backtest-table-wrap">
+            <table class="terminal-table backtest-table" id="backtest-trades-table">
+              <thead>
+                <tr>
+                  <th class="col-sticky-symbol">Symbol</th>
+                  <th>Sector</th>
+                  <th>Signal Date</th>
+                  <th class="text-right">Entry Price (S1)</th>
+                  <th class="text-right">10D Return %</th>
+                  <th class="text-right">1M Return %</th>
+                  <th class="text-right">3M Return %</th>
+                  <th class="text-right">Peak Run-up %</th>
+                  <th class="text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody id="backtest-table-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /#strategy-backtest-container -->
+  </div><!-- /#view-strategy-backtest -->
+
 
 
 
