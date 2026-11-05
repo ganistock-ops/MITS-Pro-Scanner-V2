@@ -2,7 +2,7 @@
   "setup_id": "tab6_dbr",
   "title": "\ud83d\udce6 Setup 6: DBR Demand Zone",
   "subtitle": "Institutional order block accumulation, fresh demand zone retests, and explosive leg-out expansions.",
-  "last_updated": "2026-11-05T17:46:09.193010+05:30",
+  "last_updated": "2026-11-06T01:27:31.786318+05:30",
   "last_session_date": "2026-11-05",
   "session_date_display": "05-Nov-2026",
   "qualifying_count": 9,
@@ -93,7 +93,7 @@
       "s3": 107789.04,
       "r1": 130327.2,
       "r2": 135800.0,
-      "r3": 159415.42
+      "r3": 159415.43
     },
     {
       "symbol": "TMPV",
