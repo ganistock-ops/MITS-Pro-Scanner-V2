@@ -796,6 +796,18 @@ def run_pipeline():
     except Exception as e:
         logger.warning(f"Smart money radar engine export bypassed or error: {e}")
 
+    # Isolated Fundamental Research Dynamic Multiples Sync (Phase 1 Backend)
+    try:
+        from generate_fundamental_data import sync_fundamental_multiples
+        sync_fundamental_multiples(
+            stock_dfs=stock_dfs,
+            bhav_date=active_date,
+            bhav_map=bhav_map
+        )
+        logger.info("Synchronized data/fundamental_data.json with today's Close prices & multiples.")
+    except Exception as e:
+        logger.warning(f"Fundamental dynamic sync bypassed or error: {e}")
+
     # Isolated Advanced Scanner 1: Relative Strength (RS) Engine
     try:
         from adv_scanner_1_rs import generate_adv_scanner_rs
