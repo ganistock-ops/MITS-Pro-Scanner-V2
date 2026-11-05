@@ -339,34 +339,62 @@ def simulate_commercial_forward(sd: Dict[str, Any], t: int, support_1: float) ->
     if entry_bar is None:
         return {'st': 'UNFILLED'}
         
-    # Overall peak over max 63-day forward horizon
+    forward_bars = (n - 1) - entry_bar
+    
+    # Overall peak over available forward bars (up to max 63 forward sessions)
     max_b = min(entry_bar + 64, n)
     overall_high = float(np.max(h[entry_bar:max_b]))
     pk_gain = round(((overall_high - entry_price) / entry_price) * 100.0, 2)
     dur = int(np.argmax(h[entry_bar:max_b]))
     
-    # 10 Trading Days Horizon (Short-term Swing)
-    b_10 = min(entry_bar + 10, n - 1)
-    ret_10d = round(((c[b_10] - entry_price) / entry_price) * 100.0, 2)
-    pk_10d = round(((np.max(h[entry_bar:b_10 + 1]) - entry_price) / entry_price) * 100.0, 2)
-    
-    # 30 Trading Days Horizon / 1 Month (Positional Swing)
-    b_30 = min(entry_bar + 30, n - 1)
-    ret_1m = round(((c[b_30] - entry_price) / entry_price) * 100.0, 2)
-    pk_1m = round(((np.max(h[entry_bar:b_30 + 1]) - entry_price) / entry_price) * 100.0, 2)
-    
-    # 63 Trading Days Horizon / 3 Months (Multi-month Positional)
-    b_63 = min(entry_bar + 63, n - 1)
-    ret_3m = round(((c[b_63] - entry_price) / entry_price) * 100.0, 2)
-    pk_3m = round(((np.max(h[entry_bar:b_63 + 1]) - entry_price) / entry_price) * 100.0, 2)
-    
-    # Intuitive commercial status tagging
-    if ret_1m >= 1.5 or (ret_10d >= 2.0 and ret_1m >= 0):
-        st = "PROFIT"
-    elif ret_1m >= -2.0:
-        st = "CONSOLIDATION"
+    # Strict Elapsed Session Guards:
+    # 1. 10 Trading Days Horizon (Short-term Swing)
+    valid_10 = (forward_bars >= 10)
+    if valid_10:
+        b_10 = entry_bar + 10
+        ret_10d = round(((c[b_10] - entry_price) / entry_price) * 100.0, 2)
+        pk_10d = round(((np.max(h[entry_bar:b_10 + 1]) - entry_price) / entry_price) * 100.0, 2)
     else:
-        st = "DRAWDOWN"
+        ret_10d = None
+        pk_10d = None
+        
+    # 2. 22 Trading Days Horizon / 1 Month (Positional Swing)
+    valid_1m = (forward_bars >= 22)
+    if valid_1m:
+        b_1m = entry_bar + 22
+        ret_1m = round(((c[b_1m] - entry_price) / entry_price) * 100.0, 2)
+        pk_1m = round(((np.max(h[entry_bar:b_1m + 1]) - entry_price) / entry_price) * 100.0, 2)
+    else:
+        ret_1m = None
+        pk_1m = None
+        
+    # 3. 63 Trading Days Horizon / 3 Months (Multi-month Positional)
+    valid_3m = (forward_bars >= 63)
+    if valid_3m:
+        b_63 = entry_bar + 63
+        ret_3m = round(((c[b_63] - entry_price) / entry_price) * 100.0, 2)
+        pk_3m = round(((np.max(h[entry_bar:b_63 + 1]) - entry_price) / entry_price) * 100.0, 2)
+    else:
+        ret_3m = None
+        pk_3m = None
+        
+    # Intuitive commercial status tagging
+    if valid_1m and ret_1m is not None:
+        if ret_1m >= 1.5 or (ret_10d is not None and ret_10d >= 2.0 and ret_1m >= 0):
+            st = "PROFIT"
+        elif ret_1m >= -2.0:
+            st = "CONSOLIDATION"
+        else:
+            st = "DRAWDOWN"
+    elif valid_10 and ret_10d is not None:
+        if ret_10d >= 2.0:
+            st = "PROFIT"
+        elif ret_10d >= -2.0:
+            st = "CONSOLIDATION"
+        else:
+            st = "DRAWDOWN"
+    else:
+        st = "HOLDING"
         
     return {
         'st': st,
@@ -381,9 +409,9 @@ def simulate_commercial_forward(sd: Dict[str, Any], t: int, support_1: float) ->
         'pk10': pk_10d,
         'pk1m': pk_1m,
         'pk3m': pk_3m,
-        'valid_10': (entry_bar + 10 < n),
-        'valid_1m': (entry_bar + 30 < n),
-        'valid_3m': (entry_bar + 63 < n)
+        'valid_10': valid_10,
+        'valid_1m': valid_1m,
+        'valid_3m': valid_3m
     }
 
 
@@ -429,11 +457,9 @@ def generate_backtest_suite() -> Dict[str, Any]:
         fill_rate = round((filled_count / setup_signals * 100.0), 1) if setup_signals > 0 else 0
         
         def compute_horizon_stats(k_ret: str, k_pk: str, k_valid: str) -> Dict[str, Any]:
-            sub = [tr for tr in filled_trades if tr[k_valid]]
+            sub = [tr for tr in filled_trades if tr.get(k_valid) and tr.get(k_ret) is not None]
             if not sub:
-                sub = filled_trades
-            if not sub:
-                return {"win_rate": 0, "avg_return": 0, "avg_peak": 0, "max_peak": 0, "samples": 0}
+                return {"win_rate": 0, "avg_return": 0, "avg_peak": 0, "max_peak": 0, "avg_days": 0, "samples": 0}
             
             wins = [tr for tr in sub if tr[k_ret] > 0.0]
             wr = round((len(wins) / len(sub)) * 100.0, 1)
@@ -455,9 +481,51 @@ def generate_backtest_suite() -> Dict[str, Any]:
         m1m = compute_horizon_stats('r1m', 'pk1m', 'valid_1m')
         m3m = compute_horizon_stats('r3m', 'pk3m', 'valid_3m')
         
-        # Select Top 12 recent representative trades sorted by date descending
+        # Balanced trade selection:
+        # Include 3 recent active trades (most recent entries) + 9 mature completed trades (valid_3m == True)
         filled_trades.sort(key=lambda x: x['d'], reverse=True)
-        recent_sample = filled_trades[:12]
+        
+        recent_pool = [x for x in filled_trades if not x.get('valid_3m')]
+        mature_pool = [x for x in filled_trades if x.get('valid_3m')]
+        
+        selected_recent = []
+        seen_syms = set()
+        for r in recent_pool:
+            if r['s'] not in seen_syms:
+                seen_syms.add(r['s'])
+                selected_recent.append(r)
+                if len(selected_recent) >= 3:
+                    break
+                    
+        selected_mature = []
+        if len(mature_pool) <= 9:
+            selected_mature = mature_pool
+        else:
+            step = max(1, len(mature_pool) // 9)
+            for i in range(0, len(mature_pool), step):
+                cand = mature_pool[i]
+                if cand['s'] not in seen_syms:
+                    seen_syms.add(cand['s'])
+                    selected_mature.append(cand)
+                if len(selected_mature) >= 9:
+                    break
+            for cand in mature_pool:
+                if len(selected_mature) >= 9:
+                    break
+                if cand['s'] not in seen_syms:
+                    seen_syms.add(cand['s'])
+                    selected_mature.append(cand)
+                    
+        if len(selected_mature) + len(selected_recent) < 12:
+            for cand in filled_trades:
+                if cand['s'] not in seen_syms:
+                    seen_syms.add(cand['s'])
+                    selected_recent.append(cand)
+                if len(selected_mature) + len(selected_recent) >= 12:
+                    break
+                    
+        recent_sample = selected_recent + selected_mature
+        recent_sample.sort(key=lambda x: x['d'], reverse=True)
         
         formatted_trades = []
         for tr in recent_sample:

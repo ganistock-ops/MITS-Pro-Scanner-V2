@@ -10126,13 +10126,19 @@ window.StrategyBacktestModule = (function() {
 
     let rowsHtml = '';
     trades.forEach(tr => {
-      const r10Class = tr.r10d >= 0 ? 'text-emerald' : 'text-rose';
-      const r1mClass = tr.r1m >= 0 ? 'text-emerald' : 'text-rose';
-      const r3mClass = tr.r3m >= 0 ? 'text-emerald' : 'text-rose';
+      const formatHorizon = (val) => {
+        if (val === null || val === undefined) {
+          return '<span class="bt-tag-holding">HOLDING</span>';
+        }
+        const cls = val >= 0 ? 'text-emerald' : 'text-rose';
+        const sign = val >= 0 ? '+' : '';
+        return `<span class="${cls}" style="font-weight: 700;">${sign}${val}%</span>`;
+      };
 
       let statusBadgeClass = 'bt-badge-consolidation';
       if (tr.st === 'PROFIT') statusBadgeClass = 'bt-badge-profit';
       else if (tr.st === 'DRAWDOWN') statusBadgeClass = 'bt-badge-drawdown';
+      else if (tr.st === 'HOLDING' || tr.st === 'ACTIVE') statusBadgeClass = 'bt-badge-holding';
 
       rowsHtml += `
         <tr>
@@ -10140,9 +10146,9 @@ window.StrategyBacktestModule = (function() {
           <td><span class="fund-sec-pill">${tr.sec || 'Other'}</span></td>
           <td style="font-family: var(--font-mono, monospace); color: rgba(255,255,255,0.7);">${tr.d}</td>
           <td class="text-right" style="font-family: var(--font-mono, monospace);">₹${Number(tr.ent).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-          <td class="text-right ${r10Class}" style="font-family: var(--font-mono, monospace); font-weight: 700;">${tr.r10d >= 0 ? '+' : ''}${tr.r10d}%</td>
-          <td class="text-right ${r1mClass}" style="font-family: var(--font-mono, monospace); font-weight: 700;">${tr.r1m >= 0 ? '+' : ''}${tr.r1m}%</td>
-          <td class="text-right ${r3mClass}" style="font-family: var(--font-mono, monospace); font-weight: 700;">${tr.r3m >= 0 ? '+' : ''}${tr.r3m}%</td>
+          <td class="text-right" style="font-family: var(--font-mono, monospace);">${formatHorizon(tr.r10d)}</td>
+          <td class="text-right" style="font-family: var(--font-mono, monospace);">${formatHorizon(tr.r1m)}</td>
+          <td class="text-right" style="font-family: var(--font-mono, monospace);">${formatHorizon(tr.r3m)}</td>
           <td class="text-right text-gold" style="font-family: var(--font-mono, monospace); font-weight: 700;">+${tr.pk}%</td>
           <td class="text-center"><span class="bt-badge ${statusBadgeClass}">${tr.st}</span></td>
         </tr>
