@@ -10307,23 +10307,35 @@ window.WatchlistAlertsModule = (function() {
   }
 
   async function loadUniverse() {
-    if (window._masterUniverseData && window._masterUniverseData.stocks) {
-      cachedUniverse = window._masterUniverseData.stocks;
-      return cachedUniverse;
-    }
     const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
-    try {
-      let res = await fetch(`${basePath}master_universe_eod.json?v=${Date.now()}`).catch(() => null);
-      if (!res || !res.ok) res = await fetch(`data/master_universe_eod.json?v=${Date.now()}`).catch(() => null);
-      if (!res || !res.ok) res = await fetch('data/master_universe_eod.json').catch(() => null);
-      if (res && res.ok) {
-        const data = await res.json();
-        window._masterUniverseData = data;
-        cachedUniverse = data.stocks || [];
+    if (!window._masterUniverseData || !window._masterUniverseData.stocks) {
+      try {
+        let res = await fetch(`${basePath}master_universe_eod.json?v=${Date.now()}`).catch(() => null);
+        if (!res || !res.ok) res = await fetch(`data/master_universe_eod.json?v=${Date.now()}`).catch(() => null);
+        if (!res || !res.ok) res = await fetch('data/master_universe_eod.json').catch(() => null);
+        if (res && res.ok) {
+          const data = await res.json();
+          window._masterUniverseData = data;
+          cachedUniverse = data.stocks || [];
+        }
+      } catch (e) {
+        console.warn('[WatchlistAlertsModule] Could not load master universe:', e);
       }
-    } catch (e) {
-      console.warn('[WatchlistAlertsModule] Could not load master universe:', e);
+    } else {
+      cachedUniverse = window._masterUniverseData.stocks;
     }
+
+    // Ensure advState.rsData is populated so Technical Dossier levels (support, resistance) align instantly
+    if (typeof advState !== 'undefined' && (!advState.rsData || !advState.rsData.stocks)) {
+      try {
+        let rsRes = await fetch(`${basePath}adv_scanner_1_rs.json?v=${Date.now()}`).catch(() => null);
+        if (!rsRes || !rsRes.ok) rsRes = await fetch('data/adv_scanner_1_rs.json').catch(() => null);
+        if (rsRes && rsRes.ok) {
+          advState.rsData = await rsRes.json();
+        }
+      } catch (e) {}
+    }
+
     return cachedUniverse;
   }
 
@@ -10331,10 +10343,43 @@ window.WatchlistAlertsModule = (function() {
     if (!symbol) return null;
     const sym = symbol.trim().toUpperCase();
 
-    // Check cached universe
-    const uStock = cachedUniverse.find(s => (s.symbol || '').toUpperCase() === sym) || null;
+    // 1. If Technical Dossier modal is currently open for this symbol, extract its exact levels directly
+    let modalSupport = null;
+    let modalResistance = null;
+    let modalEma20 = null;
+    const dossierSymEl = document.getElementById('rs-modal-symbol');
+    if (dossierSymEl && dossierSymEl.textContent.trim().toUpperCase() === sym) {
+      const s1Txt = document.getElementById('rs-modal-s1')?.textContent?.replace(/[^\d.]/g, '');
+      const r1Txt = document.getElementById('rs-modal-r1')?.textContent?.replace(/[^\d.]/g, '');
+      const emaTxt = document.getElementById('rs-modal-ema20')?.textContent?.replace(/[^\d.]/g, '');
+      if (s1Txt && !isNaN(Number(s1Txt)) && Number(s1Txt) > 0) modalSupport = Number(s1Txt);
+      if (r1Txt && !isNaN(Number(r1Txt)) && Number(r1Txt) > 0) modalResistance = Number(r1Txt);
+      if (emaTxt && !isNaN(Number(emaTxt)) && Number(emaTxt) > 0) modalEma20 = Number(emaTxt);
+    }
 
-    // Check scanner signals across setups
+    // 2. Search advanced scanner data (where RS Outperformer, Early Breakout, etc. dossiers reside)
+    let advStock = null;
+    if (typeof advState !== 'undefined') {
+      const advLists = [
+        advState.rsData?.stocks,
+        advState.boData?.stocks,
+        advState.mcData?.stocks,
+        advState.rbrData?.stocks,
+        advState.confluenceData?.stocks,
+        advState.wyckoffData?.stocks
+      ];
+      for (const list of advLists) {
+        if (Array.isArray(list)) {
+          const found = list.find(it => (it.symbol || '').toUpperCase() === sym);
+          if (found) {
+            advStock = found;
+            break;
+          }
+        }
+      }
+    }
+
+    // 3. Search scanner signals across Tab 1 to 6 setups
     let sig = null;
     if (window.state && window.state.scannerData && window.state.scannerData.setups) {
       for (const k of Object.keys(window.state.scannerData.setups)) {
@@ -10349,27 +10394,83 @@ window.WatchlistAlertsModule = (function() {
       }
     }
 
-    const cmp = uStock ? uStock.cmp : (sig ? sig.cmp : 0);
-    const chg = uStock ? uStock.change_pct : (sig ? sig.change_pct : 0);
-    const ema20 = uStock?.ema_20 || null;
-    const s1 = sig?.s1 || (ema20 ? +(ema20 * 0.985).toFixed(2) : (cmp ? +(cmp * 0.96).toFixed(2) : 0));
-    const r1 = sig?.r1 || uStock?.high_52w || (cmp ? +(cmp * 1.05).toFixed(2) : 0);
+    // 4. Search cached Nifty 500 universe
+    const uStock = cachedUniverse.find(s => (s.symbol || '').toUpperCase() === sym) || null;
+
+    const d = advStock?.dossier || sig?.dossier || {};
+    const kl = d.key_levels || {};
+
+    const cmp = advStock?.cmp || advStock?.ltp || uStock?.cmp || sig?.cmp || 0;
+    const chg = advStock?.change_pct !== undefined ? advStock.change_pct : (uStock?.change_pct !== undefined ? uStock.change_pct : (sig?.change_pct || 0));
+
+    // Support: Align strictly with Technical Dossier (20D Swing Low Support)
+    const supportVal = modalSupport !== null ? modalSupport : (
+      kl.support !== undefined && kl.support !== null ? kl.support : (
+        kl.support_1 !== undefined && kl.support_1 !== null ? kl.support_1 : (
+          d.support_20d !== undefined && d.support_20d !== null ? d.support_20d : (
+            d.support !== undefined && d.support !== null ? d.support : (
+              d.support_1 !== undefined && d.support_1 !== null ? d.support_1 : (
+                advStock?.support !== undefined && advStock?.support !== null ? advStock.support : (
+                  advStock?.support_20d !== undefined && advStock?.support_20d !== null ? advStock.support_20d : (
+                    sig?.support !== undefined && sig?.support !== null ? sig.support : (
+                      sig?.support_20d !== undefined && sig?.support_20d !== null ? sig.support_20d : (
+                        sig?.s1 !== undefined && sig?.s1 !== null ? sig.s1 : null
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    );
+
+    // Resistance: Align strictly with Technical Dossier (20D Swing High / Resistance Pivot) - NOT 52W High
+    const resistanceVal = modalResistance !== null ? modalResistance : (
+      kl.resistance !== undefined && kl.resistance !== null ? kl.resistance : (
+        kl.pivot_resistance !== undefined && kl.pivot_resistance !== null ? kl.pivot_resistance : (
+          d.resistance_20d !== undefined && d.resistance_20d !== null ? d.resistance_20d : (
+            d.resistance !== undefined && d.resistance !== null ? d.resistance : (
+              d.resistance_pivot !== undefined && d.resistance_pivot !== null ? d.resistance_pivot : (
+                advStock?.resistance !== undefined && advStock?.resistance !== null ? advStock.resistance : (
+                  advStock?.resistance_20d !== undefined && advStock?.resistance_20d !== null ? advStock.resistance_20d : (
+                    sig?.resistance !== undefined && sig?.resistance !== null ? sig.resistance : (
+                      sig?.resistance_20d !== undefined && sig?.resistance_20d !== null ? sig.resistance_20d : (
+                        sig?.r1 !== undefined && sig?.r1 !== null ? sig.r1 : null
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    );
+
+    // 20 EMA: Exactly matching Technical Dossier
+    const ema20Val = modalEma20 !== null ? modalEma20 : (d.ema_20 || advStock?.ema_20 || uStock?.ema_20 || sig?.ema_20 || null);
 
     return {
       symbol: sym,
-      name: uStock?.name || sig?.name || sym,
-      sector: uStock?.sector || sig?.sector || 'Broad Market',
+      name: advStock?.name || advStock?.company_name || uStock?.name || sig?.name || sym,
+      sector: advStock?.sector || uStock?.sector || sig?.sector || 'Broad Market',
       cmp: cmp,
       change_pct: chg,
-      ema_20: ema20,
-      ema_50: uStock?.ema_50 || null,
-      high_52w: uStock?.high_52w || null,
+      ema_20: ema20Val,
+      ema_50: d.ema_50 || advStock?.ema_50 || uStock?.ema_50 || null,
+      high_52w: kl.high_52w || d.high_52w || uStock?.high_52w || null,
       low_52w: uStock?.low_52w || null,
-      s1: s1,
-      r1: r1,
-      rvol: uStock?.rvol || sig?.rvol || 1,
+      support: supportVal,
+      resistance: resistanceVal,
+      support_20d: supportVal,
+      resistance_20d: resistanceVal,
+      s1: supportVal || (ema20Val ? +(ema20Val * 0.985).toFixed(2) : (cmp ? +(cmp * 0.96).toFixed(2) : 0)),
+      r1: resistanceVal || (cmp ? +(cmp * 1.05).toFixed(2) : 0),
+      rvol: advStock?.vol_ratio || uStock?.rvol || sig?.rvol || 1,
       rsi_14: uStock?.rsi_14 || null,
-      tv_url: uStock?.tv_url || `https://www.tradingview.com/chart/?symbol=NSE%3A${sym}`,
+      tv_url: d.tradingview_url || uStock?.tv_url || `https://www.tradingview.com/chart/?symbol=NSE%3A${sym}`,
       breakout_status: uStock?.breakout_status || sig?.status || 'Active'
     };
   }
@@ -10404,10 +10505,10 @@ window.WatchlistAlertsModule = (function() {
         const upper = target * (1 + buf / 100);
         if (cmp >= lower && cmp <= upper) {
           triggered = true;
-          message = `In S1 Retest Zone (CMP: ₹${cmp.toLocaleString('en-IN')} vs S1: ₹${target.toLocaleString('en-IN')})`;
+          message = `In Support Retest Zone (CMP: ₹${cmp.toLocaleString('en-IN')} vs Support: ₹${target.toLocaleString('en-IN')})`;
         } else if (cmp <= upper && cmp >= target * 0.985) {
           triggered = true;
-          message = `Testing S1 Support (CMP: ₹${cmp.toLocaleString('en-IN')} vs S1: ₹${target.toLocaleString('en-IN')})`;
+          message = `Testing Support Level (CMP: ₹${cmp.toLocaleString('en-IN')} vs Support: ₹${target.toLocaleString('en-IN')})`;
         }
       } else if (item.alertType === 'EMA20_PULLBACK') {
         const lower = target * (1 - buf / 100);
@@ -10419,7 +10520,7 @@ window.WatchlistAlertsModule = (function() {
       } else if (item.alertType === 'BREAKOUT_R1') {
         if (cmp >= target) {
           triggered = true;
-          message = `Breakout Above R1 Target (CMP: ₹${cmp.toLocaleString('en-IN')} >= R1: ₹${target.toLocaleString('en-IN')})`;
+          message = `Breakout Above Resistance Target (CMP: ₹${cmp.toLocaleString('en-IN')} >= Resistance: ₹${target.toLocaleString('en-IN')})`;
         }
       } else if (item.alertType === 'CUSTOM') {
         const cond = item.condition || 'ZONE';
@@ -10594,11 +10695,11 @@ window.WatchlistAlertsModule = (function() {
 
       let levelPill = '<span class="wl-level-pill">Watch Only</span>';
       if (item.alertType === 'S1_RETEST') {
-        levelPill = `<span class="wl-level-pill pill-s1">⚡ S1: ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (±${item.bufferPct}%)</span>`;
+        levelPill = `<span class="wl-level-pill pill-s1">⚡ Support: ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (±${item.bufferPct}%)</span>`;
       } else if (item.alertType === 'EMA20_PULLBACK') {
         levelPill = `<span class="wl-level-pill pill-ema20">📉 EMA20: ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})} (±${item.bufferPct}%)</span>`;
       } else if (item.alertType === 'BREAKOUT_R1') {
-        levelPill = `<span class="wl-level-pill pill-breakout">🚀 R1: ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>`;
+        levelPill = `<span class="wl-level-pill pill-breakout">🚀 Resistance: ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>`;
       } else if (item.alertType === 'CUSTOM') {
         levelPill = `<span class="wl-level-pill">⚙️ ₹${Number(item.targetPrice).toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>`;
       }
@@ -10649,9 +10750,9 @@ window.WatchlistAlertsModule = (function() {
       const distSign = (item.distPct || 0) >= 0 ? '+' : '';
 
       let levelText = 'Watch Only';
-      if (item.alertType === 'S1_RETEST') levelText = `⚡ S1: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
+      if (item.alertType === 'S1_RETEST') levelText = `⚡ Support: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
       else if (item.alertType === 'EMA20_PULLBACK') levelText = `📉 20 EMA: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
-      else if (item.alertType === 'BREAKOUT_R1') levelText = `🚀 Breakout: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
+      else if (item.alertType === 'BREAKOUT_R1') levelText = `🚀 Resistance: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
       else if (item.alertType === 'CUSTOM') levelText = `⚙️ Target: ₹${Number(item.targetPrice).toLocaleString('en-IN')}`;
 
       mobileHtml += `
@@ -10718,10 +10819,18 @@ window.WatchlistAlertsModule = (function() {
       modalChg.textContent = `${sign}${Number(st.change_pct || 0).toFixed(2)}%`;
     }
 
-    // Populate Presets Targets
-    const s1Target = st.s1 || (st.cmp ? +(st.cmp * 0.96).toFixed(2) : 0);
+    // Populate Presets Targets (Align strictly with Technical Dossier Support & Resistance)
+    const s1Target = st.support !== undefined && st.support !== null
+      ? st.support
+      : (st.support_20d !== undefined && st.support_20d !== null
+        ? st.support_20d
+        : (st.s1 || (st.cmp ? +(st.cmp * 0.96).toFixed(2) : 0)));
     const ema20Target = st.ema_20 || (st.cmp ? +(st.cmp * 0.98).toFixed(2) : 0);
-    const breakoutTarget = st.r1 || (st.cmp ? +(st.cmp * 1.05).toFixed(2) : 0);
+    const breakoutTarget = st.resistance !== undefined && st.resistance !== null
+      ? st.resistance
+      : (st.resistance_20d !== undefined && st.resistance_20d !== null
+        ? st.resistance_20d
+        : (st.r1 || (st.cmp ? +(st.cmp * 1.05).toFixed(2) : 0)));
 
     const s1El = document.getElementById('preset-target-s1');
     const ema20El = document.getElementById('preset-target-ema20');
@@ -10783,9 +10892,17 @@ window.WatchlistAlertsModule = (function() {
     let bufferPct = 0.8;
     let condition = 'ZONE';
 
-    const s1Target = currentModalStock.s1 || (currentModalStock.cmp ? +(currentModalStock.cmp * 0.96).toFixed(2) : 0);
+    const s1Target = currentModalStock.support !== undefined && currentModalStock.support !== null
+      ? currentModalStock.support
+      : (currentModalStock.support_20d !== undefined && currentModalStock.support_20d !== null
+        ? currentModalStock.support_20d
+        : (currentModalStock.s1 || (currentModalStock.cmp ? +(currentModalStock.cmp * 0.96).toFixed(2) : 0)));
     const ema20Target = currentModalStock.ema_20 || (currentModalStock.cmp ? +(currentModalStock.cmp * 0.98).toFixed(2) : 0);
-    const breakoutTarget = currentModalStock.r1 || (currentModalStock.cmp ? +(currentModalStock.cmp * 1.05).toFixed(2) : 0);
+    const breakoutTarget = currentModalStock.resistance !== undefined && currentModalStock.resistance !== null
+      ? currentModalStock.resistance
+      : (currentModalStock.resistance_20d !== undefined && currentModalStock.resistance_20d !== null
+        ? currentModalStock.resistance_20d
+        : (currentModalStock.r1 || (currentModalStock.cmp ? +(currentModalStock.cmp * 1.05).toFixed(2) : 0)));
 
     if (selectedPreset === 'S1_RETEST') {
       targetPrice = s1Target;
