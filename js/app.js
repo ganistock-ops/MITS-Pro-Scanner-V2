@@ -5521,16 +5521,17 @@ function initAdvScannerNavigation() {
       const smCont = document.getElementById('smart-money-radar');
       const fView = document.getElementById('view-fundamental-research');
       const fCont = document.getElementById('fundamental-research-container');
+      const btView = document.getElementById('view-strategy-backtest');
+      const btCont = document.getElementById('strategy-backtest-container');
+
       const dBtn = document.getElementById('nav-dashboard');
       const aBtn = document.getElementById('nav-adv-scanner');
       const sBtn = document.getElementById('nav-sector-analysis');
       const smBtn = document.getElementById('nav-smart-money') || document.querySelector('a[href="#smart-money"]');
       const fBtn = document.getElementById('nav-fundamental-research') || document.querySelector('a[href="#fundamental-research"]');
-      const btView = document.getElementById('view-strategy-backtest');
-      const btCont = document.getElementById('strategy-backtest-container');
       const btBtn = document.getElementById('nav-strategy-backtest') || document.querySelector('a[href="#strategy-backtest"]');
 
-      if (target === 'backtest' || target === 'strategy') {
+      function hideAllViews() {
         if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
         if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
         if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
@@ -5539,18 +5540,15 @@ function initAdvScannerNavigation() {
         if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
         if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
         if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
-        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
-        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
         if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
         if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
         if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
         if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
-        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
-        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
-        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
-        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
-        if (btView) { btView.classList.add('hidden'); btView.style.setProperty('display', 'none', 'important'); }
-        if (btCont) { btCont.classList.add('hidden'); btCont.style.setProperty('display', 'none', 'important'); }
+        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+      }
+
+      if (target === 'backtest' || target === 'strategy') {
+        hideAllViews();
         if (btView) {
           btView.classList.remove('hidden');
           btView.style.setProperty('display', 'block', 'important');
@@ -5560,7 +5558,6 @@ function initAdvScannerNavigation() {
           btCont.classList.remove('hidden');
           btCont.style.setProperty('display', 'flex', 'important');
         }
-        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (btBtn) btBtn.classList.add('active');
         if (window.location.hash !== '#strategy-backtest') {
           window.location.hash = '#strategy-backtest';
@@ -5572,14 +5569,7 @@ function initAdvScannerNavigation() {
       }
 
       if (target === 'fund' || target === 'fundamental') {
-        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
-        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
-        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
-        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
-        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
-        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
-        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
-        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
+        hideAllViews();
         if (fView) {
           fView.classList.remove('hidden');
           fView.style.setProperty('display', 'block', 'important');
@@ -5589,7 +5579,6 @@ function initAdvScannerNavigation() {
           fCont.classList.remove('hidden');
           fCont.style.setProperty('display', 'flex', 'important');
         }
-        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (fBtn) fBtn.classList.add('active');
         if (window.location.hash !== '#fundamental-research') {
           window.location.hash = '#fundamental-research';
@@ -5601,14 +5590,7 @@ function initAdvScannerNavigation() {
       }
 
       if (target === 'smart') {
-        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
-        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
-        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
-        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
-        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
-        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
-        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
-        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
+        hideAllViews();
         if (smView) {
           smView.classList.remove('hidden');
           smView.style.setProperty('display', 'block', 'important');
@@ -5618,7 +5600,6 @@ function initAdvScannerNavigation() {
           smCont.classList.remove('hidden');
           smCont.style.setProperty('display', 'flex', 'important');
         }
-        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (smBtn) smBtn.classList.add('active');
         if (window.location.hash !== '#smart-money') {
           window.location.hash = '#smart-money';
@@ -5630,14 +5611,7 @@ function initAdvScannerNavigation() {
       }
 
       if (target === 'sec') {
-        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
-        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
-        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
-        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
-        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
-        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
-        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
-        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
+        hideAllViews();
         if (sView) {
           sView.classList.remove('hidden');
           sView.style.setProperty('display', 'block', 'important');
@@ -5647,7 +5621,6 @@ function initAdvScannerNavigation() {
           sCont.classList.remove('hidden');
           sCont.style.setProperty('display', 'flex', 'important');
         }
-        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (sBtn) sBtn.classList.add('active');
         if (window.location.hash !== '#sector-analysis') {
           window.location.hash = '#sector-analysis';
@@ -5659,21 +5632,12 @@ function initAdvScannerNavigation() {
       }
 
       if (target === 'adv') {
-        if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
-        if (dCont) { dCont.classList.add('hidden'); dCont.style.setProperty('display', 'none', 'important'); }
-        if (mCont) { mCont.classList.add('hidden'); mCont.style.setProperty('display', 'none', 'important'); }
-        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
-        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
-        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
-        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
-        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
-        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
+        hideAllViews();
         if (aView) {
           aView.classList.remove('hidden');
           aView.style.setProperty('display', 'block', 'important');
           aView.style.minHeight = '500px';
         }
-        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (aBtn) aBtn.classList.add('active');
         if (window.location.hash !== '#advanced-scanner') {
           window.location.hash = '#advanced-scanner';
@@ -5691,19 +5655,13 @@ function initAdvScannerNavigation() {
         } else {
           loadAdvWyckoffData();
         }
-        loadAdvBoData(); // Preload Slot 2 counts
-        loadAdvMcData(); // Preload Slot 3 counts
-        loadAdvRbrData(); // Preload Slot 4 counts
-        loadAdvConfluenceData(); // Preload Slot 5 counts
-        loadAdvWyckoffData(); // Preload Slot 6 counts
+        loadAdvBoData();
+        loadAdvMcData();
+        loadAdvRbrData();
+        loadAdvConfluenceData();
+        loadAdvWyckoffData();
       } else {
-        if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
-        if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
-        if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
-        if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
-        if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
-        if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
-        if (fCont) { fCont.classList.add('hidden'); fCont.style.setProperty('display', 'none', 'important'); }
+        hideAllViews();
         if (dView) {
           dView.classList.remove('hidden');
           dView.style.setProperty('display', 'block', 'important');
@@ -5716,9 +5674,8 @@ function initAdvScannerNavigation() {
           mCont.classList.remove('hidden');
           mCont.style.setProperty('display', 'block', 'important');
         }
-        document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
         if (dBtn) dBtn.classList.add('active');
-        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest') {
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest' || window.location.hash === '#backtest') {
           window.location.hash = '#dashboard';
         }
       }
@@ -5729,7 +5686,7 @@ function initAdvScannerNavigation() {
 
     // Bind sidebar navigation clicks
     document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(item => {
-      if (item.id === 'nav-adv-scanner') {
+      if (item.id === 'nav-adv-scanner' || item.getAttribute('href') === '#advanced-scanner') {
         item.addEventListener('click', (e) => {
           e.preventDefault();
           switchView('adv');
@@ -5749,7 +5706,7 @@ function initAdvScannerNavigation() {
           e.preventDefault();
           switchView('fund');
         });
-      } else if (item.id === 'nav-strategy-backtest' || item.getAttribute('href') === '#strategy-backtest') {
+      } else if (item.id === 'nav-strategy-backtest' || item.getAttribute('href') === '#strategy-backtest' || item.getAttribute('href') === '#backtest') {
         item.addEventListener('click', (e) => {
           e.preventDefault();
           switchView('backtest');
