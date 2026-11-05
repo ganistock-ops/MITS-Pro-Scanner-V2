@@ -1,0 +1,58 @@
+name: MITS Pro Weekly Backtest Sync
+
+on:
+  schedule:
+    # Every Sunday at 18:00 UTC (23:30 IST)
+    - cron: '0 18 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "mits-pro-weekly-backtest"
+  cancel-in-progress: true
+
+jobs:
+  sync-backtest:
+    name: Re-compile Strategy Backtest Dataset
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas numpy pyarrow requests yfinance
+
+      - name: Run Backtest Generator Engine
+        run: |
+          python scripts/generate_backtest_data.py
+
+      - name: Verify Backtest Payload Integrity
+        run: |
+          test -f data/strategy_backtest_data.json || (echo "ERROR: Missing data/strategy_backtest_data.json" && exit 1)
+          FILE_SIZE=$(wc -c < data/strategy_backtest_data.json)
+          echo "Generated strategy_backtest_data.json ($FILE_SIZE bytes)"
+          if [ "$FILE_SIZE" -gt 35840 ]; then
+            echo "WARNING: File size exceeds 35 KB limit"
+          fi
+
+      - name: Commit and Push Updated Backtest Dataset
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/strategy_backtest_data.json
+          git diff-index --quiet HEAD || git commit -m "chore(backtest): auto-update weekly forward performance data [skip ci]"
+          git pull --rebase origin main
+          git push origin main
