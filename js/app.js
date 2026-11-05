@@ -5537,6 +5537,8 @@ function initAdvScannerNavigation() {
       const wCont = document.getElementById('watchlist-alerts-container');
       const cView = document.getElementById('view-stock-comparison');
       const cCont = document.getElementById('stock-comparison-container');
+      const repView = document.getElementById('view-data-reports');
+      const repCont = document.getElementById('data-reports-container');
 
       const dBtn = document.getElementById('nav-dashboard');
       const aBtn = document.getElementById('nav-adv-scanner');
@@ -5546,6 +5548,7 @@ function initAdvScannerNavigation() {
       const btBtn = document.getElementById('nav-strategy-backtest') || document.querySelector('a[href="#strategy-backtest"]');
       const wBtn = document.getElementById('nav-watchlist-alerts') || document.querySelector('a[href="#watchlist-alerts"]');
       const cBtn = document.getElementById('nav-stock-comparison') || document.querySelector('a[href="#stock-comparison"]');
+      const repBtn = document.getElementById('nav-data-reports') || document.querySelector('a[href="#data-reports"]');
 
       function hideAllViews() {
         if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
@@ -5564,7 +5567,27 @@ function initAdvScannerNavigation() {
         if (wCont) { wCont.classList.add('hidden'); wCont.style.setProperty('display', 'none', 'important'); }
         if (cView) { cView.classList.add('hidden'); cView.style.setProperty('display', 'none', 'important'); }
         if (cCont) { cCont.classList.add('hidden'); cCont.style.setProperty('display', 'none', 'important'); }
+        if (repView) { repView.classList.add('hidden'); repView.style.setProperty('display', 'none', 'important'); }
+        if (repCont) { repCont.classList.add('hidden'); repCont.style.setProperty('display', 'none', 'important'); }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+      }
+
+      if (target === 'reports' || target === 'data' || target === 'data-reports') {
+        hideAllViews();
+        if (repView) {
+          repView.classList.remove('hidden');
+          repView.style.setProperty('display', 'block', 'important');
+          repView.style.minHeight = '500px';
+        }
+        if (repCont) {
+          repCont.classList.remove('hidden');
+          repCont.style.setProperty('display', 'flex', 'important');
+        }
+        if (repBtn) repBtn.classList.add('active');
+        if (window.location.hash !== '#data-reports') {
+          window.location.hash = '#data-reports';
+        }
+        return;
       }
 
       if (target === 'compare' || target === 'comparison') {
@@ -5737,7 +5760,7 @@ function initAdvScannerNavigation() {
           mCont.style.setProperty('display', 'block', 'important');
         }
         if (dBtn) dBtn.classList.add('active');
-        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest' || window.location.hash === '#backtest' || window.location.hash === '#watchlist-alerts' || window.location.hash === '#watchlist' || window.location.hash === '#stock-comparison' || window.location.hash === '#compare') {
+        if (window.location.hash === '#advanced-scanner' || window.location.hash === '#stock-scanner' || window.location.hash === '#sector-analysis' || window.location.hash === '#smart-money' || window.location.hash === '#smart-money-radar' || window.location.hash === '#fundamental-research' || window.location.hash === '#strategy-backtest' || window.location.hash === '#backtest' || window.location.hash === '#watchlist-alerts' || window.location.hash === '#watchlist' || window.location.hash === '#stock-comparison' || window.location.hash === '#compare' || window.location.hash === '#data-reports' || window.location.hash === '#reports') {
           window.location.hash = '#dashboard';
         }
       }
@@ -5783,6 +5806,11 @@ function initAdvScannerNavigation() {
           e.preventDefault();
           switchView('compare');
         });
+      } else if (item.id === 'nav-data-reports' || item.getAttribute('href') === '#data-reports' || item.getAttribute('href') === '#reports') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('reports');
+        });
       } else if (item.id === 'nav-dashboard' || item.getAttribute('href') === '#dashboard') {
         item.addEventListener('click', (e) => {
           e.preventDefault();
@@ -5814,6 +5842,8 @@ function initAdvScannerNavigation() {
         switchView('watchlist');
       } else if (hash === '#stock-comparison' || hash === '#compare') {
         switchView('compare');
+      } else if (hash === '#data-reports' || hash === '#reports') {
+        switchView('reports');
       } else {
         switchView('dash');
       }

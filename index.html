@@ -115,7 +115,7 @@
           <span class="sidebar-icon">📅</span>
           <span class="sidebar-label">Results &amp; Events</span>
         </a>
-        <a href="#data-reports" class="sidebar-item">
+        <a href="#data-reports" class="sidebar-item" id="nav-data-reports">
           <span class="sidebar-icon">📁</span>
           <span class="sidebar-label">Data &amp; Reports</span>
         </a>
@@ -1895,6 +1895,275 @@
 
     </div><!-- /#stock-comparison-container -->
   </div><!-- /#view-stock-comparison -->
+
+  <!-- ===================================================================================
+       VIEW 9: OFFICIAL NSE DATA & REPORTS HUB (Static Institutional Gateways)
+       =================================================================================== -->
+  <div id="view-data-reports" class="terminal-view hidden data-reports-viewport" aria-label="Official NSE Data & Reports Hub">
+    <div id="data-reports-container" class="data-reports-container">
+      
+      <!-- Station Header -->
+      <header class="data-reports-header">
+        <div class="data-reports-header-left">
+          <div class="data-reports-title-row">
+            <h1 class="data-reports-title">
+              <span class="data-reports-icon">📁</span> OFFICIAL NSE DATA &amp; REPORTS HUB
+            </h1>
+            <span class="report-badge-pill tag-verified">🏛️ 10 Official Gateways</span>
+            <span class="report-badge-pill tag-static">⚡ Zero Server Latency</span>
+          </div>
+          <p class="data-reports-subtitle">
+            Curated Direct Gateways to Exchange Intelligence • Market Activity, Derivatives Open Interest, Institutional Flows &amp; Corporate Disclosures
+          </p>
+        </div>
+        <div class="data-reports-header-right">
+          <div class="data-reports-disclaimer-pill">
+            <span class="disclaimer-dot">●</span> Official Exchange Sources (nseindia.com)
+          </div>
+        </div>
+      </header>
+
+      <!-- Category 1: Market Activity & Momentum -->
+      <section class="reports-category-section" aria-labelledby="cat-market-activity">
+        <div class="category-section-header">
+          <div class="category-header-title-wrap">
+            <span class="category-icon">📈</span>
+            <h2 id="cat-market-activity" class="category-title">Market Activity &amp; Momentum</h2>
+          </div>
+          <span class="category-count-badge">4 Portals</span>
+        </div>
+
+        <div class="reports-grid">
+          <!-- Card 1: Pre-Open Market -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-cyan">Pre-Market</span>
+                <span class="report-pill pill-source">NSE Equity</span>
+              </div>
+              <h3 class="report-card-title">Pre-Open Market Discovery</h3>
+            </div>
+            <p class="report-card-desc">
+              Discover market opening sentiment, indicative equilibrium prices, and price discovery orders before 9:15 AM IST.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 2: Top Gainers & Losers -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-emerald">Momentum</span>
+                <span class="report-pill pill-source">Live Intraday</span>
+              </div>
+              <h3 class="report-card-title">Top Gainers &amp; Losers</h3>
+            </div>
+            <p class="report-card-desc">
+              Real-time high-momentum index gainers and lagging market losers across Nifty 50, Nifty 500, and sectoral indices.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/market-data/top-gainers-losers" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 3: 52-Week High & Low Tracker -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-gold">Breakouts</span>
+                <span class="report-pill pill-source">Multi-Month</span>
+              </div>
+              <h3 class="report-card-title">52-Week High &amp; Low Tracker</h3>
+            </div>
+            <p class="report-card-desc">
+              Official list of stocks printing fresh multi-month structural extremes, ATH breakouts, and yearly capitulation lows.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/market-data/52-week-high-equity-market" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 4: Security-Wise Delivery Position -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-purple">Whale Footprint</span>
+                <span class="report-pill pill-source">EOD Bhavcopy</span>
+              </div>
+              <h3 class="report-card-title">Security-Wise Delivery Position</h3>
+            </div>
+            <p class="report-card-desc">
+              Official trade delivery percentage and quantity accumulation data. Essential for verifying smart money absorption.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/report-detail/eq_security" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Category 2: Derivatives & Market Flows -->
+      <section class="reports-category-section" aria-labelledby="cat-derivatives-flows">
+        <div class="category-section-header">
+          <div class="category-header-title-wrap">
+            <span class="category-icon">⚡</span>
+            <h2 id="cat-derivatives-flows" class="category-title">Derivatives &amp; Market Flows</h2>
+          </div>
+          <span class="category-count-badge">2 Portals</span>
+        </div>
+
+        <div class="reports-grid">
+          <!-- Card 5: NSE Live Option Chain -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-amber">Open Interest</span>
+                <span class="report-pill pill-source">F&amp;O Segment</span>
+              </div>
+              <h3 class="report-card-title">NSE Live Option Chain</h3>
+            </div>
+            <p class="report-card-desc">
+              Real-time Call/Put Open Interest (OI) buildup, strike concentration, IV skews, and Max Pain structural support/resistance.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/option-chain" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 6: FII / DII Trading Activity -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-cyan">Institutional Flows</span>
+                <span class="report-pill pill-source">Daily Cash</span>
+              </div>
+              <h3 class="report-card-title">FII / DII Trading Activity</h3>
+            </div>
+            <p class="report-card-desc">
+              Institutional daily cash buying/selling footprints, net investment positions, and official corporate flow filings.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/companies-listing/corporate-filings-actions" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Category 3: Corporate Filings & Governance -->
+      <section class="reports-category-section" aria-labelledby="cat-corporate-governance">
+        <div class="category-section-header">
+          <div class="category-header-title-wrap">
+            <span class="category-icon">🏛️</span>
+            <h2 id="cat-corporate-governance" class="category-title">Corporate Filings &amp; Governance</h2>
+          </div>
+          <span class="category-count-badge">4 Portals</span>
+        </div>
+
+        <div class="reports-grid">
+          <!-- Card 7: IPO Hub & Upcoming Issues -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-emerald">Primary Market</span>
+                <span class="report-pill pill-source">Public Issues</span>
+              </div>
+              <h3 class="report-card-title">IPO Hub &amp; Upcoming Issues</h3>
+            </div>
+            <p class="report-card-desc">
+              Primary market public issue calendar, live subscription rates, bidding data, basis of allotment, and new listing schedules.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/market-data/all-upcoming-issues-ipo" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 8: Company Annual Reports -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-gold">Fundamentals</span>
+                <span class="report-pill pill-source">Audited Filings</span>
+              </div>
+              <h3 class="report-card-title">Company Annual Reports</h3>
+            </div>
+            <p class="report-card-desc">
+              Complete institutional corporate balance sheets, auditor remarks, cash flow statements, and management discussion disclosures.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/companies-listing/corporate-filings-annual-reports" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 9: Daily Buyback & Redemptions -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-purple">Capital Allocation</span>
+                <span class="report-pill pill-source">Corporate Action</span>
+              </div>
+              <h3 class="report-card-title">Daily Buyback &amp; Redemptions</h3>
+            </div>
+            <p class="report-card-desc">
+              Daily corporate share repurchases, open market tender offers, promoter capital allocation moves, and extinguish dates.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/companies-listing/corporate-filings-daily-buy-back" target="_blank" rel="noopener noreferrer" class="report-action-btn">
+                <span>Open Official Portal</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 10: Proposed Delistings & Regulatory Alerts -->
+          <article class="report-card">
+            <div class="report-card-top">
+              <div class="report-card-badge-row">
+                <span class="report-pill pill-rose">Risk Alert</span>
+                <span class="report-pill pill-source">Exchange Action</span>
+              </div>
+              <h3 class="report-card-title">Proposed Delistings &amp; Regulatory Alerts</h3>
+            </div>
+            <p class="report-card-desc">
+              Essential risk-management catalog of stocks under compulsory delisting action, trading suspensions, and compliance warnings.
+            </p>
+            <div class="report-card-footer">
+              <a href="https://www.nseindia.com/static/list/list-of-companies-proposed-to-be-delisted" target="_blank" rel="noopener noreferrer" class="report-action-btn alert-action-btn">
+                <span>Open Regulatory Catalog</span>
+                <span class="action-arrow">↗</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </div><!-- /#data-reports-container -->
+  </div><!-- /#view-data-reports -->
 
 
 
