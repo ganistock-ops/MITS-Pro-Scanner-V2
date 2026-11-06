@@ -796,6 +796,14 @@ def run_pipeline():
     except Exception as e:
         logger.warning(f"Smart money radar engine export bypassed or error: {e}")
 
+    # Isolated Predictive Sector Rotation Engine (1 to 4 Week Forward Inflow Radar)
+    try:
+        from compute_sector_rotation import compute_sector_rotation
+        rot_res = compute_sector_rotation(sector_analysis_data=sector_payload)
+        logger.info(f"Enriched data/sector_rotation.json with Predictive Sector Rotation ({rot_res.get('execution_time_ms', 0)}ms).")
+    except Exception as e:
+        logger.warning(f"Predictive sector rotation calculation bypassed: {e}")
+
     # Isolated Fundamental Research Dynamic Multiples Sync (Phase 1 Backend)
     try:
         from generate_fundamental_data import sync_fundamental_multiples

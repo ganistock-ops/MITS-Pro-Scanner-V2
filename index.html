@@ -86,6 +86,10 @@
           <span class="sidebar-icon">▦</span>
           <span class="sidebar-label">Sector Analysis</span>
         </a>
+        <a href="#sector-rotation" class="sidebar-item" id="nav-sector-rotation">
+          <span class="sidebar-icon">🔄</span>
+          <span class="sidebar-label">Sector Rotation</span>
+        </a>
         <a href="#smart-money" class="sidebar-item" id="nav-smart-money">
           <span class="sidebar-icon">🐋</span>
           <span class="sidebar-label">Smart Money Radar</span>
@@ -1039,6 +1043,184 @@
 
     </div><!-- /.sector-analysis-container -->
   </div><!-- /#view-sector-analysis -->
+
+  <!-- ===================================================================================
+       SECTOR ROTATION STATION (1-4W PREDICTIVE CAPITAL FLOW RADAR)
+       =================================================================================== -->
+  <div id="view-sector-rotation" class="terminal-view hidden sector-rotation-viewport" aria-label="Sector Rotation Station Workspace">
+    <div id="sector-rotation-station-container" class="sector-rotation-container">
+
+      <!-- 1. Station Header -->
+      <div class="rot-station-header">
+        <div class="rot-header-left">
+          <div class="rot-title-row">
+            <span class="rot-badge-chip">INSTITUTIONAL QUANTITATIVE SUITE</span>
+            <span class="rot-badge-live" id="rot-eod-badge">● EOD SYNC: --</span>
+          </div>
+          <h2 class="rot-main-title">🔮 Sector Rotation Station</h2>
+          <p class="rot-sub-title">
+            1 to 4 Week Forward Capital Flow Radar • Phase-Space Trajectory Dynamics • Stealth Institutional Delivery • Breadth Thrust Expansion
+          </p>
+        </div>
+        <div class="rot-header-right">
+          <div class="rot-benchmark-badge" id="rot-benchmark-box">
+            <span class="rot-bench-label">BENCHMARK (NIFTY 50)</span>
+            <div class="rot-bench-val-row">
+              <strong id="rot-bench-val">₹24,536.60</strong>
+              <span id="rot-bench-change" class="text-bullish">+2.40%</span>
+            </div>
+          </div>
+          <button id="rot-refresh-btn" class="rot-action-btn" type="button" title="Reload Sector Rotation Data">
+            <span>↻</span> Refresh Radar
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick KPI Stats Bar -->
+      <div class="rot-kpi-summary-grid">
+        <div class="rot-kpi-card kpi-card-inflow">
+          <div class="rot-kpi-top">
+            <span class="rot-kpi-icon">🚀</span>
+            <span class="rot-kpi-badge chip-bullish">Target: 1-4W</span>
+          </div>
+          <div class="rot-kpi-value-row">
+            <span class="rot-kpi-num text-bullish" id="rot-kpi-inflow-count">--</span>
+            <span class="rot-kpi-unit">Sectors</span>
+          </div>
+          <div class="rot-kpi-label">Early Inflow Accumulation</div>
+          <div class="rot-kpi-sub">Heading NE (0°–90°) • Accel &gt; 0</div>
+        </div>
+
+        <div class="rot-kpi-card kpi-card-warning">
+          <div class="rot-kpi-top">
+            <span class="rot-kpi-icon">⚠️</span>
+            <span class="rot-kpi-badge chip-warning">Caution</span>
+          </div>
+          <div class="rot-kpi-value-row">
+            <span class="rot-kpi-num text-bearish" id="rot-kpi-warning-count">--</span>
+            <span class="rot-kpi-unit">Sectors</span>
+          </div>
+          <div class="rot-kpi-label">Rotation-Out Warnings</div>
+          <div class="rot-kpi-sub">Heading SE • Exhaustion / Outflow</div>
+        </div>
+
+        <div class="rot-kpi-card kpi-card-thrust">
+          <div class="rot-kpi-top">
+            <span class="rot-kpi-icon">⚡</span>
+            <span class="rot-kpi-badge chip-cyan">5D Thrust</span>
+          </div>
+          <div class="rot-kpi-value-row">
+            <span class="rot-kpi-num text-cyan" id="rot-kpi-top-thrust">--</span>
+            <span class="rot-kpi-unit" id="rot-kpi-top-thrust-sec"></span>
+          </div>
+          <div class="rot-kpi-label">Peak Breadth Thrust Velocity</div>
+          <div class="rot-kpi-sub">Constituents Reclaiming 20 EMA</div>
+        </div>
+
+        <div class="rot-kpi-card kpi-card-total">
+          <div class="rot-kpi-top">
+            <span class="rot-kpi-icon">🌐</span>
+            <span class="rot-kpi-badge chip-cyan">Full Coverage</span>
+          </div>
+          <div class="rot-kpi-value-row">
+            <span class="rot-kpi-num" id="rot-kpi-total-count">20</span>
+            <span class="rot-kpi-unit">Sectors</span>
+          </div>
+          <div class="rot-kpi-label">Total Sectors Mapped</div>
+          <div class="rot-kpi-sub">501 NIFTY Stocks Monitored</div>
+        </div>
+      </div>
+
+      <!-- Section 1: Early Inflow Detected -->
+      <section class="rot-section-block" aria-label="Early Inflow Sectors">
+        <div class="rot-section-hdr">
+          <div class="rot-hdr-left">
+            <div class="rot-hdr-badge-row">
+              <span class="rot-chip-status chip-bullish">ACCUMULATION WAVE</span>
+              <span class="rot-hdr-meta">Pre-Breakout Institutional Positioning</span>
+            </div>
+            <h3 class="rot-hdr-title">🚀 Early Inflow Detected (Pre-Breakout Accumulation)</h3>
+            <p class="rot-hdr-desc">
+              Sectors exhibiting Northeast trajectory angles, positive momentum acceleration, and stealth institutional delivery. Expected to lead market rallies over the next 1 to 4 weeks.
+            </p>
+          </div>
+        </div>
+        <div class="rot-inflow-grid" id="rot-inflow-cards-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- Section 2: Rotation-Out / Exhaustion Warnings -->
+      <section class="rot-section-block" aria-label="Rotation Out Warnings">
+        <div class="rot-section-hdr">
+          <div class="rot-hdr-left">
+            <div class="rot-hdr-badge-row">
+              <span class="rot-chip-status chip-warning">DISTRIBUTION ALERT</span>
+              <span class="rot-hdr-meta">Tactical Defensive Risk Alert</span>
+            </div>
+            <h3 class="rot-hdr-title">⚠️ Rotation-Out &amp; Exhaustion Warnings</h3>
+            <p class="rot-hdr-desc">
+              Sectors facing negative trajectory angles, volume exhaustion, or aggressive institutional selling. Avoid chasing breakouts; tighten trailing stops on existing positions.
+            </p>
+          </div>
+        </div>
+        <div class="rot-warning-grid" id="rot-warning-cards-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- Section 3: 20-Sector Trajectory Matrix -->
+      <section class="rot-section-block" aria-label="20-Sector Trajectory Matrix">
+        <div class="rot-section-hdr rot-matrix-hdr">
+          <div class="rot-hdr-left">
+            <div class="rot-hdr-badge-row">
+              <span class="rot-chip-status chip-cyan">CROSS-SECTIONAL RADAR</span>
+              <span class="rot-hdr-meta">20-Sector Phase-Space Trajectory</span>
+            </div>
+            <h3 class="rot-hdr-title">📊 20-Sector Phase-Space Trajectory Matrix</h3>
+            <p class="rot-hdr-desc">
+              Complete polar coordinate vectors, velocity, acceleration, stealth delivery divergence, and breadth thrust across all 20 NSE sectors.
+            </p>
+          </div>
+          <div class="rot-matrix-controls">
+            <div class="rot-search-box">
+              <span class="rot-search-icon">🔍</span>
+              <input type="text" id="rot-matrix-search-input" placeholder="Search sector or carrier stock..." class="rot-search-input" />
+            </div>
+            <div class="rot-quad-tabs" id="rot-quadrant-filter-group">
+              <button type="button" class="rot-quad-tab active" data-filter="all">All (20)</button>
+              <button type="button" class="rot-quad-tab" data-filter="NE">NE Accumulation</button>
+              <button type="button" class="rot-quad-tab" data-filter="NW">NW Improving</button>
+              <button type="button" class="rot-quad-tab" data-filter="SE">SE Weakening</button>
+              <button type="button" class="rot-quad-tab" data-filter="SW">SW Lagging</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rot-table-wrap">
+          <table class="rot-table" id="rot-trajectory-table">
+            <thead>
+              <tr>
+                <th style="min-width: 170px;">Sector</th>
+                <th style="min-width: 150px;">Heading Trajectory</th>
+                <th style="min-width: 90px; text-align: right;">Velocity</th>
+                <th style="min-width: 110px; text-align: right;">Acceleration</th>
+                <th style="min-width: 90px; text-align: right;">5D Return</th>
+                <th style="min-width: 130px; text-align: right;">Stealth SDAD</th>
+                <th style="min-width: 120px; text-align: right;">Breadth BTV</th>
+                <th style="min-width: 140px; text-align: center;">Rotation Phase</th>
+                <th style="min-width: 240px;">Primary Carrier Stock</th>
+              </tr>
+            </thead>
+            <tbody id="rot-trajectory-tbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div><!-- /.sector-rotation-container -->
+  </div><!-- /#view-sector-rotation -->
   <!-- ===================================================================================
        SMART MONEY RADAR & WEINSTEIN REGIME MATRIX (VIEW 4)
        =================================================================================== -->

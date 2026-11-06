@@ -5549,6 +5549,9 @@ function initAdvScannerNavigation() {
       const wBtn = document.getElementById('nav-watchlist-alerts') || document.querySelector('a[href="#watchlist-alerts"]');
       const cBtn = document.getElementById('nav-stock-comparison') || document.querySelector('a[href="#stock-comparison"]');
       const repBtn = document.getElementById('nav-data-reports') || document.querySelector('a[href="#data-reports"]');
+      const rotView = document.getElementById('view-sector-rotation');
+      const rotCont = document.getElementById('sector-rotation-station-container');
+      const rotBtn = document.getElementById('nav-sector-rotation') || document.querySelector('a[href="#sector-rotation"]');
 
       function hideAllViews() {
         if (dView) { dView.classList.add('hidden'); dView.style.setProperty('display', 'none', 'important'); }
@@ -5557,6 +5560,8 @@ function initAdvScannerNavigation() {
         if (aView) { aView.classList.add('hidden'); aView.style.setProperty('display', 'none', 'important'); }
         if (sView) { sView.classList.add('hidden'); sView.style.setProperty('display', 'none', 'important'); }
         if (sCont) { sCont.classList.add('hidden'); sCont.style.setProperty('display', 'none', 'important'); }
+        if (rotView) { rotView.classList.add('hidden'); rotView.style.setProperty('display', 'none', 'important'); }
+        if (rotCont) { rotCont.classList.add('hidden'); rotCont.style.setProperty('display', 'none', 'important'); }
         if (smView) { smView.classList.add('hidden'); smView.style.setProperty('display', 'none', 'important'); }
         if (smCont) { smCont.classList.add('hidden'); smCont.style.setProperty('display', 'none', 'important'); }
         if (fView) { fView.classList.add('hidden'); fView.style.setProperty('display', 'none', 'important'); }
@@ -5570,6 +5575,27 @@ function initAdvScannerNavigation() {
         if (repView) { repView.classList.add('hidden'); repView.style.setProperty('display', 'none', 'important'); }
         if (repCont) { repCont.classList.add('hidden'); repCont.style.setProperty('display', 'none', 'important'); }
         document.querySelectorAll('.terminal-sidebar .sidebar-item').forEach(si => si.classList.remove('active'));
+      }
+
+      if (target === 'rotation' || target === 'sector-rotation') {
+        hideAllViews();
+        if (rotView) {
+          rotView.classList.remove('hidden');
+          rotView.style.setProperty('display', 'block', 'important');
+          rotView.style.minHeight = '500px';
+        }
+        if (rotCont) {
+          rotCont.classList.remove('hidden');
+          rotCont.style.setProperty('display', 'flex', 'important');
+        }
+        if (rotBtn) rotBtn.classList.add('active');
+        if (window.location.hash !== '#sector-rotation') {
+          window.location.hash = '#sector-rotation';
+        }
+        if (window.SectorRotationModule && typeof window.SectorRotationModule.init === 'function') {
+          window.SectorRotationModule.init();
+        }
+        return;
       }
 
       if (target === 'reports' || target === 'data' || target === 'data-reports') {
@@ -5781,6 +5807,11 @@ function initAdvScannerNavigation() {
           e.preventDefault();
           switchView('sec');
         });
+      } else if (item.id === 'nav-sector-rotation' || item.getAttribute('href') === '#sector-rotation') {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchView('rotation');
+        });
       } else if (item.id === 'nav-smart-money' || item.getAttribute('href') === '#smart-money' || item.getAttribute('href') === '#smart-money-radar') {
         item.addEventListener('click', (e) => {
           e.preventDefault();
@@ -5832,6 +5863,8 @@ function initAdvScannerNavigation() {
         switchView('adv');
       } else if (hash === '#sector-analysis') {
         switchView('sec');
+      } else if (hash === '#sector-rotation' || hash === '#rotation') {
+        switchView('rotation');
       } else if (hash === '#smart-money' || hash === '#smart-money-radar') {
         switchView('smart');
       } else if (hash === '#fundamental-research' || hash === '#fundamental') {
@@ -12388,5 +12421,404 @@ window.StockComparisonModule = (function () {
 if (window.location.hash === '#stock-comparison' || window.location.hash === '#compare') {
   if (window.StockComparisonModule && typeof window.StockComparisonModule.init === 'function') {
     window.StockComparisonModule.init();
+  }
+}
+
+
+// ===================================================================================
+// SECTOR ROTATION STATION MODULE (Predictive 1-4W Capital Flow Radar)
+// ===================================================================================
+window.SectorRotationModule = (function () {
+  let cachedData = null;
+  let activeQuadrantFilter = 'all';
+  let searchTerm = '';
+  let isInitialized = false;
+
+  function formatINR(val) {
+    if (val === null || val === undefined || isNaN(val)) return '₹0.00';
+    return '₹' + Number(val).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function formatPct(val, showSign = true) {
+    if (val === null || val === undefined || isNaN(val)) return '0.00%';
+    const num = Number(val);
+    const sign = showSign && num > 0 ? '+' : '';
+    return sign + num.toFixed(2) + '%';
+  }
+
+  function formatNum(val, dec = 1) {
+    if (val === null || val === undefined || isNaN(val)) return '0.0';
+    return Number(val).toFixed(dec);
+  }
+
+  async function loadData(force = false) {
+    if (cachedData && !force) {
+      renderAll();
+      return;
+    }
+
+    const basePath = window.location.pathname.includes('/wordpress') ? '../data/' : './data/';
+    try {
+      let res = await fetch(`${basePath}sector_rotation.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch(`data/sector_rotation.json?v=${Date.now()}`).catch(() => null);
+      if (!res || !res.ok) res = await fetch('data/sector_rotation.json').catch(() => null);
+
+      if (res && res.ok) {
+        cachedData = await res.json();
+        renderAll();
+      } else {
+        console.warn('[SectorRotationModule] Failed to fetch sector_rotation.json');
+      }
+    } catch (e) {
+      console.warn('[SectorRotationModule] Error loading data:', e);
+    }
+  }
+
+  function renderAll() {
+    if (!cachedData) return;
+    renderHeaderAndKPIs();
+    renderEarlyInflows();
+    renderWarnings();
+    renderTrajectoryMatrix();
+  }
+
+  function renderHeaderAndKPIs() {
+    // EOD badge
+    const eodBadge = document.getElementById('rot-eod-badge');
+    if (eodBadge && cachedData.session_date_display) {
+      eodBadge.textContent = `● EOD SYNC: ${cachedData.session_date_display}`;
+    }
+
+    // Benchmark box
+    const benchVal = document.getElementById('rot-bench-val');
+    const benchChg = document.getElementById('rot-bench-change');
+    if (cachedData.benchmark_ref) {
+      if (benchVal && cachedData.benchmark_ref.cmp) {
+        benchVal.textContent = formatINR(cachedData.benchmark_ref.cmp);
+      }
+    }
+
+    // KPI cards
+    const inflowCountEl = document.getElementById('rot-kpi-inflow-count');
+    const warningCountEl = document.getElementById('rot-kpi-warning-count');
+    const totalCountEl = document.getElementById('rot-kpi-total-count');
+    const topThrustEl = document.getElementById('rot-kpi-top-thrust');
+    const topThrustSecEl = document.getElementById('rot-kpi-top-thrust-sec');
+
+    const earlyInflows = cachedData.early_inflows || [];
+    const warnings = cachedData.rotation_out_warnings || [];
+    const trajectories = cachedData.sector_trajectories || [];
+
+    if (inflowCountEl) inflowCountEl.textContent = earlyInflows.length;
+    if (warningCountEl) warningCountEl.textContent = warnings.length;
+    if (totalCountEl) totalCountEl.textContent = cachedData.sectors_analyzed || trajectories.length;
+
+    // Find highest BTV sector
+    if (trajectories.length > 0) {
+      const sortedByBtv = [...trajectories].sort((a, b) => (b.btv_5d || 0) - (a.btv_5d || 0));
+      const topBtv = sortedByBtv[0];
+      if (topThrustEl && topBtv) {
+        topThrustEl.textContent = `+${formatNum(topBtv.btv_5d)}%`;
+      }
+      if (topThrustSecEl && topBtv) {
+        topThrustSecEl.textContent = topBtv.display_name;
+      }
+    }
+  }
+
+  function renderEarlyInflows() {
+    const container = document.getElementById('rot-inflow-cards-container');
+    if (!container) return;
+
+    const earlyInflows = cachedData.early_inflows || [];
+    if (earlyInflows.length === 0) {
+      container.innerHTML = `<div style="grid-column: 1 / -1; padding: 2rem; text-align: center; color: #64748b;">No early inflow sectors detected currently.</div>`;
+      return;
+    }
+
+    let html = '';
+    earlyInflows.forEach(sec => {
+      const isFast = sec.target_horizon === '1-2 Weeks';
+      const horizonPillClass = isFast ? 'pill-horizon-fast' : 'pill-horizon-medium';
+      const c = sec.carrier_stock || {};
+
+      html += `
+        <div class="rot-card rot-card-inflow">
+          <div class="rot-card-header">
+            <div>
+              <h4 class="rot-card-sector-name">${sec.display_name}</h4>
+              <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">${sec.confidence || 'Accumulation Phase'}</span>
+            </div>
+            <span class="rot-card-horizon-pill ${horizonPillClass}">🎯 ${sec.target_horizon}</span>
+          </div>
+
+          <div class="rot-vector-bar">
+            <div class="rot-vector-item">
+              <span class="rot-vec-label">HEADING</span>
+              <span class="rot-vec-val text-bullish">${sec.heading_angle}° NE</span>
+            </div>
+            <div class="rot-vector-item">
+              <span class="rot-vec-label">VELOCITY</span>
+              <span class="rot-vec-val text-cyan">${formatNum(sec.velocity)}</span>
+            </div>
+            <div class="rot-vector-item">
+              <span class="rot-vec-label">ACCEL</span>
+              <span class="rot-vec-val text-gold">${sec.acceleration > 0 ? '+' : ''}${formatNum(sec.acceleration)}</span>
+            </div>
+          </div>
+
+          <div class="rot-metric-pills-row">
+            <span class="rot-sub-pill text-bullish" title="Stealth Delivery Accumulation Divergence">
+              ◈ SDAD: <strong>${sec.sdad_score > 0 ? '+' : ''}${formatNum(sec.sdad_score)}</strong>
+            </span>
+            <span class="rot-sub-pill text-cyan" title="5-Day Delivery Spike vs Mean">
+              Spike: <strong>${sec.delivery_spike_pct > 0 ? '+' : ''}${formatNum(sec.delivery_spike_pct)}%</strong>
+            </span>
+            <span class="rot-sub-pill text-gold" title="5-Day Breadth Thrust Velocity (% stocks reclaiming 20 EMA)">
+              BTV: <strong>${sec.btv_5d > 0 ? '+' : ''}${formatNum(sec.btv_5d)}%</strong>
+            </span>
+          </div>
+
+          ${c.symbol ? `
+            <div class="rot-carrier-box">
+              <div class="rot-carrier-top">
+                <span class="rot-carrier-tag">👑 #1 PRIMARY CARRIER</span>
+                <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 700;">RS Score: <strong style="color: #38bdf8;">${c.rs_score}</strong></span>
+              </div>
+              <div class="rot-carrier-sym-row">
+                <span class="rot-carrier-sym">${c.symbol}</span>
+                <span class="rot-carrier-price">${formatINR(c.cmp)} <small style="font-size: 0.75rem; color: ${c.change_pct >= 0 ? '#10b981' : '#ef4444'};">${c.change_pct >= 0 ? '+' : ''}${formatNum(c.change_pct)}%</small></span>
+              </div>
+              <div class="rot-carrier-catalyst">
+                ⚡ ${c.catalyst}
+              </div>
+              <div class="rot-carrier-actions">
+                <button type="button" class="rot-btn-sm" onclick="openDossier('${c.symbol}')">Dossier</button>
+                <a href="${c.tv_url || 'https://in.tradingview.com/chart/?symbol=NSE:' + c.symbol}" target="_blank" rel="noopener noreferrer" class="rot-btn-sm">Chart ↗</a>
+                <button type="button" class="rot-btn-sm" onclick="window.SectorRotationModule.copySymbol('${c.symbol}', this)">Copy</button>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  }
+
+  function renderWarnings() {
+    const container = document.getElementById('rot-warning-cards-container');
+    if (!container) return;
+
+    const warnings = cachedData.rotation_out_warnings || [];
+    if (warnings.length === 0) {
+      container.innerHTML = `<div style="grid-column: 1 / -1; padding: 1.5rem; text-align: center; color: #64748b;">No active distribution or exhaustion warnings detected. All sectors exhibiting normal market flow.</div>`;
+      return;
+    }
+
+    let html = '';
+    warnings.forEach(w => {
+      const c = w.carrier_stock || {};
+      html += `
+        <div class="rot-warning-card">
+          <div class="rot-warn-top">
+            <h4 class="rot-warn-sector">${w.display_name}</h4>
+            <span class="rot-warn-type">${w.warning_type}</span>
+          </div>
+
+          <div class="rot-vector-bar" style="background: rgba(0, 0, 0, 0.3);">
+            <div class="rot-vector-item">
+              <span class="rot-vec-label">HEADING</span>
+              <span class="rot-vec-val text-bearish">${w.heading_angle}° SE</span>
+            </div>
+            <div class="rot-vector-item">
+              <span class="rot-vec-label">DECELERATION</span>
+              <span class="rot-vec-val text-bearish">${formatNum(w.acceleration)}</span>
+            </div>
+            <div class="rot-vector-item">
+              <span class="rot-vec-label">5D RETURN</span>
+              <span class="rot-vec-val">${w.return_5d > 0 ? '+' : ''}${formatNum(w.return_5d)}%</span>
+            </div>
+          </div>
+
+          <div class="rot-warn-tactical">
+            🛡️ <strong>Tactical Action:</strong> ${w.tactical_action}
+          </div>
+
+          ${c.symbol ? `
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.65rem; border-radius: 6px;">
+              <span>Anchor Constituent: <strong>${c.symbol}</strong> (${formatINR(c.cmp)})</span>
+              <button type="button" class="rot-btn-sm" style="padding: 0.2rem 0.5rem;" onclick="openDossier('${c.symbol}')">Inspect</button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  }
+
+  function renderTrajectoryMatrix() {
+    const tbody = document.getElementById('rot-trajectory-tbody');
+    if (!tbody) return;
+
+    let trajectories = cachedData.sector_trajectories || [];
+
+    // Filter by quadrant
+    if (activeQuadrantFilter !== 'all') {
+      trajectories = trajectories.filter(t => t.heading_code === activeQuadrantFilter);
+    }
+
+    // Filter by search term
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      trajectories = trajectories.filter(t => 
+        (t.display_name && t.display_name.toLowerCase().includes(q)) ||
+        (t.sector && t.sector.toLowerCase().includes(q)) ||
+        (t.carrier_stock && t.carrier_stock.symbol && t.carrier_stock.symbol.toLowerCase().includes(q))
+      );
+    }
+
+    if (trajectories.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 2rem; color: #64748b;">No sectors match the active filter criteria.</td></tr>`;
+      return;
+    }
+
+    let html = '';
+    trajectories.forEach(t => {
+      const qClass = t.heading_code ? `traj-${t.heading_code.toLowerCase()}` : 'traj-ne';
+      const c = t.carrier_stock || {};
+
+      let phaseClass = 'phase-leader';
+      if (t.rotation_phase === 'ACCUMULATION_LEADER') phaseClass = 'phase-leader';
+      else if (t.rotation_phase === 'EARLY_INFLECTION') phaseClass = 'phase-inflection';
+      else if (t.rotation_phase === 'IMPROVING_BASE') phaseClass = 'phase-improving';
+      else if (t.rotation_phase === 'EXHAUSTION') phaseClass = 'phase-exhaustion';
+      else phaseClass = 'phase-lagging';
+
+      const phaseText = (t.rotation_phase || 'CONSOLIDATION').replace('_', ' ');
+
+      html += `
+        <tr>
+          <td>
+            <strong style="color: #f8fafc; font-size: 0.88rem;">${t.display_name}</strong>
+            <div style="font-size: 0.7rem; color: #64748b;">${t.stocks_count} stocks monitored</div>
+          </td>
+          <td>
+            <span class="rot-traj-pill ${qClass}">
+              <span>${t.heading_code === 'NE' ? '↗' : (t.heading_code === 'NW' ? '↖' : (t.heading_code === 'SE' ? '↘' : '↙'))}</span>
+              ${t.heading_angle}° ${t.heading_code}
+            </span>
+          </td>
+          <td style="text-align: right; font-weight: 700; color: #38bdf8;">
+            ${formatNum(t.velocity)}
+          </td>
+          <td style="text-align: right; font-weight: 800; color: ${t.acceleration >= 0 ? '#10b981' : '#ef4444'};">
+            ${t.acceleration >= 0 ? '+' : ''}${formatNum(t.acceleration)}
+          </td>
+          <td style="text-align: right; font-weight: 700; color: ${t.return_5d >= 0 ? '#10b981' : '#ef4444'};">
+            ${formatPct(t.return_5d)}
+          </td>
+          <td style="text-align: right; font-weight: 700; color: ${t.sdad_score >= 10 ? '#10b981' : (t.sdad_score <= -10 ? '#ef4444' : '#94a3b8')};">
+            ${t.sdad_score >= 0 ? '+' : ''}${formatNum(t.sdad_score)}
+          </td>
+          <td style="text-align: right; font-weight: 700; color: ${t.btv_5d >= 10 ? '#10b981' : (t.btv_5d <= -10 ? '#ef4444' : '#cbd5e1')};">
+            ${t.btv_5d >= 0 ? '+' : ''}${formatNum(t.btv_5d)}%
+          </td>
+          <td style="text-align: center;">
+            <span class="rot-phase-tag ${phaseClass}">${phaseText}</span>
+          </td>
+          <td>
+            ${c.symbol ? `
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+                <div>
+                  <strong style="color: #ffffff; cursor: pointer;" onclick="openDossier('${c.symbol}')" title="Inspect Dossier">${c.symbol}</strong>
+                  <span style="font-size: 0.72rem; color: #94a3b8; margin-left: 0.35rem;">(${formatINR(c.cmp)})</span>
+                </div>
+                <div style="display: flex; gap: 0.25rem;">
+                  <button type="button" class="rot-btn-sm" style="padding: 0.15rem 0.45rem; font-size: 0.7rem;" onclick="openDossier('${c.symbol}')">Dossier</button>
+                  <a href="${c.tv_url || 'https://in.tradingview.com/chart/?symbol=NSE:' + c.symbol}" target="_blank" rel="noopener noreferrer" class="rot-btn-sm" style="padding: 0.15rem 0.45rem; font-size: 0.7rem;">Chart</a>
+                </div>
+              </div>
+            ` : '<span style="color: #64748b;">--</span>'}
+          </td>
+        </tr>
+      `;
+    });
+
+    tbody.innerHTML = html;
+  }
+
+  function bindEvents() {
+    if (isInitialized) return;
+    isInitialized = true;
+
+    // Refresh Button
+    const refreshBtn = document.getElementById('rot-refresh-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        refreshBtn.classList.add('spinning');
+        loadData(true).finally(() => {
+          setTimeout(() => refreshBtn.classList.remove('spinning'), 500);
+        });
+      });
+    }
+
+    // Search Input
+    const searchInput = document.getElementById('rot-matrix-search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchTerm = e.target.value.trim();
+        renderTrajectoryMatrix();
+      });
+    }
+
+    // Quadrant Filter Tabs
+    const quadGroup = document.getElementById('rot-quadrant-filter-group');
+    if (quadGroup) {
+      quadGroup.addEventListener('click', (e) => {
+        const btn = e.target.closest('.rot-quad-tab');
+        if (!btn) return;
+        quadGroup.querySelectorAll('.rot-quad-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeQuadrantFilter = btn.getAttribute('data-filter') || 'all';
+        renderTrajectoryMatrix();
+      });
+    }
+  }
+
+  function copySymbol(symbol, btnElement) {
+    if (!symbol) return;
+    navigator.clipboard.writeText(symbol).then(() => {
+      const origText = btnElement.textContent;
+      btnElement.textContent = 'Copied!';
+      btnElement.style.color = '#10b981';
+      btnElement.style.borderColor = '#10b981';
+      setTimeout(() => {
+        btnElement.textContent = origText;
+        btnElement.style.color = '';
+        btnElement.style.borderColor = '';
+      }, 1500);
+    }).catch(err => {
+      console.warn('Clipboard copy failed:', err);
+    });
+  }
+
+  function init() {
+    bindEvents();
+    loadData();
+  }
+
+  return {
+    init: init,
+    refresh: () => loadData(true),
+    copySymbol: copySymbol
+  };
+})();
+
+// Automatically boot Sector Rotation module if loaded on the hash
+if (window.location.hash === '#sector-rotation' || window.location.hash === '#rotation') {
+  if (window.SectorRotationModule && typeof window.SectorRotationModule.init === 'function') {
+    window.SectorRotationModule.init();
   }
 }
