@@ -790,6 +790,30 @@
               </div>
             </div>
 
+            <!-- Proximity Pivot Radar Quick Toggle Toolbar -->
+            <div class="proximity-radar-toolbar" id="adv-proximity-radar-bar">
+              <div class="proximity-radar-label">
+                <span class="radar-dot"></span> PROXIMITY PIVOT RADAR (±1.0%):
+              </div>
+              <div class="proximity-pills-container" id="adv-proximity-pills-group">
+                <button type="button" class="prox-pill active" data-filter="ALL" id="prox-pill-all">
+                  <span class="prox-icon">🌐</span> All Stocks <span class="prox-count" id="prox-cnt-all">(0)</span>
+                </button>
+                <button type="button" class="prox-pill" data-filter="EMA20" id="prox-pill-ema20">
+                  <span class="prox-icon">🎯</span> Near 20 EMA <span class="prox-count" id="prox-cnt-ema20">(0)</span>
+                </button>
+                <button type="button" class="prox-pill" data-filter="EMA50" id="prox-pill-ema50">
+                  <span class="prox-icon">🛡️</span> Near 50 EMA <span class="prox-count" id="prox-cnt-ema50">(0)</span>
+                </button>
+                <button type="button" class="prox-pill" data-filter="S1" id="prox-pill-s1">
+                  <span class="prox-icon">🟢</span> Near S1 Support <span class="prox-count" id="prox-cnt-s1">(0)</span>
+                </button>
+                <button type="button" class="prox-pill" data-filter="R1" id="prox-pill-r1">
+                  <span class="prox-icon">🚀</span> Near R1 Breakout <span class="prox-count" id="prox-cnt-r1">(0)</span>
+                </button>
+              </div>
+            </div>
+
             <!-- RS Data Table Card -->
             <div class="table-card" id="adv-table-card">
               <div class="table-responsive table-responsive-wrapper">

@@ -4334,6 +4334,7 @@
     sectorFilter: 'ALL',
     sortColumn: 'rs_score',
     sortDirection: 'desc',
+    proximityFilter: 'ALL',
     currentPage: 1,
     pageSize: 15
   };
@@ -5948,6 +5949,21 @@ function initAdvScannerNavigation() {
       exportBtn.addEventListener('click', exportAdvCsv);
     }
 
+    // Proximity Pivot Radar pill group event listener
+    const proxPillsGroup = document.getElementById('adv-proximity-pills-group');
+    if (proxPillsGroup) {
+      proxPillsGroup.addEventListener('click', (e) => {
+        const btn = e.target.closest('.prox-pill');
+        if (!btn) return;
+        const filterVal = btn.getAttribute('data-filter') || 'ALL';
+        advState.proximityFilter = filterVal;
+        advState.currentPage = 1;
+        proxPillsGroup.querySelectorAll('.prox-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderAdvActiveTable();
+      });
+    }
+
     // Initial thead setup
     renderAdvThead(advState.activeSlot);
   }
@@ -5960,6 +5976,14 @@ function initAdvScannerNavigation() {
     advState.gradeFilter = 'ALL';
     advState.classFilter = 'ALL';
     advState.sectorFilter = 'ALL';
+    advState.proximityFilter = 'ALL';
+
+    const pGroup = document.getElementById('adv-proximity-pills-group');
+    if (pGroup) {
+      pGroup.querySelectorAll('.prox-pill').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-filter') === 'ALL');
+      });
+    }
 
     const sSearch = document.getElementById('adv-rs-search');
     if (sSearch) sSearch.value = '';
@@ -6731,6 +6755,101 @@ function initAdvScannerNavigation() {
     });
   }
 
+  // --- Proximity Pivot Radar Helpers ---
+  function getProximityBadgeHtml(s) {
+    if (!s) return '';
+    const p = s.proximity;
+    if (p) {
+      if (p.near_ema20) {
+        const d = p.dist_ema20_pct !== null && p.dist_ema20_pct !== undefined ? `${p.dist_ema20_pct >= 0 ? '+' : ''}${Number(p.dist_ema20_pct).toFixed(1)}%` : '±0%';
+        return `<span class="prox-table-badge badge-ema20" title="Within ±1.0% of 20 EMA (${d})">🎯 20 EMA (${d})</span>`;
+      }
+      if (p.near_ema50) {
+        const d = p.dist_ema50_pct !== null && p.dist_ema50_pct !== undefined ? `${p.dist_ema50_pct >= 0 ? '+' : ''}${Number(p.dist_ema50_pct).toFixed(1)}%` : '±0%';
+        return `<span class="prox-table-badge badge-ema50" title="Within ±1.0% of 50 EMA (${d})">🛡️ 50 EMA (${d})</span>`;
+      }
+      if (p.near_s1) {
+        const d = p.dist_s1_pct !== null && p.dist_s1_pct !== undefined ? `${p.dist_s1_pct >= 0 ? '+' : ''}${Number(p.dist_s1_pct).toFixed(1)}%` : '±0%';
+        return `<span class="prox-table-badge badge-s1" title="Within ±1.0% of S1 Support (${d})">🟢 Near S1 (${d})</span>`;
+      }
+      if (p.near_r1) {
+        const d = p.dist_r1_pct !== null && p.dist_r1_pct !== undefined ? `${p.dist_r1_pct >= 0 ? '+' : ''}${Number(p.dist_r1_pct).toFixed(1)}%` : '±0%';
+        return `<span class="prox-table-badge badge-r1" title="Within ±1.0% of R1 Resistance (${d})">🚀 Near R1 (${d})</span>`;
+      }
+    } else {
+      const cmp = s.ltp !== undefined ? s.ltp : s.cmp;
+      const ema20 = s.ema_20 || s.dossier?.ema_20;
+      const ema50 = s.ema_50 || s.dossier?.ema_50;
+      const s1 = s.dossier?.key_levels?.support || s.dossier?.key_levels?.support_1 || s.support || s.s1;
+      const r1 = s.dossier?.key_levels?.resistance || s.dossier?.key_levels?.pivot_resistance || s.resistance || s.r1;
+      if (ema20 && cmp && Math.abs((cmp - ema20) / ema20) <= 0.010) {
+        const d = (((cmp - ema20) / ema20) * 100).toFixed(1);
+        return `<span class="prox-table-badge badge-ema20" title="Within ±1.0% of 20 EMA (${d >= 0 ? '+' : ''}${d}%)">🎯 20 EMA (${d >= 0 ? '+' : ''}${d}%)</span>`;
+      }
+      if (ema50 && cmp && Math.abs((cmp - ema50) / ema50) <= 0.010) {
+        const d = (((cmp - ema50) / ema50) * 100).toFixed(1);
+        return `<span class="prox-table-badge badge-ema50" title="Within ±1.0% of 50 EMA (${d >= 0 ? '+' : ''}${d}%)">🛡️ 50 EMA (${d >= 0 ? '+' : ''}${d}%)</span>`;
+      }
+      if (s1 && cmp && Math.abs((cmp - s1) / s1) <= 0.010) {
+        const d = (((cmp - s1) / s1) * 100).toFixed(1);
+        return `<span class="prox-table-badge badge-s1" title="Within ±1.0% of S1 Support (${d >= 0 ? '+' : ''}${d}%)">🟢 Near S1 (${d >= 0 ? '+' : ''}${d}%)</span>`;
+      }
+      if (r1 && cmp && Math.abs((cmp - r1) / r1) <= 0.010) {
+        const d = (((cmp - r1) / r1) * 100).toFixed(1);
+        return `<span class="prox-table-badge badge-r1" title="Within ±1.0% of R1 Resistance (${d >= 0 ? '+' : ''}${d}%)">🚀 Near R1 (${d >= 0 ? '+' : ''}${d}%)</span>`;
+      }
+    }
+    return '';
+  }
+
+  function updateAdvProximityPillCounts() {
+    let d = null;
+    if (advState.activeSlot === 1) d = advState.rsData;
+    else if (advState.activeSlot === 2) d = advState.boData;
+    else if (advState.activeSlot === 3) d = advState.mcData;
+    else if (advState.activeSlot === 4) d = advState.rbrData;
+    else if (advState.activeSlot === 5) d = advState.confluenceData;
+    else if (advState.activeSlot === 6) d = advState.wyckoffData;
+
+    const stocks = d?.stocks || [];
+    let cntAll = stocks.length;
+    let cntEma20 = 0;
+    let cntEma50 = 0;
+    let cntS1 = 0;
+    let cntR1 = 0;
+
+    for (let i = 0; i < stocks.length; i++) {
+      const s = stocks[i];
+      const p = s.proximity;
+      if (p) {
+        if (p.near_ema20) cntEma20++;
+        if (p.near_ema50) cntEma50++;
+        if (p.near_s1) cntS1++;
+        if (p.near_r1) cntR1++;
+      } else {
+        const cmp = s.ltp !== undefined ? s.ltp : s.cmp;
+        const ema20 = s.ema_20 || s.dossier?.ema_20;
+        const ema50 = s.ema_50 || s.dossier?.ema_50;
+        const s1 = s.dossier?.key_levels?.support || s.dossier?.key_levels?.support_1 || s.support || s.s1;
+        const r1 = s.dossier?.key_levels?.resistance || s.dossier?.key_levels?.pivot_resistance || s.resistance || s.r1;
+        if (ema20 && cmp && Math.abs((cmp - ema20) / ema20) <= 0.010) cntEma20++;
+        if (ema50 && cmp && Math.abs((cmp - ema50) / ema50) <= 0.010) cntEma50++;
+        if (s1 && cmp && Math.abs((cmp - s1) / s1) <= 0.010) cntS1++;
+        if (r1 && cmp && Math.abs((cmp - r1) / r1) <= 0.010) cntR1++;
+      }
+    }
+
+    const setTxt = (id, txt) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = `(${txt})`;
+    };
+    setTxt('prox-cnt-all', cntAll);
+    setTxt('prox-cnt-ema20', cntEma20);
+    setTxt('prox-cnt-ema50', cntEma50);
+    setTxt('prox-cnt-s1', cntS1);
+    setTxt('prox-cnt-r1', cntR1);
+  }
+
   function renderAdvActiveTable() {
     try {
       const tableCard = document.getElementById('adv-table-card');
@@ -6784,6 +6903,7 @@ function initAdvScannerNavigation() {
       }
 
       let stocks = [...activeData.stocks];
+      updateAdvProximityPillCounts();
 
       // Filter Search
       if (advState.searchQuery) {
@@ -6826,6 +6946,39 @@ function initAdvScannerNavigation() {
         if (isSlot6 && advState.classFilter !== 'ALL') {
           stocks = stocks.filter(s => (s.phase_tag === advState.classFilter || s.phase === advState.classFilter));
         }
+      }
+
+      // Filter Proximity Pivot Radar (±1.0% buffer)
+      if (advState.proximityFilter && advState.proximityFilter !== 'ALL') {
+        const pKey = advState.proximityFilter;
+        stocks = stocks.filter(s => {
+          const prox = s.proximity;
+          if (pKey === 'EMA20') {
+            if (prox && prox.near_ema20 !== undefined) return prox.near_ema20;
+            const ema20 = s.ema_20 || s.dossier?.ema_20;
+            const cmp = s.ltp !== undefined ? s.ltp : s.cmp;
+            return ema20 && cmp ? Math.abs((cmp - ema20) / ema20) <= 0.010 : false;
+          }
+          if (pKey === 'EMA50') {
+            if (prox && prox.near_ema50 !== undefined) return prox.near_ema50;
+            const ema50 = s.ema_50 || s.dossier?.ema_50;
+            const cmp = s.ltp !== undefined ? s.ltp : s.cmp;
+            return ema50 && cmp ? Math.abs((cmp - ema50) / ema50) <= 0.010 : false;
+          }
+          if (pKey === 'S1') {
+            if (prox && prox.near_s1 !== undefined) return prox.near_s1;
+            const s1 = s.dossier?.key_levels?.support || s.dossier?.key_levels?.support_1 || s.support || s.s1;
+            const cmp = s.ltp !== undefined ? s.ltp : s.cmp;
+            return s1 && cmp ? Math.abs((cmp - s1) / s1) <= 0.010 : false;
+          }
+          if (pKey === 'R1') {
+            if (prox && prox.near_r1 !== undefined) return prox.near_r1;
+            const r1 = s.dossier?.key_levels?.resistance || s.dossier?.key_levels?.pivot_resistance || s.resistance || s.r1;
+            const cmp = s.ltp !== undefined ? s.ltp : s.cmp;
+            return r1 && cmp ? Math.abs((cmp - r1) / r1) <= 0.010 : false;
+          }
+          return true;
+        });
       }
 
       // Sorting
@@ -6976,7 +7129,10 @@ function initAdvScannerNavigation() {
               </td>
               <td class="col-symbol text-left sticky-symbol-col" style="min-width: 140px; text-align: left !important;">
                 <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
-                  <strong>${s.symbol}</strong>
+                  <div style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
+                    <strong>${s.symbol}</strong>
+                    ${getProximityBadgeHtml(s)}
+                  </div>
                   <span class="muted-sector">${s.name || s.sector || 'NSE'}</span>
                 </div>
               </td>
@@ -7035,7 +7191,10 @@ function initAdvScannerNavigation() {
               </td>
               <td class="col-symbol text-left" style="text-align: left !important;">
                 <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
-                  <strong>${s.symbol}</strong>
+                  <div style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
+                    <strong>${s.symbol}</strong>
+                    ${getProximityBadgeHtml(s)}
+                  </div>
                   <span class="muted-sector">${s.name || s.company_name || s.sector || 'NSE'}</span>
                 </div>
               </td>
@@ -7116,7 +7275,10 @@ function initAdvScannerNavigation() {
               </td>
               <td class="col-symbol text-left sticky-symbol-col" style="min-width: 140px; text-align: left !important;">
                 <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
-                  <strong>${s.symbol}</strong>
+                  <div style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
+                    <strong>${s.symbol}</strong>
+                    ${getProximityBadgeHtml(s)}
+                  </div>
                   <span class="muted-sector">${s.company_name || s.name || s.sector || 'NSE'}</span>
                 </div>
               </td>
@@ -7222,7 +7384,10 @@ function initAdvScannerNavigation() {
               </td>
               <td class="col-symbol text-left sticky-symbol-col" style="min-width: 140px; text-align: left !important;">
                 <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
-                  <strong>${s.symbol}</strong>
+                  <div style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
+                    <strong>${s.symbol}</strong>
+                    ${getProximityBadgeHtml(s)}
+                  </div>
                   <span class="muted-sector">${s.company_name || s.name || s.sector || 'NSE'}</span>
                 </div>
               </td>
@@ -7337,7 +7502,10 @@ function initAdvScannerNavigation() {
               </td>
               <td class="col-symbol text-left sticky-symbol-col" style="min-width: 140px; text-align: left !important;">
                 <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
-                  <strong>${s.symbol}</strong>
+                  <div style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
+                    <strong>${s.symbol}</strong>
+                    ${getProximityBadgeHtml(s)}
+                  </div>
                   <span class="muted-sector">${s.company_name || s.name || s.sector || 'NSE'}</span>
                 </div>
               </td>
@@ -7431,7 +7599,10 @@ function initAdvScannerNavigation() {
               </td>
               <td class="col-symbol text-left sticky-symbol-col" style="min-width: 140px; text-align: left !important;">
                 <div class="col-symbol" style="text-align: left !important; align-items: flex-start !important;">
-                  <strong>${s.symbol}</strong>
+                  <div style="display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;">
+                    <strong>${s.symbol}</strong>
+                    ${getProximityBadgeHtml(s)}
+                  </div>
                   <span class="muted-sector">${s.company_name || s.name || s.sector || 'NSE'}</span>
                 </div>
               </td>
