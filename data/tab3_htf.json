@@ -58,7 +58,17 @@
       "s3": 3036.68,
       "r1": 4347.4,
       "r2": 4564.77,
-      "r3": 4650.14
+      "r3": 4650.14,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.79,
+        "dist_ema50_pct": 15.42,
+        "dist_s1_pct": 10.18,
+        "dist_r1_pct": -2.02
+      }
     }
   ]
 }

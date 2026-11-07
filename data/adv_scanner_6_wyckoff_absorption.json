@@ -100,7 +100,17 @@
         "dist_52w": "0.0% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ICICIBANK"
       },
-      "rank": 1
+      "rank": 1,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 11.16,
+        "dist_ema50_pct": 12.93,
+        "dist_s1_pct": 21.7,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "HDFCBANK",
@@ -188,7 +198,17 @@
         "dist_52w": "-21.2% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HDFCBANK"
       },
-      "rank": 2
+      "rank": 2,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.64,
+        "dist_ema50_pct": 9.5,
+        "dist_s1_pct": 17.79,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "HDFCLIFE",
@@ -276,7 +296,17 @@
         "dist_52w": "-28.1% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HDFCLIFE"
       },
-      "rank": 3
+      "rank": 3,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.62,
+        "dist_ema50_pct": 4.8,
+        "dist_s1_pct": 11.27,
+        "dist_r1_pct": -0.37
+      }
     },
     {
       "symbol": "IOC",
@@ -364,7 +394,17 @@
         "dist_52w": "-20.9% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IOC"
       },
-      "rank": 4
+      "rank": 4,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.36,
+        "dist_ema50_pct": 8.74,
+        "dist_s1_pct": 17.07,
+        "dist_r1_pct": -0.72
+      }
     },
     {
       "symbol": "ULTRACEMCO",
@@ -452,7 +492,17 @@
         "dist_52w": "-3.1% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ULTRACEMCO"
       },
-      "rank": 5
+      "rank": 5,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.56,
+        "dist_ema50_pct": 10.95,
+        "dist_s1_pct": 19.41,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "BHARTIARTL",
@@ -540,7 +590,17 @@
         "dist_52w": "-1.9% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BHARTIARTL"
       },
-      "rank": 6
+      "rank": 6,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.66,
+        "dist_ema50_pct": 10.7,
+        "dist_s1_pct": 22.06,
+        "dist_r1_pct": -0.6
+      }
     },
     {
       "symbol": "MGL",
@@ -628,7 +688,17 @@
         "dist_52w": "-8.4% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MGL"
       },
-      "rank": 7
+      "rank": 7,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.44,
+        "dist_ema50_pct": 6.04,
+        "dist_s1_pct": 12.96,
+        "dist_r1_pct": -3.72
+      }
     },
     {
       "symbol": "LT",
@@ -716,7 +786,17 @@
         "dist_52w": "-6.4% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LT"
       },
-      "rank": 8
+      "rank": 8,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.13,
+        "dist_ema50_pct": 7.2,
+        "dist_s1_pct": 14.61,
+        "dist_r1_pct": -0.18
+      }
     },
     {
       "symbol": "HAVELLS",
@@ -804,7 +884,17 @@
         "dist_52w": "-24.9% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HAVELLS"
       },
-      "rank": 9
+      "rank": 9,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.12,
+        "dist_ema50_pct": 2.78,
+        "dist_s1_pct": 12.89,
+        "dist_r1_pct": -1.36
+      }
     },
     {
       "symbol": "M&M",
@@ -892,7 +982,17 @@
         "dist_52w": "-13.5% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:M&M"
       },
-      "rank": 10
+      "rank": 10,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 11.32,
+        "dist_ema50_pct": 9.51,
+        "dist_s1_pct": 19.78,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "HEROMOTOCO",
@@ -980,7 +1080,17 @@
         "dist_52w": "-10.7% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HEROMOTOCO"
       },
-      "rank": 11
+      "rank": 11,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.85,
+        "dist_ema50_pct": 5.07,
+        "dist_s1_pct": 14.26,
+        "dist_r1_pct": -0.67
+      }
     },
     {
       "symbol": "SHYAMMETL",
@@ -1068,7 +1178,17 @@
         "dist_52w": "-0.3% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SHYAMMETL"
       },
-      "rank": 12
+      "rank": 12,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.35,
+        "dist_ema50_pct": 16.04,
+        "dist_s1_pct": 29.4,
+        "dist_r1_pct": -0.34
+      }
     },
     {
       "symbol": "INDIGO",
@@ -1156,7 +1276,17 @@
         "dist_52w": "-8.3% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDIGO"
       },
-      "rank": 13
+      "rank": 13,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.87,
+        "dist_ema50_pct": 11.04,
+        "dist_s1_pct": 22.66,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "MCX",
@@ -1244,7 +1374,17 @@
         "dist_52w": "-0.6% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MCX"
       },
-      "rank": 14
+      "rank": 14,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.65,
+        "dist_ema50_pct": 9.8,
+        "dist_s1_pct": 22.8,
+        "dist_r1_pct": -0.62
+      }
     },
     {
       "symbol": "MARUTI",
@@ -1332,7 +1472,17 @@
         "dist_52w": "-25.9% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MARUTI"
       },
-      "rank": 15
+      "rank": 15,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.07,
+        "dist_ema50_pct": 5.57,
+        "dist_s1_pct": 16.07,
+        "dist_r1_pct": -0.67
+      }
     },
     {
       "symbol": "GRANULES",
@@ -1420,7 +1570,17 @@
         "dist_52w": "-13.4% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GRANULES"
       },
-      "rank": 16
+      "rank": 16,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": -2.15,
+        "dist_ema50_pct": -3.44,
+        "dist_s1_pct": 5.01,
+        "dist_r1_pct": -13.42
+      }
     },
     {
       "symbol": "AXISBANK",
@@ -1508,7 +1668,17 @@
         "dist_52w": "-6.7% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AXISBANK"
       },
-      "rank": 17
+      "rank": 17,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.41,
+        "dist_ema50_pct": 6.29,
+        "dist_s1_pct": 12.59,
+        "dist_r1_pct": -0.12
+      }
     },
     {
       "symbol": "GRASIM",
@@ -1596,7 +1766,17 @@
         "dist_52w": "-5.4% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GRASIM"
       },
-      "rank": 18
+      "rank": 18,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.4,
+        "dist_ema50_pct": 5.41,
+        "dist_s1_pct": 14.1,
+        "dist_r1_pct": -2.93
+      }
     },
     {
       "symbol": "TITAN",
@@ -1684,7 +1864,17 @@
         "dist_52w": "-3.6% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TITAN"
       },
-      "rank": 19
+      "rank": 19,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.25,
+        "dist_ema50_pct": 7.91,
+        "dist_s1_pct": 18.79,
+        "dist_r1_pct": -0.42
+      }
     },
     {
       "symbol": "ASAHIINDIA",
@@ -1772,7 +1962,17 @@
         "dist_52w": "-3.5% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ASAHIINDIA"
       },
-      "rank": 20
+      "rank": 20,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.54,
+        "dist_ema50_pct": 9.84,
+        "dist_s1_pct": 18.68,
+        "dist_r1_pct": -0.5
+      }
     },
     {
       "symbol": "FORCEMOT",
@@ -1860,7 +2060,17 @@
         "dist_52w": "-28.1% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:FORCEMOT"
       },
-      "rank": 21
+      "rank": 21,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.06,
+        "dist_ema50_pct": 8.37,
+        "dist_s1_pct": 17.2,
+        "dist_r1_pct": -0.69
+      }
     },
     {
       "symbol": "GMRAIRPORT",
@@ -1948,7 +2158,17 @@
         "dist_52w": "-14.6% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GMRAIRPORT"
       },
-      "rank": 22
+      "rank": 22,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.28,
+        "dist_ema50_pct": 4.92,
+        "dist_s1_pct": 17.25,
+        "dist_r1_pct": -2.5
+      }
     },
     {
       "symbol": "DIVISLAB",
@@ -2036,7 +2256,17 @@
         "dist_52w": "0.0% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DIVISLAB"
       },
-      "rank": 23
+      "rank": 23,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.96,
+        "dist_ema50_pct": 11.45,
+        "dist_s1_pct": 22.66,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "MAHABANK",
@@ -2124,7 +2354,17 @@
         "dist_52w": "-8.0% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MAHABANK"
       },
-      "rank": 24
+      "rank": 24,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.91,
+        "dist_ema50_pct": 6.81,
+        "dist_s1_pct": 19.43,
+        "dist_r1_pct": -0.67
+      }
     },
     {
       "symbol": "JSWSTEEL",
@@ -2212,7 +2452,17 @@
         "dist_52w": "-0.9% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JSWSTEEL"
       },
-      "rank": 25
+      "rank": 25,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.43,
+        "dist_ema50_pct": 7.39,
+        "dist_s1_pct": 17.19,
+        "dist_r1_pct": -0.94
+      }
     },
     {
       "symbol": "NAVINFLUOR",
@@ -2300,7 +2550,17 @@
         "dist_52w": "-0.3% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NAVINFLUOR"
       },
-      "rank": 26
+      "rank": 26,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.67,
+        "dist_ema50_pct": 8.31,
+        "dist_s1_pct": 20.07,
+        "dist_r1_pct": -0.28
+      }
     },
     {
       "symbol": "INDHOTEL",
@@ -2388,7 +2648,17 @@
         "dist_52w": "-0.5% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDHOTEL"
       },
-      "rank": 27
+      "rank": 27,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.52,
+        "dist_ema50_pct": 16.03,
+        "dist_s1_pct": 26.58,
+        "dist_r1_pct": -0.53
+      }
     },
     {
       "symbol": "ASHOKLEY",
@@ -2476,7 +2746,17 @@
         "dist_52w": "-18.8% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ASHOKLEY"
       },
-      "rank": 28
+      "rank": 28,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 12.51,
+        "dist_ema50_pct": 10.81,
+        "dist_s1_pct": 22.91,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "JIOFIN",
@@ -2564,7 +2844,17 @@
         "dist_52w": "-26.9% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JIOFIN"
       },
-      "rank": 29
+      "rank": 29,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.7,
+        "dist_ema50_pct": 4.1,
+        "dist_s1_pct": 14.17,
+        "dist_r1_pct": -1.2
+      }
     },
     {
       "symbol": "DOMS",
@@ -2652,7 +2942,17 @@
         "dist_52w": "-25.3% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DOMS"
       },
-      "rank": 30
+      "rank": 30,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.05,
+        "dist_ema50_pct": 0.16,
+        "dist_s1_pct": 15.71,
+        "dist_r1_pct": -9.91
+      }
     },
     {
       "symbol": "ESCORTS",
@@ -2740,7 +3040,17 @@
         "dist_52w": "-37.7% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ESCORTS"
       },
-      "rank": 31
+      "rank": 31,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": -5.9,
+        "dist_ema50_pct": -10.48,
+        "dist_s1_pct": 2.82,
+        "dist_r1_pct": -21.31
+      }
     },
     {
       "symbol": "PRESTIGE",
@@ -2828,7 +3138,17 @@
         "dist_52w": "-8.4% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PRESTIGE"
       },
-      "rank": 32
+      "rank": 32,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.71,
+        "dist_ema50_pct": 8.66,
+        "dist_s1_pct": 19.46,
+        "dist_r1_pct": -1.35
+      }
     },
     {
       "symbol": "SOLARINDS",
@@ -2916,7 +3236,17 @@
         "dist_52w": "-18.0% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SOLARINDS"
       },
-      "rank": 33
+      "rank": 33,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": -3.49,
+        "dist_ema50_pct": -4.3,
+        "dist_s1_pct": 5.06,
+        "dist_r1_pct": -18.03
+      }
     },
     {
       "symbol": "MUTHOOTFIN",
@@ -3004,7 +3334,17 @@
         "dist_52w": "-30.3% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MUTHOOTFIN"
       },
-      "rank": 34
+      "rank": 34,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.05,
+        "dist_ema50_pct": 6.27,
+        "dist_s1_pct": 24.47,
+        "dist_r1_pct": -0.18
+      }
     },
     {
       "symbol": "JSWDULUX",
@@ -3092,7 +3432,17 @@
         "dist_52w": "-26.2% from 52W High",
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JSWDULUX"
       },
-      "rank": 35
+      "rank": 35,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": -3.66,
+        "dist_ema50_pct": -7.69,
+        "dist_s1_pct": 5.81,
+        "dist_r1_pct": -16.74
+      }
     }
   ]
 }

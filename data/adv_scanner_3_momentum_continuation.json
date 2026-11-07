@@ -96,7 +96,17 @@
       "score": 100,
       "name": "Glenmark Pharmaceuticals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GLENMARK",
-      "rank": 1
+      "rank": 1,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 9.79,
+        "dist_ema50_pct": 10.81,
+        "dist_s1_pct": 23.24,
+        "dist_r1_pct": -3.45
+      }
     },
     {
       "symbol": "FORCEMOT",
@@ -186,7 +196,17 @@
       "score": 96,
       "name": "Force Motors Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:FORCEMOT",
-      "rank": 2
+      "rank": 2,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.06,
+        "dist_ema50_pct": 8.37,
+        "dist_s1_pct": 17.2,
+        "dist_r1_pct": -0.69
+      }
     },
     {
       "symbol": "BOSCHLTD",
@@ -276,7 +296,17 @@
       "score": 95,
       "name": "Bosch Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BOSCHLTD",
-      "rank": 3
+      "rank": 3,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.36,
+        "dist_ema50_pct": 9.09,
+        "dist_s1_pct": 18.8,
+        "dist_r1_pct": -3.38
+      }
     },
     {
       "symbol": "GROWW",
@@ -366,7 +396,17 @@
       "score": 95,
       "name": "Billionbrains Garage Ventures Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GROWW",
-      "rank": 4
+      "rank": 4,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.39,
+        "dist_ema50_pct": 10.25,
+        "dist_s1_pct": 21.17,
+        "dist_r1_pct": -4.73
+      }
     },
     {
       "symbol": "PATANJALI",
@@ -456,7 +496,17 @@
       "score": 93,
       "name": "Patanjali Foods Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PATANJALI",
-      "rank": 5
+      "rank": 5,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 9.89,
+        "dist_ema50_pct": 11.39,
+        "dist_s1_pct": 22.32,
+        "dist_r1_pct": -1.44
+      }
     },
     {
       "symbol": "JSWSTEEL",
@@ -546,7 +596,17 @@
       "score": 93,
       "name": "JSW Steel Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JSWSTEEL",
-      "rank": 6
+      "rank": 6,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.43,
+        "dist_ema50_pct": 7.39,
+        "dist_s1_pct": 17.19,
+        "dist_r1_pct": -0.94
+      }
     },
     {
       "symbol": "ANGELONE",
@@ -636,7 +696,17 @@
       "score": 93,
       "name": "Angel One Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ANGELONE",
-      "rank": 7
+      "rank": 7,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.94,
+        "dist_ema50_pct": 11.12,
+        "dist_s1_pct": 20.89,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "SHYAMMETL",
@@ -726,7 +796,17 @@
       "score": 92,
       "name": "Shyam Metalics and Energy Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SHYAMMETL",
-      "rank": 8
+      "rank": 8,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.35,
+        "dist_ema50_pct": 16.04,
+        "dist_s1_pct": 24.09,
+        "dist_r1_pct": -0.34
+      }
     },
     {
       "symbol": "ULTRACEMCO",
@@ -816,7 +896,17 @@
       "score": 92,
       "name": "UltraTech Cement Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ULTRACEMCO",
-      "rank": 9
+      "rank": 9,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.56,
+        "dist_ema50_pct": 10.95,
+        "dist_s1_pct": 19.41,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "SAILIFE",
@@ -906,7 +996,17 @@
       "score": 92,
       "name": "Sai Life Sciences Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SAILIFE",
-      "rank": 10
+      "rank": 10,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 16.51,
+        "dist_ema50_pct": 19.28,
+        "dist_s1_pct": 31.2,
+        "dist_r1_pct": -1.64
+      }
     },
     {
       "symbol": "ICICIBANK",
@@ -996,7 +1096,17 @@
       "score": 92,
       "name": "ICICI Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ICICIBANK",
-      "rank": 11
+      "rank": 11,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 11.16,
+        "dist_ema50_pct": 12.93,
+        "dist_s1_pct": 18.19,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "IOC",
@@ -1086,7 +1196,17 @@
       "score": 92,
       "name": "Indian Oil Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IOC",
-      "rank": 12
+      "rank": 12,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.36,
+        "dist_ema50_pct": 8.74,
+        "dist_s1_pct": 17.07,
+        "dist_r1_pct": -0.72
+      }
     },
     {
       "symbol": "NHPC",
@@ -1176,7 +1296,17 @@
       "score": 91,
       "name": "NHPC Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NHPC",
-      "rank": 13
+      "rank": 13,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.73,
+        "dist_ema50_pct": 8.66,
+        "dist_s1_pct": 19.32,
+        "dist_r1_pct": -1.74
+      }
     },
     {
       "symbol": "ASAHIINDIA",
@@ -1266,7 +1396,17 @@
       "score": 91,
       "name": "Asahi India Glass Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ASAHIINDIA",
-      "rank": 14
+      "rank": 14,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.54,
+        "dist_ema50_pct": 9.84,
+        "dist_s1_pct": 18.68,
+        "dist_r1_pct": -0.5
+      }
     },
     {
       "symbol": "MOTILALOFS",
@@ -1356,7 +1496,17 @@
       "score": 91,
       "name": "Motilal Oswal Financial Services Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MOTILALOFS",
-      "rank": 15
+      "rank": 15,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.8,
+        "dist_ema50_pct": 10.2,
+        "dist_s1_pct": 24.27,
+        "dist_r1_pct": -0.27
+      }
     },
     {
       "symbol": "MCX",
@@ -1446,7 +1596,17 @@
       "score": 91,
       "name": "Multi Commodity Exchange of India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MCX",
-      "rank": 16
+      "rank": 16,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.65,
+        "dist_ema50_pct": 9.8,
+        "dist_s1_pct": 18.19,
+        "dist_r1_pct": -0.62
+      }
     },
     {
       "symbol": "LENSKART",
@@ -1536,7 +1696,17 @@
       "score": 90,
       "name": "Lenskart Solutions Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LENSKART",
-      "rank": 17
+      "rank": 17,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.16,
+        "dist_ema50_pct": 9.95,
+        "dist_s1_pct": 17.81,
+        "dist_r1_pct": -4.98
+      }
     },
     {
       "symbol": "INDHOTEL",
@@ -1626,7 +1796,17 @@
       "score": 89,
       "name": "Indian Hotels Co. Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDHOTEL",
-      "rank": 18
+      "rank": 18,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.52,
+        "dist_ema50_pct": 16.03,
+        "dist_s1_pct": 25.41,
+        "dist_r1_pct": -0.53
+      }
     },
     {
       "symbol": "EMCURE",
@@ -1716,7 +1896,17 @@
       "score": 89,
       "name": "Emcure Pharmaceuticals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:EMCURE",
-      "rank": 19
+      "rank": 19,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 13.12,
+        "dist_ema50_pct": 15.56,
+        "dist_s1_pct": 28.95,
+        "dist_r1_pct": -2.36
+      }
     },
     {
       "symbol": "HINDPETRO",
@@ -1806,7 +1996,17 @@
       "score": 89,
       "name": "Hindustan Petroleum Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HINDPETRO",
-      "rank": 20
+      "rank": 20,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.4,
+        "dist_ema50_pct": 9.52,
+        "dist_s1_pct": 19.77,
+        "dist_r1_pct": -0.98
+      }
     },
     {
       "symbol": "DLF",
@@ -1896,7 +2096,17 @@
       "score": 89,
       "name": "DLF Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DLF",
-      "rank": 21
+      "rank": 21,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.74,
+        "dist_ema50_pct": 11.65,
+        "dist_s1_pct": 18.67,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "MARICO",
@@ -1986,7 +2196,17 @@
       "score": 89,
       "name": "Marico Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MARICO",
-      "rank": 22
+      "rank": 22,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.25,
+        "dist_ema50_pct": 10.16,
+        "dist_s1_pct": 18.62,
+        "dist_r1_pct": -0.09
+      }
     },
     {
       "symbol": "LINDEINDIA",
@@ -2076,7 +2296,17 @@
       "score": 89,
       "name": "Linde India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LINDEINDIA",
-      "rank": 23
+      "rank": 23,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 13.32,
+        "dist_ema50_pct": 10.93,
+        "dist_s1_pct": 23.72,
+        "dist_r1_pct": -3.26
+      }
     },
     {
       "symbol": "INDIGO",
@@ -2166,7 +2396,17 @@
       "score": 89,
       "name": "InterGlobe Aviation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDIGO",
-      "rank": 24
+      "rank": 24,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.87,
+        "dist_ema50_pct": 11.04,
+        "dist_s1_pct": 22.66,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "MARUTI",
@@ -2256,7 +2496,17 @@
       "score": 89,
       "name": "Maruti Suzuki India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MARUTI",
-      "rank": 25
+      "rank": 25,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.07,
+        "dist_ema50_pct": 5.57,
+        "dist_s1_pct": 16.07,
+        "dist_r1_pct": -0.67
+      }
     },
     {
       "symbol": "BSE",
@@ -2346,7 +2596,17 @@
       "score": 88,
       "name": "BSE Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BSE",
-      "rank": 26
+      "rank": 26,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.99,
+        "dist_ema50_pct": 11.19,
+        "dist_s1_pct": 19.12,
+        "dist_r1_pct": -1.09
+      }
     },
     {
       "symbol": "ADANIPORTS",
@@ -2436,7 +2696,17 @@
       "score": 88,
       "name": "Adani Ports and Special Economic Zone Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ADANIPORTS",
-      "rank": 27
+      "rank": 27,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.43,
+        "dist_ema50_pct": 8.78,
+        "dist_s1_pct": 14.73,
+        "dist_r1_pct": -0.63
+      }
     },
     {
       "symbol": "NBCC",
@@ -2526,7 +2796,17 @@
       "score": 88,
       "name": "NBCC (India) Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NBCC",
-      "rank": 28
+      "rank": 28,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.76,
+        "dist_ema50_pct": -1.28,
+        "dist_s1_pct": 16.38,
+        "dist_r1_pct": -3.88
+      }
     },
     {
       "symbol": "ACE",
@@ -2616,7 +2896,17 @@
       "score": 88,
       "name": "Action Construction Equipment Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ACE",
-      "rank": 29
+      "rank": 29,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.39,
+        "dist_ema50_pct": 4.79,
+        "dist_s1_pct": 19.25,
+        "dist_r1_pct": -3.96
+      }
     },
     {
       "symbol": "BHARTIARTL",
@@ -2706,7 +2996,17 @@
       "score": 87,
       "name": "Bharti Airtel Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BHARTIARTL",
-      "rank": 30
+      "rank": 30,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.66,
+        "dist_ema50_pct": 10.7,
+        "dist_s1_pct": 19.99,
+        "dist_r1_pct": -0.6
+      }
     },
     {
       "symbol": "NUVAMA",
@@ -2796,7 +3096,17 @@
       "score": 87,
       "name": "Nuvama Wealth Management Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NUVAMA",
-      "rank": 31
+      "rank": 31,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.15,
+        "dist_ema50_pct": 5.43,
+        "dist_s1_pct": 15.87,
+        "dist_r1_pct": -4.54
+      }
     },
     {
       "symbol": "GODREJPROP",
@@ -2886,7 +3196,17 @@
       "score": 86,
       "name": "Godrej Properties Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GODREJPROP",
-      "rank": 32
+      "rank": 32,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.37,
+        "dist_ema50_pct": 5.96,
+        "dist_s1_pct": 23.22,
+        "dist_r1_pct": -0.31
+      }
     },
     {
       "symbol": "PRESTIGE",
@@ -2976,7 +3296,17 @@
       "score": 86,
       "name": "Prestige Estates Projects Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PRESTIGE",
-      "rank": 33
+      "rank": 33,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.71,
+        "dist_ema50_pct": 8.66,
+        "dist_s1_pct": 19.46,
+        "dist_r1_pct": -1.09
+      }
     },
     {
       "symbol": "TATACAP",
@@ -3066,7 +3396,17 @@
       "score": 86,
       "name": "Tata Capital Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TATACAP",
-      "rank": 34
+      "rank": 34,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.13,
+        "dist_ema50_pct": 7.26,
+        "dist_s1_pct": 20.41,
+        "dist_r1_pct": -0.32
+      }
     },
     {
       "symbol": "SBFC",
@@ -3156,7 +3496,17 @@
       "score": 86,
       "name": "SBFC Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SBFC",
-      "rank": 35
+      "rank": 35,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.06,
+        "dist_ema50_pct": 4.13,
+        "dist_s1_pct": 19.08,
+        "dist_r1_pct": -0.45
+      }
     },
     {
       "symbol": "UNOMINDA",
@@ -3246,7 +3596,17 @@
       "score": 85,
       "name": "UNO Minda Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:UNOMINDA",
-      "rank": 36
+      "rank": 36,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 14.77,
+        "dist_ema50_pct": 14.35,
+        "dist_s1_pct": 28.74,
+        "dist_r1_pct": -1.19
+      }
     },
     {
       "symbol": "M&M",
@@ -3336,7 +3696,17 @@
       "score": 85,
       "name": "Mahindra & Mahindra Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:M&M",
-      "rank": 37
+      "rank": 37,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 11.32,
+        "dist_ema50_pct": 9.51,
+        "dist_s1_pct": 19.63,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "MSUMI",
@@ -3426,7 +3796,17 @@
       "score": 85,
       "name": "Motherson Sumi Wiring India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MSUMI",
-      "rank": 38
+      "rank": 38,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.14,
+        "dist_ema50_pct": 7.73,
+        "dist_s1_pct": 18.93,
+        "dist_r1_pct": -2.76
+      }
     },
     {
       "symbol": "ASHOKLEY",
@@ -3516,7 +3896,17 @@
       "score": 85,
       "name": "Ashok Leyland Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ASHOKLEY",
-      "rank": 39
+      "rank": 39,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 12.51,
+        "dist_ema50_pct": 10.81,
+        "dist_s1_pct": 22.91,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "THELEELA",
@@ -3606,7 +3996,17 @@
       "score": 85,
       "name": "Leela Palaces Hotels & Resorts Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:THELEELA",
-      "rank": 40
+      "rank": 40,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 10.46,
+        "dist_ema50_pct": 18.05,
+        "dist_s1_pct": 23.23,
+        "dist_r1_pct": -2.04
+      }
     },
     {
       "symbol": "ADANIGREEN",
@@ -3696,7 +4096,17 @@
       "score": 85,
       "name": "Adani Green Energy Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ADANIGREEN",
-      "rank": 41
+      "rank": 41,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.8,
+        "dist_ema50_pct": 8.41,
+        "dist_s1_pct": 21.61,
+        "dist_r1_pct": -0.38
+      }
     },
     {
       "symbol": "TITAN",
@@ -3786,7 +4196,17 @@
       "score": 85,
       "name": "Titan Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TITAN",
-      "rank": 42
+      "rank": 42,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.25,
+        "dist_ema50_pct": 7.91,
+        "dist_s1_pct": 18.79,
+        "dist_r1_pct": -0.28
+      }
     },
     {
       "symbol": "HDFCBANK",
@@ -3876,7 +4296,17 @@
       "score": 85,
       "name": "HDFC Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HDFCBANK",
-      "rank": 43
+      "rank": 43,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.64,
+        "dist_ema50_pct": 9.5,
+        "dist_s1_pct": 17.79,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "LALPATHLAB",
@@ -3966,7 +4396,17 @@
       "score": 85,
       "name": "Dr. Lal Path Labs Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LALPATHLAB",
-      "rank": 44
+      "rank": 44,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.44,
+        "dist_ema50_pct": 3.56,
+        "dist_s1_pct": 9.58,
+        "dist_r1_pct": -4.46
+      }
     },
     {
       "symbol": "LGEINDIA",
@@ -4056,7 +4496,17 @@
       "score": 85,
       "name": "LG Electronics India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LGEINDIA",
-      "rank": 45
+      "rank": 45,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.07,
+        "dist_ema50_pct": 4.23,
+        "dist_s1_pct": 10.46,
+        "dist_r1_pct": -4.46
+      }
     },
     {
       "symbol": "ZENSARTECH",
@@ -4146,7 +4596,17 @@
       "score": 84,
       "name": "Zensar Technolgies Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ZENSARTECH",
-      "rank": 46
+      "rank": 46,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 10.43,
+        "dist_ema50_pct": 16.01,
+        "dist_s1_pct": 28.34,
+        "dist_r1_pct": -2.27
+      }
     },
     {
       "symbol": "BSOFT",
@@ -4236,7 +4696,17 @@
       "score": 84,
       "name": "Birlasoft Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BSOFT",
-      "rank": 47
+      "rank": 47,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.24,
+        "dist_ema50_pct": 12.19,
+        "dist_s1_pct": 26.5,
+        "dist_r1_pct": -3.25
+      }
     },
     {
       "symbol": "ETERNAL",
@@ -4326,7 +4796,17 @@
       "score": 84,
       "name": "Eternal Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ETERNAL",
-      "rank": 48
+      "rank": 48,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.97,
+        "dist_ema50_pct": 11.3,
+        "dist_s1_pct": 20.35,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "LT",
@@ -4416,7 +4896,17 @@
       "score": 84,
       "name": "Larsen & Toubro Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LT",
-      "rank": 49
+      "rank": 49,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.13,
+        "dist_ema50_pct": 7.2,
+        "dist_s1_pct": 14.61,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "GRASIM",
@@ -4506,7 +4996,17 @@
       "score": 84,
       "name": "Grasim Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GRASIM",
-      "rank": 50
+      "rank": 50,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.4,
+        "dist_ema50_pct": 5.41,
+        "dist_s1_pct": 14.1,
+        "dist_r1_pct": -0.18
+      }
     },
     {
       "symbol": "PETRONET",
@@ -4596,7 +5096,17 @@
       "score": 84,
       "name": "Petronet LNG Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PETRONET",
-      "rank": 51
+      "rank": 51,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.4,
+        "dist_ema50_pct": 10.78,
+        "dist_s1_pct": 16.04,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "HYUNDAI",
@@ -4686,7 +5196,17 @@
       "score": 84,
       "name": "Hyundai Motor India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HYUNDAI",
-      "rank": 52
+      "rank": 52,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.71,
+        "dist_ema50_pct": 5.23,
+        "dist_s1_pct": 16.58,
+        "dist_r1_pct": -2.61
+      }
     },
     {
       "symbol": "GAIL",
@@ -4776,7 +5296,17 @@
       "score": 84,
       "name": "GAIL (India) Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GAIL",
-      "rank": 53
+      "rank": 53,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.71,
+        "dist_ema50_pct": 7.88,
+        "dist_s1_pct": 15.61,
+        "dist_r1_pct": -1.65
+      }
     },
     {
       "symbol": "JIOFIN",
@@ -4866,7 +5396,17 @@
       "score": 84,
       "name": "Jio Financial Services Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JIOFIN",
-      "rank": 54
+      "rank": 54,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.7,
+        "dist_ema50_pct": 4.1,
+        "dist_s1_pct": 14.17,
+        "dist_r1_pct": -0.11
+      }
     },
     {
       "symbol": "TATASTEEL",
@@ -4956,7 +5496,17 @@
       "score": 84,
       "name": "Tata Steel Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TATASTEEL",
-      "rank": 55
+      "rank": 55,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.55,
+        "dist_ema50_pct": 3.83,
+        "dist_s1_pct": 14.01,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "IIFL",
@@ -5046,7 +5596,17 @@
       "score": 84,
       "name": "IIFL Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IIFL",
-      "rank": 56
+      "rank": 56,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.54,
+        "dist_ema50_pct": 6.72,
+        "dist_s1_pct": 22.05,
+        "dist_r1_pct": -0.44
+      }
     },
     {
       "symbol": "IREDA",
@@ -5136,7 +5696,17 @@
       "score": 84,
       "name": "Indian Renewable Energy Development Agency Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IREDA",
-      "rank": 57
+      "rank": 57,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.69,
+        "dist_ema50_pct": 2.59,
+        "dist_s1_pct": 12.84,
+        "dist_r1_pct": -0.59
+      }
     },
     {
       "symbol": "KALYANKJIL",
@@ -5226,7 +5796,17 @@
       "score": 84,
       "name": "Kalyan Jewellers India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KALYANKJIL",
-      "rank": 58
+      "rank": 58,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 9.6,
+        "dist_ema50_pct": 7.76,
+        "dist_s1_pct": 20.41,
+        "dist_r1_pct": -1.26
+      }
     },
     {
       "symbol": "ENGINERSIN",
@@ -5316,7 +5896,17 @@
       "score": 84,
       "name": "Engineers India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ENGINERSIN",
-      "rank": 59
+      "rank": 59,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.47,
+        "dist_ema50_pct": 7.48,
+        "dist_s1_pct": 24.25,
+        "dist_r1_pct": -5.21
+      }
     },
     {
       "symbol": "JYOTICNC",
@@ -5406,7 +5996,17 @@
       "score": 84,
       "name": "Jyoti CNC Automation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JYOTICNC",
-      "rank": 60
+      "rank": 60,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.26,
+        "dist_ema50_pct": 5.25,
+        "dist_s1_pct": 16.99,
+        "dist_r1_pct": -4.67
+      }
     },
     {
       "symbol": "HEROMOTOCO",
@@ -5496,7 +6096,17 @@
       "score": 83,
       "name": "Hero MotoCorp Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HEROMOTOCO",
-      "rank": 61
+      "rank": 61,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.85,
+        "dist_ema50_pct": 5.07,
+        "dist_s1_pct": 14.26,
+        "dist_r1_pct": -0.67
+      }
     },
     {
       "symbol": "AUROPHARMA",
@@ -5586,7 +6196,17 @@
       "score": 83,
       "name": "Aurobindo Pharma Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AUROPHARMA",
-      "rank": 62
+      "rank": 62,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.83,
+        "dist_ema50_pct": 8.3,
+        "dist_s1_pct": 16.3,
+        "dist_r1_pct": -0.28
+      }
     },
     {
       "symbol": "HAL",
@@ -5676,7 +6296,17 @@
       "score": 83,
       "name": "Hindustan Aeronautics Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HAL",
-      "rank": 63
+      "rank": 63,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.81,
+        "dist_ema50_pct": 3.17,
+        "dist_s1_pct": 8.5,
+        "dist_r1_pct": -2.72
+      }
     },
     {
       "symbol": "NAVINFLUOR",
@@ -5766,7 +6396,17 @@
       "score": 83,
       "name": "Navin Fluorine International Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NAVINFLUOR",
-      "rank": 64
+      "rank": 64,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.67,
+        "dist_ema50_pct": 8.31,
+        "dist_s1_pct": 20.07,
+        "dist_r1_pct": -0.28
+      }
     },
     {
       "symbol": "CHOLAHLDNG",
@@ -5856,7 +6496,17 @@
       "score": 83,
       "name": "Cholamandalam Financial Holdings Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CHOLAHLDNG",
-      "rank": 65
+      "rank": 65,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.6,
+        "dist_ema50_pct": 2.45,
+        "dist_s1_pct": 17.62,
+        "dist_r1_pct": -3.85
+      }
     },
     {
       "symbol": "LAURUSLABS",
@@ -5946,7 +6596,17 @@
       "score": 82,
       "name": "Laurus Labs Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LAURUSLABS",
-      "rank": 66
+      "rank": 66,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.94,
+        "dist_ema50_pct": 14.52,
+        "dist_s1_pct": 21.08,
+        "dist_r1_pct": -4.13
+      }
     },
     {
       "symbol": "CEMPRO",
@@ -6036,7 +6696,17 @@
       "score": 82,
       "name": "Cemindia Projects Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CEMPRO",
-      "rank": 67
+      "rank": 67,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.79,
+        "dist_ema50_pct": 7.17,
+        "dist_s1_pct": 24.14,
+        "dist_r1_pct": -6.43
+      }
     },
     {
       "symbol": "JINDALSTEL",
@@ -6126,7 +6796,17 @@
       "score": 82,
       "name": "Jindal Steel Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JINDALSTEL",
-      "rank": 68
+      "rank": 68,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.98,
+        "dist_ema50_pct": 6.66,
+        "dist_s1_pct": 16.41,
+        "dist_r1_pct": -0.42
+      }
     },
     {
       "symbol": "BAJFINANCE",
@@ -6216,7 +6896,17 @@
       "score": 82,
       "name": "Bajaj Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BAJFINANCE",
-      "rank": 69
+      "rank": 69,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 11.01,
+        "dist_ema50_pct": 9.76,
+        "dist_s1_pct": 20.98,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "AFFLE",
@@ -6306,7 +6996,17 @@
       "score": 82,
       "name": "Affle 3i Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AFFLE",
-      "rank": 70
+      "rank": 70,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.76,
+        "dist_ema50_pct": 5.46,
+        "dist_s1_pct": 23.15,
+        "dist_r1_pct": -4.7
+      }
     },
     {
       "symbol": "BHARTIHEXA",
@@ -6396,7 +7096,17 @@
       "score": 82,
       "name": "Bharti Hexacom Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BHARTIHEXA",
-      "rank": 71
+      "rank": 71,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.91,
+        "dist_ema50_pct": 5.12,
+        "dist_s1_pct": 12.06,
+        "dist_r1_pct": -5.38
+      }
     },
     {
       "symbol": "PHOENIXLTD",
@@ -6486,7 +7196,17 @@
       "score": 81,
       "name": "Phoenix Mills Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PHOENIXLTD",
-      "rank": 72
+      "rank": 72,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.89,
+        "dist_ema50_pct": 11.11,
+        "dist_s1_pct": 20.78,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "BALKRISIND",
@@ -6576,7 +7296,17 @@
       "score": 81,
       "name": "Balkrishna Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BALKRISIND",
-      "rank": 73
+      "rank": 73,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 11.05,
+        "dist_ema50_pct": 11.1,
+        "dist_s1_pct": 22.67,
+        "dist_r1_pct": -0.58
+      }
     },
     {
       "symbol": "AMBUJACEM",
@@ -6666,7 +7396,17 @@
       "score": 81,
       "name": "Ambuja Cements Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AMBUJACEM",
-      "rank": 74
+      "rank": 74,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.43,
+        "dist_ema50_pct": 3.59,
+        "dist_s1_pct": 14.48,
+        "dist_r1_pct": -0.36
+      }
     },
     {
       "symbol": "GMRAIRPORT",
@@ -6756,7 +7496,17 @@
       "score": 81,
       "name": "GMR Airports Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GMRAIRPORT",
-      "rank": 75
+      "rank": 75,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.28,
+        "dist_ema50_pct": 4.92,
+        "dist_s1_pct": 17.25,
+        "dist_r1_pct": -2.18
+      }
     },
     {
       "symbol": "MUTHOOTFIN",
@@ -6846,7 +7596,17 @@
       "score": 81,
       "name": "Muthoot Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MUTHOOTFIN",
-      "rank": 76
+      "rank": 76,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.05,
+        "dist_ema50_pct": 6.27,
+        "dist_s1_pct": 24.47,
+        "dist_r1_pct": -0.11
+      }
     },
     {
       "symbol": "RELIANCE",
@@ -6936,7 +7696,17 @@
       "score": 81,
       "name": "Reliance Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:RELIANCE",
-      "rank": 77
+      "rank": 77,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.54,
+        "dist_ema50_pct": 6.41,
+        "dist_s1_pct": 14.56,
+        "dist_r1_pct": -0.38
+      }
     },
     {
       "symbol": "BPCL",
@@ -7026,7 +7796,17 @@
       "score": 81,
       "name": "Bharat Petroleum Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BPCL",
-      "rank": 78
+      "rank": 78,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.26,
+        "dist_ema50_pct": 6.36,
+        "dist_s1_pct": 16.16,
+        "dist_r1_pct": -0.65
+      }
     },
     {
       "symbol": "JKTYRE",
@@ -7116,7 +7896,17 @@
       "score": 81,
       "name": "JK Tyre & Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JKTYRE",
-      "rank": 79
+      "rank": 79,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.6,
+        "dist_ema50_pct": 4.78,
+        "dist_s1_pct": 21.06,
+        "dist_r1_pct": -1.55
+      }
     },
     {
       "symbol": "MANAPPURAM",
@@ -7206,7 +7996,17 @@
       "score": 81,
       "name": "Manappuram Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MANAPPURAM",
-      "rank": 80
+      "rank": 80,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.29,
+        "dist_ema50_pct": 2.75,
+        "dist_s1_pct": 20.14,
+        "dist_r1_pct": -1.39
+      }
     },
     {
       "symbol": "LEMONTREE",
@@ -7296,7 +8096,17 @@
       "score": 81,
       "name": "Lemon Tree Hotels Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LEMONTREE",
-      "rank": 81
+      "rank": 81,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.9,
+        "dist_ema50_pct": 6.43,
+        "dist_s1_pct": 12.5,
+        "dist_r1_pct": -2.62
+      }
     },
     {
       "symbol": "VEDL",
@@ -7386,7 +8196,17 @@
       "score": 81,
       "name": "Vedanta Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:VEDL",
-      "rank": 82
+      "rank": 82,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.8,
+        "dist_ema50_pct": 2.65,
+        "dist_s1_pct": 18.12,
+        "dist_r1_pct": -1.23
+      }
     },
     {
       "symbol": "ANTHEM",
@@ -7476,7 +8296,17 @@
       "score": 81,
       "name": "Anthem Biosciences Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ANTHEM",
-      "rank": 83
+      "rank": 83,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.56,
+        "dist_ema50_pct": 6.46,
+        "dist_s1_pct": 16.88,
+        "dist_r1_pct": -0.7
+      }
     },
     {
       "symbol": "IRCON",
@@ -7566,7 +8396,17 @@
       "score": 81,
       "name": "IRCON International Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IRCON",
-      "rank": 84
+      "rank": 84,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.56,
+        "dist_ema50_pct": -0.39,
+        "dist_s1_pct": 12.96,
+        "dist_r1_pct": -3.14
+      }
     },
     {
       "symbol": "AIIL",
@@ -7656,7 +8496,17 @@
       "score": 81,
       "name": "Authum Investment & Infrastructure Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AIIL",
-      "rank": 85
+      "rank": 85,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.69,
+        "dist_ema50_pct": 6.83,
+        "dist_s1_pct": 19.76,
+        "dist_r1_pct": -0.9
+      }
     },
     {
       "symbol": "POLYMED",
@@ -7746,7 +8596,17 @@
       "score": 81,
       "name": "Poly Medicure Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:POLYMED",
-      "rank": 86
+      "rank": 86,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.24,
+        "dist_ema50_pct": 0.88,
+        "dist_s1_pct": 15.04,
+        "dist_r1_pct": -2.91
+      }
     },
     {
       "symbol": "ATHERENERG",
@@ -7836,7 +8696,17 @@
       "score": 80,
       "name": "Ather Energy Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ATHERENERG",
-      "rank": 87
+      "rank": 87,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.68,
+        "dist_ema50_pct": 17.72,
+        "dist_s1_pct": 35.37,
+        "dist_r1_pct": -0.99
+      }
     },
     {
       "symbol": "HEGAM",
@@ -7926,7 +8796,17 @@
       "score": 80,
       "name": "HEG Advanced Materials Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HEGAM",
-      "rank": 88
+      "rank": 88,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 16.12,
+        "dist_ema50_pct": -7.71,
+        "dist_s1_pct": 53.29,
+        "dist_r1_pct": -7.41
+      }
     },
     {
       "symbol": "PPLPHARMA",
@@ -8016,7 +8896,17 @@
       "score": 80,
       "name": "Piramal Pharma Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PPLPHARMA",
-      "rank": 89
+      "rank": 89,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 9.03,
+        "dist_ema50_pct": 13.92,
+        "dist_s1_pct": 29.35,
+        "dist_r1_pct": -1.6
+      }
     },
     {
       "symbol": "SYNGENE",
@@ -8106,7 +8996,17 @@
       "score": 80,
       "name": "Syngene International Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SYNGENE",
-      "rank": 90
+      "rank": 90,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.87,
+        "dist_ema50_pct": 6.82,
+        "dist_s1_pct": 21.15,
+        "dist_r1_pct": -2.2
+      }
     },
     {
       "symbol": "PVRINOX",
@@ -8196,7 +9096,17 @@
       "score": 80,
       "name": "PVR INOX Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PVRINOX",
-      "rank": 91
+      "rank": 91,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.49,
+        "dist_ema50_pct": 15.98,
+        "dist_s1_pct": 19.6,
+        "dist_r1_pct": -3.89
+      }
     },
     {
       "symbol": "TATACONSUM",
@@ -8286,7 +9196,17 @@
       "score": 80,
       "name": "Tata Consumer Products Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TATACONSUM",
-      "rank": 92
+      "rank": 92,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.73,
+        "dist_ema50_pct": 7.14,
+        "dist_s1_pct": 18.59,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "SONACOMS",
@@ -8376,7 +9296,17 @@
       "score": 80,
       "name": "Sona BLW Precision Forgings Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SONACOMS",
-      "rank": 93
+      "rank": 93,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.66,
+        "dist_ema50_pct": 10.25,
+        "dist_s1_pct": 21.41,
+        "dist_r1_pct": -2.04
+      }
     },
     {
       "symbol": "ITCHOTELS",
@@ -8466,7 +9396,17 @@
       "score": 80,
       "name": "ITC Hotels Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ITCHOTELS",
-      "rank": 94
+      "rank": 94,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.91,
+        "dist_ema50_pct": 6.73,
+        "dist_s1_pct": 14.11,
+        "dist_r1_pct": -2.02
+      }
     },
     {
       "symbol": "PAYTM",
@@ -8556,7 +9496,17 @@
       "score": 80,
       "name": "One 97 Communications Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PAYTM",
-      "rank": 95
+      "rank": 95,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.75,
+        "dist_ema50_pct": 8.39,
+        "dist_s1_pct": 14.22,
+        "dist_r1_pct": -0.81
+      }
     },
     {
       "symbol": "ZYDUSLIFE",
@@ -8646,7 +9596,17 @@
       "score": 80,
       "name": "Zydus Lifesciences Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ZYDUSLIFE",
-      "rank": 96
+      "rank": 96,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.66,
+        "dist_ema50_pct": 3.47,
+        "dist_s1_pct": 9.55,
+        "dist_r1_pct": -5.42
+      }
     },
     {
       "symbol": "APOLLOTYRE",
@@ -8736,7 +9696,17 @@
       "score": 80,
       "name": "Apollo Tyres Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:APOLLOTYRE",
-      "rank": 97
+      "rank": 97,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.86,
+        "dist_ema50_pct": 2.15,
+        "dist_s1_pct": 10.92,
+        "dist_r1_pct": -5.13
+      }
     },
     {
       "symbol": "HUDCO",
@@ -8826,7 +9796,17 @@
       "score": 80,
       "name": "Housing & Urban Development Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HUDCO",
-      "rank": 98
+      "rank": 98,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.72,
+        "dist_ema50_pct": -2.6,
+        "dist_s1_pct": 12.8,
+        "dist_r1_pct": -3.86
+      }
     },
     {
       "symbol": "HCLTECH",
@@ -8916,7 +9896,17 @@
       "score": 79,
       "name": "HCL Technologies Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HCLTECH",
-      "rank": 99
+      "rank": 99,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.14,
+        "dist_ema50_pct": 8.59,
+        "dist_s1_pct": 23.64,
+        "dist_r1_pct": -1.97
+      }
     },
     {
       "symbol": "INFY",
@@ -9006,7 +9996,17 @@
       "score": 79,
       "name": "Infosys Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INFY",
-      "rank": 100
+      "rank": 100,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.91,
+        "dist_ema50_pct": 8.67,
+        "dist_s1_pct": 19.97,
+        "dist_r1_pct": -1.45
+      }
     },
     {
       "symbol": "COFORGE",
@@ -9096,7 +10096,17 @@
       "score": 79,
       "name": "Coforge Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:COFORGE",
-      "rank": 101
+      "rank": 101,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.64,
+        "dist_ema50_pct": 9.55,
+        "dist_s1_pct": 14.56,
+        "dist_r1_pct": -2.44
+      }
     },
     {
       "symbol": "BAJAJ-AUTO",
@@ -9186,7 +10196,17 @@
       "score": 79,
       "name": "Bajaj Auto Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BAJAJ-AUTO",
-      "rank": 102
+      "rank": 102,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 3.9,
+        "dist_ema50_pct": 1.95,
+        "dist_s1_pct": 13.01,
+        "dist_r1_pct": -0.35
+      }
     },
     {
       "symbol": "KPRMILL",
@@ -9276,7 +10296,17 @@
       "score": 79,
       "name": "K.P.R. Mill Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KPRMILL",
-      "rank": 103
+      "rank": 103,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.98,
+        "dist_ema50_pct": 5.69,
+        "dist_s1_pct": 17.47,
+        "dist_r1_pct": -3.49
+      }
     },
     {
       "symbol": "KOTAKBANK",
@@ -9366,7 +10396,17 @@
       "score": 79,
       "name": "Kotak Mahindra Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KOTAKBANK",
-      "rank": 104
+      "rank": 104,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.69,
+        "dist_ema50_pct": 10.94,
+        "dist_s1_pct": 12.23,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "DIVISLAB",
@@ -9456,7 +10496,17 @@
       "score": 79,
       "name": "Divi's Laboratories Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DIVISLAB",
-      "rank": 105
+      "rank": 105,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.96,
+        "dist_ema50_pct": 11.45,
+        "dist_s1_pct": 17.32,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "HAVELLS",
@@ -9546,7 +10596,17 @@
       "score": 79,
       "name": "Havells India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HAVELLS",
-      "rank": 106
+      "rank": 106,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.12,
+        "dist_ema50_pct": 2.78,
+        "dist_s1_pct": 12.89,
+        "dist_r1_pct": -0.94
+      }
     },
     {
       "symbol": "CROMPTON",
@@ -9636,7 +10696,17 @@
       "score": 79,
       "name": "Crompton Greaves Consumer Electricals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CROMPTON",
-      "rank": 107
+      "rank": 107,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.16,
+        "dist_ema50_pct": -0.11,
+        "dist_s1_pct": 12.59,
+        "dist_r1_pct": -2.74
+      }
     },
     {
       "symbol": "INDUSINDBK",
@@ -9726,7 +10796,17 @@
       "score": 79,
       "name": "IndusInd Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDUSINDBK",
-      "rank": 108
+      "rank": 108,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.22,
+        "dist_ema50_pct": 0.68,
+        "dist_s1_pct": 10.0,
+        "dist_r1_pct": -1.95
+      }
     },
     {
       "symbol": "FLUOROCHEM",
@@ -9816,7 +10896,17 @@
       "score": 79,
       "name": "Gujarat Fluorochemicals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:FLUOROCHEM",
-      "rank": 109
+      "rank": 109,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.79,
+        "dist_ema50_pct": 4.87,
+        "dist_s1_pct": 14.16,
+        "dist_r1_pct": -1.51
+      }
     },
     {
       "symbol": "BIOCON",
@@ -9906,7 +10996,17 @@
       "score": 79,
       "name": "Biocon Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BIOCON",
-      "rank": 110
+      "rank": 110,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 3.69,
+        "dist_ema50_pct": -0.7,
+        "dist_s1_pct": 14.67,
+        "dist_r1_pct": -0.22
+      }
     },
     {
       "symbol": "GLAND",
@@ -9996,7 +11096,17 @@
       "score": 79,
       "name": "Gland Pharma Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GLAND",
-      "rank": 111
+      "rank": 111,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.96,
+        "dist_ema50_pct": 7.57,
+        "dist_s1_pct": 14.42,
+        "dist_r1_pct": -1.22
+      }
     },
     {
       "symbol": "TTML",
@@ -10086,7 +11196,17 @@
       "score": 78,
       "name": "Tata Teleservices (Maharashtra) Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TTML",
-      "rank": 112
+      "rank": 112,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 10.14,
+        "dist_ema50_pct": 9.32,
+        "dist_s1_pct": 25.66,
+        "dist_r1_pct": -7.81
+      }
     },
     {
       "symbol": "CHOLAFIN",
@@ -10176,7 +11296,17 @@
       "score": 78,
       "name": "Cholamandalam Investment and Finance Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CHOLAFIN",
-      "rank": 113
+      "rank": 113,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.84,
+        "dist_ema50_pct": 7.41,
+        "dist_s1_pct": 26.15,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "COROMANDEL",
@@ -10266,7 +11396,17 @@
       "score": 78,
       "name": "Coromandel International Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:COROMANDEL",
-      "rank": 114
+      "rank": 114,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.12,
+        "dist_ema50_pct": -0.59,
+        "dist_s1_pct": 10.47,
+        "dist_r1_pct": -4.75
+      }
     },
     {
       "symbol": "BANKBARODA",
@@ -10356,7 +11496,17 @@
       "score": 78,
       "name": "Bank of Baroda",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BANKBARODA",
-      "rank": 115
+      "rank": 115,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.46,
+        "dist_ema50_pct": 4.7,
+        "dist_s1_pct": 11.15,
+        "dist_r1_pct": -0.41
+      }
     },
     {
       "symbol": "KIMS",
@@ -10446,7 +11596,17 @@
       "score": 78,
       "name": "Krishna Institute of Medical Sciences Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KIMS",
-      "rank": 116
+      "rank": 116,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.38,
+        "dist_ema50_pct": -1.11,
+        "dist_s1_pct": 10.37,
+        "dist_r1_pct": -3.19
+      }
     },
     {
       "symbol": "ABBOTINDIA",
@@ -10536,7 +11696,17 @@
       "score": 78,
       "name": "Abbott India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ABBOTINDIA",
-      "rank": 117
+      "rank": 117,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.97,
+        "dist_ema50_pct": 0.52,
+        "dist_s1_pct": 6.88,
+        "dist_r1_pct": -4.03
+      }
     },
     {
       "symbol": "HONASA",
@@ -10626,7 +11796,17 @@
       "score": 78,
       "name": "Honasa Consumer Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HONASA",
-      "rank": 118
+      "rank": 118,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.12,
+        "dist_ema50_pct": 1.99,
+        "dist_s1_pct": 12.3,
+        "dist_r1_pct": -5.01
+      }
     },
     {
       "symbol": "ADANIENSOL",
@@ -10716,7 +11896,17 @@
       "score": 77,
       "name": "Adani Energy Solutions Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ADANIENSOL",
-      "rank": 119
+      "rank": 119,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.05,
+        "dist_ema50_pct": 5.23,
+        "dist_s1_pct": 21.45,
+        "dist_r1_pct": -0.22
+      }
     },
     {
       "symbol": "ZENTEC",
@@ -10806,7 +11996,17 @@
       "score": 77,
       "name": "Zen Technologies Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ZENTEC",
-      "rank": 120
+      "rank": 120,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.29,
+        "dist_ema50_pct": 3.12,
+        "dist_s1_pct": 17.62,
+        "dist_r1_pct": -4.7
+      }
     },
     {
       "symbol": "MINDACORP",
@@ -10896,7 +12096,17 @@
       "score": 77,
       "name": "Minda Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MINDACORP",
-      "rank": 121
+      "rank": 121,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.47,
+        "dist_ema50_pct": 7.44,
+        "dist_s1_pct": 22.87,
+        "dist_r1_pct": -0.61
+      }
     },
     {
       "symbol": "PIRAMALFIN",
@@ -10986,7 +12196,17 @@
       "score": 77,
       "name": "Piramal Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PIRAMALFIN",
-      "rank": 122
+      "rank": 122,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 9.28,
+        "dist_ema50_pct": 6.42,
+        "dist_s1_pct": 21.17,
+        "dist_r1_pct": -1.78
+      }
     },
     {
       "symbol": "CEATLTD",
@@ -11076,7 +12296,17 @@
       "score": 77,
       "name": "Ceat Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CEATLTD",
-      "rank": 123
+      "rank": 123,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.73,
+        "dist_ema50_pct": 6.62,
+        "dist_s1_pct": 17.7,
+        "dist_r1_pct": -1.1
+      }
     },
     {
       "symbol": "TRIDENT",
@@ -11166,7 +12396,17 @@
       "score": 77,
       "name": "Trident Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TRIDENT",
-      "rank": 124
+      "rank": 124,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.32,
+        "dist_ema50_pct": 4.65,
+        "dist_s1_pct": 18.51,
+        "dist_r1_pct": -5.2
+      }
     },
     {
       "symbol": "MEDANTA",
@@ -11256,7 +12496,17 @@
       "score": 77,
       "name": "Global Health Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MEDANTA",
-      "rank": 125
+      "rank": 125,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.32,
+        "dist_ema50_pct": 3.5,
+        "dist_s1_pct": 19.11,
+        "dist_r1_pct": -4.4
+      }
     },
     {
       "symbol": "GRSE",
@@ -11346,7 +12596,17 @@
       "score": 77,
       "name": "Garden Reach Shipbuilders & Engineers Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GRSE",
-      "rank": 126
+      "rank": 126,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.08,
+        "dist_ema50_pct": -3.05,
+        "dist_s1_pct": 15.94,
+        "dist_r1_pct": -4.44
+      }
     },
     {
       "symbol": "FACT",
@@ -11436,7 +12696,17 @@
       "score": 77,
       "name": "Fertilisers and Chemicals Travancore Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:FACT",
-      "rank": 127
+      "rank": 127,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.78,
+        "dist_ema50_pct": 0.16,
+        "dist_s1_pct": 13.88,
+        "dist_r1_pct": -5.63
+      }
     },
     {
       "symbol": "SAMMAANCAP",
@@ -11526,7 +12796,17 @@
       "score": 77,
       "name": "Sammaan Capital Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SAMMAANCAP",
-      "rank": 128
+      "rank": 128,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.96,
+        "dist_ema50_pct": -1.63,
+        "dist_s1_pct": 18.71,
+        "dist_r1_pct": -5.15
+      }
     },
     {
       "symbol": "ENDURANCE",
@@ -11616,7 +12896,17 @@
       "score": 77,
       "name": "Endurance Technologies Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ENDURANCE",
-      "rank": 129
+      "rank": 129,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.36,
+        "dist_ema50_pct": -0.95,
+        "dist_s1_pct": 13.62,
+        "dist_r1_pct": -3.03
+      }
     },
     {
       "symbol": "TVSMOTOR",
@@ -11706,7 +12996,17 @@
       "score": 76,
       "name": "TVS Motor Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TVSMOTOR",
-      "rank": 130
+      "rank": 130,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.05,
+        "dist_ema50_pct": 8.91,
+        "dist_s1_pct": 20.04,
+        "dist_r1_pct": -0.09
+      }
     },
     {
       "symbol": "DRREDDY",
@@ -11796,7 +13096,17 @@
       "score": 76,
       "name": "Dr. Reddy's Laboratories Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DRREDDY",
-      "rank": 131
+      "rank": 131,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.31,
+        "dist_ema50_pct": 9.46,
+        "dist_s1_pct": 17.15,
+        "dist_r1_pct": -0.79
+      }
     },
     {
       "symbol": "SHREECEM",
@@ -11886,7 +13196,17 @@
       "score": 76,
       "name": "Shree Cement Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SHREECEM",
-      "rank": 132
+      "rank": 132,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.45,
+        "dist_ema50_pct": 7.68,
+        "dist_s1_pct": 16.42,
+        "dist_r1_pct": -0.08
+      }
     },
     {
       "symbol": "CAMS",
@@ -11976,7 +13296,17 @@
       "score": 76,
       "name": "Computer Age Management Services Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CAMS",
-      "rank": 133
+      "rank": 133,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.44,
+        "dist_ema50_pct": 1.25,
+        "dist_s1_pct": 11.41,
+        "dist_r1_pct": -1.28
+      }
     },
     {
       "symbol": "VOLTAS",
@@ -12066,7 +13396,17 @@
       "score": 76,
       "name": "Voltas Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:VOLTAS",
-      "rank": 134
+      "rank": 134,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.0,
+        "dist_ema50_pct": 0.56,
+        "dist_s1_pct": 18.11,
+        "dist_r1_pct": -2.08
+      }
     },
     {
       "symbol": "AXISBANK",
@@ -12156,7 +13496,17 @@
       "score": 76,
       "name": "Axis Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AXISBANK",
-      "rank": 135
+      "rank": 135,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.41,
+        "dist_ema50_pct": 6.29,
+        "dist_s1_pct": 10.53,
+        "dist_r1_pct": -0.12
+      }
     },
     {
       "symbol": "MAHABANK",
@@ -12246,7 +13596,17 @@
       "score": 76,
       "name": "Bank of Maharashtra",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MAHABANK",
-      "rank": 136
+      "rank": 136,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.91,
+        "dist_ema50_pct": 6.81,
+        "dist_s1_pct": 19.43,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "JKCEMENT",
@@ -12336,7 +13696,17 @@
       "score": 76,
       "name": "J.K. Cement Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JKCEMENT",
-      "rank": 137
+      "rank": 137,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.8,
+        "dist_ema50_pct": 4.06,
+        "dist_s1_pct": 11.65,
+        "dist_r1_pct": -0.86
+      }
     },
     {
       "symbol": "ONGC",
@@ -12426,7 +13796,17 @@
       "score": 76,
       "name": "Oil & Natural Gas Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ONGC",
-      "rank": 138
+      "rank": 138,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.28,
+        "dist_ema50_pct": 0.37,
+        "dist_s1_pct": 5.87,
+        "dist_r1_pct": -1.38
+      }
     },
     {
       "symbol": "NATCOPHARM",
@@ -12516,7 +13896,17 @@
       "score": 76,
       "name": "NATCO Pharma Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NATCOPHARM",
-      "rank": 139
+      "rank": 139,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.45,
+        "dist_ema50_pct": -1.54,
+        "dist_s1_pct": 4.32,
+        "dist_r1_pct": -1.72
+      }
     },
     {
       "symbol": "RAMCOCEM",
@@ -12606,7 +13996,17 @@
       "score": 76,
       "name": "The Ramco Cements Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:RAMCOCEM",
-      "rank": 140
+      "rank": 140,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.84,
+        "dist_ema50_pct": -0.08,
+        "dist_s1_pct": 14.91,
+        "dist_r1_pct": -1.23
+      }
     },
     {
       "symbol": "RKFORGE",
@@ -12696,7 +14096,17 @@
       "score": 76,
       "name": "Ramkrishna Forgings Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:RKFORGE",
-      "rank": 141
+      "rank": 141,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.57,
+        "dist_ema50_pct": 2.14,
+        "dist_s1_pct": 21.83,
+        "dist_r1_pct": -4.56
+      }
     },
     {
       "symbol": "IGIL",
@@ -12786,7 +14196,17 @@
       "score": 75,
       "name": "International Gemological Institute Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IGIL",
-      "rank": 142
+      "rank": 142,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.67,
+        "dist_ema50_pct": 15.43,
+        "dist_s1_pct": 33.97,
+        "dist_r1_pct": -3.14
+      }
     },
     {
       "symbol": "TATAELXSI",
@@ -12876,7 +14296,17 @@
       "score": 75,
       "name": "Tata Elxsi Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TATAELXSI",
-      "rank": 143
+      "rank": 143,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.5,
+        "dist_ema50_pct": 7.25,
+        "dist_s1_pct": 28.05,
+        "dist_r1_pct": -2.85
+      }
     },
     {
       "symbol": "SAREGAMA",
@@ -12966,7 +14396,17 @@
       "score": 75,
       "name": "Saregama India Ltd",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SAREGAMA",
-      "rank": 144
+      "rank": 144,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 13.39,
+        "dist_ema50_pct": 19.22,
+        "dist_s1_pct": 29.86,
+        "dist_r1_pct": -7.65
+      }
     },
     {
       "symbol": "TECHM",
@@ -13056,7 +14496,17 @@
       "score": 75,
       "name": "Tech Mahindra Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TECHM",
-      "rank": 145
+      "rank": 145,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.32,
+        "dist_ema50_pct": 10.75,
+        "dist_s1_pct": 27.98,
+        "dist_r1_pct": -1.56
+      }
     },
     {
       "symbol": "HBLENGINE",
@@ -13146,7 +14596,17 @@
       "score": 75,
       "name": "HBL Engineering Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HBLENGINE",
-      "rank": 146
+      "rank": 146,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.12,
+        "dist_ema50_pct": 9.08,
+        "dist_s1_pct": 19.72,
+        "dist_r1_pct": -2.98
+      }
     },
     {
       "symbol": "TRENT",
@@ -13236,7 +14696,17 @@
       "score": 75,
       "name": "Trent Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TRENT",
-      "rank": 147
+      "rank": 147,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.95,
+        "dist_ema50_pct": 6.59,
+        "dist_s1_pct": 15.05,
+        "dist_r1_pct": -1.63
+      }
     },
     {
       "symbol": "BLUEJET",
@@ -13326,7 +14796,17 @@
       "score": 75,
       "name": "Blue Jet Healthcare Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BLUEJET",
-      "rank": 148
+      "rank": 148,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.99,
+        "dist_ema50_pct": 3.44,
+        "dist_s1_pct": 19.82,
+        "dist_r1_pct": -8.15
+      }
     },
     {
       "symbol": "MANKIND",
@@ -13416,7 +14896,17 @@
       "score": 75,
       "name": "Mankind Pharma Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MANKIND",
-      "rank": 149
+      "rank": 149,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.09,
+        "dist_ema50_pct": 5.08,
+        "dist_s1_pct": 15.66,
+        "dist_r1_pct": -0.83
+      }
     },
     {
       "symbol": "IEX",
@@ -13506,7 +14996,17 @@
       "score": 75,
       "name": "Indian Energy Exchange Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IEX",
-      "rank": 150
+      "rank": 150,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.14,
+        "dist_ema50_pct": -0.9,
+        "dist_s1_pct": 10.05,
+        "dist_r1_pct": -3.61
+      }
     },
     {
       "symbol": "TMCV",
@@ -13596,7 +15096,17 @@
       "score": 75,
       "name": "Tata Motors Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TMCV",
-      "rank": 151
+      "rank": 151,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.18,
+        "dist_ema50_pct": 0.81,
+        "dist_s1_pct": 12.2,
+        "dist_r1_pct": -3.27
+      }
     },
     {
       "symbol": "LICHSGFIN",
@@ -13686,7 +15196,17 @@
       "score": 75,
       "name": "LIC Housing Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LICHSGFIN",
-      "rank": 152
+      "rank": 152,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.38,
+        "dist_ema50_pct": 2.1,
+        "dist_s1_pct": 10.47,
+        "dist_r1_pct": -5.63
+      }
     },
     {
       "symbol": "KAJARIACER",
@@ -13776,7 +15296,17 @@
       "score": 75,
       "name": "Kajaria Ceramics Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KAJARIACER",
-      "rank": 153
+      "rank": 153,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.62,
+        "dist_ema50_pct": 0.46,
+        "dist_s1_pct": 8.53,
+        "dist_r1_pct": -4.65
+      }
     },
     {
       "symbol": "KPIL",
@@ -13866,7 +15396,17 @@
       "score": 75,
       "name": "Kalpataru Projects International Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KPIL",
-      "rank": 154
+      "rank": 154,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.27,
+        "dist_ema50_pct": 0.55,
+        "dist_s1_pct": 9.5,
+        "dist_r1_pct": -5.0
+      }
     },
     {
       "symbol": "HDFCAMC",
@@ -13956,7 +15496,17 @@
       "score": 74,
       "name": "HDFC Asset Management Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HDFCAMC",
-      "rank": 155
+      "rank": 155,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.21,
+        "dist_ema50_pct": 9.86,
+        "dist_s1_pct": 19.6,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "KARURVYSYA",
@@ -14046,7 +15596,17 @@
       "score": 74,
       "name": "Karur Vysya Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KARURVYSYA",
-      "rank": 156
+      "rank": 156,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.23,
+        "dist_ema50_pct": 8.65,
+        "dist_s1_pct": 13.48,
+        "dist_r1_pct": -5.31
+      }
     },
     {
       "symbol": "ITC",
@@ -14136,7 +15696,17 @@
       "score": 74,
       "name": "ITC Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ITC",
-      "rank": 157
+      "rank": 157,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.58,
+        "dist_ema50_pct": 5.72,
+        "dist_s1_pct": 12.01,
+        "dist_r1_pct": -0.26
+      }
     },
     {
       "symbol": "PNB",
@@ -14226,7 +15796,17 @@
       "score": 74,
       "name": "Punjab National Bank",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PNB",
-      "rank": 158
+      "rank": 158,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.45,
+        "dist_ema50_pct": 7.17,
+        "dist_s1_pct": 10.91,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "JSWCEMENT",
@@ -14316,7 +15896,17 @@
       "score": 74,
       "name": "JSW Cement Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JSWCEMENT",
-      "rank": 159
+      "rank": 159,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.56,
+        "dist_ema50_pct": 3.71,
+        "dist_s1_pct": 11.45,
+        "dist_r1_pct": -2.94
+      }
     },
     {
       "symbol": "MGL",
@@ -14406,7 +15996,17 @@
       "score": 74,
       "name": "Mahanagar Gas Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MGL",
-      "rank": 160
+      "rank": 160,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.44,
+        "dist_ema50_pct": 6.04,
+        "dist_s1_pct": 12.96,
+        "dist_r1_pct": -0.77
+      }
     },
     {
       "symbol": "HINDALCO",
@@ -14496,7 +16096,17 @@
       "score": 74,
       "name": "Hindalco Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HINDALCO",
-      "rank": 161
+      "rank": 161,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.58,
+        "dist_ema50_pct": 1.97,
+        "dist_s1_pct": 12.61,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "WELSPUNLIV",
@@ -14586,7 +16196,17 @@
       "score": 74,
       "name": "Welspun Living Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:WELSPUNLIV",
-      "rank": 162
+      "rank": 162,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.68,
+        "dist_ema50_pct": 11.5,
+        "dist_s1_pct": 17.85,
+        "dist_r1_pct": -9.77
+      }
     },
     {
       "symbol": "SIGNATURE",
@@ -14676,7 +16296,17 @@
       "score": 74,
       "name": "Signatureglobal (India) Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SIGNATURE",
-      "rank": 163
+      "rank": 163,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.83,
+        "dist_ema50_pct": 1.05,
+        "dist_s1_pct": 7.43,
+        "dist_r1_pct": -1.44
+      }
     },
     {
       "symbol": "INDGN",
@@ -14766,7 +16396,17 @@
       "score": 74,
       "name": "Indegene Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDGN",
-      "rank": 164
+      "rank": 164,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.58,
+        "dist_ema50_pct": 3.68,
+        "dist_s1_pct": 8.58,
+        "dist_r1_pct": -4.43
+      }
     },
     {
       "symbol": "HDFCLIFE",
@@ -14856,7 +16496,17 @@
       "score": 74,
       "name": "HDFC Life Insurance Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HDFCLIFE",
-      "rank": 165
+      "rank": 165,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.62,
+        "dist_ema50_pct": 4.8,
+        "dist_s1_pct": 11.27,
+        "dist_r1_pct": -0.1
+      }
     },
     {
       "symbol": "STARHEALTH",
@@ -14946,7 +16596,17 @@
       "score": 74,
       "name": "Star Health and Allied Insurance Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:STARHEALTH",
-      "rank": 166
+      "rank": 166,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.6,
+        "dist_ema50_pct": 2.98,
+        "dist_s1_pct": 12.37,
+        "dist_r1_pct": -1.36
+      }
     },
     {
       "symbol": "MEESHO",
@@ -15036,7 +16696,17 @@
       "score": 74,
       "name": "Meesho Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MEESHO",
-      "rank": 167
+      "rank": 167,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.57,
+        "dist_ema50_pct": 6.44,
+        "dist_s1_pct": 12.14,
+        "dist_r1_pct": -4.9
+      }
     },
     {
       "symbol": "INDIACEM",
@@ -15126,7 +16796,17 @@
       "score": 73,
       "name": "India Cements Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDIACEM",
-      "rank": 168
+      "rank": 168,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 9.19,
+        "dist_ema50_pct": 6.07,
+        "dist_s1_pct": 21.9,
+        "dist_r1_pct": -2.66
+      }
     },
     {
       "symbol": "NH",
@@ -15216,7 +16896,17 @@
       "score": 73,
       "name": "Narayana Hrudayalaya Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NH",
-      "rank": 169
+      "rank": 169,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.1,
+        "dist_ema50_pct": 5.32,
+        "dist_s1_pct": 17.27,
+        "dist_r1_pct": -2.56
+      }
     },
     {
       "symbol": "UPL",
@@ -15306,7 +16996,17 @@
       "score": 73,
       "name": "UPL Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:UPL",
-      "rank": 170
+      "rank": 170,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.83,
+        "dist_ema50_pct": -0.81,
+        "dist_s1_pct": 11.0,
+        "dist_r1_pct": -2.68
+      }
     },
     {
       "symbol": "360ONE",
@@ -15396,7 +17096,17 @@
       "score": 73,
       "name": "360 ONE WAM Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:360ONE",
-      "rank": 171
+      "rank": 171,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.72,
+        "dist_ema50_pct": 7.36,
+        "dist_s1_pct": 18.57,
+        "dist_r1_pct": -0.34
+      }
     },
     {
       "symbol": "LODHA",
@@ -15486,7 +17196,17 @@
       "score": 73,
       "name": "Lodha Developers Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LODHA",
-      "rank": 172
+      "rank": 172,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.52,
+        "dist_ema50_pct": 7.45,
+        "dist_s1_pct": 25.81,
+        "dist_r1_pct": -0.18
+      }
     },
     {
       "symbol": "BAJAJFINSV",
@@ -15576,7 +17296,17 @@
       "score": 73,
       "name": "Bajaj Finserv Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BAJAJFINSV",
-      "rank": 173
+      "rank": 173,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.2,
+        "dist_ema50_pct": 4.5,
+        "dist_s1_pct": 14.76,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "DELHIVERY",
@@ -15666,7 +17396,17 @@
       "score": 73,
       "name": "Delhivery Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DELHIVERY",
-      "rank": 174
+      "rank": 174,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.24,
+        "dist_ema50_pct": 2.21,
+        "dist_s1_pct": 17.37,
+        "dist_r1_pct": -1.7
+      }
     },
     {
       "symbol": "LTF",
@@ -15756,7 +17496,17 @@
       "score": 73,
       "name": "L&T Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LTF",
-      "rank": 175
+      "rank": 175,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.67,
+        "dist_ema50_pct": 1.53,
+        "dist_s1_pct": 21.07,
+        "dist_r1_pct": -1.21
+      }
     },
     {
       "symbol": "MAXHEALTH",
@@ -15846,7 +17596,17 @@
       "score": 73,
       "name": "Max Healthcare Institute Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MAXHEALTH",
-      "rank": 176
+      "rank": 176,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.9,
+        "dist_ema50_pct": 0.32,
+        "dist_s1_pct": 17.19,
+        "dist_r1_pct": -1.02
+      }
     },
     {
       "symbol": "HINDZINC",
@@ -15936,7 +17696,17 @@
       "score": 73,
       "name": "Hindustan Zinc Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HINDZINC",
-      "rank": 177
+      "rank": 177,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.85,
+        "dist_ema50_pct": 3.43,
+        "dist_s1_pct": 15.82,
+        "dist_r1_pct": -1.35
+      }
     },
     {
       "symbol": "SHRIRAMFIN",
@@ -16026,7 +17796,17 @@
       "score": 73,
       "name": "Shriram Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SHRIRAMFIN",
-      "rank": 178
+      "rank": 178,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.2,
+        "dist_ema50_pct": 1.56,
+        "dist_s1_pct": 19.58,
+        "dist_r1_pct": -2.21
+      }
     },
     {
       "symbol": "BBTC",
@@ -16116,7 +17896,17 @@
       "score": 73,
       "name": "Bombay Burmah Trading Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BBTC",
-      "rank": 179
+      "rank": 179,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.36,
+        "dist_ema50_pct": -2.22,
+        "dist_s1_pct": 15.96,
+        "dist_r1_pct": -1.65
+      }
     },
     {
       "symbol": "NAM-INDIA",
@@ -16206,7 +17996,17 @@
       "score": 73,
       "name": "Nippon Life India Asset Management Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NAM-INDIA",
-      "rank": 180
+      "rank": 180,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.08,
+        "dist_ema50_pct": 1.33,
+        "dist_s1_pct": 22.06,
+        "dist_r1_pct": -1.64
+      }
     },
     {
       "symbol": "CANFINHOME",
@@ -16296,7 +18096,17 @@
       "score": 73,
       "name": "Can Fin Homes Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CANFINHOME",
-      "rank": 181
+      "rank": 181,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.99,
+        "dist_ema50_pct": -0.65,
+        "dist_s1_pct": 8.07,
+        "dist_r1_pct": -1.65
+      }
     },
     {
       "symbol": "TORNTPHARM",
@@ -16386,7 +18196,17 @@
       "score": 73,
       "name": "Torrent Pharmaceuticals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TORNTPHARM",
-      "rank": 182
+      "rank": 182,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 1.86,
+        "dist_ema50_pct": 0.46,
+        "dist_s1_pct": 6.34,
+        "dist_r1_pct": -0.82
+      }
     },
     {
       "symbol": "ABB",
@@ -16476,7 +18296,17 @@
       "score": 73,
       "name": "ABB India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ABB",
-      "rank": 183
+      "rank": 183,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.41,
+        "dist_ema50_pct": -1.49,
+        "dist_s1_pct": 11.71,
+        "dist_r1_pct": -3.75
+      }
     },
     {
       "symbol": "ELGIEQUIP",
@@ -16566,7 +18396,17 @@
       "score": 73,
       "name": "Elgi Equipments Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ELGIEQUIP",
-      "rank": 184
+      "rank": 184,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.73,
+        "dist_ema50_pct": -2.07,
+        "dist_s1_pct": 10.74,
+        "dist_r1_pct": -5.61
+      }
     },
     {
       "symbol": "LTTS",
@@ -16656,7 +18496,17 @@
       "score": 72,
       "name": "L&T Technology Services Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LTTS",
-      "rank": 185
+      "rank": 185,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.79,
+        "dist_ema50_pct": 15.42,
+        "dist_s1_pct": 34.53,
+        "dist_r1_pct": -2.02
+      }
     },
     {
       "symbol": "WIPRO",
@@ -16746,7 +18596,17 @@
       "score": 72,
       "name": "Wipro Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:WIPRO",
-      "rank": 186
+      "rank": 186,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.8,
+        "dist_ema50_pct": 9.92,
+        "dist_s1_pct": 25.08,
+        "dist_r1_pct": -1.83
+      }
     },
     {
       "symbol": "ACUTAAS",
@@ -16836,7 +18696,17 @@
       "score": 72,
       "name": "Acutaas Chemicals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ACUTAAS",
-      "rank": 187
+      "rank": 187,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.66,
+        "dist_ema50_pct": 11.0,
+        "dist_s1_pct": 24.92,
+        "dist_r1_pct": -6.4
+      }
     },
     {
       "symbol": "KPITTECH",
@@ -16926,7 +18796,17 @@
       "score": 72,
       "name": "KPIT Technologies Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KPITTECH",
-      "rank": 188
+      "rank": 188,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.85,
+        "dist_ema50_pct": -0.47,
+        "dist_s1_pct": 14.12,
+        "dist_r1_pct": -5.42
+      }
     },
     {
       "symbol": "EICHERMOT",
@@ -17016,7 +18896,17 @@
       "score": 72,
       "name": "Eicher Motors Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:EICHERMOT",
-      "rank": 189
+      "rank": 189,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.68,
+        "dist_ema50_pct": 4.04,
+        "dist_s1_pct": 12.77,
+        "dist_r1_pct": -0.56
+      }
     },
     {
       "symbol": "GICRE",
@@ -17106,7 +18996,17 @@
       "score": 72,
       "name": "General Insurance Corporation of India",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GICRE",
-      "rank": 190
+      "rank": 190,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.01,
+        "dist_ema50_pct": 3.54,
+        "dist_s1_pct": 11.03,
+        "dist_r1_pct": -0.2
+      }
     },
     {
       "symbol": "ASIANPAINT",
@@ -17196,7 +19096,17 @@
       "score": 72,
       "name": "Asian Paints Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ASIANPAINT",
-      "rank": 191
+      "rank": 191,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.76,
+        "dist_ema50_pct": 4.89,
+        "dist_s1_pct": 15.11,
+        "dist_r1_pct": -1.19
+      }
     },
     {
       "symbol": "ACC",
@@ -17286,7 +19196,17 @@
       "score": 72,
       "name": "ACC Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ACC",
-      "rank": 192
+      "rank": 192,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.88,
+        "dist_ema50_pct": 2.16,
+        "dist_s1_pct": 10.87,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "POONAWALLA",
@@ -17376,7 +19296,17 @@
       "score": 72,
       "name": "Poonawalla Fincorp Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:POONAWALLA",
-      "rank": 193
+      "rank": 193,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.96,
+        "dist_ema50_pct": 4.89,
+        "dist_s1_pct": 19.93,
+        "dist_r1_pct": -3.63
+      }
     },
     {
       "symbol": "SOBHA",
@@ -17466,7 +19396,17 @@
       "score": 72,
       "name": "Sobha Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SOBHA",
-      "rank": 194
+      "rank": 194,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.75,
+        "dist_ema50_pct": 4.48,
+        "dist_s1_pct": 14.68,
+        "dist_r1_pct": -4.1
+      }
     },
     {
       "symbol": "POWERGRID",
@@ -17556,7 +19496,17 @@
       "score": 72,
       "name": "Power Grid Corporation of India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:POWERGRID",
-      "rank": 195
+      "rank": 195,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.03,
+        "dist_ema50_pct": 0.82,
+        "dist_s1_pct": 8.51,
+        "dist_r1_pct": -2.7
+      }
     },
     {
       "symbol": "APLAPOLLO",
@@ -17646,7 +19596,17 @@
       "score": 72,
       "name": "APL Apollo Tubes Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:APLAPOLLO",
-      "rank": 196
+      "rank": 196,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.34,
+        "dist_ema50_pct": 2.7,
+        "dist_s1_pct": 9.59,
+        "dist_r1_pct": -2.4
+      }
     },
     {
       "symbol": "TMPV",
@@ -17736,7 +19696,17 @@
       "score": 72,
       "name": "Tata Motors Passenger Vehicles Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TMPV",
-      "rank": 197
+      "rank": 197,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.69,
+        "dist_ema50_pct": 0.39,
+        "dist_s1_pct": 12.7,
+        "dist_r1_pct": -1.47
+      }
     },
     {
       "symbol": "JUBLFOOD",
@@ -17826,7 +19796,17 @@
       "score": 72,
       "name": "Jubilant Foodworks Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JUBLFOOD",
-      "rank": 198
+      "rank": 198,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.37,
+        "dist_ema50_pct": 2.72,
+        "dist_s1_pct": 14.93,
+        "dist_r1_pct": -0.17
+      }
     },
     {
       "symbol": "SBICARD",
@@ -17916,7 +19896,17 @@
       "score": 72,
       "name": "SBI Cards and Payment Services Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SBICARD",
-      "rank": 199
+      "rank": 199,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.53,
+        "dist_ema50_pct": 0.21,
+        "dist_s1_pct": 12.71,
+        "dist_r1_pct": -1.02
+      }
     },
     {
       "symbol": "ADANIENT",
@@ -18006,7 +19996,17 @@
       "score": 72,
       "name": "Adani Enterprises Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ADANIENT",
-      "rank": 200
+      "rank": 200,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.14,
+        "dist_ema50_pct": -0.62,
+        "dist_s1_pct": 12.96,
+        "dist_r1_pct": -1.44
+      }
     },
     {
       "symbol": "SJVN",
@@ -18096,7 +20096,17 @@
       "score": 72,
       "name": "SJVN Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SJVN",
-      "rank": 201
+      "rank": 201,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.19,
+        "dist_ema50_pct": -1.79,
+        "dist_s1_pct": 24.02,
+        "dist_r1_pct": -3.1
+      }
     },
     {
       "symbol": "LTFOODS",
@@ -18186,7 +20196,17 @@
       "score": 72,
       "name": "LT Foods Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LTFOODS",
-      "rank": 202
+      "rank": 202,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.2,
+        "dist_ema50_pct": 2.92,
+        "dist_s1_pct": 15.8,
+        "dist_r1_pct": -1.57
+      }
     },
     {
       "symbol": "VBL",
@@ -18276,7 +20296,17 @@
       "score": 72,
       "name": "Varun Beverages Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:VBL",
-      "rank": 203
+      "rank": 203,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.74,
+        "dist_ema50_pct": 3.1,
+        "dist_s1_pct": 13.67,
+        "dist_r1_pct": -1.31
+      }
     },
     {
       "symbol": "GRAVITA",
@@ -18366,7 +20396,17 @@
       "score": 72,
       "name": "Gravita India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GRAVITA",
-      "rank": 204
+      "rank": 204,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.98,
+        "dist_ema50_pct": -0.92,
+        "dist_s1_pct": 15.54,
+        "dist_r1_pct": -3.97
+      }
     },
     {
       "symbol": "IDEA",
@@ -18456,7 +20496,17 @@
       "score": 72,
       "name": "Vodafone Idea Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IDEA",
-      "rank": 205
+      "rank": 205,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.24,
+        "dist_ema50_pct": -1.62,
+        "dist_s1_pct": 15.68,
+        "dist_r1_pct": -2.67
+      }
     },
     {
       "symbol": "URBANCO",
@@ -18546,7 +20596,17 @@
       "score": 72,
       "name": "Urban Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:URBANCO",
-      "rank": 206
+      "rank": 206,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.02,
+        "dist_ema50_pct": 2.34,
+        "dist_s1_pct": 24.99,
+        "dist_r1_pct": -5.88
+      }
     },
     {
       "symbol": "TECHNOE",
@@ -18636,7 +20696,17 @@
       "score": 72,
       "name": "Techno Electric & Engineering Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TECHNOE",
-      "rank": 207
+      "rank": 207,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.47,
+        "dist_ema50_pct": -0.88,
+        "dist_s1_pct": 15.77,
+        "dist_r1_pct": -4.69
+      }
     },
     {
       "symbol": "LTM",
@@ -18726,7 +20796,17 @@
       "score": 71,
       "name": "LTM Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LTM",
-      "rank": 208
+      "rank": 208,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.25,
+        "dist_ema50_pct": 3.09,
+        "dist_s1_pct": 11.17,
+        "dist_r1_pct": -3.93
+      }
     },
     {
       "symbol": "SBIN",
@@ -18816,7 +20896,17 @@
       "score": 71,
       "name": "State Bank of India",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SBIN",
-      "rank": 209
+      "rank": 209,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.35,
+        "dist_ema50_pct": 3.41,
+        "dist_s1_pct": 8.59,
+        "dist_r1_pct": -0.15
+      }
     },
     {
       "symbol": "CIPLA",
@@ -18906,7 +20996,17 @@
       "score": 71,
       "name": "Cipla Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CIPLA",
-      "rank": 210
+      "rank": 210,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 3.07,
+        "dist_ema50_pct": 2.84,
+        "dist_s1_pct": 8.93,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "BANDHANBNK",
@@ -18996,7 +21096,17 @@
       "score": 71,
       "name": "Bandhan Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BANDHANBNK",
-      "rank": 211
+      "rank": 211,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.57,
+        "dist_ema50_pct": -1.06,
+        "dist_s1_pct": 14.83,
+        "dist_r1_pct": -5.37
+      }
     },
     {
       "symbol": "SBILIFE",
@@ -19086,7 +21196,17 @@
       "score": 71,
       "name": "SBI Life Insurance Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SBILIFE",
-      "rank": 212
+      "rank": 212,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.53,
+        "dist_ema50_pct": 4.2,
+        "dist_s1_pct": 10.97,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "SUNPHARMA",
@@ -19176,7 +21296,17 @@
       "score": 71,
       "name": "Sun Pharmaceutical Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SUNPHARMA",
-      "rank": 213
+      "rank": 213,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.14,
+        "dist_ema50_pct": 2.57,
+        "dist_s1_pct": 8.2,
+        "dist_r1_pct": -0.48
+      }
     },
     {
       "symbol": "NTPC",
@@ -19266,7 +21396,17 @@
       "score": 71,
       "name": "NTPC Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NTPC",
-      "rank": 214
+      "rank": 214,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 3.56,
+        "dist_ema50_pct": 1.8,
+        "dist_s1_pct": 11.81,
+        "dist_r1_pct": -0.44
+      }
     },
     {
       "symbol": "ASTERDM",
@@ -19356,7 +21496,17 @@
       "score": 71,
       "name": "Aster DM Quality Care Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ASTERDM",
-      "rank": 215
+      "rank": 215,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.28,
+        "dist_ema50_pct": -0.16,
+        "dist_s1_pct": 11.78,
+        "dist_r1_pct": -2.29
+      }
     },
     {
       "symbol": "CANBK",
@@ -19446,7 +21596,17 @@
       "score": 71,
       "name": "Canara Bank",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CANBK",
-      "rank": 216
+      "rank": 216,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.58,
+        "dist_ema50_pct": 1.03,
+        "dist_s1_pct": 7.24,
+        "dist_r1_pct": -2.8
+      }
     },
     {
       "symbol": "DEVYANI",
@@ -19536,7 +21696,17 @@
       "score": 71,
       "name": "Devyani International Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DEVYANI",
-      "rank": 217
+      "rank": 217,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.49,
+        "dist_ema50_pct": 1.89,
+        "dist_s1_pct": 13.56,
+        "dist_r1_pct": -2.32
+      }
     },
     {
       "symbol": "VIJAYA",
@@ -19626,7 +21796,17 @@
       "score": 71,
       "name": "Vijaya Diagnostic Centre Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:VIJAYA",
-      "rank": 218
+      "rank": 218,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.24,
+        "dist_ema50_pct": 2.22,
+        "dist_s1_pct": 10.01,
+        "dist_r1_pct": -2.42
+      }
     },
     {
       "symbol": "SUNDARMFIN",
@@ -19716,7 +21896,17 @@
       "score": 71,
       "name": "Sundaram Finance Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SUNDARMFIN",
-      "rank": 219
+      "rank": 219,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.31,
+        "dist_ema50_pct": -1.42,
+        "dist_s1_pct": 10.45,
+        "dist_r1_pct": -1.72
+      }
     },
     {
       "symbol": "MRF",
@@ -19806,7 +21996,17 @@
       "score": 71,
       "name": "MRF Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MRF",
-      "rank": 220
+      "rank": 220,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 3.67,
+        "dist_ema50_pct": 1.36,
+        "dist_s1_pct": 8.77,
+        "dist_r1_pct": -0.94
+      }
     },
     {
       "symbol": "GPIL",
@@ -19896,7 +22096,17 @@
       "score": 71,
       "name": "Godawari Power & Ispat Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GPIL",
-      "rank": 221
+      "rank": 221,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.56,
+        "dist_ema50_pct": -3.6,
+        "dist_s1_pct": 10.47,
+        "dist_r1_pct": -2.65
+      }
     },
     {
       "symbol": "BLUEDART",
@@ -19986,7 +22196,17 @@
       "score": 71,
       "name": "Blue Dart Express Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BLUEDART",
-      "rank": 222
+      "rank": 222,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.52,
+        "dist_ema50_pct": -1.0,
+        "dist_s1_pct": 9.67,
+        "dist_r1_pct": -2.76
+      }
     },
     {
       "symbol": "INDIANB",
@@ -20076,7 +22296,17 @@
       "score": 70,
       "name": "Indian Bank",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDIANB",
-      "rank": 223
+      "rank": 223,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.41,
+        "dist_ema50_pct": 6.22,
+        "dist_s1_pct": 11.63,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "PERSISTENT",
@@ -20166,7 +22396,17 @@
       "score": 70,
       "name": "Persistent Systems Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PERSISTENT",
-      "rank": 224
+      "rank": 224,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.93,
+        "dist_ema50_pct": 6.4,
+        "dist_s1_pct": 10.22,
+        "dist_r1_pct": -2.99
+      }
     },
     {
       "symbol": "MPHASIS",
@@ -20256,7 +22496,17 @@
       "score": 70,
       "name": "MphasiS Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MPHASIS",
-      "rank": 225
+      "rank": 225,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.39,
+        "dist_ema50_pct": 3.9,
+        "dist_s1_pct": 8.98,
+        "dist_r1_pct": -7.05
+      }
     },
     {
       "symbol": "UNIONBANK",
@@ -20346,7 +22596,17 @@
       "score": 70,
       "name": "Union Bank of India",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:UNIONBANK",
-      "rank": 226
+      "rank": 226,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.8,
+        "dist_ema50_pct": 4.31,
+        "dist_s1_pct": 11.64,
+        "dist_r1_pct": -1.01
+      }
     },
     {
       "symbol": "NUVOCO",
@@ -20436,7 +22696,17 @@
       "score": 70,
       "name": "Nuvoco Vistas Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NUVOCO",
-      "rank": 227
+      "rank": 227,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.35,
+        "dist_ema50_pct": 3.14,
+        "dist_s1_pct": 9.87,
+        "dist_r1_pct": -2.97
+      }
     },
     {
       "symbol": "NYKAA",
@@ -20526,7 +22796,17 @@
       "score": 70,
       "name": "FSN E-Commerce Ventures Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NYKAA",
-      "rank": 228
+      "rank": 228,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.75,
+        "dist_ema50_pct": 4.81,
+        "dist_s1_pct": 13.36,
+        "dist_r1_pct": -2.86
+      }
     },
     {
       "symbol": "FEDERALBNK",
@@ -20616,7 +22896,17 @@
       "score": 70,
       "name": "Federal Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:FEDERALBNK",
-      "rank": 229
+      "rank": 229,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.59,
+        "dist_ema50_pct": 0.85,
+        "dist_s1_pct": 5.98,
+        "dist_r1_pct": -4.33
+      }
     },
     {
       "symbol": "TATAPOWER",
@@ -20706,7 +22996,17 @@
       "score": 70,
       "name": "Tata Power Co. Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TATAPOWER",
-      "rank": 230
+      "rank": 230,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.15,
+        "dist_ema50_pct": -1.36,
+        "dist_s1_pct": 5.79,
+        "dist_r1_pct": -3.92
+      }
     },
     {
       "symbol": "BLUESTARCO",
@@ -20796,7 +23096,17 @@
       "score": 70,
       "name": "Blue Star Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BLUESTARCO",
-      "rank": 231
+      "rank": 231,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.36,
+        "dist_ema50_pct": 0.95,
+        "dist_s1_pct": 6.41,
+        "dist_r1_pct": -5.86
+      }
     },
     {
       "symbol": "RVNL",
@@ -20886,7 +23196,17 @@
       "score": 70,
       "name": "Rail Vikas Nigam Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:RVNL",
-      "rank": 232
+      "rank": 232,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.57,
+        "dist_ema50_pct": -3.09,
+        "dist_s1_pct": 8.7,
+        "dist_r1_pct": -4.28
+      }
     },
     {
       "symbol": "SAIL",
@@ -20976,7 +23296,17 @@
       "score": 70,
       "name": "Steel Authority of India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SAIL",
-      "rank": 233
+      "rank": 233,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.27,
+        "dist_ema50_pct": -0.39,
+        "dist_s1_pct": 7.92,
+        "dist_r1_pct": -3.19
+      }
     },
     {
       "symbol": "BERGEPAINT",
@@ -21066,7 +23396,17 @@
       "score": 70,
       "name": "Berger Paints India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BERGEPAINT",
-      "rank": 234
+      "rank": 234,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.94,
+        "dist_ema50_pct": 0.35,
+        "dist_s1_pct": 4.44,
+        "dist_r1_pct": -6.21
+      }
     },
     {
       "symbol": "PTCIL",
@@ -21156,7 +23496,17 @@
       "score": 70,
       "name": "PTC Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PTCIL",
-      "rank": 235
+      "rank": 235,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.9,
+        "dist_ema50_pct": 5.35,
+        "dist_s1_pct": 5.37,
+        "dist_r1_pct": -6.71
+      }
     },
     {
       "symbol": "PAGEIND",
@@ -21246,7 +23596,17 @@
       "score": 70,
       "name": "Page Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PAGEIND",
-      "rank": 236
+      "rank": 236,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.39,
+        "dist_ema50_pct": -0.39,
+        "dist_s1_pct": 8.37,
+        "dist_r1_pct": -3.15
+      }
     },
     {
       "symbol": "ANURAS",
@@ -21336,7 +23696,17 @@
       "score": 69,
       "name": "Anupam Rasayan India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ANURAS",
-      "rank": 237
+      "rank": 237,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.36,
+        "dist_ema50_pct": -0.63,
+        "dist_s1_pct": 9.12,
+        "dist_r1_pct": -2.07
+      }
     },
     {
       "symbol": "CPPLUS",
@@ -21426,7 +23796,17 @@
       "score": 69,
       "name": "Aditya Infotech Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CPPLUS",
-      "rank": 238
+      "rank": 238,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.02,
+        "dist_ema50_pct": 7.28,
+        "dist_s1_pct": 14.15,
+        "dist_r1_pct": -10.58
+      }
     },
     {
       "symbol": "INDUSTOWER",
@@ -21516,7 +23896,17 @@
       "score": 69,
       "name": "Indus Towers Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDUSTOWER",
-      "rank": 239
+      "rank": 239,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.26,
+        "dist_ema50_pct": 0.6,
+        "dist_s1_pct": 3.54,
+        "dist_r1_pct": -4.11
+      }
     },
     {
       "symbol": "JSWENERGY",
@@ -21606,7 +23996,17 @@
       "score": 68,
       "name": "JSW Energy Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JSWENERGY",
-      "rank": 240
+      "rank": 240,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.86,
+        "dist_ema50_pct": 4.16,
+        "dist_s1_pct": 19.74,
+        "dist_r1_pct": -0.01
+      }
     },
     {
       "symbol": "IRFC",
@@ -21696,7 +24096,17 @@
       "score": 68,
       "name": "Indian Railway Finance Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IRFC",
-      "rank": 241
+      "rank": 241,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.55,
+        "dist_ema50_pct": 2.06,
+        "dist_s1_pct": 10.25,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "KFINTECH",
@@ -21786,7 +24196,17 @@
       "score": 68,
       "name": "Kfin Technologies Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:KFINTECH",
-      "rank": 242
+      "rank": 242,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.79,
+        "dist_ema50_pct": 3.82,
+        "dist_s1_pct": 16.81,
+        "dist_r1_pct": -1.69
+      }
     },
     {
       "symbol": "ADANIPOWER",
@@ -21876,7 +24296,17 @@
       "score": 68,
       "name": "Adani Power Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ADANIPOWER",
-      "rank": 243
+      "rank": 243,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.72,
+        "dist_ema50_pct": 2.95,
+        "dist_s1_pct": 16.53,
+        "dist_r1_pct": -0.99
+      }
     },
     {
       "symbol": "ZFCVINDIA",
@@ -21966,7 +24396,17 @@
       "score": 68,
       "name": "ZF Commercial Vehicle Control Systems India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ZFCVINDIA",
-      "rank": 244
+      "rank": 244,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.95,
+        "dist_ema50_pct": 1.01,
+        "dist_s1_pct": 11.66,
+        "dist_r1_pct": -2.26
+      }
     },
     {
       "symbol": "ONESOURCE",
@@ -22056,7 +24496,17 @@
       "score": 68,
       "name": "Onesource Specialty Pharma Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ONESOURCE",
-      "rank": 245
+      "rank": 245,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.9,
+        "dist_ema50_pct": 4.51,
+        "dist_s1_pct": 21.14,
+        "dist_r1_pct": -2.69
+      }
     },
     {
       "symbol": "ABCAPITAL",
@@ -22146,7 +24596,17 @@
       "score": 68,
       "name": "Aditya Birla Capital Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ABCAPITAL",
-      "rank": 246
+      "rank": 246,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.91,
+        "dist_ema50_pct": 4.54,
+        "dist_s1_pct": 19.24,
+        "dist_r1_pct": -0.51
+      }
     },
     {
       "symbol": "UNITDSPR",
@@ -22236,7 +24696,17 @@
       "score": 68,
       "name": "United Spirits Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:UNITDSPR",
-      "rank": 247
+      "rank": 247,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.96,
+        "dist_ema50_pct": 3.2,
+        "dist_s1_pct": 16.47,
+        "dist_r1_pct": -1.01
+      }
     },
     {
       "symbol": "EIHOTEL",
@@ -22326,7 +24796,17 @@
       "score": 68,
       "name": "EIH Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:EIHOTEL",
-      "rank": 248
+      "rank": 248,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.3,
+        "dist_ema50_pct": 4.82,
+        "dist_s1_pct": 11.33,
+        "dist_r1_pct": -1.76
+      }
     },
     {
       "symbol": "ABLBL",
@@ -22416,7 +24896,17 @@
       "score": 68,
       "name": "Aditya Birla Lifestyle Brands Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ABLBL",
-      "rank": 249
+      "rank": 249,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.12,
+        "dist_ema50_pct": -0.96,
+        "dist_s1_pct": 11.26,
+        "dist_r1_pct": -0.85
+      }
     },
     {
       "symbol": "PGEL",
@@ -22506,7 +24996,17 @@
       "score": 68,
       "name": "PG Electroplast Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PGEL",
-      "rank": 250
+      "rank": 250,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.04,
+        "dist_ema50_pct": 2.76,
+        "dist_s1_pct": 20.17,
+        "dist_r1_pct": -1.67
+      }
     },
     {
       "symbol": "ERIS",
@@ -22596,7 +25096,17 @@
       "score": 68,
       "name": "Eris Lifesciences Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ERIS",
-      "rank": 251
+      "rank": 251,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.29,
+        "dist_ema50_pct": 0.81,
+        "dist_s1_pct": 15.44,
+        "dist_r1_pct": -0.54
+      }
     },
     {
       "symbol": "CDSL",
@@ -22686,7 +25196,17 @@
       "score": 68,
       "name": "Central Depository Services (India) Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CDSL",
-      "rank": 252
+      "rank": 252,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.85,
+        "dist_ema50_pct": 2.7,
+        "dist_s1_pct": 14.86,
+        "dist_r1_pct": -1.54
+      }
     },
     {
       "symbol": "NATIONALUM",
@@ -22776,7 +25296,17 @@
       "score": 68,
       "name": "National Aluminium Co. Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NATIONALUM",
-      "rank": 253
+      "rank": 253,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 1.81,
+        "dist_ema50_pct": -2.15,
+        "dist_s1_pct": 12.71,
+        "dist_r1_pct": -0.89
+      }
     },
     {
       "symbol": "RADICO",
@@ -22866,7 +25396,17 @@
       "score": 68,
       "name": "Radico Khaitan Ltd",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:RADICO",
-      "rank": 254
+      "rank": 254,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.97,
+        "dist_ema50_pct": 3.61,
+        "dist_s1_pct": 12.18,
+        "dist_r1_pct": -2.12
+      }
     },
     {
       "symbol": "IRCTC",
@@ -22956,7 +25496,17 @@
       "score": 68,
       "name": "Indian Railway Catering And Tourism Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IRCTC",
-      "rank": 255
+      "rank": 255,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.02,
+        "dist_ema50_pct": -1.24,
+        "dist_s1_pct": 5.06,
+        "dist_r1_pct": -4.46
+      }
     },
     {
       "symbol": "TIMKEN",
@@ -23046,7 +25596,17 @@
       "score": 68,
       "name": "Timken India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TIMKEN",
-      "rank": 256
+      "rank": 256,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.22,
+        "dist_ema50_pct": 0.7,
+        "dist_s1_pct": 13.76,
+        "dist_r1_pct": -2.65
+      }
     },
     {
       "symbol": "DIXON",
@@ -23136,7 +25696,17 @@
       "score": 68,
       "name": "Dixon Technologies (India) Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DIXON",
-      "rank": 257
+      "rank": 257,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.56,
+        "dist_ema50_pct": -0.37,
+        "dist_s1_pct": 15.49,
+        "dist_r1_pct": -2.53
+      }
     },
     {
       "symbol": "SIEMENS",
@@ -23226,7 +25796,17 @@
       "score": 68,
       "name": "Siemens Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SIEMENS",
-      "rank": 258
+      "rank": 258,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.8,
+        "dist_ema50_pct": -1.92,
+        "dist_s1_pct": 11.93,
+        "dist_r1_pct": -5.82
+      }
     },
     {
       "symbol": "BEL",
@@ -23316,7 +25896,17 @@
       "score": 67,
       "name": "Bharat Electronics Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BEL",
-      "rank": 259
+      "rank": 259,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.08,
+        "dist_ema50_pct": 2.51,
+        "dist_s1_pct": 11.69,
+        "dist_r1_pct": -2.1
+      }
     },
     {
       "symbol": "EMAMILTD",
@@ -23406,7 +25996,17 @@
       "score": 67,
       "name": "Emami Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:EMAMILTD",
-      "rank": 260
+      "rank": 260,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.78,
+        "dist_ema50_pct": 1.83,
+        "dist_s1_pct": 8.46,
+        "dist_r1_pct": -1.51
+      }
     },
     {
       "symbol": "WAAREEENER",
@@ -23496,7 +26096,17 @@
       "score": 67,
       "name": "Waaree Energies Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:WAAREEENER",
-      "rank": 261
+      "rank": 261,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.09,
+        "dist_ema50_pct": -1.24,
+        "dist_s1_pct": 12.79,
+        "dist_r1_pct": -5.37
+      }
     },
     {
       "symbol": "OBEROIRLTY",
@@ -23586,7 +26196,17 @@
       "score": 67,
       "name": "Oberoi Realty Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:OBEROIRLTY",
-      "rank": 262
+      "rank": 262,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.12,
+        "dist_ema50_pct": 0.76,
+        "dist_s1_pct": 10.83,
+        "dist_r1_pct": -1.2
+      }
     },
     {
       "symbol": "UCOBANK",
@@ -23676,7 +26296,17 @@
       "score": 67,
       "name": "UCO Bank",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:UCOBANK",
-      "rank": 263
+      "rank": 263,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.7,
+        "dist_ema50_pct": 0.93,
+        "dist_s1_pct": 11.72,
+        "dist_r1_pct": -3.87
+      }
     },
     {
       "symbol": "ATGL",
@@ -23766,7 +26396,17 @@
       "score": 67,
       "name": "Adani Total Gas Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ATGL",
-      "rank": 264
+      "rank": 264,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.16,
+        "dist_ema50_pct": -1.97,
+        "dist_s1_pct": 10.86,
+        "dist_r1_pct": -2.2
+      }
     },
     {
       "symbol": "CENTRALBK",
@@ -23856,7 +26496,17 @@
       "score": 67,
       "name": "Central Bank of India",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CENTRALBK",
-      "rank": 265
+      "rank": 265,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.34,
+        "dist_ema50_pct": 0.89,
+        "dist_s1_pct": 8.39,
+        "dist_r1_pct": -4.4
+      }
     },
     {
       "symbol": "CHAMBLFERT",
@@ -23946,7 +26596,17 @@
       "score": 67,
       "name": "Chambal Fertilizers & Chemicals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CHAMBLFERT",
-      "rank": 266
+      "rank": 266,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.15,
+        "dist_ema50_pct": -2.82,
+        "dist_s1_pct": 9.91,
+        "dist_r1_pct": -4.67
+      }
     },
     {
       "symbol": "JSWINFRA",
@@ -24036,7 +26696,17 @@
       "score": 67,
       "name": "JSW Infrastructure Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JSWINFRA",
-      "rank": 267
+      "rank": 267,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.9,
+        "dist_ema50_pct": 1.28,
+        "dist_s1_pct": 11.83,
+        "dist_r1_pct": -3.93
+      }
     },
     {
       "symbol": "DOMS",
@@ -24126,7 +26796,17 @@
       "score": 67,
       "name": "DOMS Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DOMS",
-      "rank": 268
+      "rank": 268,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.05,
+        "dist_ema50_pct": 0.16,
+        "dist_s1_pct": 15.71,
+        "dist_r1_pct": -5.32
+      }
     },
     {
       "symbol": "AMBER",
@@ -24216,7 +26896,17 @@
       "score": 67,
       "name": "Amber Enterprises India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AMBER",
-      "rank": 269
+      "rank": 269,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.2,
+        "dist_ema50_pct": -4.31,
+        "dist_s1_pct": 9.35,
+        "dist_r1_pct": -5.22
+      }
     },
     {
       "symbol": "WOCKPHARMA",
@@ -24306,7 +26996,17 @@
       "score": 67,
       "name": "Wockhardt Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:WOCKPHARMA",
-      "rank": 270
+      "rank": 270,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.36,
+        "dist_ema50_pct": -1.33,
+        "dist_s1_pct": 9.88,
+        "dist_r1_pct": -5.67
+      }
     },
     {
       "symbol": "ANANDRATHI",
@@ -24396,7 +27096,17 @@
       "score": 66,
       "name": "Anand Rathi Wealth Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ANANDRATHI",
-      "rank": 271
+      "rank": 271,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.6,
+        "dist_ema50_pct": 8.48,
+        "dist_s1_pct": 17.96,
+        "dist_r1_pct": -0.69
+      }
     },
     {
       "symbol": "ABDL",
@@ -24486,7 +27196,17 @@
       "score": 66,
       "name": "Allied Blenders and Distillers Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ABDL",
-      "rank": 272
+      "rank": 272,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.15,
+        "dist_ema50_pct": 4.12,
+        "dist_s1_pct": 8.26,
+        "dist_r1_pct": -7.68
+      }
     },
     {
       "symbol": "IPCALAB",
@@ -24576,7 +27296,17 @@
       "score": 66,
       "name": "Ipca Laboratories Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IPCALAB",
-      "rank": 273
+      "rank": 273,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.29,
+        "dist_ema50_pct": 1.42,
+        "dist_s1_pct": 8.06,
+        "dist_r1_pct": -3.49
+      }
     },
     {
       "symbol": "ICICIAMC",
@@ -24666,7 +27396,17 @@
       "score": 66,
       "name": "ICICI Prudential Asset Management Company Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ICICIAMC",
-      "rank": 274
+      "rank": 274,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.54,
+        "dist_ema50_pct": -0.22,
+        "dist_s1_pct": 12.01,
+        "dist_r1_pct": -3.91
+      }
     },
     {
       "symbol": "CHOICEIN",
@@ -24756,7 +27496,17 @@
       "score": 65,
       "name": "Choice International Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:CHOICEIN",
-      "rank": 275
+      "rank": 275,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.85,
+        "dist_ema50_pct": 0.68,
+        "dist_s1_pct": 11.39,
+        "dist_r1_pct": -2.22
+      }
     },
     {
       "symbol": "NCC",
@@ -24846,7 +27596,17 @@
       "score": 65,
       "name": "NCC Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NCC",
-      "rank": 276
+      "rank": 276,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.86,
+        "dist_ema50_pct": -4.28,
+        "dist_s1_pct": 8.23,
+        "dist_r1_pct": -5.14
+      }
     },
     {
       "symbol": "DABUR",
@@ -24936,7 +27696,17 @@
       "score": 65,
       "name": "Dabur India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DABUR",
-      "rank": 277
+      "rank": 277,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.86,
+        "dist_ema50_pct": -0.84,
+        "dist_s1_pct": 7.35,
+        "dist_r1_pct": -5.59
+      }
     },
     {
       "symbol": "IDFCFIRSTB",
@@ -25026,7 +27796,17 @@
       "score": 65,
       "name": "IDFC First Bank Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IDFCFIRSTB",
-      "rank": 278
+      "rank": 278,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.72,
+        "dist_ema50_pct": -1.78,
+        "dist_s1_pct": 11.23,
+        "dist_r1_pct": -3.81
+      }
     },
     {
       "symbol": "TCS",
@@ -25116,7 +27896,17 @@
       "score": 64,
       "name": "Tata Consultancy Services Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TCS",
-      "rank": 279
+      "rank": 279,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.28,
+        "dist_ema50_pct": 7.28,
+        "dist_s1_pct": 20.41,
+        "dist_r1_pct": -4.82
+      }
     },
     {
       "symbol": "BAJAJHLDNG",
@@ -25206,7 +27996,17 @@
       "score": 64,
       "name": "Bajaj Holdings & Investment Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BAJAJHLDNG",
-      "rank": 280
+      "rank": 280,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.8,
+        "dist_ema50_pct": 1.86,
+        "dist_s1_pct": 10.1,
+        "dist_r1_pct": -3.29
+      }
     },
     {
       "symbol": "GMDCLTD",
@@ -25296,7 +28096,17 @@
       "score": 64,
       "name": "Gujarat Mineral Development Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GMDCLTD",
-      "rank": 281
+      "rank": 281,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.57,
+        "dist_ema50_pct": -5.53,
+        "dist_s1_pct": 17.53,
+        "dist_r1_pct": -3.8
+      }
     },
     {
       "symbol": "HINDUNILVR",
@@ -25386,7 +28196,17 @@
       "score": 63,
       "name": "Hindustan Unilever Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HINDUNILVR",
-      "rank": 282
+      "rank": 282,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.04,
+        "dist_ema50_pct": 3.71,
+        "dist_s1_pct": 13.66,
+        "dist_r1_pct": -0.87
+      }
     },
     {
       "symbol": "PIDILITIND",
@@ -25476,7 +28296,17 @@
       "score": 63,
       "name": "Pidilite Industries Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PIDILITIND",
-      "rank": 283
+      "rank": 283,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.31,
+        "dist_ema50_pct": 3.75,
+        "dist_s1_pct": 17.63,
+        "dist_r1_pct": 0.0
+      }
     },
     {
       "symbol": "BANKINDIA",
@@ -25566,7 +28396,17 @@
       "score": 63,
       "name": "Bank of India",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BANKINDIA",
-      "rank": 284
+      "rank": 284,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.91,
+        "dist_ema50_pct": 1.78,
+        "dist_s1_pct": 12.08,
+        "dist_r1_pct": -1.37
+      }
     },
     {
       "symbol": "TORNTPOWER",
@@ -25656,7 +28496,17 @@
       "score": 63,
       "name": "Torrent Power Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TORNTPOWER",
-      "rank": 285
+      "rank": 285,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.5,
+        "dist_ema50_pct": 2.3,
+        "dist_s1_pct": 10.77,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "SAPPHIRE",
@@ -25746,7 +28596,17 @@
       "score": 63,
       "name": "Sapphire Foods India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SAPPHIRE",
-      "rank": 286
+      "rank": 286,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.85,
+        "dist_ema50_pct": 1.26,
+        "dist_s1_pct": 12.81,
+        "dist_r1_pct": -2.07
+      }
     },
     {
       "symbol": "GILLETTE",
@@ -25836,7 +28696,17 @@
       "score": 63,
       "name": "Gillette India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GILLETTE",
-      "rank": 287
+      "rank": 287,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.27,
+        "dist_ema50_pct": 1.94,
+        "dist_s1_pct": 6.05,
+        "dist_r1_pct": -2.55
+      }
     },
     {
       "symbol": "ALKEM",
@@ -25926,7 +28796,17 @@
       "score": 63,
       "name": "Alkem Laboratories Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ALKEM",
-      "rank": 288
+      "rank": 288,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 2.62,
+        "dist_ema50_pct": 1.43,
+        "dist_s1_pct": 10.1,
+        "dist_r1_pct": -0.07
+      }
     },
     {
       "symbol": "PARADEEP",
@@ -26016,7 +28896,17 @@
       "score": 63,
       "name": "Paradeep Phosphates Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PARADEEP",
-      "rank": 289
+      "rank": 289,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.22,
+        "dist_ema50_pct": -1.49,
+        "dist_s1_pct": 18.79,
+        "dist_r1_pct": -6.22
+      }
     },
     {
       "symbol": "JAINREC",
@@ -26106,7 +28996,17 @@
       "score": 62,
       "name": "Jain Resource Recycling Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JAINREC",
-      "rank": 290
+      "rank": 290,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.44,
+        "dist_ema50_pct": -1.36,
+        "dist_s1_pct": 8.4,
+        "dist_r1_pct": -3.63
+      }
     },
     {
       "symbol": "HOMEFIRST",
@@ -26196,7 +29096,17 @@
       "score": 62,
       "name": "Home First Finance Company India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HOMEFIRST",
-      "rank": 291
+      "rank": 291,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.52,
+        "dist_ema50_pct": -1.53,
+        "dist_s1_pct": 11.19,
+        "dist_r1_pct": -3.31
+      }
     },
     {
       "symbol": "RECLTD",
@@ -26286,7 +29196,17 @@
       "score": 62,
       "name": "REC Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:RECLTD",
-      "rank": 292
+      "rank": 292,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.01,
+        "dist_ema50_pct": -2.2,
+        "dist_s1_pct": 5.83,
+        "dist_r1_pct": -4.68
+      }
     },
     {
       "symbol": "PFC",
@@ -26376,7 +29296,17 @@
       "score": 62,
       "name": "Power Finance Corporation Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PFC",
-      "rank": 293
+      "rank": 293,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.99,
+        "dist_ema50_pct": -2.99,
+        "dist_s1_pct": 5.96,
+        "dist_r1_pct": -5.92
+      }
     },
     {
       "symbol": "GODFRYPHLP",
@@ -26466,7 +29396,17 @@
       "score": 62,
       "name": "Godfrey Phillips India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GODFRYPHLP",
-      "rank": 294
+      "rank": 294,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.72,
+        "dist_ema50_pct": -4.36,
+        "dist_s1_pct": 9.07,
+        "dist_r1_pct": -5.04
+      }
     },
     {
       "symbol": "BHEL",
@@ -26556,7 +29496,17 @@
       "score": 62,
       "name": "Bharat Heavy Electricals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BHEL",
-      "rank": 295
+      "rank": 295,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.37,
+        "dist_ema50_pct": 0.54,
+        "dist_s1_pct": 10.88,
+        "dist_r1_pct": -9.74
+      }
     },
     {
       "symbol": "NAVA",
@@ -26646,7 +29596,17 @@
       "score": 62,
       "name": "Nava Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NAVA",
-      "rank": 296
+      "rank": 296,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.16,
+        "dist_ema50_pct": -1.76,
+        "dist_s1_pct": 16.04,
+        "dist_r1_pct": -5.34
+      }
     },
     {
       "symbol": "VMM",
@@ -26736,7 +29696,17 @@
       "score": 62,
       "name": "Vishal Mega Mart Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:VMM",
-      "rank": 297
+      "rank": 297,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.82,
+        "dist_ema50_pct": -3.65,
+        "dist_s1_pct": 11.69,
+        "dist_r1_pct": -4.21
+      }
     },
     {
       "symbol": "DMART",
@@ -26826,7 +29796,17 @@
       "score": 62,
       "name": "Avenue Supermarts Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DMART",
-      "rank": 298
+      "rank": 298,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.99,
+        "dist_ema50_pct": -3.08,
+        "dist_s1_pct": 10.4,
+        "dist_r1_pct": -4.96
+      }
     },
     {
       "symbol": "ITI",
@@ -26916,7 +29896,17 @@
       "score": 61,
       "name": "ITI Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ITI",
-      "rank": 299
+      "rank": 299,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.3,
+        "dist_ema50_pct": -0.18,
+        "dist_s1_pct": 18.07,
+        "dist_r1_pct": -11.12
+      }
     },
     {
       "symbol": "MRPL",
@@ -27006,7 +29996,17 @@
       "score": 61,
       "name": "Mangalore Refinery & Petrochemicals Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MRPL",
-      "rank": 300
+      "rank": 300,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.49,
+        "dist_ema50_pct": 2.47,
+        "dist_s1_pct": 10.48,
+        "dist_r1_pct": -7.89
+      }
     },
     {
       "symbol": "WHIRLPOOL",
@@ -27096,7 +30096,17 @@
       "score": 61,
       "name": "Whirlpool of India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:WHIRLPOOL",
-      "rank": 301
+      "rank": 301,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.32,
+        "dist_ema50_pct": 1.02,
+        "dist_s1_pct": 6.8,
+        "dist_r1_pct": -6.9
+      }
     },
     {
       "symbol": "IOB",
@@ -27186,7 +30196,17 @@
       "score": 61,
       "name": "Indian Overseas Bank",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IOB",
-      "rank": 302
+      "rank": 302,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.39,
+        "dist_ema50_pct": -1.77,
+        "dist_s1_pct": 7.91,
+        "dist_r1_pct": -5.68
+      }
     },
     {
       "symbol": "APOLLOHOSP",
@@ -27276,7 +30296,17 @@
       "score": 60,
       "name": "Apollo Hospitals Enterprise Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:APOLLOHOSP",
-      "rank": 303
+      "rank": 303,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.85,
+        "dist_ema50_pct": 1.52,
+        "dist_s1_pct": 13.14,
+        "dist_r1_pct": -2.87
+      }
     },
     {
       "symbol": "COALINDIA",
@@ -27366,7 +30396,17 @@
       "score": 60,
       "name": "Coal India Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:COALINDIA",
-      "rank": 304
+      "rank": 304,
+      "proximity": {
+        "near_ema20": true,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 0.96,
+        "dist_ema50_pct": -0.03,
+        "dist_s1_pct": 7.86,
+        "dist_r1_pct": -2.38
+      }
     },
     {
       "symbol": "SRF",
@@ -27456,7 +30496,17 @@
       "score": 60,
       "name": "SRF Ltd.",
       "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SRF",
-      "rank": 305
+      "rank": 305,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": true,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.51,
+        "dist_ema50_pct": -0.63,
+        "dist_s1_pct": 12.95,
+        "dist_r1_pct": -2.97
+      }
     }
   ]
 }

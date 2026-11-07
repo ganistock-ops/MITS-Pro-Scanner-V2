@@ -89,7 +89,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ANGELONE",
         "rank": 1
       },
-      "rank": 1
+      "rank": 1,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.94,
+        "dist_ema50_pct": 11.12,
+        "dist_s1_pct": 20.89,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "INDIGO",
@@ -175,7 +185,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDIGO",
         "rank": 2
       },
-      "rank": 2
+      "rank": 2,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.87,
+        "dist_ema50_pct": 11.04,
+        "dist_s1_pct": 22.66,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "PNB",
@@ -261,7 +281,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PNB",
         "rank": 3
       },
-      "rank": 3
+      "rank": 3,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.45,
+        "dist_ema50_pct": 7.17,
+        "dist_s1_pct": 10.91,
+        "dist_r1_pct": -0.24
+      }
     },
     {
       "symbol": "ITC",
@@ -347,7 +377,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ITC",
         "rank": 4
       },
-      "rank": 4
+      "rank": 4,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.58,
+        "dist_ema50_pct": 5.72,
+        "dist_s1_pct": 12.01,
+        "dist_r1_pct": -0.26
+      }
     },
     {
       "symbol": "MOTILALOFS",
@@ -433,7 +473,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MOTILALOFS",
         "rank": 5
       },
-      "rank": 5
+      "rank": 5,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.8,
+        "dist_ema50_pct": 10.2,
+        "dist_s1_pct": 24.27,
+        "dist_r1_pct": -0.27
+      }
     },
     {
       "symbol": "AUROPHARMA",
@@ -519,7 +569,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:AUROPHARMA",
         "rank": 6
       },
-      "rank": 6
+      "rank": 6,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.83,
+        "dist_ema50_pct": 8.3,
+        "dist_s1_pct": 16.3,
+        "dist_r1_pct": -0.28
+      }
     },
     {
       "symbol": "NAVINFLUOR",
@@ -605,7 +665,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NAVINFLUOR",
         "rank": 7
       },
-      "rank": 7
+      "rank": 7,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.67,
+        "dist_ema50_pct": 8.31,
+        "dist_s1_pct": 20.07,
+        "dist_r1_pct": -0.28
+      }
     },
     {
       "symbol": "SHYAMMETL",
@@ -691,7 +761,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SHYAMMETL",
         "rank": 8
       },
-      "rank": 8
+      "rank": 8,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.35,
+        "dist_ema50_pct": 16.04,
+        "dist_s1_pct": 24.09,
+        "dist_r1_pct": -0.34
+      }
     },
     {
       "symbol": "ADANIGREEN",
@@ -777,7 +857,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ADANIGREEN",
         "rank": 9
       },
-      "rank": 9
+      "rank": 9,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.8,
+        "dist_ema50_pct": 8.41,
+        "dist_s1_pct": 21.61,
+        "dist_r1_pct": -0.38
+      }
     },
     {
       "symbol": "BANKBARODA",
@@ -863,7 +953,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BANKBARODA",
         "rank": 10
       },
-      "rank": 10
+      "rank": 10,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.46,
+        "dist_ema50_pct": 4.7,
+        "dist_s1_pct": 11.15,
+        "dist_r1_pct": -0.41
+      }
     },
     {
       "symbol": "ASAHIINDIA",
@@ -949,7 +1049,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ASAHIINDIA",
         "rank": 11
       },
-      "rank": 11
+      "rank": 11,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.54,
+        "dist_ema50_pct": 9.84,
+        "dist_s1_pct": 18.68,
+        "dist_r1_pct": -0.5
+      }
     },
     {
       "symbol": "INDHOTEL",
@@ -1035,7 +1145,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INDHOTEL",
         "rank": 12
       },
-      "rank": 12
+      "rank": 12,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.52,
+        "dist_ema50_pct": 16.03,
+        "dist_s1_pct": 25.41,
+        "dist_r1_pct": -0.53
+      }
     },
     {
       "symbol": "PHOENIXLTD",
@@ -1121,7 +1241,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PHOENIXLTD",
         "rank": 13
       },
-      "rank": 13
+      "rank": 13,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.89,
+        "dist_ema50_pct": 11.11,
+        "dist_s1_pct": 20.78,
+        "dist_r1_pct": -0.56
+      }
     },
     {
       "symbol": "BALKRISIND",
@@ -1207,7 +1337,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BALKRISIND",
         "rank": 14
       },
-      "rank": 14
+      "rank": 14,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 11.05,
+        "dist_ema50_pct": 11.1,
+        "dist_s1_pct": 22.67,
+        "dist_r1_pct": -0.58
+      }
     },
     {
       "symbol": "BHARTIARTL",
@@ -1293,7 +1433,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BHARTIARTL",
         "rank": 15
       },
-      "rank": 15
+      "rank": 15,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.66,
+        "dist_ema50_pct": 10.7,
+        "dist_s1_pct": 19.99,
+        "dist_r1_pct": -0.6
+      }
     },
     {
       "symbol": "MCX",
@@ -1379,7 +1529,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MCX",
         "rank": 16
       },
-      "rank": 16
+      "rank": 16,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 7.65,
+        "dist_ema50_pct": 9.8,
+        "dist_s1_pct": 18.19,
+        "dist_r1_pct": -0.62
+      }
     },
     {
       "symbol": "ADANIPORTS",
@@ -1465,7 +1625,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ADANIPORTS",
         "rank": 17
       },
-      "rank": 17
+      "rank": 17,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.43,
+        "dist_ema50_pct": 8.78,
+        "dist_s1_pct": 14.73,
+        "dist_r1_pct": -0.63
+      }
     },
     {
       "symbol": "HEROMOTOCO",
@@ -1551,7 +1721,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HEROMOTOCO",
         "rank": 18
       },
-      "rank": 18
+      "rank": 18,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.85,
+        "dist_ema50_pct": 5.07,
+        "dist_s1_pct": 14.26,
+        "dist_r1_pct": -0.67
+      }
     },
     {
       "symbol": "ANANDRATHI",
@@ -1637,7 +1817,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ANANDRATHI",
         "rank": 19
       },
-      "rank": 19
+      "rank": 19,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.6,
+        "dist_ema50_pct": 8.48,
+        "dist_s1_pct": 17.96,
+        "dist_r1_pct": -0.69
+      }
     },
     {
       "symbol": "FORCEMOT",
@@ -1723,7 +1913,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:FORCEMOT",
         "rank": 20
       },
-      "rank": 20
+      "rank": 20,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.06,
+        "dist_ema50_pct": 8.37,
+        "dist_s1_pct": 17.2,
+        "dist_r1_pct": -0.69
+      }
     },
     {
       "symbol": "IOC",
@@ -1809,7 +2009,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:IOC",
         "rank": 21
       },
-      "rank": 21
+      "rank": 21,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 8.36,
+        "dist_ema50_pct": 8.74,
+        "dist_s1_pct": 17.07,
+        "dist_r1_pct": -0.72
+      }
     },
     {
       "symbol": "DRREDDY",
@@ -1895,7 +2105,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DRREDDY",
         "rank": 22
       },
-      "rank": 22
+      "rank": 22,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.31,
+        "dist_ema50_pct": 9.46,
+        "dist_s1_pct": 17.15,
+        "dist_r1_pct": -0.79
+      }
     },
     {
       "symbol": "PAYTM",
@@ -1981,7 +2201,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PAYTM",
         "rank": 23
       },
-      "rank": 23
+      "rank": 23,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 5.75,
+        "dist_ema50_pct": 8.39,
+        "dist_s1_pct": 14.22,
+        "dist_r1_pct": -0.81
+      }
     },
     {
       "symbol": "MANKIND",
@@ -2067,7 +2297,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MANKIND",
         "rank": 24
       },
-      "rank": 24
+      "rank": 24,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 4.09,
+        "dist_ema50_pct": 5.08,
+        "dist_s1_pct": 15.66,
+        "dist_r1_pct": -0.83
+      }
     },
     {
       "symbol": "JSWSTEEL",
@@ -2153,7 +2393,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:JSWSTEEL",
         "rank": 25
       },
-      "rank": 25
+      "rank": 25,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 6.43,
+        "dist_ema50_pct": 7.39,
+        "dist_s1_pct": 17.19,
+        "dist_r1_pct": -0.94
+      }
     },
     {
       "symbol": "HINDPETRO",
@@ -2239,7 +2489,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HINDPETRO",
         "rank": 26
       },
-      "rank": 26
+      "rank": 26,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 9.4,
+        "dist_ema50_pct": 9.52,
+        "dist_s1_pct": 19.77,
+        "dist_r1_pct": -0.98
+      }
     },
     {
       "symbol": "ATHERENERG",
@@ -2325,7 +2585,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ATHERENERG",
         "rank": 27
       },
-      "rank": 27
+      "rank": 27,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": true,
+        "dist_ema20_pct": 10.68,
+        "dist_ema50_pct": 17.72,
+        "dist_s1_pct": 35.37,
+        "dist_r1_pct": -0.99
+      }
     },
     {
       "symbol": "UNIONBANK",
@@ -2411,7 +2681,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:UNIONBANK",
         "rank": 28
       },
-      "rank": 28
+      "rank": 28,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.8,
+        "dist_ema50_pct": 4.31,
+        "dist_s1_pct": 11.64,
+        "dist_r1_pct": -1.01
+      }
     },
     {
       "symbol": "BSE",
@@ -2497,7 +2777,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:BSE",
         "rank": 29
       },
-      "rank": 29
+      "rank": 29,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.99,
+        "dist_ema50_pct": 11.19,
+        "dist_s1_pct": 19.12,
+        "dist_r1_pct": -1.09
+      }
     },
     {
       "symbol": "GLAND",
@@ -2583,7 +2873,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GLAND",
         "rank": 30
       },
-      "rank": 30
+      "rank": 30,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 3.96,
+        "dist_ema50_pct": 7.57,
+        "dist_s1_pct": 14.42,
+        "dist_r1_pct": -1.22
+      }
     },
     {
       "symbol": "PATANJALI",
@@ -2669,7 +2969,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PATANJALI",
         "rank": 31
       },
-      "rank": 31
+      "rank": 31,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 9.89,
+        "dist_ema50_pct": 11.39,
+        "dist_s1_pct": 22.32,
+        "dist_r1_pct": -1.44
+      }
     },
     {
       "symbol": "INFY",
@@ -2755,7 +3065,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:INFY",
         "rank": 32
       },
-      "rank": 32
+      "rank": 32,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.91,
+        "dist_ema50_pct": 8.67,
+        "dist_s1_pct": 19.97,
+        "dist_r1_pct": -1.45
+      }
     },
     {
       "symbol": "DLF",
@@ -2841,7 +3161,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:DLF",
         "rank": 33
       },
-      "rank": 33
+      "rank": 33,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 8.74,
+        "dist_ema50_pct": 11.65,
+        "dist_s1_pct": 18.67,
+        "dist_r1_pct": -1.49
+      }
     },
     {
       "symbol": "FLUOROCHEM",
@@ -2927,7 +3257,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:FLUOROCHEM",
         "rank": 34
       },
-      "rank": 34
+      "rank": 34,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.79,
+        "dist_ema50_pct": 4.87,
+        "dist_s1_pct": 14.16,
+        "dist_r1_pct": -1.51
+      }
     },
     {
       "symbol": "TECHM",
@@ -3013,7 +3353,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TECHM",
         "rank": 35
       },
-      "rank": 35
+      "rank": 35,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.32,
+        "dist_ema50_pct": 10.75,
+        "dist_s1_pct": 27.98,
+        "dist_r1_pct": -1.56
+      }
     },
     {
       "symbol": "PPLPHARMA",
@@ -3099,7 +3449,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:PPLPHARMA",
         "rank": 36
       },
-      "rank": 36
+      "rank": 36,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 9.03,
+        "dist_ema50_pct": 13.92,
+        "dist_s1_pct": 29.35,
+        "dist_r1_pct": -1.6
+      }
     },
     {
       "symbol": "TRENT",
@@ -3185,7 +3545,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TRENT",
         "rank": 37
       },
-      "rank": 37
+      "rank": 37,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.95,
+        "dist_ema50_pct": 6.59,
+        "dist_s1_pct": 15.05,
+        "dist_r1_pct": -1.63
+      }
     },
     {
       "symbol": "GAIL",
@@ -3271,7 +3641,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:GAIL",
         "rank": 38
       },
-      "rank": 38
+      "rank": 38,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 6.71,
+        "dist_ema50_pct": 7.88,
+        "dist_s1_pct": 15.61,
+        "dist_r1_pct": -1.65
+      }
     },
     {
       "symbol": "SAILIFE",
@@ -3357,7 +3737,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SAILIFE",
         "rank": 39
       },
-      "rank": 39
+      "rank": 39,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 16.51,
+        "dist_ema50_pct": 19.28,
+        "dist_s1_pct": 31.2,
+        "dist_r1_pct": -1.64
+      }
     },
     {
       "symbol": "NHPC",
@@ -3443,7 +3833,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NHPC",
         "rank": 40
       },
-      "rank": 40
+      "rank": 40,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.73,
+        "dist_ema50_pct": 8.66,
+        "dist_s1_pct": 19.32,
+        "dist_r1_pct": -1.74
+      }
     },
     {
       "symbol": "WIPRO",
@@ -3529,7 +3929,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:WIPRO",
         "rank": 41
       },
-      "rank": 41
+      "rank": 41,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.8,
+        "dist_ema50_pct": 9.92,
+        "dist_s1_pct": 25.08,
+        "dist_r1_pct": -1.83
+      }
     },
     {
       "symbol": "HCLTECH",
@@ -3615,7 +4025,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HCLTECH",
         "rank": 42
       },
-      "rank": 42
+      "rank": 42,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.14,
+        "dist_ema50_pct": 8.59,
+        "dist_s1_pct": 23.64,
+        "dist_r1_pct": -1.97
+      }
     },
     {
       "symbol": "ITCHOTELS",
@@ -3701,7 +4121,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ITCHOTELS",
         "rank": 43
       },
-      "rank": 43
+      "rank": 43,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.91,
+        "dist_ema50_pct": 6.73,
+        "dist_s1_pct": 14.11,
+        "dist_r1_pct": -2.02
+      }
     },
     {
       "symbol": "LTTS",
@@ -3787,7 +4217,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LTTS",
         "rank": 44
       },
-      "rank": 44
+      "rank": 44,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.79,
+        "dist_ema50_pct": 15.42,
+        "dist_s1_pct": 34.53,
+        "dist_r1_pct": -2.02
+      }
     },
     {
       "symbol": "THELEELA",
@@ -3873,7 +4313,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:THELEELA",
         "rank": 45
       },
-      "rank": 45
+      "rank": 45,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 10.46,
+        "dist_ema50_pct": 18.05,
+        "dist_s1_pct": 23.23,
+        "dist_r1_pct": -2.04
+      }
     },
     {
       "symbol": "SONACOMS",
@@ -3959,7 +4409,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SONACOMS",
         "rank": 46
       },
-      "rank": 46
+      "rank": 46,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.66,
+        "dist_ema50_pct": 10.25,
+        "dist_s1_pct": 21.41,
+        "dist_r1_pct": -2.04
+      }
     },
     {
       "symbol": "SYNGENE",
@@ -4045,7 +4505,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:SYNGENE",
         "rank": 47
       },
-      "rank": 47
+      "rank": 47,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 5.87,
+        "dist_ema50_pct": 6.82,
+        "dist_s1_pct": 21.15,
+        "dist_r1_pct": -2.2
+      }
     },
     {
       "symbol": "ZENSARTECH",
@@ -4131,7 +4601,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:ZENSARTECH",
         "rank": 48
       },
-      "rank": 48
+      "rank": 48,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 10.43,
+        "dist_ema50_pct": 16.01,
+        "dist_s1_pct": 28.34,
+        "dist_r1_pct": -2.27
+      }
     },
     {
       "symbol": "EMCURE",
@@ -4217,7 +4697,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:EMCURE",
         "rank": 49
       },
-      "rank": 49
+      "rank": 49,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 13.12,
+        "dist_ema50_pct": 15.56,
+        "dist_s1_pct": 28.95,
+        "dist_r1_pct": -2.36
+      }
     },
     {
       "symbol": "APLAPOLLO",
@@ -4303,7 +4793,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:APLAPOLLO",
         "rank": 50
       },
-      "rank": 50
+      "rank": 50,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.34,
+        "dist_ema50_pct": 2.7,
+        "dist_s1_pct": 9.59,
+        "dist_r1_pct": -2.4
+      }
     },
     {
       "symbol": "COFORGE",
@@ -4389,7 +4889,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:COFORGE",
         "rank": 51
       },
-      "rank": 51
+      "rank": 51,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.64,
+        "dist_ema50_pct": 9.55,
+        "dist_s1_pct": 14.56,
+        "dist_r1_pct": -2.44
+      }
     },
     {
       "symbol": "LEMONTREE",
@@ -4475,7 +4985,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:LEMONTREE",
         "rank": 52
       },
-      "rank": 52
+      "rank": 52,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.9,
+        "dist_ema50_pct": 6.43,
+        "dist_s1_pct": 12.5,
+        "dist_r1_pct": -2.62
+      }
     },
     {
       "symbol": "HAL",
@@ -4561,7 +5081,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:HAL",
         "rank": 53
       },
-      "rank": 53
+      "rank": 53,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 1.81,
+        "dist_ema50_pct": 3.17,
+        "dist_s1_pct": 8.5,
+        "dist_r1_pct": -2.72
+      }
     },
     {
       "symbol": "MSUMI",
@@ -4647,7 +5177,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:MSUMI",
         "rank": 54
       },
-      "rank": 54
+      "rank": 54,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 7.14,
+        "dist_ema50_pct": 7.73,
+        "dist_s1_pct": 18.93,
+        "dist_r1_pct": -2.76
+      }
     },
     {
       "symbol": "TATAELXSI",
@@ -4733,7 +5273,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:TATAELXSI",
         "rank": 55
       },
-      "rank": 55
+      "rank": 55,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 4.5,
+        "dist_ema50_pct": 7.25,
+        "dist_s1_pct": 28.05,
+        "dist_r1_pct": -2.85
+      }
     },
     {
       "symbol": "NYKAA",
@@ -4819,7 +5369,17 @@
         "tradingview_url": "https://in.tradingview.com/chart/?symbol=NSE:NYKAA",
         "rank": 56
       },
-      "rank": 56
+      "rank": 56,
+      "proximity": {
+        "near_ema20": false,
+        "near_ema50": false,
+        "near_s1": false,
+        "near_r1": false,
+        "dist_ema20_pct": 2.75,
+        "dist_ema50_pct": 4.81,
+        "dist_s1_pct": 13.36,
+        "dist_r1_pct": -2.86
+      }
     }
   ]
 }

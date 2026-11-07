@@ -164,6 +164,21 @@ def enrich_signal_with_reference_levels(sig: Dict[str, Any], df: Optional[pd.Dat
     ]:
         sig.pop(legacy_key, None)
 
+    # Attach Proximity Pivot Radar block (Phase 1 Backend)
+    try:
+        from proximity_engine import compute_proximity_block
+        ema20_val = None
+        ema50_val = None
+        if df is not None and not df.empty:
+            ema20_val = float(df["Close"].ewm(span=20, adjust=False).mean().iloc[-1])
+            ema50_val = float(df["Close"].ewm(span=50, adjust=False).mean().iloc[-1]) if len(df) >= 50 else ema20_val
+        else:
+            ema20_val = float(sig.get("ema_20") or sig.get("support_ema") or 0.0) or None
+            ema50_val = float(sig.get("ema_50") or 0.0) or None
+        sig["proximity"] = compute_proximity_block(cmp_val, ema20_val, ema50_val, levels["s1"], levels["r1"])
+    except Exception:
+        pass
+
 def get_ist_now() -> datetime:
     tz = pytz.timezone(TIMEZONE)
     return datetime.now(tz)
@@ -905,6 +920,14 @@ def run_pipeline():
         logger.info("Enriched data/adv_scanner_5_confluence_engine.json with Multi-Scanner Confluence metrics.")
     except Exception as e:
         logger.warning(f"Advanced Confluence Engine export bypassed or error: {e}")
+
+    # Isolated Proximity Pivot Radar Pre-Tagging (Phase 1 Backend)
+    try:
+        from proximity_engine import enrich_all_scanner_outputs
+        prox_res = enrich_all_scanner_outputs()
+        logger.info(f"Enriched all scanner datasets with Proximity Pivot Radar ({prox_res.get('execution_time_ms', 0)}ms).")
+    except Exception as e:
+        logger.warning(f"Proximity Radar pre-tagging bypassed: {e}")
 
     print("\n" + "=" * 75)
     print("MITS PRO SCANNER - NIFTY 500 REAL MARKET PIPELINE COMPLETE")
