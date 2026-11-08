@@ -2,7 +2,7 @@
   "setup_id": "tab6_dbr",
   "title": "\ud83d\udce6 Setup 6: DBR Demand Zone",
   "subtitle": "Institutional order block accumulation, fresh demand zone retests, and explosive leg-out expansions.",
-  "last_updated": "2026-11-08T17:58:04.855613+05:30",
+  "last_updated": "2026-11-08T18:25:31.973869+05:30",
   "last_session_date": "2026-11-08",
   "session_date_display": "08-Nov-2026",
   "qualifying_count": 2,
@@ -56,8 +56,8 @@
         "near_ema50": false,
         "near_s1": false,
         "near_r1": false,
-        "dist_ema20_pct": -0.58,
-        "dist_ema50_pct": -4.88,
+        "dist_ema20_pct": -0.51,
+        "dist_ema50_pct": -4.85,
         "dist_s1_pct": 8.51,
         "dist_r1_pct": -5.95
       }
@@ -111,8 +111,8 @@
         "near_ema50": true,
         "near_s1": false,
         "near_r1": false,
-        "dist_ema20_pct": 3.09,
-        "dist_ema50_pct": -0.17,
+        "dist_ema20_pct": 3.01,
+        "dist_ema50_pct": -0.2,
         "dist_s1_pct": 10.54,
         "dist_r1_pct": -1.98
       }

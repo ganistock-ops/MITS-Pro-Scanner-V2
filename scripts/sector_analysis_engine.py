@@ -242,13 +242,19 @@ def generate_sector_analysis(
             continue
 
         closes = c_series.values
-        # Resolve today's Close and Prev Close
-        bm = bhav_map.get(sym, {})
-        close = float(bm.get("close", 0.0))
+        # Resolve today's Close and Prev Close (Guard against stale Bhavcopy)
+        last_dt = sdf.index[-1]
+        last_dt_str = last_dt.strftime("%Y-%m-%d") if hasattr(last_dt, "strftime") else str(last_dt)
+        bm = bhav_map.get(sym, {}) if bhav_map else {}
+        bm_dt = bm.get("date") if bm else None
+        bm_dt_str = bm_dt.strftime("%Y-%m-%d") if hasattr(bm_dt, "strftime") else (str(bm_dt) if bm_dt else None)
+        bhav_date_matches = bool(bm and (bm_dt_str == last_dt_str if bm_dt_str else True))
+
+        close = float(bm.get("close", 0.0)) if bhav_date_matches else 0.0
         if close <= 0.0:
             close = float(closes[-1])
 
-        prev_close = float(bm.get("prev_close", 0.0))
+        prev_close = float(bm.get("prev_close", 0.0)) if bhav_date_matches else 0.0
         if prev_close <= 0.0:
             prev_close = float(closes[-2]) if len(closes) >= 2 else close
 

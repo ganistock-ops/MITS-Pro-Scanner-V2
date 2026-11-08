@@ -2,7 +2,7 @@
   "setup_id": "tab3_htf",
   "title": "\ud83d\udea9 Setup 3: High Tight Flag (HTF)",
   "subtitle": "Explosive institutional momentum rally (>= +40% in <= 40D), tight base contraction (<= 20%), and volume dry-up.",
-  "last_updated": "2026-11-08T17:58:04.855613+05:30",
+  "last_updated": "2026-11-08T18:25:31.973869+05:30",
   "last_session_date": "2026-11-08",
   "session_date_display": "08-Nov-2026",
   "qualifying_count": 2,
@@ -128,7 +128,7 @@
         "near_s1": false,
         "near_r1": false,
         "dist_ema20_pct": 0.66,
-        "dist_ema50_pct": 6.16,
+        "dist_ema50_pct": 6.12,
         "dist_s1_pct": 6.23,
         "dist_r1_pct": -10.29
       }

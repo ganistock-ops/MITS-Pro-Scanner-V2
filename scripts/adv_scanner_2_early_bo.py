@@ -97,10 +97,16 @@ def compute_early_bo_metrics(
         if total_sessions < 25:
             return None
 
-        # Synchronize latest candle if Bhavcopy info is provided
+        # Synchronize latest candle ONLY if Bhavcopy date matches the latest candle date
         cur_close = float(combined["stock_close"].iloc[-1])
         cur_vol = float(combined["stock_vol"].iloc[-1])
-        if bhav_info and bhav_info.get("close", 0) > 0:
+        last_dt = combined.index[-1]
+        last_dt_str = last_dt.strftime("%Y-%m-%d") if hasattr(last_dt, "strftime") else str(last_dt)
+        bhav_dt = bhav_info.get("date") if bhav_info else None
+        bhav_dt_str = bhav_dt.strftime("%Y-%m-%d") if hasattr(bhav_dt, "strftime") else (str(bhav_dt) if bhav_dt else None)
+        bhav_date_matches = bool(bhav_info and (bhav_dt_str == last_dt_str if bhav_dt_str else True))
+
+        if bhav_date_matches and bhav_info and bhav_info.get("close", 0) > 0:
             cur_close = float(bhav_info["close"])
             cur_vol = float(bhav_info.get("volume", cur_vol))
             combined.loc[combined.index[-1], "stock_close"] = cur_close
@@ -113,7 +119,7 @@ def compute_early_bo_metrics(
             combined.loc[combined.index[-1], "stock_low"] = min(combined.loc[combined.index[-1], "stock_low"], cur_close)
 
         # 1-day change %
-        if bhav_info and bhav_info.get("prev_close", 0) > 0:
+        if bhav_date_matches and bhav_info and bhav_info.get("prev_close", 0) > 0:
             prev_close = float(bhav_info["prev_close"])
             day_chg_pct = round(((cur_close - prev_close) / prev_close) * 100.0, 2)
         else:
@@ -552,6 +558,8 @@ def generate_adv_scanner_early_bo(
             continue
 
         bhav_info = bhav_map.get(sym) if bhav_map else None
+        if bhav_info and "date" not in bhav_info and bhav_date:
+            bhav_info["date"] = bhav_date
         res = compute_early_bo_metrics(item, df, bench_df, bhav_info)
         if res:
             records.append(res)

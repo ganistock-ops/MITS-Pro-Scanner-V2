@@ -2,7 +2,7 @@
   "setup_id": "tab2_alpha_momentum",
   "title": "\u26a1 Setup 2: Alpha Momentum",
   "subtitle": "Nifty 500 multi-timeframe relative strength outperformance, volume expansion, and 10-60D base recovery.",
-  "last_updated": "2026-11-08T17:58:04.855613+05:30",
+  "last_updated": "2026-11-08T18:25:31.973869+05:30",
   "last_session_date": "2026-11-08",
   "session_date_display": "08-Nov-2026",
   "qualifying_count": 1,
@@ -62,7 +62,7 @@
         "near_s1": false,
         "near_r1": false,
         "dist_ema20_pct": 9.63,
-        "dist_ema50_pct": 16.99,
+        "dist_ema50_pct": 16.98,
         "dist_s1_pct": 13.43,
         "dist_r1_pct": -1.94
       }

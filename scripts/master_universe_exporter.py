@@ -126,17 +126,22 @@ def compute_stock_metrics(
         cur_open = float(open_p.iloc[-1])
         cur_vol = float(volume.iloc[-1])
 
-        # Ensure CMP is strictly equal to official Bhavcopy CLOSE_PRICE if available
-        if bhav_info and bhav_info.get("close", 0) > 0:
+        # Ensure CMP is strictly equal to official Bhavcopy CLOSE_PRICE ONLY if date matches
+        last_dt = df["Date"].iloc[-1] if "Date" in df.columns else df.index[-1]
+        last_dt_str = last_dt.strftime("%Y-%m-%d") if hasattr(last_dt, "strftime") else str(last_dt)[:10]
+        bhav_dt = bhav_info.get("date") if bhav_info else None
+        bhav_dt_str = bhav_dt.strftime("%Y-%m-%d") if hasattr(bhav_dt, "strftime") else (str(bhav_dt)[:10] if bhav_dt else None)
+        bhav_date_matches = bool(bhav_info and (bhav_dt_str == last_dt_str if bhav_dt_str else True))
+
+        if bhav_date_matches and bhav_info and bhav_info.get("close", 0) > 0:
             cur_close = float(bhav_info["close"])
             cur_open = float(bhav_info.get("open", cur_close))
             cur_high = float(bhav_info.get("high", cur_close))
             cur_low = float(bhav_info.get("low", cur_close))
             cur_vol = float(bhav_info.get("volume", cur_vol))
 
-        # Use strictly the official single-day formula:
-        # change_pct = round(((row['CLOSE_PRICE'] - row['PREV_CLOSE']) / row['PREV_CLOSE']) * 100, 2)
-        if bhav_info and bhav_info.get("prev_close", 0) > 0:
+        # Use strictly the official single-day formula if Bhavcopy date matches:
+        if bhav_date_matches and bhav_info and bhav_info.get("prev_close", 0) > 0:
             prev_close = float(bhav_info["prev_close"])
             change_pct = round(((cur_close - prev_close) / prev_close) * 100.0, 2)
         else:
@@ -458,7 +463,13 @@ def generate_master_universe_eod(
         df = df.copy()
 
         bhav_info = bhav_map.get(sym) if bhav_map else None
-        if bhav_info and bhav_date is not None:
+        bhav_actual_date = bhav_info.get("date") if (bhav_info and bhav_info.get("date")) else bhav_date
+        if hasattr(bhav_actual_date, "date"):
+            bhav_actual_date = bhav_actual_date.date()
+        elif isinstance(bhav_actual_date, str):
+            bhav_actual_date = pd.to_datetime(bhav_actual_date).date()
+
+        if bhav_info and bhav_actual_date is not None:
             # Check last date
             if "Date" in df.columns:
                 last_dt = pd.to_datetime(df["Date"].iloc[-1]).date()
@@ -466,9 +477,9 @@ def generate_master_universe_eod(
                 last_dt = df.index[-1].date() if hasattr(df.index[-1], "date") else None
 
             if last_dt is not None:
-                if last_dt < bhav_date:
+                if last_dt < bhav_actual_date:
                     from datetime import timedelta
-                    prev_trade_date = bhav_date - timedelta(days=1)
+                    prev_trade_date = bhav_actual_date - timedelta(days=1)
                     while prev_trade_date.weekday() >= 5:
                         prev_trade_date -= timedelta(days=1)
                     if last_dt < prev_trade_date and bhav_info.get("prev_close", 0) > 0:
@@ -494,12 +505,12 @@ def generate_master_universe_eod(
                         "Volume": bhav_info["volume"],
                     }
                     if "Date" in df.columns:
-                        new_row["Date"] = pd.to_datetime(bhav_date)
+                        new_row["Date"] = pd.to_datetime(bhav_actual_date)
                         new_row["Symbol"] = sym
                         df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
                     else:
-                        df = pd.concat([df, pd.DataFrame([new_row], index=[pd.to_datetime(bhav_date)])])
-                elif last_dt == bhav_date:
+                        df = pd.concat([df, pd.DataFrame([new_row], index=[pd.to_datetime(bhav_actual_date)])])
+                elif last_dt == bhav_actual_date:
                     idx = df.index[-1]
                     df.loc[idx, "Open"] = bhav_info["open"]
                     df.loc[idx, "High"] = bhav_info["high"]

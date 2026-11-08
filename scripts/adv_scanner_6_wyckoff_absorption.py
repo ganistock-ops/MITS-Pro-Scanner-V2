@@ -88,8 +88,14 @@ def compute_wyckoff_absorption_metrics(
         low_s = pd.to_numeric(sdf[c_low], errors="coerce").ffill()
         vol_s = pd.to_numeric(sdf[c_vol], errors="coerce").fillna(0.0)
 
-        # Synchronize latest session with bhav_info if provided
-        if bhav_info and bhav_info.get("close"):
+        # Synchronize latest session ONLY if Bhavcopy date matches latest candle date
+        last_dt = sdf.index[-1]
+        last_dt_str = last_dt.strftime("%Y-%m-%d") if hasattr(last_dt, "strftime") else str(last_dt)
+        bhav_dt = bhav_info.get("date") if bhav_info else None
+        bhav_dt_str = bhav_dt.strftime("%Y-%m-%d") if hasattr(bhav_dt, "strftime") else (str(bhav_dt) if bhav_dt else None)
+        bhav_date_matches = bool(bhav_info and (bhav_dt_str == last_dt_str if bhav_dt_str else True))
+
+        if bhav_date_matches and bhav_info and bhav_info.get("close"):
             b_close = float(bhav_info["close"])
             if b_close > 0:
                 close_s.iloc[-1] = b_close
@@ -121,10 +127,10 @@ def compute_wyckoff_absorption_metrics(
         cur_range = max(cur_high - cur_low, 0.001)
 
         # 1-day change %
-        if bhav_info and bhav_info.get("prev_close") and float(bhav_info["prev_close"]) > 0:
+        if bhav_date_matches and bhav_info and bhav_info.get("prev_close") and float(bhav_info["prev_close"]) > 0:
             prev_close = float(bhav_info["prev_close"])
             day_chg_pct = round(((cur_close - prev_close) / prev_close) * 100.0, 2)
-        elif bhav_info and bhav_info.get("change_pct") is not None:
+        elif bhav_date_matches and bhav_info and bhav_info.get("change_pct") is not None:
             day_chg_pct = round(float(bhav_info["change_pct"]), 2)
         else:
             prev_close = float(closes[-2]) if total_sessions >= 2 else cur_close
@@ -676,6 +682,8 @@ def generate_adv_scanner_wyckoff_absorption(
 
         evaluated_count += 1
         b_info = bhav_map.get(sym) if bhav_map else None
+        if b_info and "date" not in b_info and bhav_date:
+            b_info["date"] = bhav_date
         d_analytics = delivery_analytics_map.get(sym) if delivery_analytics_map else None
 
         res = compute_wyckoff_absorption_metrics(item, df, bench_df, b_info, d_analytics)
