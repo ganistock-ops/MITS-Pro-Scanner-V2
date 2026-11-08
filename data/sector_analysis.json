@@ -1,6 +1,6 @@
 {
-  "scan_date": "2026-11-06",
-  "generated_at": "2026-11-06T17:40:59.140544+05:30",
+  "scan_date": "2026-11-08",
+  "generated_at": "2026-11-08T17:35:53.292338+05:30",
   "total_sectors": 20,
   "macro_summary": {
     "leading_sectors_count": 1,
@@ -12,21 +12,21 @@
     "weakest_sector": "Diversified",
     "market_breadth": {
       "total_stocks": 500,
-      "advances": 220,
-      "declines": 277,
-      "ad_ratio": 0.79,
-      "stocks_above_20_ema": 343,
-      "pct_above_20_ema": 68.6,
+      "advances": 221,
+      "declines": 276,
+      "ad_ratio": 0.8,
+      "stocks_above_20_ema": 341,
+      "pct_above_20_ema": 68.2,
       "stocks_above_50_ema": 250,
       "pct_above_50_ema": 50.0
     },
     "benchmark": {
       "symbol": "^NSEI",
       "name": "NIFTY 50",
-      "cmp": 25030.35,
-      "return_1d": 2.01,
-      "return_5d": 8.58,
-      "return_20d": 12.59
+      "cmp": 24986.4,
+      "return_1d": -0.18,
+      "return_5d": 6.59,
+      "return_20d": 10.95
     },
     "top_inflows": [
       "Consumer Durables",
@@ -43,12 +43,12 @@
     {
       "sector": "Construction Materials",
       "display_name": "Cement & Materials",
-      "total_score": 79.0,
+      "total_score": 81.0,
       "grade": "Leader",
       "status": "LEADER",
       "quadrant": "Leading",
       "pillar_scores": {
-        "rs_score": 18.0,
+        "rs_score": 20.0,
         "breadth_score": 33.0,
         "flow_score": 28.0
       },
@@ -60,11 +60,11 @@
         "pct_above_20_ema": 90.9,
         "pct_above_50_ema": 81.8,
         "return_1d": 0.48,
-        "return_5d": 10.13,
-        "return_20d": 9.53,
-        "rs_1d": -1.53,
-        "rs_5d": 1.55,
-        "rs_20d": -3.06,
+        "return_5d": 6.86,
+        "return_20d": 8.96,
+        "rs_1d": 0.66,
+        "rs_5d": 0.27,
+        "rs_20d": -1.99,
         "delivery_weighted_return_1d": 0.9,
         "total_turnover_cr": 1751.75,
         "delivery_turnover_cr": 946.16,
@@ -75,18 +75,6 @@
       },
       "leaders": [
         {
-          "symbol": "ULTRACEMCO",
-          "name": "UltraTech Cement Ltd.",
-          "close": 12450.0,
-          "change_pct": 1.63,
-          "delivery_turnover_cr": 356.64,
-          "delivery_pct": 59.6,
-          "delivery_spike_pct": 1.3,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 6.82
-        },
-        {
           "symbol": "INDIACEM",
           "name": "India Cements Ltd.",
           "close": 349.25,
@@ -96,19 +84,19 @@
           "delivery_spike_pct": 14.5,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 5.96
+          "rs_20d": 6.46
         },
         {
-          "symbol": "AMBUJACEM",
-          "name": "Ambuja Cements Ltd.",
-          "close": 390.6,
-          "change_pct": 0.67,
-          "delivery_turnover_cr": 99.17,
-          "delivery_pct": 50.5,
-          "delivery_spike_pct": 13.6,
+          "symbol": "ULTRACEMCO",
+          "name": "UltraTech Cement Ltd.",
+          "close": 12450.0,
+          "change_pct": 1.63,
+          "delivery_turnover_cr": 356.64,
+          "delivery_pct": 59.6,
+          "delivery_spike_pct": 1.3,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 1.96
+          "rs_20d": 5.68
         },
         {
           "symbol": "SHREECEM",
@@ -120,7 +108,7 @@
           "delivery_spike_pct": -24.5,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 3.61
+          "rs_20d": 2.73
         },
         {
           "symbol": "GRASIM",
@@ -132,7 +120,19 @@
           "delivery_spike_pct": 15.4,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 0.37
+          "rs_20d": 0.71
+        },
+        {
+          "symbol": "AMBUJACEM",
+          "name": "Ambuja Cements Ltd.",
+          "close": 390.6,
+          "change_pct": 0.67,
+          "delivery_turnover_cr": 99.17,
+          "delivery_pct": 50.5,
+          "delivery_spike_pct": 13.6,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 0.17
         }
       ],
       "laggards": [
@@ -146,7 +146,7 @@
           "delivery_spike_pct": -0.4,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -7.09
+          "rs_20d": -3.44
         },
         {
           "symbol": "RAMCOCEM",
@@ -158,7 +158,7 @@
           "delivery_spike_pct": 6.7,
           "above_20_ema": true,
           "above_50_ema": false,
-          "rs_20d": -12.66
+          "rs_20d": -9.74
         },
         {
           "symbol": "DALBHARAT",
@@ -170,7 +170,7 @@
           "delivery_spike_pct": -5.7,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -20.02
+          "rs_20d": -18.71
         }
       ],
       "rank": 1
@@ -195,11 +195,11 @@
         "pct_above_20_ema": 93.8,
         "pct_above_50_ema": 68.8,
         "return_1d": 0.37,
-        "return_5d": 7.29,
-        "return_20d": 3.87,
-        "rs_1d": -1.64,
-        "rs_5d": -1.29,
-        "rs_20d": -8.72,
+        "return_5d": 5.36,
+        "return_20d": 3.06,
+        "rs_1d": 0.55,
+        "rs_5d": -1.23,
+        "rs_20d": -7.89,
         "delivery_weighted_return_1d": 3.06,
         "total_turnover_cr": 5388.68,
         "delivery_turnover_cr": 2065.24,
@@ -219,7 +219,7 @@
           "delivery_spike_pct": -24.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 2.1
+          "rs_20d": 2.43
         },
         {
           "symbol": "HAVELLS",
@@ -231,19 +231,7 @@
           "delivery_spike_pct": 14.1,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -2.4
-        },
-        {
-          "symbol": "ASIANPAINT",
-          "name": "Asian Paints Ltd.",
-          "close": 2546.0,
-          "change_pct": 0.88,
-          "delivery_turnover_cr": 129.58,
-          "delivery_pct": 52.5,
-          "delivery_spike_pct": 11.5,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": -2.19
+          "rs_20d": -2.64
         },
         {
           "symbol": "KALYANKJIL",
@@ -255,19 +243,31 @@
           "delivery_spike_pct": 2.8,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -5.86
+          "rs_20d": -4.32
         },
         {
-          "symbol": "BLUESTARCO",
-          "name": "Blue Star Ltd.",
-          "close": 1575.0,
-          "change_pct": 0.19,
-          "delivery_turnover_cr": 32.71,
-          "delivery_pct": 45.9,
-          "delivery_spike_pct": 33.5,
+          "symbol": "ASIANPAINT",
+          "name": "Asian Paints Ltd.",
+          "close": 2546.0,
+          "change_pct": 0.88,
+          "delivery_turnover_cr": 129.58,
+          "delivery_pct": 52.5,
+          "delivery_spike_pct": 11.5,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -8.9
+          "rs_20d": -1.85
+        },
+        {
+          "symbol": "VOLTAS",
+          "name": "Voltas Ltd.",
+          "close": 1099.0,
+          "change_pct": -1.47,
+          "delivery_turnover_cr": 44.06,
+          "delivery_pct": 39.1,
+          "delivery_spike_pct": 1.0,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": -4.63
         }
       ],
       "laggards": [
@@ -281,7 +281,7 @@
           "delivery_spike_pct": 3.3,
           "above_20_ema": true,
           "above_50_ema": false,
-          "rs_20d": -12.79
+          "rs_20d": -12.12
         },
         {
           "symbol": "AMBER",
@@ -293,7 +293,7 @@
           "delivery_spike_pct": -3.4,
           "above_20_ema": true,
           "above_50_ema": false,
-          "rs_20d": -14.91
+          "rs_20d": -11.6
         },
         {
           "symbol": "JSWDULUX",
@@ -305,7 +305,7 @@
           "delivery_spike_pct": -14.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -21.56
+          "rs_20d": -20.4
         }
       ],
       "rank": 2
@@ -313,12 +313,12 @@
     {
       "sector": "Financial Services",
       "display_name": "Financial Services",
-      "total_score": 67.0,
+      "total_score": 70.0,
       "grade": "Improving",
       "status": "IMPROVING",
       "quadrant": "Improving",
       "pillar_scores": {
-        "rs_score": 13.0,
+        "rs_score": 16.0,
         "breadth_score": 24.0,
         "flow_score": 30.0
       },
@@ -327,16 +327,16 @@
         "advances": 57,
         "declines": 43,
         "ad_ratio": 1.33,
-        "pct_above_20_ema": 77.2,
+        "pct_above_20_ema": 78.2,
         "pct_above_50_ema": 57.4,
-        "return_1d": 0.41,
-        "return_5d": 7.5,
-        "return_20d": 3.08,
-        "rs_1d": -1.6,
-        "rs_5d": -1.08,
-        "rs_20d": -9.51,
+        "return_1d": 0.43,
+        "return_5d": 5.95,
+        "return_20d": 2.11,
+        "rs_1d": 0.61,
+        "rs_5d": -0.64,
+        "rs_20d": -8.84,
         "delivery_weighted_return_1d": 1.87,
-        "total_turnover_cr": 36874.17,
+        "total_turnover_cr": 36950.73,
         "delivery_turnover_cr": 19408.3,
         "avg_delivery_pct": 45.5,
         "delivery_spike_pct": 44.9,
@@ -354,7 +354,7 @@
           "delivery_spike_pct": 7.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 3.88
+          "rs_20d": 5.01
         },
         {
           "symbol": "HDFCAMC",
@@ -366,19 +366,31 @@
           "delivery_spike_pct": -3.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 5.44
+          "rs_20d": 6.17
         },
         {
-          "symbol": "SBFC",
-          "name": "SBFC Finance Ltd.",
-          "close": 91.99,
-          "change_pct": 3.62,
-          "delivery_turnover_cr": 10.62,
-          "delivery_pct": 54.9,
-          "delivery_spike_pct": 25.8,
+          "symbol": "ANANDRATHI",
+          "name": "Anand Rathi Wealth Ltd.",
+          "close": 2373.5,
+          "change_pct": 0.15,
+          "delivery_turnover_cr": 31.46,
+          "delivery_pct": 53.5,
+          "delivery_spike_pct": 0.7,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 0.59
+          "rs_20d": 5.69
+        },
+        {
+          "symbol": "BSE",
+          "name": "BSE Ltd.",
+          "close": 3800.0,
+          "change_pct": 0.26,
+          "delivery_turnover_cr": 536.2,
+          "delivery_pct": 34.4,
+          "delivery_spike_pct": -17.9,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 4.65
         },
         {
           "symbol": "HDFCBANK",
@@ -390,22 +402,22 @@
           "delivery_spike_pct": 7.8,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 1.28
-        },
-        {
-          "symbol": "CHOLAFIN",
-          "name": "Cholamandalam Investment and Finance Company Ltd.",
-          "close": 1785.0,
-          "change_pct": 1.42,
-          "delivery_turnover_cr": 150.66,
-          "delivery_pct": 55.2,
-          "delivery_spike_pct": -1.9,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 3.02
+          "rs_20d": 0.5
         }
       ],
       "laggards": [
+        {
+          "symbol": "CREDITACC",
+          "name": "CreditAccess Grameen Ltd.",
+          "close": 1083.1,
+          "change_pct": -1.61,
+          "delivery_turnover_cr": 28.33,
+          "delivery_pct": 63.2,
+          "delivery_spike_pct": 11.8,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -25.5
+        },
         {
           "symbol": "FIVESTAR",
           "name": "Five-Star Business Finance Ltd.",
@@ -416,19 +428,7 @@
           "delivery_spike_pct": -6.7,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -27.9
-        },
-        {
-          "symbol": "CANHLIFE",
-          "name": "Canara HSBC Life Insurance Company Ltd.",
-          "close": 122.05,
-          "change_pct": -1.79,
-          "delivery_turnover_cr": 1.85,
-          "delivery_pct": 46.4,
-          "delivery_spike_pct": -13.5,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -28.74
+          "rs_20d": -26.27
         },
         {
           "symbol": "APTUS",
@@ -440,7 +440,7 @@
           "delivery_spike_pct": -8.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -31.97
+          "rs_20d": -29.89
         }
       ],
       "rank": 3
@@ -465,11 +465,11 @@
         "pct_above_20_ema": 70.6,
         "pct_above_50_ema": 58.8,
         "return_1d": 0.65,
-        "return_5d": 6.59,
-        "return_20d": 3.64,
-        "rs_1d": -1.36,
-        "rs_5d": -1.99,
-        "rs_20d": -8.95,
+        "return_5d": 3.54,
+        "return_20d": 3.68,
+        "rs_1d": 0.83,
+        "rs_5d": -3.05,
+        "rs_20d": -7.27,
         "delivery_weighted_return_1d": 0.58,
         "total_turnover_cr": 5774.02,
         "delivery_turnover_cr": 3301.03,
@@ -489,7 +489,7 @@
           "delivery_spike_pct": -13.7,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 5.95
+          "rs_20d": 7.81
         },
         {
           "symbol": "IOC",
@@ -501,7 +501,7 @@
           "delivery_spike_pct": 15.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 3.25
+          "rs_20d": 4.8
         },
         {
           "symbol": "RELIANCE",
@@ -513,7 +513,19 @@
           "delivery_spike_pct": 32.3,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -0.54
+          "rs_20d": 1.84
+        },
+        {
+          "symbol": "GAIL",
+          "name": "GAIL (India) Ltd.",
+          "close": 185.79,
+          "change_pct": -0.11,
+          "delivery_turnover_cr": 86.72,
+          "delivery_pct": 59.7,
+          "delivery_spike_pct": 10.4,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 0.54
         },
         {
           "symbol": "BPCL",
@@ -525,19 +537,7 @@
           "delivery_spike_pct": 1.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -0.83
-        },
-        {
-          "symbol": "PETRONET",
-          "name": "Petronet LNG Ltd.",
-          "close": 317.0,
-          "change_pct": 0.0,
-          "delivery_turnover_cr": 49.78,
-          "delivery_pct": 58.9,
-          "delivery_spike_pct": 1.6,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": -0.23
+          "rs_20d": 0.2
         }
       ],
       "laggards": [
@@ -551,7 +551,7 @@
           "delivery_spike_pct": 0.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -15.03
+          "rs_20d": -12.68
         },
         {
           "symbol": "AEGISVOPAK",
@@ -563,7 +563,7 @@
           "delivery_spike_pct": 4.0,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -26.16
+          "rs_20d": -24.4
         },
         {
           "symbol": "AEGISLOG",
@@ -575,7 +575,7 @@
           "delivery_spike_pct": 27.3,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -30.04
+          "rs_20d": -28.79
         }
       ],
       "rank": 4
@@ -594,19 +594,19 @@
       },
       "metrics": {
         "stocks_count": 10,
-        "advances": 2,
-        "declines": 8,
-        "ad_ratio": 0.25,
+        "advances": 3,
+        "declines": 7,
+        "ad_ratio": 0.43,
         "pct_above_20_ema": 70.0,
         "pct_above_50_ema": 40.0,
-        "return_1d": 0.41,
-        "return_5d": 5.35,
-        "return_20d": 2.89,
-        "rs_1d": -1.6,
-        "rs_5d": -3.23,
-        "rs_20d": -9.7,
+        "return_1d": 1.19,
+        "return_5d": 1.8,
+        "return_20d": 2.56,
+        "rs_1d": 1.37,
+        "rs_5d": -4.79,
+        "rs_20d": -8.39,
         "delivery_weighted_return_1d": 2.33,
-        "total_turnover_cr": 4928.04,
+        "total_turnover_cr": 4981.22,
         "delivery_turnover_cr": 2454.43,
         "avg_delivery_pct": 33.0,
         "delivery_spike_pct": 30.6,
@@ -624,7 +624,7 @@
           "delivery_spike_pct": -74.4,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 8.11
+          "rs_20d": 9.97
         },
         {
           "symbol": "BHARTIARTL",
@@ -636,7 +636,7 @@
           "delivery_spike_pct": -8.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 4.18
+          "rs_20d": 5.79
         },
         {
           "symbol": "BHARTIHEXA",
@@ -648,7 +648,7 @@
           "delivery_spike_pct": -8.1,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -1.68
+          "rs_20d": -2.3
         },
         {
           "symbol": "INDUSTOWER",
@@ -660,7 +660,7 @@
           "delivery_spike_pct": -10.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -9.88
+          "rs_20d": -10.36
         },
         {
           "symbol": "ITI",
@@ -672,7 +672,7 @@
           "delivery_spike_pct": -11.8,
           "above_20_ema": true,
           "above_50_ema": false,
-          "rs_20d": -7.67
+          "rs_20d": -7.32
         }
       ],
       "laggards": [
@@ -686,7 +686,7 @@
           "delivery_spike_pct": 10.3,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -10.96
+          "rs_20d": -8.05
         },
         {
           "symbol": "TEJASNET",
@@ -698,157 +698,22 @@
           "delivery_spike_pct": -4.8,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -20.12
+          "rs_20d": -17.66
         },
         {
           "symbol": "HFCL",
           "name": "HFCL Ltd.",
-          "close": 210.66,
-          "change_pct": -5.0,
+          "close": 216.49,
+          "change_pct": 2.77,
           "delivery_turnover_cr": 0.0,
           "delivery_pct": 0.0,
           "delivery_spike_pct": 0.0,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -31.04
+          "rs_20d": -27.81
         }
       ],
       "rank": 5
-    },
-    {
-      "sector": "Construction",
-      "display_name": "Construction",
-      "total_score": 58.0,
-      "grade": "Consolidating",
-      "status": "NEUTRAL",
-      "quadrant": "Neutral",
-      "pillar_scores": {
-        "rs_score": 14.0,
-        "breadth_score": 19.0,
-        "flow_score": 25.0
-      },
-      "metrics": {
-        "stocks_count": 13,
-        "advances": 5,
-        "declines": 8,
-        "ad_ratio": 0.62,
-        "pct_above_20_ema": 76.9,
-        "pct_above_50_ema": 30.8,
-        "return_1d": -0.22,
-        "return_5d": 7.58,
-        "return_20d": 1.89,
-        "rs_1d": -2.23,
-        "rs_5d": -1.0,
-        "rs_20d": -10.7,
-        "delivery_weighted_return_1d": 1.27,
-        "total_turnover_cr": 2108.21,
-        "delivery_turnover_cr": 1087.6,
-        "avg_delivery_pct": 39.6,
-        "delivery_spike_pct": 31.8,
-        "flow_bias": "NEUTRAL",
-        "flow_bias_display": "Neutral Flow"
-      },
-      "leaders": [
-        {
-          "symbol": "CEMPRO",
-          "name": "Cemindia Projects Ltd.",
-          "close": 1323.3,
-          "change_pct": 2.79,
-          "delivery_turnover_cr": 51.07,
-          "delivery_pct": 44.8,
-          "delivery_spike_pct": -3.9,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 3.41
-        },
-        {
-          "symbol": "LT",
-          "name": "Larsen & Toubro Ltd.",
-          "close": 4117.7,
-          "change_pct": 1.67,
-          "delivery_turnover_cr": 841.64,
-          "delivery_pct": 60.2,
-          "delivery_spike_pct": 9.8,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 1.0
-        },
-        {
-          "symbol": "ENGINERSIN",
-          "name": "Engineers India Ltd.",
-          "close": 292.7,
-          "change_pct": -1.94,
-          "delivery_turnover_cr": 26.62,
-          "delivery_pct": 35.6,
-          "delivery_spike_pct": 7.5,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": -10.8
-        },
-        {
-          "symbol": "KPIL",
-          "name": "Kalpataru Projects International Ltd.",
-          "close": 1370.8,
-          "change_pct": -0.04,
-          "delivery_turnover_cr": 6.47,
-          "delivery_pct": 33.5,
-          "delivery_spike_pct": -40.4,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": -14.78
-        },
-        {
-          "symbol": "IRCON",
-          "name": "IRCON International Ltd.",
-          "close": 108.17,
-          "change_pct": 1.33,
-          "delivery_turnover_cr": 10.35,
-          "delivery_pct": 28.7,
-          "delivery_spike_pct": -9.7,
-          "above_20_ema": true,
-          "above_50_ema": false,
-          "rs_20d": -7.87
-        }
-      ],
-      "laggards": [
-        {
-          "symbol": "RITES",
-          "name": "RITES Ltd.",
-          "close": 194.72,
-          "change_pct": -0.93,
-          "delivery_turnover_cr": 5.87,
-          "delivery_pct": 42.3,
-          "delivery_spike_pct": 22.3,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -13.17
-        },
-        {
-          "symbol": "KEC",
-          "name": "Kec International Ltd.",
-          "close": 333.35,
-          "change_pct": 1.11,
-          "delivery_turnover_cr": 20.5,
-          "delivery_pct": 39.3,
-          "delivery_spike_pct": 11.6,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -17.24
-        },
-        {
-          "symbol": "AFCONS",
-          "name": "Afcons Infrastructure Ltd.",
-          "close": 215.88,
-          "change_pct": -1.62,
-          "delivery_turnover_cr": 3.37,
-          "delivery_pct": 41.8,
-          "delivery_spike_pct": 1.8,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -23.42
-        }
-      ],
-      "rank": 6
     },
     {
       "sector": "Healthcare",
@@ -870,11 +735,11 @@
         "pct_above_20_ema": 77.1,
         "pct_above_50_ema": 64.6,
         "return_1d": 0.12,
-        "return_5d": 3.48,
-        "return_20d": 5.91,
-        "rs_1d": -1.89,
-        "rs_5d": -5.1,
-        "rs_20d": -6.68,
+        "return_5d": 3.16,
+        "return_20d": 5.24,
+        "rs_1d": 0.3,
+        "rs_5d": -3.43,
+        "rs_20d": -5.71,
         "delivery_weighted_return_1d": 1.79,
         "total_turnover_cr": 9220.84,
         "delivery_turnover_cr": 3531.16,
@@ -885,16 +750,16 @@
       },
       "leaders": [
         {
-          "symbol": "ACUTAAS",
-          "name": "Acutaas Chemicals Ltd.",
-          "close": 3786.6,
-          "change_pct": 0.42,
-          "delivery_turnover_cr": 45.36,
-          "delivery_pct": 43.7,
-          "delivery_spike_pct": 10.4,
+          "symbol": "SAILIFE",
+          "name": "Sai Life Sciences Ltd.",
+          "close": 1785.1,
+          "change_pct": 11.95,
+          "delivery_turnover_cr": 314.29,
+          "delivery_pct": 13.3,
+          "delivery_spike_pct": -71.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 11.29
+          "rs_20d": 9.02
         },
         {
           "symbol": "SYNGENE",
@@ -906,19 +771,7 @@
           "delivery_spike_pct": 56.0,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 8.02
-        },
-        {
-          "symbol": "SAILIFE",
-          "name": "Sai Life Sciences Ltd.",
-          "close": 1785.1,
-          "change_pct": 11.95,
-          "delivery_turnover_cr": 314.29,
-          "delivery_pct": 13.3,
-          "delivery_spike_pct": -71.9,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 5.97
+          "rs_20d": 9.17
         },
         {
           "symbol": "PPLPHARMA",
@@ -930,7 +783,19 @@
           "delivery_spike_pct": 8.8,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 9.24
+          "rs_20d": 10.61
+        },
+        {
+          "symbol": "ACUTAAS",
+          "name": "Acutaas Chemicals Ltd.",
+          "close": 3786.6,
+          "change_pct": 0.42,
+          "delivery_turnover_cr": 45.36,
+          "delivery_pct": 43.7,
+          "delivery_spike_pct": 10.4,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 8.86
         },
         {
           "symbol": "EMCURE",
@@ -942,7 +807,7 @@
           "delivery_spike_pct": 18.3,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 6.92
+          "rs_20d": 9.74
         }
       ],
       "laggards": [
@@ -956,19 +821,19 @@
           "delivery_spike_pct": 12.0,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -18.85
+          "rs_20d": -16.65
         },
         {
-          "symbol": "CAPLIPOINT",
-          "name": "Caplin Point Laboratories Ltd.",
-          "close": 2382.5,
-          "change_pct": -1.61,
-          "delivery_turnover_cr": 2.73,
-          "delivery_pct": 48.1,
-          "delivery_spike_pct": -4.4,
+          "symbol": "FORTIS",
+          "name": "Fortis Healthcare Ltd.",
+          "close": 766.9,
+          "change_pct": -6.45,
+          "delivery_turnover_cr": 71.17,
+          "delivery_pct": 45.2,
+          "delivery_spike_pct": -13.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -19.11
+          "rs_20d": -13.41
         },
         {
           "symbol": "CONCORDBIO",
@@ -980,7 +845,142 @@
           "delivery_spike_pct": -0.5,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -17.52
+          "rs_20d": -18.02
+        }
+      ],
+      "rank": 6
+    },
+    {
+      "sector": "Construction",
+      "display_name": "Construction",
+      "total_score": 55.0,
+      "grade": "Consolidating",
+      "status": "NEUTRAL",
+      "quadrant": "Neutral",
+      "pillar_scores": {
+        "rs_score": 11.0,
+        "breadth_score": 19.0,
+        "flow_score": 25.0
+      },
+      "metrics": {
+        "stocks_count": 13,
+        "advances": 5,
+        "declines": 8,
+        "ad_ratio": 0.62,
+        "pct_above_20_ema": 76.9,
+        "pct_above_50_ema": 30.8,
+        "return_1d": -0.22,
+        "return_5d": 3.18,
+        "return_20d": 0.57,
+        "rs_1d": -0.04,
+        "rs_5d": -3.41,
+        "rs_20d": -10.38,
+        "delivery_weighted_return_1d": 1.27,
+        "total_turnover_cr": 2108.21,
+        "delivery_turnover_cr": 1087.6,
+        "avg_delivery_pct": 39.6,
+        "delivery_spike_pct": 31.8,
+        "flow_bias": "NEUTRAL",
+        "flow_bias_display": "Neutral Flow"
+      },
+      "leaders": [
+        {
+          "symbol": "CEMPRO",
+          "name": "Cemindia Projects Ltd.",
+          "close": 1323.3,
+          "change_pct": 2.79,
+          "delivery_turnover_cr": 51.07,
+          "delivery_pct": 44.8,
+          "delivery_spike_pct": -3.9,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 6.67
+        },
+        {
+          "symbol": "LT",
+          "name": "Larsen & Toubro Ltd.",
+          "close": 4117.7,
+          "change_pct": 1.67,
+          "delivery_turnover_cr": 841.64,
+          "delivery_pct": 60.2,
+          "delivery_spike_pct": 9.8,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 0.24
+        },
+        {
+          "symbol": "ENGINERSIN",
+          "name": "Engineers India Ltd.",
+          "close": 292.7,
+          "change_pct": -1.94,
+          "delivery_turnover_cr": 26.62,
+          "delivery_pct": 35.6,
+          "delivery_spike_pct": 7.5,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": -10.59
+        },
+        {
+          "symbol": "KPIL",
+          "name": "Kalpataru Projects International Ltd.",
+          "close": 1370.8,
+          "change_pct": -0.04,
+          "delivery_turnover_cr": 6.47,
+          "delivery_pct": 33.5,
+          "delivery_spike_pct": -40.4,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": -12.47
+        },
+        {
+          "symbol": "IRCON",
+          "name": "IRCON International Ltd.",
+          "close": 108.17,
+          "change_pct": 1.33,
+          "delivery_turnover_cr": 10.35,
+          "delivery_pct": 28.7,
+          "delivery_spike_pct": -9.7,
+          "above_20_ema": true,
+          "above_50_ema": false,
+          "rs_20d": -7.5
+        }
+      ],
+      "laggards": [
+        {
+          "symbol": "RITES",
+          "name": "RITES Ltd.",
+          "close": 194.72,
+          "change_pct": -0.93,
+          "delivery_turnover_cr": 5.87,
+          "delivery_pct": 42.3,
+          "delivery_spike_pct": 22.3,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -12.93
+        },
+        {
+          "symbol": "KEC",
+          "name": "Kec International Ltd.",
+          "close": 333.35,
+          "change_pct": 1.11,
+          "delivery_turnover_cr": 20.5,
+          "delivery_pct": 39.3,
+          "delivery_spike_pct": 11.6,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -20.82
+        },
+        {
+          "symbol": "AFCONS",
+          "name": "Afcons Infrastructure Ltd.",
+          "close": 215.88,
+          "change_pct": -1.62,
+          "delivery_turnover_cr": 3.37,
+          "delivery_pct": 41.8,
+          "delivery_spike_pct": 1.8,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -21.76
         }
       ],
       "rank": 7
@@ -1005,11 +1005,11 @@
         "pct_above_20_ema": 65.8,
         "pct_above_50_ema": 60.5,
         "return_1d": -0.91,
-        "return_5d": 7.49,
-        "return_20d": 6.91,
-        "rs_1d": -2.92,
-        "rs_5d": -1.09,
-        "rs_20d": -5.68,
+        "return_5d": 4.73,
+        "return_20d": 6.21,
+        "rs_1d": -0.73,
+        "rs_5d": -1.86,
+        "rs_20d": -4.74,
         "delivery_weighted_return_1d": 0.92,
         "total_turnover_cr": 10109.48,
         "delivery_turnover_cr": 4794.74,
@@ -1029,7 +1029,7 @@
           "delivery_spike_pct": 1.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 16.98
+          "rs_20d": 16.05
         },
         {
           "symbol": "M&M",
@@ -1041,19 +1041,7 @@
           "delivery_spike_pct": -16.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 6.89
-        },
-        {
-          "symbol": "UNOMINDA",
-          "name": "UNO Minda Ltd.",
-          "close": 1326.0,
-          "change_pct": -0.67,
-          "delivery_turnover_cr": 165.8,
-          "delivery_pct": 48.2,
-          "delivery_spike_pct": 2.6,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 9.62
+          "rs_20d": 6.61
         },
         {
           "symbol": "BALKRISIND",
@@ -1065,19 +1053,31 @@
           "delivery_spike_pct": 3.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 8.1
+          "rs_20d": 8.93
         },
         {
-          "symbol": "MSUMI",
-          "name": "Motherson Sumi Wiring India Ltd.",
-          "close": 39.14,
-          "change_pct": -0.74,
-          "delivery_turnover_cr": 11.9,
-          "delivery_pct": 50.2,
-          "delivery_spike_pct": 3.7,
+          "symbol": "UNOMINDA",
+          "name": "UNO Minda Ltd.",
+          "close": 1326.0,
+          "change_pct": -0.67,
+          "delivery_turnover_cr": 165.8,
+          "delivery_pct": 48.2,
+          "delivery_spike_pct": 2.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 6.12
+          "rs_20d": 8.73
+        },
+        {
+          "symbol": "TVSMOTOR",
+          "name": "TVS Motor Company Ltd.",
+          "close": 4491.7,
+          "change_pct": 0.94,
+          "delivery_turnover_cr": 128.83,
+          "delivery_pct": 51.4,
+          "delivery_spike_pct": 4.5,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 5.21
         }
       ],
       "laggards": [
@@ -1091,7 +1091,7 @@
           "delivery_spike_pct": 4.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -21.61
+          "rs_20d": -19.72
         },
         {
           "symbol": "EXIDEIND",
@@ -1103,7 +1103,7 @@
           "delivery_spike_pct": -7.2,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -22.1
+          "rs_20d": -20.34
         },
         {
           "symbol": "TENNIND",
@@ -1115,7 +1115,7 @@
           "delivery_spike_pct": -14.4,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -22.31
+          "rs_20d": -21.6
         }
       ],
       "rank": 8
@@ -1140,11 +1140,11 @@
         "pct_above_20_ema": 77.8,
         "pct_above_50_ema": 33.3,
         "return_1d": -0.02,
-        "return_5d": 6.71,
-        "return_20d": 3.06,
-        "rs_1d": -2.03,
-        "rs_5d": -1.87,
-        "rs_20d": -9.53,
+        "return_5d": 4.08,
+        "return_20d": 2.07,
+        "rs_1d": 0.16,
+        "rs_5d": -2.51,
+        "rs_20d": -8.88,
         "delivery_weighted_return_1d": 0.74,
         "total_turnover_cr": 4228.62,
         "delivery_turnover_cr": 1586.3,
@@ -1164,7 +1164,7 @@
           "delivery_spike_pct": 1.3,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 2.89
+          "rs_20d": 5.24
         },
         {
           "symbol": "JINDALSTEL",
@@ -1176,7 +1176,7 @@
           "delivery_spike_pct": -17.5,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 2.76
+          "rs_20d": 3.64
         },
         {
           "symbol": "TATASTEEL",
@@ -1188,7 +1188,7 @@
           "delivery_spike_pct": -17.4,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -4.25
+          "rs_20d": -3.76
         },
         {
           "symbol": "HINDALCO",
@@ -1200,7 +1200,7 @@
           "delivery_spike_pct": -43.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -4.92
+          "rs_20d": -4.5
         },
         {
           "symbol": "HINDZINC",
@@ -1212,7 +1212,7 @@
           "delivery_spike_pct": -24.0,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -5.75
+          "rs_20d": -6.42
         }
       ],
       "laggards": [
@@ -1226,19 +1226,7 @@
           "delivery_spike_pct": 19.3,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -13.15
-        },
-        {
-          "symbol": "HINDCOPPER",
-          "name": "Hindustan Copper Ltd.",
-          "close": 421.15,
-          "change_pct": -1.45,
-          "delivery_turnover_cr": 73.13,
-          "delivery_pct": 35.0,
-          "delivery_spike_pct": -8.1,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -22.5
+          "rs_20d": -12.6
         },
         {
           "symbol": "SARDAEN",
@@ -1250,7 +1238,19 @@
           "delivery_spike_pct": 7.4,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -23.93
+          "rs_20d": -20.31
+        },
+        {
+          "symbol": "HINDCOPPER",
+          "name": "Hindustan Copper Ltd.",
+          "close": 421.15,
+          "change_pct": -1.45,
+          "delivery_turnover_cr": 73.13,
+          "delivery_pct": 35.0,
+          "delivery_spike_pct": -8.1,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -21.12
         }
       ],
       "rank": 9
@@ -1258,12 +1258,12 @@
     {
       "sector": "Realty",
       "display_name": "Realty",
-      "total_score": 47.0,
+      "total_score": 49.0,
       "grade": "Consolidating",
       "status": "NEUTRAL",
       "quadrant": "Neutral",
       "pillar_scores": {
-        "rs_score": 11.0,
+        "rs_score": 13.0,
         "breadth_score": 26.0,
         "flow_score": 10.0
       },
@@ -1275,11 +1275,11 @@
         "pct_above_20_ema": 81.8,
         "pct_above_50_ema": 72.7,
         "return_1d": -0.47,
-        "return_5d": 8.86,
-        "return_20d": 7.72,
-        "rs_1d": -2.48,
-        "rs_5d": 0.28,
-        "rs_20d": -4.87,
+        "return_5d": 7.79,
+        "return_20d": 7.28,
+        "rs_1d": -0.29,
+        "rs_5d": 1.2,
+        "rs_20d": -3.67,
         "delivery_weighted_return_1d": -0.16,
         "total_turnover_cr": 1031.87,
         "delivery_turnover_cr": 467.11,
@@ -1299,7 +1299,7 @@
           "delivery_spike_pct": 4.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 9.07
+          "rs_20d": 7.9
         },
         {
           "symbol": "DLF",
@@ -1311,7 +1311,7 @@
           "delivery_spike_pct": -1.4,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 5.61
+          "rs_20d": 5.13
         },
         {
           "symbol": "GODREJPROP",
@@ -1323,7 +1323,7 @@
           "delivery_spike_pct": -16.3,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 5.36
+          "rs_20d": 5.78
         },
         {
           "symbol": "SIGNATURE",
@@ -1335,7 +1335,7 @@
           "delivery_spike_pct": 164.5,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -7.44
+          "rs_20d": -5.63
         },
         {
           "symbol": "PRESTIGE",
@@ -1347,7 +1347,7 @@
           "delivery_spike_pct": -23.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 2.86
+          "rs_20d": 4.84
         }
       ],
       "laggards": [
@@ -1361,7 +1361,7 @@
           "delivery_spike_pct": 10.5,
           "above_20_ema": true,
           "above_50_ema": false,
-          "rs_20d": -10.59
+          "rs_20d": -9.25
         },
         {
           "symbol": "ABREL",
@@ -1373,7 +1373,7 @@
           "delivery_spike_pct": 14.6,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -7.64
+          "rs_20d": -6.44
         },
         {
           "symbol": "ANANTRAJ",
@@ -1385,7 +1385,7 @@
           "delivery_spike_pct": 0.5,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -36.12
+          "rs_20d": -32.9
         }
       ],
       "rank": 10
@@ -1410,11 +1410,11 @@
         "pct_above_20_ema": 64.3,
         "pct_above_50_ema": 50.0,
         "return_1d": -0.77,
-        "return_5d": 5.11,
-        "return_20d": 3.46,
-        "rs_1d": -2.78,
-        "rs_5d": -3.47,
-        "rs_20d": -9.13,
+        "return_5d": 3.03,
+        "return_20d": 2.42,
+        "rs_1d": -0.59,
+        "rs_5d": -3.56,
+        "rs_20d": -8.53,
         "delivery_weighted_return_1d": 0.05,
         "total_turnover_cr": 2419.21,
         "delivery_turnover_cr": 1160.62,
@@ -1434,7 +1434,7 @@
           "delivery_spike_pct": 6.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 20.09
+          "rs_20d": 20.87
         },
         {
           "symbol": "INDIGO",
@@ -1446,7 +1446,7 @@
           "delivery_spike_pct": 23.1,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 1.18
+          "rs_20d": 2.35
         },
         {
           "symbol": "ADANIPORTS",
@@ -1458,19 +1458,7 @@
           "delivery_spike_pct": -7.1,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 0.79
-        },
-        {
-          "symbol": "GMRAIRPORT",
-          "name": "GMR Airports Ltd.",
-          "close": 98.75,
-          "change_pct": -0.55,
-          "delivery_turnover_cr": 122.65,
-          "delivery_pct": 63.2,
-          "delivery_spike_pct": 15.4,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": -0.08
+          "rs_20d": -0.98
         },
         {
           "symbol": "FSL",
@@ -1482,21 +1470,33 @@
           "delivery_spike_pct": -37.5,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -2.34
+          "rs_20d": -1.42
+        },
+        {
+          "symbol": "GMRAIRPORT",
+          "name": "GMR Airports Ltd.",
+          "close": 98.75,
+          "change_pct": -0.55,
+          "delivery_turnover_cr": 122.65,
+          "delivery_pct": 63.2,
+          "delivery_spike_pct": 15.4,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": -3.97
         }
       ],
       "laggards": [
         {
-          "symbol": "SCI",
-          "name": "Shipping Corporation of India Ltd.",
-          "close": 261.07,
-          "change_pct": -0.9,
-          "delivery_turnover_cr": 15.8,
-          "delivery_pct": 27.4,
-          "delivery_spike_pct": -18.8,
+          "symbol": "GESHIP",
+          "name": "Great Eastern Shipping Co. Ltd.",
+          "close": 1428.7,
+          "change_pct": -2.14,
+          "delivery_turnover_cr": 106.96,
+          "delivery_pct": 52.9,
+          "delivery_spike_pct": 6.3,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -19.6
+          "rs_20d": -17.8
         },
         {
           "symbol": "ECLERX",
@@ -1508,7 +1508,7 @@
           "delivery_spike_pct": 4.0,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -25.92
+          "rs_20d": -25.21
         },
         {
           "symbol": "REDINGTON",
@@ -1520,7 +1520,7 @@
           "delivery_spike_pct": -14.3,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -28.18
+          "rs_20d": -24.77
         }
       ],
       "rank": 11
@@ -1542,14 +1542,14 @@
         "advances": 12,
         "declines": 16,
         "ad_ratio": 0.75,
-        "pct_above_20_ema": 72.4,
+        "pct_above_20_ema": 69.0,
         "pct_above_50_ema": 51.7,
         "return_1d": -0.34,
-        "return_5d": 5.74,
-        "return_20d": 2.35,
-        "rs_1d": -2.35,
-        "rs_5d": -2.84,
-        "rs_20d": -10.24,
+        "return_5d": 4.17,
+        "return_20d": 1.57,
+        "rs_1d": -0.16,
+        "rs_5d": -2.42,
+        "rs_20d": -9.38,
         "delivery_weighted_return_1d": 0.75,
         "total_turnover_cr": 4138.33,
         "delivery_turnover_cr": 2111.55,
@@ -1569,7 +1569,7 @@
           "delivery_spike_pct": -6.1,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 12.19
+          "rs_20d": 13.13
         },
         {
           "symbol": "THELEELA",
@@ -1581,19 +1581,7 @@
           "delivery_spike_pct": -1.4,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 5.36
-        },
-        {
-          "symbol": "ETERNAL",
-          "name": "Eternal Ltd.",
-          "close": 363.15,
-          "change_pct": 1.35,
-          "delivery_turnover_cr": 459.78,
-          "delivery_pct": 49.4,
-          "delivery_spike_pct": -14.6,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 1.23
+          "rs_20d": 6.89
         },
         {
           "symbol": "ITCHOTELS",
@@ -1605,19 +1593,31 @@
           "delivery_spike_pct": 27.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 0.2
+          "rs_20d": 1.92
         },
         {
-          "symbol": "LENSKART",
-          "name": "Lenskart Solutions Ltd.",
-          "close": 724.75,
-          "change_pct": 0.89,
-          "delivery_turnover_cr": 407.42,
-          "delivery_pct": 61.0,
-          "delivery_spike_pct": 3.9,
+          "symbol": "ETERNAL",
+          "name": "Eternal Ltd.",
+          "close": 363.15,
+          "change_pct": 1.35,
+          "delivery_turnover_cr": 459.78,
+          "delivery_pct": 49.4,
+          "delivery_spike_pct": -14.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -1.76
+          "rs_20d": 1.32
+        },
+        {
+          "symbol": "EIHOTEL",
+          "name": "EIH Ltd.",
+          "close": 313.05,
+          "change_pct": 1.72,
+          "delivery_turnover_cr": 5.56,
+          "delivery_pct": 65.4,
+          "delivery_spike_pct": 22.6,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": -3.48
         }
       ],
       "laggards": [
@@ -1631,7 +1631,7 @@
           "delivery_spike_pct": -35.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -18.7
+          "rs_20d": -17.05
         },
         {
           "symbol": "ABFRL",
@@ -1643,7 +1643,7 @@
           "delivery_spike_pct": 3.8,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -22.22
+          "rs_20d": -21.56
         },
         {
           "symbol": "SWIGGY",
@@ -1655,145 +1655,10 @@
           "delivery_spike_pct": -19.0,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -31.22
+          "rs_20d": -29.32
         }
       ],
       "rank": 12
-    },
-    {
-      "sector": "Fast Moving Consumer Goods",
-      "display_name": "FMCG",
-      "total_score": 44.0,
-      "grade": "Weakening",
-      "status": "WEAKENING",
-      "quadrant": "Weakening",
-      "pillar_scores": {
-        "rs_score": 9.0,
-        "breadth_score": 24.0,
-        "flow_score": 11.0
-      },
-      "metrics": {
-        "stocks_count": 28,
-        "advances": 13,
-        "declines": 15,
-        "ad_ratio": 0.87,
-        "pct_above_20_ema": 82.1,
-        "pct_above_50_ema": 53.6,
-        "return_1d": -0.24,
-        "return_5d": 7.01,
-        "return_20d": 2.33,
-        "rs_1d": -2.25,
-        "rs_5d": -1.57,
-        "rs_20d": -10.26,
-        "delivery_weighted_return_1d": 0.44,
-        "total_turnover_cr": 2893.8,
-        "delivery_turnover_cr": 1404.83,
-        "avg_delivery_pct": 47.9,
-        "delivery_spike_pct": -24.2,
-        "flow_bias": "OUTFLOW",
-        "flow_bias_display": "Capital Outflow"
-      },
-      "leaders": [
-        {
-          "symbol": "MARICO",
-          "name": "Marico Ltd.",
-          "close": 897.75,
-          "change_pct": 1.13,
-          "delivery_turnover_cr": 176.02,
-          "delivery_pct": 67.0,
-          "delivery_spike_pct": 16.4,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 2.91
-        },
-        {
-          "symbol": "TATACONSUM",
-          "name": "Tata Consumer Products Ltd.",
-          "close": 1086.3,
-          "change_pct": 0.8,
-          "delivery_turnover_cr": 93.72,
-          "delivery_pct": 62.6,
-          "delivery_spike_pct": 17.2,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 1.53
-        },
-        {
-          "symbol": "PATANJALI",
-          "name": "Patanjali Foods Ltd.",
-          "close": 411.5,
-          "change_pct": 0.19,
-          "delivery_turnover_cr": 74.44,
-          "delivery_pct": 31.2,
-          "delivery_spike_pct": -13.6,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 3.33
-        },
-        {
-          "symbol": "ITC",
-          "name": "ITC Ltd.",
-          "close": 283.15,
-          "change_pct": 1.54,
-          "delivery_turnover_cr": 239.98,
-          "delivery_pct": 49.4,
-          "delivery_spike_pct": -4.2,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": -1.55
-        },
-        {
-          "symbol": "HINDUNILVR",
-          "name": "Hindustan Unilever Ltd.",
-          "close": 1998.4,
-          "change_pct": 0.83,
-          "delivery_turnover_cr": 122.53,
-          "delivery_pct": 57.9,
-          "delivery_spike_pct": 14.0,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": -4.25
-        }
-      ],
-      "laggards": [
-        {
-          "symbol": "ZYDUSWELL",
-          "name": "Zydus Wellness Ltd.",
-          "close": 468.6,
-          "change_pct": -1.29,
-          "delivery_turnover_cr": 2.59,
-          "delivery_pct": 40.4,
-          "delivery_spike_pct": 10.4,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -18.08
-        },
-        {
-          "symbol": "CCL",
-          "name": "CCL Products (I) Ltd.",
-          "close": 967.1,
-          "change_pct": 0.2,
-          "delivery_turnover_cr": 5.55,
-          "delivery_pct": 46.8,
-          "delivery_spike_pct": -14.2,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -20.54
-        },
-        {
-          "symbol": "AWL",
-          "name": "AWL Agri Business Ltd.",
-          "close": 167.0,
-          "change_pct": -0.48,
-          "delivery_turnover_cr": 6.21,
-          "delivery_pct": 47.4,
-          "delivery_spike_pct": 0.4,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -21.24
-        }
-      ],
-      "rank": 13
     },
     {
       "sector": "Power",
@@ -1815,11 +1680,11 @@
         "pct_above_20_ema": 64.7,
         "pct_above_50_ema": 47.1,
         "return_1d": -0.59,
-        "return_5d": 4.44,
-        "return_20d": 3.76,
-        "rs_1d": -2.6,
-        "rs_5d": -4.14,
-        "rs_20d": -8.83,
+        "return_5d": 1.5,
+        "return_20d": 2.73,
+        "rs_1d": -0.41,
+        "rs_5d": -5.09,
+        "rs_20d": -8.22,
         "delivery_weighted_return_1d": -0.1,
         "total_turnover_cr": 2335.32,
         "delivery_turnover_cr": 1114.45,
@@ -1839,31 +1704,7 @@
           "delivery_spike_pct": -10.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 3.86
-        },
-        {
-          "symbol": "NHPC",
-          "name": "NHPC Ltd.",
-          "close": 82.08,
-          "change_pct": 1.84,
-          "delivery_turnover_cr": 81.99,
-          "delivery_pct": 43.7,
-          "delivery_spike_pct": -9.4,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 1.97
-        },
-        {
-          "symbol": "ADANIGREEN",
-          "name": "Adani Green Energy Ltd.",
-          "close": 1424.1,
-          "change_pct": 0.65,
-          "delivery_turnover_cr": 59.74,
-          "delivery_pct": 31.7,
-          "delivery_spike_pct": -19.6,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 2.66
+          "rs_20d": 4.53
         },
         {
           "symbol": "JSWENERGY",
@@ -1875,7 +1716,31 @@
           "delivery_spike_pct": 1.7,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -0.14
+          "rs_20d": 2.6
+        },
+        {
+          "symbol": "NHPC",
+          "name": "NHPC Ltd.",
+          "close": 82.08,
+          "change_pct": 1.84,
+          "delivery_turnover_cr": 81.99,
+          "delivery_pct": 43.7,
+          "delivery_spike_pct": -9.4,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 1.5
+        },
+        {
+          "symbol": "ADANIGREEN",
+          "name": "Adani Green Energy Ltd.",
+          "close": 1424.1,
+          "change_pct": 0.65,
+          "delivery_turnover_cr": 59.74,
+          "delivery_pct": 31.7,
+          "delivery_spike_pct": -19.6,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 2.45
         },
         {
           "symbol": "ADANIPOWER",
@@ -1887,22 +1752,10 @@
           "delivery_spike_pct": -20.4,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -3.93
+          "rs_20d": -2.86
         }
       ],
       "laggards": [
-        {
-          "symbol": "RPOWER",
-          "name": "Reliance Power Ltd.",
-          "close": 18.43,
-          "change_pct": -1.44,
-          "delivery_turnover_cr": 7.74,
-          "delivery_pct": 28.9,
-          "delivery_spike_pct": 15.9,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -19.51
-        },
         {
           "symbol": "ACMESOLAR",
           "name": "ACME Solar Holdings Ltd.",
@@ -1913,7 +1766,19 @@
           "delivery_spike_pct": -4.6,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -18.64
+          "rs_20d": -16.49
+        },
+        {
+          "symbol": "RPOWER",
+          "name": "Reliance Power Ltd.",
+          "close": 18.43,
+          "change_pct": -1.44,
+          "delivery_turnover_cr": 7.74,
+          "delivery_pct": 28.9,
+          "delivery_spike_pct": 15.9,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -18.85
         },
         {
           "symbol": "NTPCGREEN",
@@ -1925,7 +1790,142 @@
           "delivery_spike_pct": -1.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -21.59
+          "rs_20d": -21.72
+        }
+      ],
+      "rank": 13
+    },
+    {
+      "sector": "Fast Moving Consumer Goods",
+      "display_name": "FMCG",
+      "total_score": 41.0,
+      "grade": "Weakening",
+      "status": "WEAKENING",
+      "quadrant": "Weakening",
+      "pillar_scores": {
+        "rs_score": 9.0,
+        "breadth_score": 21.0,
+        "flow_score": 11.0
+      },
+      "metrics": {
+        "stocks_count": 28,
+        "advances": 13,
+        "declines": 15,
+        "ad_ratio": 0.87,
+        "pct_above_20_ema": 78.6,
+        "pct_above_50_ema": 53.6,
+        "return_1d": -0.24,
+        "return_5d": 5.37,
+        "return_20d": 1.23,
+        "rs_1d": -0.06,
+        "rs_5d": -1.22,
+        "rs_20d": -9.72,
+        "delivery_weighted_return_1d": 0.44,
+        "total_turnover_cr": 2893.8,
+        "delivery_turnover_cr": 1404.83,
+        "avg_delivery_pct": 47.9,
+        "delivery_spike_pct": -24.2,
+        "flow_bias": "OUTFLOW",
+        "flow_bias_display": "Capital Outflow"
+      },
+      "leaders": [
+        {
+          "symbol": "MARICO",
+          "name": "Marico Ltd.",
+          "close": 897.75,
+          "change_pct": 1.13,
+          "delivery_turnover_cr": 176.02,
+          "delivery_pct": 67.0,
+          "delivery_spike_pct": 16.4,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 3.25
+        },
+        {
+          "symbol": "TATACONSUM",
+          "name": "Tata Consumer Products Ltd.",
+          "close": 1086.3,
+          "change_pct": 0.8,
+          "delivery_turnover_cr": 93.72,
+          "delivery_pct": 62.6,
+          "delivery_spike_pct": 17.2,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 2.8
+        },
+        {
+          "symbol": "PATANJALI",
+          "name": "Patanjali Foods Ltd.",
+          "close": 411.5,
+          "change_pct": 0.19,
+          "delivery_turnover_cr": 74.44,
+          "delivery_pct": 31.2,
+          "delivery_spike_pct": -13.6,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 3.21
+        },
+        {
+          "symbol": "HINDUNILVR",
+          "name": "Hindustan Unilever Ltd.",
+          "close": 1998.4,
+          "change_pct": 0.83,
+          "delivery_turnover_cr": 122.53,
+          "delivery_pct": 57.9,
+          "delivery_spike_pct": 14.0,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": -3.32
+        },
+        {
+          "symbol": "ITC",
+          "name": "ITC Ltd.",
+          "close": 283.15,
+          "change_pct": 1.54,
+          "delivery_turnover_cr": 239.98,
+          "delivery_pct": 49.4,
+          "delivery_spike_pct": -4.2,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": -4.5
+        }
+      ],
+      "laggards": [
+        {
+          "symbol": "EIDPARRY",
+          "name": "E.I.D. Parry (India) Ltd.",
+          "close": 644.1,
+          "change_pct": -1.78,
+          "delivery_turnover_cr": 22.96,
+          "delivery_pct": 69.4,
+          "delivery_spike_pct": 36.3,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -17.45
+        },
+        {
+          "symbol": "CCL",
+          "name": "CCL Products (I) Ltd.",
+          "close": 967.1,
+          "change_pct": 0.2,
+          "delivery_turnover_cr": 5.55,
+          "delivery_pct": 46.8,
+          "delivery_spike_pct": -14.2,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -18.98
+        },
+        {
+          "symbol": "AWL",
+          "name": "AWL Agri Business Ltd.",
+          "close": 167.0,
+          "change_pct": -0.48,
+          "delivery_turnover_cr": 6.21,
+          "delivery_pct": 47.4,
+          "delivery_spike_pct": 0.4,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -19.28
         }
       ],
       "rank": 14
@@ -1950,11 +1950,11 @@
         "pct_above_20_ema": 63.0,
         "pct_above_50_ema": 55.6,
         "return_1d": -0.83,
-        "return_5d": 1.74,
-        "return_20d": 9.34,
-        "rs_1d": -2.84,
-        "rs_5d": -6.84,
-        "rs_20d": -3.25,
+        "return_5d": 0.78,
+        "return_20d": 6.69,
+        "rs_1d": -0.65,
+        "rs_5d": -5.81,
+        "rs_20d": -4.26,
         "delivery_weighted_return_1d": -0.05,
         "total_turnover_cr": 8417.85,
         "delivery_turnover_cr": 3520.21,
@@ -1974,7 +1974,7 @@
           "delivery_spike_pct": -1.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 22.17
+          "rs_20d": 19.96
         },
         {
           "symbol": "ZENSARTECH",
@@ -1986,7 +1986,19 @@
           "delivery_spike_pct": 3.8,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 16.16
+          "rs_20d": 15.86
+        },
+        {
+          "symbol": "TECHM",
+          "name": "Tech Mahindra Ltd.",
+          "close": 1831.0,
+          "change_pct": 0.46,
+          "delivery_turnover_cr": 190.68,
+          "delivery_pct": 52.2,
+          "delivery_spike_pct": -9.4,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": 10.98
         },
         {
           "symbol": "TATAELXSI",
@@ -1998,19 +2010,7 @@
           "delivery_spike_pct": -16.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 16.08
-        },
-        {
-          "symbol": "BSOFT",
-          "name": "Birlasoft Ltd.",
-          "close": 337.35,
-          "change_pct": 2.13,
-          "delivery_turnover_cr": 51.71,
-          "delivery_pct": 29.4,
-          "delivery_spike_pct": -10.9,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": 12.7
+          "rs_20d": 12.21
         },
         {
           "symbol": "WIPRO",
@@ -2022,22 +2022,10 @@
           "delivery_spike_pct": -12.7,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 12.43
+          "rs_20d": 10.84
         }
       ],
       "laggards": [
-        {
-          "symbol": "INTELLECT",
-          "name": "Intellect Design Arena Ltd.",
-          "close": 514.95,
-          "change_pct": -3.68,
-          "delivery_turnover_cr": 41.91,
-          "delivery_pct": 60.2,
-          "delivery_spike_pct": 32.1,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -21.83
-        },
         {
           "symbol": "LATENTVIEW",
           "name": "Latent View Analytics Ltd.",
@@ -2048,7 +2036,19 @@
           "delivery_spike_pct": -11.0,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -23.59
+          "rs_20d": -22.62
+        },
+        {
+          "symbol": "INTELLECT",
+          "name": "Intellect Design Arena Ltd.",
+          "close": 514.95,
+          "change_pct": -3.68,
+          "delivery_turnover_cr": 41.91,
+          "delivery_pct": 60.2,
+          "delivery_spike_pct": 32.1,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -22.79
         },
         {
           "symbol": "NETWEB",
@@ -2060,7 +2060,7 @@
           "delivery_spike_pct": 2.4,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -32.6
+          "rs_20d": -31.07
         }
       ],
       "rank": 15
@@ -2085,11 +2085,11 @@
         "pct_above_20_ema": 80.0,
         "pct_above_50_ema": 60.0,
         "return_1d": -1.73,
-        "return_5d": 7.24,
-        "return_20d": 4.44,
-        "rs_1d": -3.74,
-        "rs_5d": -1.34,
-        "rs_20d": -8.15,
+        "return_5d": 2.73,
+        "return_20d": 4.17,
+        "rs_1d": -1.55,
+        "rs_5d": -3.86,
+        "rs_20d": -6.78,
         "delivery_weighted_return_1d": -1.91,
         "total_turnover_cr": 312.6,
         "delivery_turnover_cr": 107.02,
@@ -2109,7 +2109,7 @@
           "delivery_spike_pct": 23.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -2.04
+          "rs_20d": -0.45
         },
         {
           "symbol": "TRIDENT",
@@ -2121,7 +2121,7 @@
           "delivery_spike_pct": -9.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -3.2
+          "rs_20d": -2.21
         },
         {
           "symbol": "WELSPUNLIV",
@@ -2133,7 +2133,7 @@
           "delivery_spike_pct": 29.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -5.38
+          "rs_20d": -3.11
         },
         {
           "symbol": "PAGEIND",
@@ -2145,7 +2145,7 @@
           "delivery_spike_pct": 36.8,
           "above_20_ema": true,
           "above_50_ema": false,
-          "rs_20d": -14.02
+          "rs_20d": -13.51
         },
         {
           "symbol": "VTL",
@@ -2157,7 +2157,7 @@
           "delivery_spike_pct": -63.8,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -16.11
+          "rs_20d": -14.62
         }
       ],
       "laggards": [
@@ -2171,7 +2171,7 @@
           "delivery_spike_pct": 29.6,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -5.38
+          "rs_20d": -3.11
         },
         {
           "symbol": "PAGEIND",
@@ -2183,7 +2183,7 @@
           "delivery_spike_pct": 36.8,
           "above_20_ema": true,
           "above_50_ema": false,
-          "rs_20d": -14.02
+          "rs_20d": -13.51
         },
         {
           "symbol": "VTL",
@@ -2195,7 +2195,7 @@
           "delivery_spike_pct": -63.8,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -16.11
+          "rs_20d": -14.62
         }
       ],
       "rank": 16
@@ -2217,14 +2217,14 @@
         "advances": 14,
         "declines": 49,
         "ad_ratio": 0.29,
-        "pct_above_20_ema": 44.4,
+        "pct_above_20_ema": 42.9,
         "pct_above_50_ema": 23.8,
         "return_1d": -1.88,
-        "return_5d": 3.27,
-        "return_20d": -3.57,
-        "rs_1d": -3.89,
-        "rs_5d": -5.31,
-        "rs_20d": -16.16,
+        "return_5d": 1.22,
+        "return_20d": -3.98,
+        "rs_1d": -1.7,
+        "rs_5d": -5.37,
+        "rs_20d": -14.93,
         "delivery_weighted_return_1d": -3.3,
         "total_turnover_cr": 15085.81,
         "delivery_turnover_cr": 6092.18,
@@ -2244,7 +2244,7 @@
           "delivery_spike_pct": 3.5,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 9.33
+          "rs_20d": 11.74
         },
         {
           "symbol": "ASHOKLEY",
@@ -2256,7 +2256,7 @@
           "delivery_spike_pct": -9.8,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 6.08
+          "rs_20d": 7.68
         },
         {
           "symbol": "HBLENGINE",
@@ -2268,7 +2268,7 @@
           "delivery_spike_pct": -3.2,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 3.14
+          "rs_20d": 5.77
         },
         {
           "symbol": "ZENTEC",
@@ -2280,7 +2280,7 @@
           "delivery_spike_pct": 8.0,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 1.05
+          "rs_20d": 1.61
         },
         {
           "symbol": "BEL",
@@ -2292,21 +2292,21 @@
           "delivery_spike_pct": -16.8,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -4.78
+          "rs_20d": -3.39
         }
       ],
       "laggards": [
         {
-          "symbol": "APARINDS",
-          "name": "Apar Industries Ltd.",
-          "close": 14106.0,
-          "change_pct": -9.65,
-          "delivery_turnover_cr": 457.15,
-          "delivery_pct": 49.9,
-          "delivery_spike_pct": 15.7,
+          "symbol": "THERMAX",
+          "name": "Thermax Ltd.",
+          "close": 2746.3,
+          "change_pct": -17.27,
+          "delivery_turnover_cr": 328.51,
+          "delivery_pct": 41.3,
+          "delivery_spike_pct": -27.2,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -33.41
+          "rs_20d": -26.61
         },
         {
           "symbol": "KIRLOSENG",
@@ -2318,7 +2318,7 @@
           "delivery_spike_pct": -25.2,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -39.43
+          "rs_20d": -39.36
         },
         {
           "symbol": "RRKABEL",
@@ -2330,7 +2330,7 @@
           "delivery_spike_pct": -5.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -41.11
+          "rs_20d": -39.72
         }
       ],
       "rank": 17
@@ -2355,11 +2355,11 @@
         "pct_above_20_ema": 42.3,
         "pct_above_50_ema": 19.2,
         "return_1d": -0.12,
-        "return_5d": 4.27,
-        "return_20d": -3.5,
-        "rs_1d": -2.13,
-        "rs_5d": -4.31,
-        "rs_20d": -16.09,
+        "return_5d": 2.57,
+        "return_20d": -3.89,
+        "rs_1d": 0.06,
+        "rs_5d": -4.02,
+        "rs_20d": -14.84,
         "delivery_weighted_return_1d": 0.89,
         "total_turnover_cr": 1813.4,
         "delivery_turnover_cr": 681.64,
@@ -2379,19 +2379,7 @@
           "delivery_spike_pct": -48.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 1.23
-        },
-        {
-          "symbol": "PIDILITIND",
-          "name": "Pidilite Industries Ltd.",
-          "close": 1579.0,
-          "change_pct": 1.63,
-          "delivery_turnover_cr": 65.15,
-          "delivery_pct": 66.0,
-          "delivery_spike_pct": 26.2,
-          "above_20_ema": true,
-          "above_50_ema": true,
-          "rs_20d": -4.45
+          "rs_20d": 3.44
         },
         {
           "symbol": "NAVINFLUOR",
@@ -2403,7 +2391,19 @@
           "delivery_spike_pct": -4.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -5.45
+          "rs_20d": -2.98
+        },
+        {
+          "symbol": "PIDILITIND",
+          "name": "Pidilite Industries Ltd.",
+          "close": 1579.0,
+          "change_pct": 1.63,
+          "delivery_turnover_cr": 65.15,
+          "delivery_pct": 66.0,
+          "delivery_spike_pct": 26.2,
+          "above_20_ema": true,
+          "above_50_ema": true,
+          "rs_20d": -4.4
         },
         {
           "symbol": "FLUOROCHEM",
@@ -2415,7 +2415,7 @@
           "delivery_spike_pct": 0.1,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -7.51
+          "rs_20d": -6.73
         },
         {
           "symbol": "FACT",
@@ -2427,7 +2427,7 @@
           "delivery_spike_pct": 5.4,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": -8.06
+          "rs_20d": -8.09
         }
       ],
       "laggards": [
@@ -2441,7 +2441,7 @@
           "delivery_spike_pct": -14.5,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -29.49
+          "rs_20d": -27.99
         },
         {
           "symbol": "SUMICHEM",
@@ -2453,7 +2453,7 @@
           "delivery_spike_pct": -12.7,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -32.63
+          "rs_20d": -32.12
         },
         {
           "symbol": "PIIND",
@@ -2465,7 +2465,7 @@
           "delivery_spike_pct": -53.0,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -29.97
+          "rs_20d": -29.04
         }
       ],
       "rank": 18
@@ -2490,11 +2490,11 @@
         "pct_above_20_ema": 40.0,
         "pct_above_50_ema": 60.0,
         "return_1d": -1.88,
-        "return_5d": 2.32,
-        "return_20d": 8.83,
-        "rs_1d": -3.89,
-        "rs_5d": -6.26,
-        "rs_20d": -3.76,
+        "return_5d": 4.72,
+        "return_20d": 8.09,
+        "rs_1d": -1.7,
+        "rs_5d": -1.87,
+        "rs_20d": -2.86,
         "delivery_weighted_return_1d": -2.74,
         "total_turnover_cr": 431.41,
         "delivery_turnover_cr": 146.88,
@@ -2514,7 +2514,7 @@
           "delivery_spike_pct": -59.3,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 16.01
+          "rs_20d": 16.66
         },
         {
           "symbol": "PVRINOX",
@@ -2526,7 +2526,7 @@
           "delivery_spike_pct": 17.9,
           "above_20_ema": true,
           "above_50_ema": true,
-          "rs_20d": 6.99
+          "rs_20d": 7.01
         },
         {
           "symbol": "SUNTV",
@@ -2538,7 +2538,7 @@
           "delivery_spike_pct": -13.2,
           "above_20_ema": false,
           "above_50_ema": true,
-          "rs_20d": -15.03
+          "rs_20d": -16.72
         },
         {
           "symbol": "PFOCUS",
@@ -2550,7 +2550,7 @@
           "delivery_spike_pct": -51.5,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -7.72
+          "rs_20d": -1.72
         },
         {
           "symbol": "ZEEL",
@@ -2562,7 +2562,7 @@
           "delivery_spike_pct": 43.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -19.03
+          "rs_20d": -19.53
         }
       ],
       "laggards": [
@@ -2576,7 +2576,7 @@
           "delivery_spike_pct": -13.2,
           "above_20_ema": false,
           "above_50_ema": true,
-          "rs_20d": -15.03
+          "rs_20d": -16.72
         },
         {
           "symbol": "PFOCUS",
@@ -2588,7 +2588,7 @@
           "delivery_spike_pct": -51.5,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -7.72
+          "rs_20d": -1.72
         },
         {
           "symbol": "ZEEL",
@@ -2600,7 +2600,7 @@
           "delivery_spike_pct": 43.1,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -19.03
+          "rs_20d": -19.53
         }
       ],
       "rank": 19
@@ -2625,11 +2625,11 @@
         "pct_above_20_ema": 0.0,
         "pct_above_50_ema": 0.0,
         "return_1d": -3.13,
-        "return_5d": 1.18,
-        "return_20d": -6.13,
-        "rs_1d": -5.14,
-        "rs_5d": -7.4,
-        "rs_20d": -18.72,
+        "return_5d": -0.43,
+        "return_20d": -5.72,
+        "rs_1d": -2.95,
+        "rs_5d": -7.02,
+        "rs_20d": -16.67,
         "delivery_weighted_return_1d": -5.45,
         "total_turnover_cr": 133.95,
         "delivery_turnover_cr": 34.68,
@@ -2640,18 +2640,6 @@
       },
       "leaders": [
         {
-          "symbol": "DCMSHRIRAM",
-          "name": "DCM Shriram Ltd.",
-          "close": 898.6,
-          "change_pct": -1.01,
-          "delivery_turnover_cr": 1.0,
-          "delivery_pct": 44.1,
-          "delivery_spike_pct": 7.4,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -18.15
-        },
-        {
           "symbol": "GODREJIND",
           "name": "Godrej Industries Ltd.",
           "close": 955.85,
@@ -2661,7 +2649,19 @@
           "delivery_spike_pct": 2.8,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -17.23
+          "rs_20d": -13.95
+        },
+        {
+          "symbol": "DCMSHRIRAM",
+          "name": "DCM Shriram Ltd.",
+          "close": 898.6,
+          "change_pct": -1.01,
+          "delivery_turnover_cr": 1.0,
+          "delivery_pct": 44.1,
+          "delivery_spike_pct": 7.4,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -16.5
         },
         {
           "symbol": "3MINDIA",
@@ -2673,23 +2673,11 @@
           "delivery_spike_pct": -50.2,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -20.77
+          "rs_20d": -19.57
         }
       ],
       "laggards": [
         {
-          "symbol": "DCMSHRIRAM",
-          "name": "DCM Shriram Ltd.",
-          "close": 898.6,
-          "change_pct": -1.01,
-          "delivery_turnover_cr": 1.0,
-          "delivery_pct": 44.1,
-          "delivery_spike_pct": 7.4,
-          "above_20_ema": false,
-          "above_50_ema": false,
-          "rs_20d": -18.15
-        },
-        {
           "symbol": "GODREJIND",
           "name": "Godrej Industries Ltd.",
           "close": 955.85,
@@ -2699,7 +2687,19 @@
           "delivery_spike_pct": 2.8,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -17.23
+          "rs_20d": -13.95
+        },
+        {
+          "symbol": "DCMSHRIRAM",
+          "name": "DCM Shriram Ltd.",
+          "close": 898.6,
+          "change_pct": -1.01,
+          "delivery_turnover_cr": 1.0,
+          "delivery_pct": 44.1,
+          "delivery_spike_pct": 7.4,
+          "above_20_ema": false,
+          "above_50_ema": false,
+          "rs_20d": -16.5
         },
         {
           "symbol": "3MINDIA",
@@ -2711,7 +2711,7 @@
           "delivery_spike_pct": -50.2,
           "above_20_ema": false,
           "above_50_ema": false,
-          "rs_20d": -20.77
+          "rs_20d": -19.57
         }
       ],
       "rank": 20
