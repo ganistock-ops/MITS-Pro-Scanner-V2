@@ -1,5 +1,5 @@
 {
-  "scan_timestamp": "2026-11-20T17:48:45.996605+05:30",
+  "scan_timestamp": "2026-11-20T17:51:37.426175+05:30",
   "market_status": "CLOSED",
   "last_session_date": "2026-11-20",
   "session_date_display": "20-Nov-2026",
@@ -22,9 +22,9 @@
     },
     "INDIA_VIX": {
       "name": "INDIA VIX",
-      "price": 16.11,
-      "change": 0.54,
-      "change_pct": 3.47,
+      "price": 17.32,
+      "change": 1.21,
+      "change_pct": 7.51,
       "trend": "MODERATE_VOLATILITY"
     }
   },
@@ -67,7 +67,7 @@
     }
   ],
   "sector_rotation": {
-    "updated_at": "2026-11-20T12:19:18.698655",
+    "updated_at": "2026-11-20T12:22:08.999590",
     "session_date": "2026-11-20",
     "session_date_display": "20-Nov-2026",
     "sectors_analyzed": 20,
