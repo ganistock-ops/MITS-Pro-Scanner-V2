@@ -2,65 +2,9 @@
   "setup_id": "tab1_bottom_reversal",
   "title": "\u26a1 Setup 1: Bottom Reversal Pro",
   "subtitle": "Early institutional reversal, liquidity sweeps, accumulation base, and bullish structure shift.",
-  "last_updated": "2026-11-23T19:30:48.957146+05:30",
-  "last_session_date": "2026-11-23",
-  "session_date_display": "23-Nov-2026",
-  "qualifying_count": 1,
-  "signals": [
-    {
-      "symbol": "TEJASNET",
-      "name": "Tejas Networks Ltd.",
-      "sector": "Telecommunication",
-      "cmp": 400.35,
-      "change_pct": 0.02,
-      "score": 75,
-      "grade": "B",
-      "score_display": "75 (B)",
-      "institutional_score": 75,
-      "rvol": 1.57,
-      "setup_tags": [
-        "Downtrend Exhaustion",
-        "Deceleration",
-        "Accumulation Base",
-        "Demand Absorption",
-        "Liquidity Sweep",
-        "Prominent Lower Wick",
-        "Volume Absorption",
-        "R:R 9.38:1"
-      ],
-      "status": "MSS COILING",
-      "timestamp": "2026-11-23",
-      "score_breakdown": {
-        "exhaustion": 15.0,
-        "base": 15.0,
-        "sweep": 20.0,
-        "structure": 0.0,
-        "volume": 15.0,
-        "regime_and_rr": 10.0
-      },
-      "delivery_pct": 18.9,
-      "delivery_qty": 260746.0,
-      "avg_deliv_10d": 32.5,
-      "avg_deliv_vol_10d": 254718.0,
-      "delivery_spike_pct": -42.0,
-      "whale_absorption_flag": false,
-      "smart_money_status": "Standard Flow",
-      "s1": 397.25,
-      "s2": 391.29,
-      "s3": 371.73,
-      "r1": 436.4,
-      "r2": 622.8,
-      "r3": 644.75,
-      "proximity": {
-        "near_ema20": false,
-        "near_ema50": false,
-        "near_s1": true,
-        "near_r1": false,
-        "dist_ema20_pct": -4.09,
-        "dist_ema50_pct": -10.73,
-        "dist_s1_pct": 0.78,
-        "dist_r1_pct": -8.26
-      }
-    }
-  ]
+  "last_updated": "2026-11-25T17:41:54.833909+05:30",
+  "last_session_date": "2026-11-25",
+  "session_date_display": "25-Nov-2026",
+  "qualifying_count": 0,
+  "signals": []
 }
